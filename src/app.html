@@ -1,13 +1,116 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<title>Bread Breakers Singapore | Direct Aid for Needy Families</title>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Bread Breakers Singapore delivers essential items like diapers, milk, and essential items directly to needy families in SG. Experience unprecedented transparency with monthly public bank statements. Support our mission with low overhead and high impact.">
+		<meta name="keywords" content="Bread Breakers Singapore, charity, non-profit, Singapore, needy families, direct aid, essential items, diapers, milk powder, fridges, laptops, social workers, community support, transparency, radical transparency, low overhead, tax-deductible donations, Christian charity, poverty alleviation, social awareness, empathy">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		<!-- Inter font for world-class, modern look -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 		%sveltekit.head%
 		<style>
+			:root {
+				--color-bg: #f4f6fa;
+				--color-surface: #fff;
+				--color-primary: #1a237e;
+				--color-primary-light: #e8eaf6;
+				--color-info: #1565c0;
+				--color-info-light: #e3f2fd;
+				--color-text: #1a1a1a;
+				--color-muted: #6c757d;
+				--radius-lg: 8px;
+				--radius-md: 6px;
+				--shadow-lg: 0 2px 8px 0 rgba(30,40,80,0.06);
+				--shadow-md: 0 1px 3px 0 rgba(30,40,80,0.04);
+			}
+			html, body {
+				font-family: 'Inter', system-ui, sans-serif;
+				background: white;
+				color: var(--color-text);
+				letter-spacing: -0.01em;
+			}
+			h1, h2, h3, h4, h5, h6 {
+				font-weight: 700;
+				letter-spacing: -0.02em;
+				color: #1a237e;
+			}
+			.box {
+				background: var(--color-surface) !important;
+				border-radius: var(--radius-lg) !important;
+				box-shadow: var(--shadow-lg) !important;
+				padding: 2rem 1.5rem !important;
+				border: 1px solid #e0e3e7 !important;
+				
+			}
+			.button {
+				border-radius: var(--radius-md) !important;
+				font-weight: 600;
+				transition: background 0.18s, box-shadow 0.18s;
+				box-shadow: none;
+			}
+			.button.is-info, .button.is-primary {
+				background: var(--color-primary);
+				color: #fff;
+				border: none;
+			}
+			.button.is-info:hover, .button.is-primary:hover {
+				background: #0d133a;
+				box-shadow: 0 2px 8px 0 rgba(26,35,126,0.08);
+			}
+			.has-background-primary-light {
+				background: var(--color-primary-light) !important;
+			}
+			.has-background-info-light {
+				background: var(--color-info-light) !important;
+			}
+			.table {
+				background: var(--color-surface);
+				border-radius: var(--radius-md);
+				box-shadow: var(--shadow-md);
+				overflow: hidden;
+			}
+			.table th, .table td {
+				border: none !important;
+				padding: 0.75rem 1rem !important;
+			}
+			.table thead th {
+				background: #f0f4f8;
+				font-weight: 700;
+				color: #1a237e;
+			}
+			.table.is-striped tbody tr:nth-child(odd) {
+				background: #f8fafc;
+			}
+			.table.is-hoverable tbody tr:hover {
+				background: #e8eaf6;
+			}
+			.progress {
+				border-radius: var(--radius-md);
+			}
+			.select select {
+				border-radius: var(--radius-md);
+				border: 1px solid #e0e3e7;
+				background: #f8fafc;
+				font-size: 1.05rem;
+				min-width: 90px;
+				padding-right: 2rem;
+			}
+			.select {
+				width: 100%;
+			}
+			.section {
+				padding-top: 2.5rem;
+				padding-bottom: 2.5rem;
+			}
+			.container {
+				max-width: 700px;
+				margin: 0 auto;
+			}
+			/* Navbar overrides */
 			.navbar.is-primary {
 				background-color: white;
 			}

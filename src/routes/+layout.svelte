@@ -16,7 +16,7 @@
 <nav class="navbar" aria-label="main navigation" style="background-color: white;">
   <div class="navbar-brand">
     <a class="navbar-item has-text-weight-bold" href="/" style="color: black; background-color: white;">
-      Bread Breakers Singapore
+      🍞 Bread Breakers Singapore
     </a>
     <button type="button"
        class="navbar-burger" 
