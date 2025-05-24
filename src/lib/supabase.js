@@ -1,6 +1,20 @@
-import { createClient } from '@supabase/supabase-js'
+// Correct initialization should include:
+import { createBrowserClient } from '@supabase/ssr';
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+export const supabase = createBrowserClient(
+  PUBLIC_SUPABASE_URL,
+  PUBLIC_SUPABASE_ANON_KEY
+);
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// OAuth call should use app's redirect route
+export const signInWithGoogle = () => {
+  const redirectTo = `${location.origin}/auth/callback`;
+  console.log('Google sign-in redirectTo:', redirectTo);
+  return supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo
+    }
+  });
+}

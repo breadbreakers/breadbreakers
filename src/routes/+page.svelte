@@ -1,356 +1,313 @@
 <script>
-  import { onMount } from 'svelte'
-  import { supabase } from '$lib/supabase'
-  import 'datatables.net-dt/css/dataTables.dataTables.css'
-  import 'datatables.net-responsive-dt/css/responsive.dataTables.css'
-  import jquery from 'jquery'
-  import 'datatables.net'
-  import 'datatables.net-responsive'
-  
+    import { onMount, onDestroy } from "svelte";
+    import { supabase } from "$lib/supabase";
+    import { page } from "$app/stores";
+    import { session } from "$lib/stores";
 
-  let items = []
-  let tableInitialized = false
-  let beneficiaryCount = 0
-  let isLoading = true
-  const MIN_YEAR = 2024
-  const MIN_MONTH = 'February' // Must match one of the month names below
-  
-  let selectedYear = MIN_YEAR
-  let selectedMonth = ''
-  const currentYear = new Date().getFullYear()
-  const currentMonth = new Date().getMonth() // 0-11
+    const MIN_YEAR = 2024;
+    const MIN_MONTH = "February";
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
 
-  $: {
-    // Reset month selection when year changes
-    if (selectedYear && selectedMonth) {
-      const availableMonths = getAvailableMonths(selectedYear)
-      if (!availableMonths.includes(selectedMonth)) {
-        selectedMonth = ''
-      }
-    }
-  }
+    let isLoading = false;
+    let isVoting = false;
+    let beneficiaryCount = 0;
+    let nSupporters = 0;
+    let nBalance = "500";
+    let latestItems = [];
+    let voteCounts = {};
+    let userVotesMap = {};
 
-  const getAvailableMonths = (year) => {
-    const months = [
-      'January', 'February', 'March', 'April',
-      'May', 'June', 'July', 'August',
-      'September', 'October', 'November', 'December'
-    ]
-    if (year === MIN_YEAR) {
-      const minMonthIndex = months.indexOf(MIN_MONTH)
-      return months.slice(minMonthIndex) // Show all months from MIN_MONTH to December
-    } else if (year === currentYear) {
-      return months.slice(0, currentMonth + 1) // Show months up to current month
-    }
-    return months // Show all months for other years
-  }
+    let selectedYear = MIN_YEAR;
+    let selectedMonth = "";
 
-  const downloadStatement = () => {
-    if (!selectedYear || !selectedMonth) return
-    const monthIndex = getAvailableMonths(selectedYear).indexOf(selectedMonth) + 1
-    const monthPadded = String(monthIndex).padStart(2, '0')
-    window.open(`/${selectedYear}/${selectedMonth}.pdf`, '_blank')
-  }
+    let latestTable;
+    let requestsTable;
+    let userVotes = {};
 
-  function getDataTableConfig(enableModal) {
-    return {
-      data: items,
-      columns: [
-        { title: 'ID', data: 'id', className: 'none dt-left' },
-        { title: 'Item', data: 'item', className: 'all', responsivePriority: 1 },
-        { 
-          title: 'Cost', 
-          data: 'Cost',
-          render: (data) => data ? `$${parseFloat(data).toFixed(2)}` : '$0.00',
-          className: 'none'
-        },
-        { title: 'Verified By', data: 'Verified By', className: 'all', responsivePriority: 2 },
-        { title: 'POC', data: 'POC', className: 'none' },
-        { title: 'Fulfiled', 
-          data: 'fulfiled',
-          render: (data) => data ? new Date(data).toLocaleDateString() : 'Not fulfilled',
-          className: 'none'
+    const getAvailableMonths = (year) => {
+        const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ];
+        if (year === MIN_YEAR) {
+            const minMonthIndex = months.indexOf(MIN_MONTH);
+            return months.slice(minMonthIndex);
+        } else if (year === currentYear) {
+            return months.slice(0, currentMonth + 1);
         }
-      ],
-      responsive: {
-        breakpoints: [
-          { name: 'mobile', width: 600 },
-          { name: 'desktop', width: Infinity }
-        ],
-        details: enableModal
-          ? {
-              display: jquery.fn.dataTable.Responsive.display.modal({
-                header: function (row) {
-                  var data = row.data();
-                  return 'Details for ' + data.item + ' verified by ' + data['Verified By'];
-                }
-              }),
-              renderer: jquery.fn.dataTable.Responsive.renderer.tableAll({
-                tableClass: 'table'
-              })
+        return months;
+    };
+
+    async function handleVote(itemId) {
+        isVoting = true; // signal voting started
+
+        try {
+            const hasVoted = userVotes[itemId];
+            if (hasVoted) {
+                const { error: delError, data: delData } = await supabase
+                    .from("votes")
+                    .delete()
+                    .eq("user_id", $session.user.id)
+                    .eq("item_id", itemId);
+                await getVotes();
+                const table = globalThis.$(requestsTable).DataTable();
+                table.ajax.reload(null, false);
+                console.log("Deleted vote for", itemId, "data:", delData);
+            } else {
+                const { error: insertError } = await supabase
+                    .from("votes")
+                    .insert({
+                        user_id: $session.user.id,
+                        item_id: itemId,
+                        vote_type: 1,
+                    });
+                await getVotes();
+                const table = globalThis.$(requestsTable).DataTable();
+                table.ajax.reload(null, false);
+                console.log("Inserted vote for", itemId);
             }
-          : false
-      },
-      lengthChange: false,
-      searching: false,
-      order: [[5, 'desc']] // Sort by Fulfiled column (index 5) descending
+        } finally {
+            isVoting = false; // signal voting finished regardless of success or failure
+        }
     }
-  }
 
-  let dtInstance = null;
-  let lastEnableModal = null;
-
-  function initDataTable(enableModal) {
-    if (dtInstance) {
-      dtInstance.destroy();
-      jquery('#itemsTable').empty();
-    }
-    dtInstance = jquery('#itemsTable').DataTable(getDataTableConfig(enableModal));
-    lastEnableModal = enableModal;
-  }
-
-  onMount(async () => {
-    try {
-      const { data: itemsData, error: itemsError } = await supabase
-        .from('items')
-        .select('*')
-        .order('fulfiled', { descending: true })
-
-      // First get one item to check available columns
-      const { data: sampleItem, error: sampleError } = await supabase
-        .from('items')
-        .select('*')
-        .limit(1)
-        .single()
-
-      if (sampleError) {
-        console.error('Error checking items table:', sampleError)
-        beneficiaryCount = 0
-      } else {
-        // Use whatever column exists that identifies beneficiaries
-        const beneficiaryColumn = sampleItem.beneficiary_id ? 'beneficiary_id' : 
-                                sampleItem.beneficiary ? 'beneficiary' : 
-                                sampleItem.client_id ? 'client_id' : 'id'
+    onMount(async () => {
         
-        const { count, error: countError } = await supabase
-          .from('items')
-          .select(beneficiaryColumn, { count: 'exact', head: true })
+        if ($page.url.pathname !== "/") return;
 
-        beneficiaryCount = countError ? 0 : count
-      }
-
-      if (itemsError) throw itemsError
-      items = itemsData
-
-      if (!tableInitialized) {
-        setTimeout(() => {
-          const enableModal = window.innerWidth <= 600;
-          initDataTable(enableModal);
-          tableInitialized = true;
-        }, 100);
-        window.addEventListener('resize', () => {
-          const enableModal = window.innerWidth <= 600;
-          if (enableModal !== lastEnableModal) {
-            initDataTable(enableModal);
-          }
+        globalThis.$(latestTable).DataTable({
+            serverSide: true,
+            processing: true,
+            order: [[0, 'desc']],
+            ajax: function (data, callback, settings) {
+                fetch(`/api/latest`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                })
+                    .then((response) => response.json())
+                    .then((result) => {
+                        beneficiaryCount = result.recordsTotal;
+                        callback({
+                            draw: data.draw,
+                            recordsTotal: result.recordsTotal,
+                            recordsFiltered: result.recordsFiltered,
+                            data: result.data,
+                        });
+                    });
+            },
+            columns: [
+                { data: "fulfiled", title: "Date", className: 'dt-left' },
+                { data: "item", title: "Item" },
+                { data: "Verified By", title: "VWO" },
+                { data: "POC", title: "Point of Contact" },
+                { data: "id", title: "Reference" },
+            ],
         });
-      }
-    } catch (error) {
-      console.error('Error:', error)
-    } finally {
-      isLoading = false
+
+        // requests table
+        initRequestsTable();
+
+        document.addEventListener("click", (e) => {
+            if (
+                e.target.closest(".vote-button") &&
+                !e.target.closest(".vote-button:disabled")
+            ) {
+                const button = e.target.closest(".vote-button");
+                const requestId = button.dataset.id;
+                handleVote(requestId);
+                // initRequestsTable();
+            }
+        });
+    });
+
+    async function getVotes() {
+        const { data: votesData, error: votesError } = await supabase
+            .from("votes")
+            .select("item_id, user_id");
+        voteCounts = {};
+        if (!votesError && votesData) {
+            for (const v of votesData) {
+                voteCounts[v.item_id] = (voteCounts[v.item_id] || 0) + 1;
+            }
+        }
+
+        userVotesMap = {};
+        if ($session?.user) {
+            const { data: userVotesData, error: userVotesError } =
+                await supabase
+                    .from("votes")
+                    .select("item_id")
+                    .eq("user_id", $session.user.id);
+            if (!userVotesError && userVotesData) {
+                for (const v of userVotesData) {
+                    userVotesMap[v.item_id] = true;
+                }
+            }
+        }
+        userVotes = userVotesMap;
     }
-  })
+
+    async function initRequestsTable() {
+        //globalThis.$(requestsTable).DataTable().destroy();
+
+        await getVotes();
+
+        globalThis.$(requestsTable).DataTable({
+    serverSide: true,
+    processing: true,
+    responsive: true,
+    order: [[0, 'desc']],
+    createdRow: function (row, data, dataIndex, cells) {
+        if (data.id) {
+            globalThis.$(row).attr("id", "row-" + data.id);
+        }
+    },
+    ajax: function (data, callback, settings) {
+        fetch("/api/requests", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((result) => {
+                callback({
+                    draw: data.draw,
+                    recordsTotal: result.recordsTotal,
+                    recordsFiltered: result.recordsFiltered,
+                    data: result.data,
+                });
+            });
+    },
+    columns: [
+        { data: "date", title: "Date", className: 'dt-left' },
+        { data: "title", title: "Item" },
+        { data: "contact_clean", title: "VWO" },
+        {
+            data: "votes",            
+            title: "Vote",
+            orderable: true,
+            
+            render: function (data, type, row) {
+                const hasVoted = !!userVotesMap[row.id];
+                const isDisabled = !$session || isVoting;
+
+                return `
+                    <button 
+                        class="button vote-button" 
+                        data-id="${row.id}" 
+                        style="border:0; box-shadow: none;" 
+                        ${isDisabled ? "disabled" : ""}
+                    >
+                        ${
+                            $session
+                                ? hasVoted
+                                    ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="gold" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.94 8.63L22 9.24L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.24L9.06 8.63L12 2Z"/></svg>'
+                                    : '<svg width="24" height="24" viewBox="0 0 24 24" fill="#ddd" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.94 8.63L22 9.24L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.24L9.06 8.63L12 2Z"/></svg>'
+                                : ""
+                        }
+                        ${row.votes}
+                    </button>
+                `;
+            },
+        },
+        { data: "description", title: "Description" },
+    ],
+});
+    }
 </script>
 
 <section class="section">
-  <div class="container">
-    <div class="columns is-multiline">
-      <div class="column is-half">
-        <div class="box">
-          <div class="box-content has-text-centered">
-            <h2 class="title is-5" style="color:#1a237e;">
-              <i class="fas fa-users mr-2"></i> Beneficiaries Impacted
-            </h2>
-            {#if isLoading}
-              <progress class="progress is-small is-primary" max="100">Loading...</progress>
-            {:else}
-              <p class="title is-1 has-text-centered" style="color:#1a237e; font-size:2.8rem; font-weight:700; margin-bottom:0;">{beneficiaryCount}</p>
-            {/if}
-          </div>
-        </div>
-      </div>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column">
+                <div class="box">
+                    <div class="box-content has-text-centered">
+                        <h2 class="subtitle is-5">Beneficiaries Impacted</h2>
 
-      <div class="column is-half">
-        <div class="box">
-          <div class="box-content">
-            <h2 class="title is-5 has-text-info">
-              <i class="fas fa-file-invoice-dollar mr-2"></i> Statements
-            </h2>
-            <div class="field is-grouped">
-              <div class="control is-expanded">
-                <div class="select is-fullwidth">
-                  <select bind:value={selectedYear}>
-                    <option value={MIN_YEAR}>{MIN_YEAR}</option>
-                    <option value={currentYear}>{currentYear}</option>
-                  </select>
+                        <p class="title is-3 pt-4 pb-2">
+                            {beneficiaryCount}
+                        </p>
+                    </div>
                 </div>
-              </div>
-              <div class="control is-expanded">
-                <div class="select is-fullwidth">
-                  <select bind:value={selectedMonth} disabled={!selectedYear}>
-                    <option value="">Month</option>
-                    {#if selectedYear}
-                      {#each getAvailableMonths(selectedYear) as month}
-                        <option value={month}>{month}</option>
-                      {/each}
-                    {/if}
-                  </select>
-                </div>
-              </div>
             </div>
-            <button 
-              class="button is-info is-fullwidth" 
-              on:click={downloadStatement}
-              disabled={!selectedYear || !selectedMonth}
-            >
-              <i class="fas fa-download mr-2"></i> Download
-            </button>
-          </div>
-        </div>
-      </div>
+            <div class="column">
+                <div class="box">
+                    <div class="box-content has-text-centered">
+                        <h2 class="subtitle is-5">Supporters</h2>
 
-      <div class="column is-12">
-        <div>
-          <h2 class="title is-5">
-            ✨ Latest Items Fulfilled
-          </h2>
-          <div class="table-container">
-            <table id="itemsTable" class="table is-fullwidth is-striped is-hoverable"></table>
-          </div>
+                        <p class="title is-3 pt-4 pb-2">
+                            {nSupporters}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box">
+                    <div class="box-content has-text-centered">
+                        <h2 class="subtitle is-5">Balance</h2>
+                        {#if isLoading}
+                            <progress class="progress is-small" max="100"
+                                >Loading...</progress
+                            >
+                        {:else}
+                            <p class="title is-3 pt-4 pb-2">
+                                {nBalance}
+                            </p>
+                        {/if}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="subtitle has-text-weight-semibold">Fulfiled</h2>
+        <table bind:this={latestTable} id="latestTable" class="compact row-border responsive">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Item</th>
+                    <th>VWO</th>
+                    <th>Point of Contact</th>
+                    <th>Reference</th>
+                </tr>
+            </thead>
+            <tbody> </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="subtitle has-text-weight-semibold">Requests</h2>
+        <table bind:this={requestsTable} id="requestsTable" style="width:100%" class="  compact row-border responsive">
+            <thead>
+                <tr>                    
+                    <th>Date</th>
+                    <th>Item</th>
+                    <th>VWO</th>
+                    <th>Vote</th>
+                    <th class="none">Description</th>
+                </tr>
+            </thead>
+            <tbody> </tbody>
+        </table>
+    </div>
 </section>
 
 <style>
-  .box {
-    min-height: 185px;
-    margin-bottom: 2rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid #e0e3e7;
-    height: 100%;
-    padding: 1.25rem 1.5rem !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .box-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1 1 auto;
-  }
-  .box-content h2 {
-    margin-bottom: 1.25rem;
-    width: 100%;
-  }
-  .box-content .field.is-grouped {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  .box-content .button {
-    margin-top: 1.25rem;
-  }
-  .columns {
-    gap: 2rem 0;
-    align-items: stretch;
-  }
-  .table-container {
-    margin-top: 1.5rem;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-    background: var(--color-surface);
-    padding: 0.5rem 0.5rem 0 0.5rem;
-  }
-  .field.is-grouped {
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .select select {
-    min-width: 100px;
-    font-size: 1.05rem;
-    padding-right: 2rem;
-  }
-  .title {
-    margin-bottom: 1.5rem;
-  }
-
-  /* DataTables custom styling for world-class look */
-  :global(.dataTables_wrapper) {
-    font-family: 'Inter', system-ui, sans-serif;
-    color: var(--color-text);
-    background: none;
-    margin-top: 0.5rem;
-  }
-  :global(.dataTables_filter label) {
-    font-size: 1rem;
-    color: var(--color-text);
-    font-weight: 500;
-  }
-  :global(.dataTables_filter input) {
-    border-radius: var(--radius-md);
-    border: 1px solid #e0e3e7;
-    background: #f8fafc;
-    padding: 0.4rem 0.8rem;
-    font-size: 1rem;
-    margin-left: 0.5rem;
-    outline: none;
-    transition: border 0.18s;
-  }
-  :global(.dataTables_filter input:focus) {
-    border: 1.5px solid var(--color-primary);
-    background: #fff;
-  }
-  :global(.dataTables_paginate) {
-    margin-top: 1rem;
-    text-align: center;
-  }
-  :global(.dataTables_paginate .paginate_button) {
-    border-radius: var(--radius-md);
-    border: none !important;
-    background: #f0f4f8 !important;
-    color: var(--color-text) !important;
-    margin: 0 0.15rem;
-    padding: 0.35em 0.85em;
-    font-weight: 500;
-    transition: background 0.18s, color 0.18s;
-    box-shadow: none !important;
-  }
-  :global(.dataTables_paginate .paginate_button.current),
-  :global(.dataTables_paginate .paginate_button:hover) {
-    background: var(--color-primary) !important;
-    color: #fff !important;
-  }
-  :global(.dataTables_info) {
-    color: var(--color-muted);
-    font-size: 0.98rem;
-    margin-top: 0.5rem;
-  }
-  :global(.dataTables_length),
-  :global(.dataTables_length label),
-  :global(.dataTables_length select) {
-    display: none !important;
-  }
-  /* Force all columns to be visible on desktop, allow hiding only on mobile */
-  @media (min-width: 601px) {
-    :global(table.dataTable td.dtr-hidden),
-    :global(table.dataTable th.dtr-hidden) {
-      display: table-cell !important;
-    }
-  }
 </style>

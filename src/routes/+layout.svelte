@@ -1,87 +1,81 @@
 <script>
-  import { onMount } from 'svelte'
-  import { supabase } from '$lib/supabase'
-  import 'datatables.net-dt/css/dataTables.dataTables.css'
-  import jquery from 'jquery'
-  import DataTable from 'datatables.net'
+  import { onMount } from "svelte";
+  import { supabase } from "$lib/supabase";
+  import { session } from "$lib/stores";
+  import { goto, invalidate } from "$app/navigation";
+  import { page } from "$app/stores";
 
-  export const data = undefined
-  let isMenuActive = false
-  
+  const hideMenuOn = ["/logout"];
+  $: showMenu = !hideMenuOn.includes($page.url.pathname);
+  let isMenuActive = false;
+
   function toggleMenu() {
-    isMenuActive = !isMenuActive
+    isMenuActive = !isMenuActive;
   }
+
+  async function handleLogout(event) {
+    event.preventDefault();
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      await goto("/logout");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  }
+
+  onMount(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data?.user) session.set({ user: data.user });
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, authSession) => {
+      session.set(authSession);
+    });
+
+    return () => subscription?.unsubscribe();
+  });
 </script>
 
-<nav class="navbar" aria-label="main navigation" style="background-color: white;">
+{#if showMenu}
+<nav class="navbar" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item has-text-weight-bold" href="/" style="color: black; background-color: white;">
-      🍞 Bread Breakers Singapore
-    </a>
-    <button type="button"
-       class="navbar-burger" 
-       aria-label="menu" 
-       aria-expanded={isMenuActive}
-       on:click={toggleMenu}
-       on:keydown={(e) => e.key === 'Enter' || e.key === ' ' ? toggleMenu() : null}
-       tabindex="0"
-       class:is-active={isMenuActive}>
+    <button
+      type="button"
+      class="navbar-burger"
+      aria-label="menu"
+      aria-expanded={isMenuActive}
+      on:click={toggleMenu}
+      tabindex="0"
+      class:is-active={isMenuActive}
+    >
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </button>
   </div>
+
   <div class="navbar-menu" class:is-active={isMenuActive}>
     <div class="navbar-end">
       <a class="navbar-item" href="/about">About</a>
       <a class="navbar-item" href="/contact">Contact</a>
+      {#if $session?.user}
+        <a class="navbar-item" href="/" on:click|preventDefault={handleLogout}>Logout</a>
+      {:else}
+        <a class="navbar-item" href="/login">Login</a>
+      {/if}
     </div>
   </div>
 </nav>
+{/if}
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Bread Breakers 🍞</h1>
+    <h2 class="subtitle">Compassion in Action</h2>
+  </div>
+</section>
 
 <slot />
-
-<style>
-  .navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,.1);
-    background-color: white !important;
-    border-bottom: none !important;
-  }
-  .navbar-item {
-    color: black !important;
-    background-color: white !important;
-  }
-  .navbar-item:hover {
-    color: black !important;
-  }
-  .navbar-item:focus {
-    outline: none;
-  }
-  .navbar-item:focus-visible {
-    outline: none;
-  }
-
-  .navbar-burger {
-    background-color: white !important;
-    color: black !important;
-  }
-  .navbar-burger span {
-    background-color: black !important;
-  }
-  .navbar-burger:hover {
-    background-color: white !important;
-    color: black !important;
-  }
-  .navbar-menu {
-    background-color: white !important;
-  }
-
-  @media (min-width: 1024px) {
-    .navbar-burger {
-      display: none !important;
-    }
-    .navbar-menu {
-      display: flex !important;
-    }
-  }
-</style>
