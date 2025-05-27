@@ -51,6 +51,7 @@
     selectedDelivery = file;
   }
 
+  // TO USE THE UPLOAD.JS SEE RINGFENCE
   async function uploadFile(file, label) {
     const formData = new FormData();
     formData.append("file", file);

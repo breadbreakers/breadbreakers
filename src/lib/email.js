@@ -1,7 +1,6 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import { env } from '$env/dynamic/private';
 
-// Set your AWS SES region here (Singapore: ap-southeast-1)
 const REGION = "us-east-1";
 
 export const ses = new SESClient({
@@ -15,6 +14,8 @@ export const ses = new SESClient({
 export async function sendEmail({ to, from, subject, body, replyto, bcc, cc }) {
 
     const htmlBody = body.replace(/\n/g, '<br>');
+
+    const subjectClean = subject;
 
     const params = {
         Destination: {
@@ -31,7 +32,7 @@ export async function sendEmail({ to, from, subject, body, replyto, bcc, cc }) {
             },
             Subject: {
                 Charset: "UTF-8",
-                Data: subject,
+                Data: subjectClean,
             },
         },
         Source: 'Bread Breakers <hello@breadbreakers.sg>',

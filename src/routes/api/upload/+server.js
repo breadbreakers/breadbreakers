@@ -8,6 +8,7 @@ export const POST = async ({ request }) => {
   try {
     const formData = await request.formData();
     const file = formData.get('file');
+    const itemId = formData.get('itemId');
     const label = formData.get('label') || 'receipt';
 
     if (!file) {
@@ -33,13 +34,13 @@ export const POST = async ({ request }) => {
 
     const driveResponse = await drive.files.create({
       requestBody: {
-        name: `${label}_${Date.now()}_${file.name}`,
+        name: `${itemId}_${label}_${Date.now()}`,
         mimeType: file.type,
         parents: [FOLDER_ID],
       },
       media: {
         mimeType: file.type,
-        body: stream, // Use the stream here!
+        body: stream,
       },
       fields: 'id',
     });

@@ -10,7 +10,19 @@ export const handle = async ({ event, resolve }) => {
     env.SUPABASE_URL,
     env.SUPABASE_ANON_KEY,
     {
-      cookies: event.cookies
+      cookies: {
+        getAll: () => event.cookies.getAll(),
+        setAll: (cookies) => {
+          cookies.forEach(({ name, value, options }) => {
+            event.cookies.set(name, value, { 
+              path: '/',
+              secure: env.NODE_ENV === 'production',
+              sameSite: 'lax',
+              ...options
+            })
+          })
+        }
+      }
     }
   );
 

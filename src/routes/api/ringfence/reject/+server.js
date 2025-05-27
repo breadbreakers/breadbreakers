@@ -4,10 +4,12 @@ import { createServerSupabaseClient } from '$lib/server/supabase.server';
 
 export async function POST(event) {
     const { request } = event;
-    try {
-        const { itemId, approveMessage } = await request.json();
 
-        if (!itemId || !approveMessage)
+    try {
+
+        const { itemId, rejectMessage } = await request.json();
+
+        if (!itemId || !rejectMessage)
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
 
         const supabase = createServerSupabaseClient(event);
@@ -23,7 +25,12 @@ export async function POST(event) {
             .single();
 
         if (wipStatus.status !== "ringfence_requested") {
-            return json({ message: 'RItem has not requested for ringfence.' }, { status: 200 });
+            return new Response('<p>Item has not requested for ringfence.</p>', {
+                status: 200,
+                headers: {
+                    'Content-Type': 'text/html'
+                }
+            });
         }
 
         const partnerEmail = wipStatus.partner;
@@ -39,23 +46,24 @@ export async function POST(event) {
 
         itemData = item;
 
-        // update wip table that is approved
+        // delete entry in wip table
+        // rls only allows approvers to delete
         const { data, error } = await supabase
             .from('wip')
-            .update({ status: 'ringfence_approved' })
+            .delete()
             .eq('id', itemId);
 
-        // send email to partner that ringfence is approved
-        const partnerBody = `<p>Your Ringfence Request has been approved for ${itemData.title}.</p><p>Remarks: ${approveMessage}</p><p>Use <a href="https://breadbreakers.sg/claim?id=${itemData.id}">this form to submit a claims request</a> after the item is procured and delivered.`
+        // send email to partner that ringfence is rejected
+        const partnerBody = `<p>Your Ringfence Request has been rejected for ${itemData.title}.</p><p>Remarks: ${rejectMessage}</p>`
 
         await sendEmail({
-            to: partnerEmail, 
-            subject: `[Ringfence Approved] ${itemData.title} (${itemId})`,
+            to: partnerEmail,
+            subject: `[Ringfence Rejected] ${itemData.title} (${itemId})`,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });
 
-        return json({ message: 'Ringfence Approved' }, { status: 200 });
+        return json({ message: 'Ringfence Rejected' }, { status: 200 });
     } catch (error) {
         console.error('Error sending email:', error);
         return json({ error: error.message }, { status: 500 });

@@ -1,7 +1,6 @@
 import { json } from '@sveltejs/kit';
-import { env } from '$env/dynamic/private';
-import { createServerClient } from '@supabase/ssr';
 import { sendEmail } from '$lib/email.js';
+import { createServerSupabaseClient } from '$lib/server/supabase.server';
 
 export async function POST(event) {
     const { request } = event;
@@ -9,44 +8,25 @@ export async function POST(event) {
     try {
         const { itemId, email, subject, body } = await request.json();
 
-        const supabase = createServerClient(
-            env.SUPABASE_URL,
-            env.SUPABASE_ANON_KEY,
-            {
-                cookies: {
-                    getAll: () => event.cookies.getAll(),
-                    setAll: (cookiesToSet) => {
-                        cookiesToSet.forEach(({ name, value, options }) => {
-                            event.cookies.set(name, value, options);
-                        });
-                    }
-                }
-            }
-        );
+        const supabase = createServerSupabaseClient(event);
 
         const { data: { user }, error } = await supabase.auth.getUser();
         const partnerEmail = user.email;
 
-        const { data: existing, error: wipError } = await supabase
+        const { data: existing } = await supabase
             .from('wip')
             .select('id')
             .eq('id', itemId)
             .single();
 
-
-        if (wipError && wipError.code !== 'PGRST116') {
-            console.error('Supabase error:', wipError.message);
-            return json({ error: 'Failed to query database' }, { status: 500 });
-        }
-
         if (existing) {
-            return json({ error: 'Item already in progress' }, { status: 409 });
+            return json({ error: 'Item already WIP' }, { status: 409 });
         }
 
         //send email to social worker
         await sendEmail({
             to: email, // to the social worker
-            subject: subject,
+            subject: `${subject} (${itemId})`,
             body: body,
             replyTo: partnerEmail, // to let social worker reply directly to partner
             bcc: 'hello@breadbreakers.sg', // for audit trail 

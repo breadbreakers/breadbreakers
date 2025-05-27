@@ -1,6 +1,9 @@
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ locals, url }) {
+
+  const itemId = url.searchParams.get('id');
+
   // check if logged in
   const session = await locals.getUser?.();
   if (!session) throw redirect(303, '/login');
@@ -9,19 +12,16 @@ export async function load({ locals, url }) {
   const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
   if (userError || !user) throw redirect(303, '/login');
 
-  // check if is partner
-  const { data: partner, error: partnerError } = await locals.supabase
-    .from('partners')
+  // check if is approver
+  const { data: approver, error: approverError } = await locals.supabase
+    .from('approvers')
     .select('email')
     .eq('email', user.email)
     .single();
 
-  if (partnerError || !partner) throw redirect(303, '/');
+  if (approverError || !approver) throw redirect(303, '/');
 
-  // get the item details based on the get param
-  const itemId = url.searchParams.get('id');
-
-  // check if item is in wip not ringfence_requested, ringfence_approved, or claim_requested
+  // check if item is in wip and ringfence_requested
   const { data: wip, error: wipError } = await locals.supabase
     .from('wip')
     .select('*')
@@ -30,21 +30,14 @@ export async function load({ locals, url }) {
 
   if (wipError || !wip) throw redirect(303, '/');
   
-  if (wip.status == "ringfence_requested") {
+  if (wip.status !== "ringfence_requested") {
     throw redirect(303, '/');
   }
-
-  if (wip.status == "ringfence_approved") {
-    throw redirect(303, '/');
-  }
-
-  if (wip.status == "claim_requestesd") {
-    throw redirect(303, '/');
-  }
-
+  // get the item details based on the get param
+  
   let itemData = null;
   if (itemId) {
-    const { data : fetchedItem, error : itemError } = await locals.supabase
+    const { data: fetchedItem, error: itemError } = await locals.supabase
       .from('requests')
       .select('*')
       .eq('id', itemId)

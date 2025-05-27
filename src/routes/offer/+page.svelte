@@ -10,9 +10,8 @@
   let error = "";
 
   onMount(() => {
-    // Get URL parameters
     const params = new URLSearchParams(window.location.search);
-    itemId = params.get("itemId") || "";
+    itemId = params.get("id") || "";
     email = params.get("email") || "";
     subject = params.get("subject") || "";
     body = params.get("body") || "";
@@ -91,6 +90,7 @@
       </div>
 
       <div class="field">
+        <!-- svelte-ignore a11y_label_has_associated_control -->
         <label class="label">Body</label>
         <div class="control">
           <textarea class="textarea" bind:value={body} required></textarea>

@@ -1,16 +1,17 @@
-// src/routes/your-protected-page/+page.server.js
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ locals }) {
-  // 1. Check for session (from cookies)
+  // if no cookies, go to login page
   const session = await locals.getUser?.();
-  if (!session) throw redirect(303, '/');
+  if (!session) throw redirect(303, '/login');
 
-  // 2. Securely fetch the authenticated user from Supabase Auth server
+  // get the user info
   const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
   if (userError || !user) throw redirect(303, '/');
 
-   // 3. (Optional) Check user against your own table (e.g., partners)
+   // check if user is a partner, as only partners can send offers
+   // rls enabled to only allow the logged in user to read their own data
+   // i.e. if user is not listed in the partners table, they cannot read the table at all 
   const { data: partner, error: partnerError } = await locals.supabase
     .from('partners')
     .select('email')
@@ -19,6 +20,6 @@ export async function load({ locals }) {
 
   if (partnerError || !partner) throw redirect(303, '/');
 
-  // 4. Return only validated data
+  // return only validated data
   return { session, user };
 }
