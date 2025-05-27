@@ -104,7 +104,7 @@
       <form class="box mt-4" on:submit={handleSubmit}>
         <div class="field">
           <div class="control">
-            <input class="input" type="hidden" bind:value={itemId} required />
+            <input class="input" type="hidden" bind:value={itemId} required disabled={isLoading} />
           </div>
         </div>
 
@@ -117,6 +117,7 @@
               type="url"
               bind:value={linkUrl}
               required
+              disabled={isLoading}
               pattern="https?://.+"
               title="Please enter a valid URL starting with http:// or https://"
             />
@@ -130,6 +131,7 @@
               id="cost"
               class="input"
               type="text"
+              disabled={isLoading}
               bind:value={cost}
               required
               pattern="^\d+(\.\d{(1, 2)})?$"

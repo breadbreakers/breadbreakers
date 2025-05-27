@@ -5,6 +5,8 @@ import { createServerSupabaseClient } from '$lib/server/supabase.server';
 export async function POST(event) {
     const { request } = event;
 
+    let approverEmail;
+
     try {
         const { itemId, linkUrl, cost, swConfirmUrl } = await request.json();
 
@@ -16,6 +18,25 @@ export async function POST(event) {
 
         const { data: { user } } = await supabase.auth.getUser();
         const partnerEmail = user.email;
+
+        const { data: getApprover } = await supabase
+            .from('approvers')
+            .select('*')
+            .eq('role', 'president')
+            .single();
+
+        approverEmail = getApprover.email;
+
+        // get approver list and check if partner is inside
+        const { data: approverCheck } = await supabase
+            .from('approvers')
+            .select('*')
+            .eq('email', partnerEmail)
+            .single();
+
+        if (approverCheck) {
+            approverEmail = approverCheck.checker;
+        }
 
         const { data: ringfenceStatus } = await supabase
             .from('wip')
@@ -66,7 +87,7 @@ export async function POST(event) {
             ]);
 
         // send email to partner that ringfence is submitted
-        const partnerBody = `Your Ringfence Request has been sent for approval.`
+        const partnerBody = `Your Ringfence Request has been sent to ${approverEmail} for approval.`
 
         await sendEmail({
             to: partnerEmail, // to the partner
@@ -88,10 +109,10 @@ export async function POST(event) {
             <p>
                 <a href="https://breadbreakers.sg/ringfence/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject</a>
             </p>
-            <p>Reply to this email if clarification with the partner if required.</p>
             `;
+        
         await sendEmail({
-            to: 'hello@breadbreakers.sg',
+            to: approverEmail,
             subject: `[For Approval] Ringfence for ${itemData.title} (${itemId})`,
             body: approverBody,
             replyTo: partnerEmail

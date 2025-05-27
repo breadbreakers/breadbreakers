@@ -28,20 +28,20 @@ export async function POST(event) {
             to: email, // to the social worker
             subject: `${subject} (${itemId})`,
             body: body,
-            replyTo: partnerEmail, // to let social worker reply directly to partner
+            replyto: partnerEmail, // to let social worker reply directly to partner
             bcc: 'hello@breadbreakers.sg', // for audit trail 
             cc: partnerEmail // keep partner in the loop
         });
 
-        // send email to partner optional since partner already in cc
-        /*let partnerBody = `<p>Dear Partner,</p><p>Your Offer Request has been sent to ${email}.</p><p>Once the social worker approves your assistance, <a href="http://localhost:5173/ringfence?id=${itemId}">use this form to ringfence funds</a>.</p><p>Thank you for your support!</p>`;
-        let partnerSubject = `[Offer Request Sent] ${subject}`;
+        // send email to partner to tell them to use the link
+        let partnerBody = `<p>Dear Partner,</p><p>Your Offer Request has been sent to ${email}.</p><p>Once the social worker approves your assistance, <a href="https://breadbreakers.sg/ringfence?id=${itemId}">use this form to ringfence funds</a>.</p><p>Thank you for your support!</p>`;
+        let partnerSubject = `[Offer Request Sent] ${subject} (${itemId})`;
         await sendEmail({
             to: partnerEmail,
             subject: partnerSubject,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg'
-        });*/
+        });
 
         return json({ success: true });
     } catch (error) {

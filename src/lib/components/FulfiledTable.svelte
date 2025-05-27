@@ -27,8 +27,7 @@
             columns: [
                 { data: "fulfiled", title: "Date", className: "dt-left" },
                 { data: "item", title: "Item" },
-                { data: "Verified By", title: "VWO" },
-                { data: "POC", title: "Point of Contact" },
+                { data: "contact", title: "VWO" },
                 { data: "id", title: "Reference" },
             ],
         });
@@ -48,7 +47,6 @@
                     <th>Date</th>
                     <th>Item</th>
                     <th>VWO</th>
-                    <th>Point of Contact</th>
                     <th>Reference</th>
                 </tr>
             </thead>

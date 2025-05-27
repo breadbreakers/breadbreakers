@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 
-export async function load({ locals }) {
+export async function load({ locals, url }) {
   // if no cookies, go to login page
   const session = await locals.getUser?.();
   if (!session) throw redirect(303, '/login');
@@ -19,6 +19,17 @@ export async function load({ locals }) {
     .single();
 
   if (partnerError || !partner) throw redirect(303, '/');
+
+  // if item does not exist
+  const itemId = url.searchParams.get('id');
+
+  const { data: requests, error: requestsError } = await locals.supabase
+    .from('requests')
+    .select('*')
+    .eq('id', itemId)
+    .single();
+
+  if (requestsError || !requests) throw redirect(303, '/');
 
   // return only validated data
   return { session, user };

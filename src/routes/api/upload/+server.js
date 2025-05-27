@@ -9,7 +9,7 @@ export const POST = async ({ request }) => {
     const formData = await request.formData();
     const file = formData.get('file');
     const itemId = formData.get('itemId');
-    const label = formData.get('label') || 'receipt';
+    const label = formData.get('label');
 
     if (!file) {
       return new Response(JSON.stringify({ error: 'No file uploaded' }), { status: 400 });
@@ -47,13 +47,16 @@ export const POST = async ({ request }) => {
 
     const fileId = driveResponse.data.id;
 
-    await drive.permissions.create({
-      fileId,
-      requestBody: {
-        role: 'reader',
-        type: 'anyone',
-      },
-    });
+    // let delivery be visible to public
+    if (label === "proof_of_delivery" ) {
+      await drive.permissions.create({
+        fileId,
+        requestBody: {
+          role: 'reader',
+          type: 'anyone',
+        },
+      });
+    }
 
     const fileUrl = `https://drive.google.com/uc?id=${fileId}&export=download`;
 

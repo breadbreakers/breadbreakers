@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { uploadFile } from '$lib/upload.js'; 
 
   let itemId = "";
   let receiptUrl = ""; // For receipt file
@@ -51,24 +52,6 @@
     selectedDelivery = file;
   }
 
-  // TO USE THE UPLOAD.JS SEE RINGFENCE
-  async function uploadFile(file, label) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("itemId", itemId);
-    formData.append("label", label);
-
-    const uploadRes = await fetch("/api/claim/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const uploadResult = await uploadRes.json();
-    if (!uploadRes.ok) {
-      throw new Error(uploadResult.error || "File upload failed");
-    }
-    return uploadResult.fileUrl || uploadResult.fileId;
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
     isLoading = true;
@@ -88,9 +71,9 @@
 
     try {
       // Upload receipt
-      receiptUrl = await uploadFile(selectedReceipt, "receipt");
+      receiptUrl = await uploadFile(selectedReceipt, "receipt", itemId);
       // Upload proof of delivery
-      deliveryUrl = await uploadFile(selectedDelivery, "proof_of_delivery");
+      deliveryUrl = await uploadFile(selectedDelivery, "proof_of_delivery", itemId);
     } catch (err) {
       error = "File upload failed: " + err.message;
       isLoading = false;
@@ -105,8 +88,8 @@
         },
         body: JSON.stringify({
           itemId,
-          receiptUrl,       // receipt file url/id
-          deliveryUrl,   // proof of delivery file url/id
+          receiptUrl,
+          deliveryUrl,
           cost,
         }),
       });
@@ -145,9 +128,10 @@
         <input type="hidden" bind:value={itemId} />
 
         <div class="field">
-          <label class="label">Claim Amount (SGD)</label>
+          <label for="claimAmount" class="label">Claim Amount (SGD)</label>
           <div class="control">
             <input
+              id="claimAmount"
               class="input"
               type="text"
               bind:value={cost}
@@ -159,9 +143,10 @@
         </div>
 
         <div class="field">
-          <label class="label">Upload Receipt (PNG, JPG, PDF)</label>
+          <label for="receipt" class="label">Upload Receipt (PNG, JPG, PDF)</label>
           <div class="control">
             <input
+              id="receipt"
               class="input"
               type="file"
               accept=".png,.jpg,.jpeg,.pdf"
@@ -172,10 +157,10 @@
         </div>
 
         <div class="field">
-          <!-- svelte-ignore a11y_label_has_associated_control -->
-          <label class="label">Proof of Delivery (PNG, JPG, PDF)</label>
+          <label for="delivery" class="label">Proof of Delivery (PNG, JPG, PDF)</label>
           <div class="control">
             <input
+              id="delivery"
               class="input"
               type="file"
               accept=".png,.jpg,.jpeg,.pdf"

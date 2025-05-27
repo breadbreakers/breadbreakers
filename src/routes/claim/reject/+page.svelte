@@ -5,7 +5,7 @@
   let isLoading = false;
   let success = false;
   let error;
-  let approveMessage;
+  let rejectMessage;
 
   export let data;
   const item = data.item;
@@ -22,14 +22,14 @@
     success = false;   
 
     try {
-      const response = await fetch("/api/ringfence/approve", {
+      const response = await fetch("/api/claim/reject", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           itemId,
-          approveMessage
+          rejectMessage
         }),
       });
 
@@ -51,14 +51,14 @@
 
 <div class="section">
   <div class="container">
-    <h2 class="subtitle is-4">Approve Ringfence Request</h2>
+    <h2 class="subtitle is-4">Reject Claim Request</h2>
 
     <h3 class="mt-4 has-text-weight-medium">{item.contact_clean}</h3>
     <h3 class="mt-4">{item.title}</h3>
     <h3 class="mt-4">{item.description}</h3>
 
     {#if success}
-      <div class="mt-4 notification is-success">Approved Ringfence!</div>
+      <div class="mt-4 notification is-success">Rejected Claim!</div>
     {:else if error}
       <div class="mt-4 notification is-danger">
         {error}
@@ -78,8 +78,8 @@
             <textarea
               class="textarea"
               id="rejectMessage"
-              disabled={isLoading}
-              bind:value={approveMessage}></textarea>
+              bind:value={rejectMessage}
+              required></textarea>
             
           </div>
         </div>
@@ -87,11 +87,11 @@
         <div class="field">
           <div class="control mt-4">
             <button
-              class="button is-primary"
+              class="button is-danger"
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Sending..." : "Approve"}
+              {isLoading ? "Sending..." : "Reject"}
             </button>
           </div>
         </div>

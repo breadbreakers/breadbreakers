@@ -3,15 +3,15 @@ import { redirect } from '@sveltejs/kit';
 export async function load({ locals, url }) {
   const itemId = url.searchParams.get('id');
 
-  // 1. Check for session (from cookies)
+  // check if logged in
   const session = await locals.getUser?.();
   if (!session) throw redirect(303, '/');
 
-  // 2. Securely fetch the authenticated user from Supabase Auth server
+  // get user details
   const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
   if (userError || !user) throw redirect(303, '/');
 
-   // 3. Check if is partner accesing this page
+   // check if is partner
   const { data: partner, error: partnerError } = await locals.supabase
     .from('partners')
     .select('email')
@@ -20,7 +20,7 @@ export async function load({ locals, url }) {
 
   if (partnerError || !partner) throw redirect(303, '/');
 
-  // check if this user logged in is indeed already at ringfence_approved for this item
+   // check if this user logged in is indeed already at ringfence_approved for this item
   const { data: wip, error: wipError } = await locals.supabase
     .from('wip')
     .select('*')

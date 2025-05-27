@@ -2,69 +2,69 @@ import { json } from '@sveltejs/kit';
 import { google } from 'googleapis';
 import { sendEmail } from '$lib/email.js';
 import { env } from '$env/dynamic/private';
-import { createServerClient } from '@supabase/ssr';
 import { generatePayNowStr } from '$lib/paynow.js';
 import QRCode from 'qrcode';
 import { Readable } from 'stream';
+import { createServerSupabaseClient } from '$lib/server/supabase.server';
 
 export const POST = async (event) => {
     const { request } = event;
-    let ringfencedAmount;
-    const label = "QR";
     const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID;
+
+    let ringfencedAmount;
+    let approverEmail;
 
     try {
         const { itemId, receiptUrl, deliveryUrl, cost } = await request.json();
 
-        // TODO need to add this server side check also for ringfence and offer send, to prevent param injection
         if (!itemId || !receiptUrl || !deliveryUrl || !cost) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
         }
 
-        const supabase = createServerClient(
-            env.SUPABASE_URL,
-            env.SUPABASE_ANON_KEY,
-            {
-                cookies: {
-                    getAll: () => event.cookies.getAll(),
-                    setAll: (cookiesToSet) => {
-                        cookiesToSet.forEach(({ name, value, options }) => {
-                            event.cookies.set(name, value, options);
-                        });
-                    }
-                }
-            }
-        );
+        const supabase = createServerSupabaseClient(event);
 
         const { data: { user } } = await supabase.auth.getUser();
         const partnerEmail = user.email;
 
-        const { data: ringfenceStatus } = await supabase
+        const { data: getApprover } = await supabase
+            .from('approvers')
+            .select('*')
+            .eq('role', 'president')
+            .single();
+
+        approverEmail = getApprover.email;
+
+        // get approver list and check if partner is inside
+        const { data: approverCheck } = await supabase
+            .from('approvers')
+            .select('*')
+            .eq('email', partnerEmail)
+            .single();
+
+        if (approverCheck) {
+            approverEmail = approverCheck.checker;
+        }
+
+        const { data: wip } = await supabase
             .from('wip')
             .select('*')
             .eq('id', itemId)
             .single();
 
         // make sure ringfence is approved
-        if (ringfenceStatus.status !== "ringfence_approved") {
+        if (wip.status !== "ringfence_approved") {
             return json({ error: 'Item cannot be claimed as there is no ringfence approval.' }, { status: 409 });
         }
 
         // make sure claim abount == ringfence amount
-        ringfencedAmount = ringfenceStatus.amount;
+        ringfencedAmount = wip.amount;
         
         if (parseFloat(ringfencedAmount) !== parseFloat(cost)) {
             return json({ error: 'Claim amount not the same as ringfenced amount.' }, { status: 409 });
         }
 
         // check if logged in person requesting claim for this item is the assigned partner 
-        const { data: approvedPartner } = await supabase
-            .from('wip')
-            .select('*')
-            .eq('id', itemId)
-            .single();
-
-        if (approvedPartner.partner !== partnerEmail) {
+        if (wip.partner !== partnerEmail) {
             return json({ error: 'You are not the approved partner who ringfenced this item.' }, { status: 409 });
         }
 
@@ -86,16 +86,6 @@ export const POST = async (event) => {
 
         itemData = item;
 
-        // insert into wip table
-        const { data } = await supabase
-            .from('wip')
-            .update([
-                {
-                    status: "claim_requested"
-                }
-            ])
-            .eq('id', itemId);
-
         // setup paynow
         const QRstring = generatePayNowStr({
             mobile: partnerPaynow.paynow,
@@ -105,7 +95,7 @@ export const POST = async (event) => {
             refNumber: itemId,
         });
 
-        const qrImageDataURL = await QRCode.toDataURL(QRstring); // This is your image 
+        const qrImageDataURL = await QRCode.toDataURL(QRstring);
         const base64Data = qrImageDataURL.replace(/^data:image\/png;base64,/, '');
         const buffer = Buffer.from(base64Data, 'base64');
         const stream = Readable.from(buffer);
@@ -123,7 +113,7 @@ export const POST = async (event) => {
         // Upload the file
         const driveResponse = await drive.files.create({
             requestBody: {
-                name: `${label}_${Date.now()}.png`,
+                name: `QR_${Date.now()}.png`,
                 mimeType: 'image/png',
                 parents: [FOLDER_ID],
             },
@@ -148,6 +138,17 @@ export const POST = async (event) => {
         // Return public image link
         const paynowQRImage = `https://drive.google.com/uc?id=${fileId}`;
 
+        // insert into wip table
+        const { data } = await supabase
+            .from('wip')
+            .update([
+                {
+                    status: "claim_requested",
+                    delivery: deliveryUrl
+                }
+            ])
+            .eq('id', itemId);
+
         // send email to partner that claim is succesfully submitted
         const partnerBody = `Your Claim Request has been sent for approval.`
         await sendEmail({
@@ -164,20 +165,19 @@ export const POST = async (event) => {
             <p><strong>Description:</strong> ${itemData.description}</p>
             <p><strong>Contact:</strong> ${itemData.contact_clean}</p>
             <p><strong>Receipt:</strong> <a href="${receiptUrl}">Receipt</a></p>
-            <p><strong>Delivery:</strong> <a href="${deliveryUrl}">Deliver</a></p>
+            <p><strong>Proof of delivery:</strong> <a href="${deliveryUrl}">Deliver</a></p>
             <p><strong>Requested claim: </strong>$${cost}</p>
             <p><strong>Paynow to:</strong>${partnerPaynow.paynow}</p>
-            <p>Scan this QR code to reimburse via PayNow:</p>
-            <img src="https://drive.google.com/uc?id=${fileId}" alt="PayNow QR Code" style="width:200px;height:200px;" />
-            <p>
-            <a href="http://localhost:5173/api/claim/reject?${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject</a>
-            </p>
+	        <img src="${paynowQRImage}" alt="PayNow QR Code" style="width:200px;height:200px;" />
+            <p><a href="https://breadbreakers.sg/claim/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve</a></p>
+            <p><a href="https://breadbreakers.sg/claim/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject</a></p>
             `;
-        /*await sendEmail({
-            to: 'hello@breadbreakers.sg',
+   
+        await sendEmail({
+            to: approverEmail,
             subject: `[For Approval] Claim for ${itemData.title} (${itemData.id})`,
             body: approverBody,
-        });*/
+        });
 
         return new Response(JSON.stringify({ success: true }), { status: 200 });
     } catch (err) {
