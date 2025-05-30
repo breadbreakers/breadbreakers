@@ -1,5 +1,7 @@
 <script>
-    import { signInWithGoogle } from "$lib/supabase";
+    function signInWithGoogle() {
+        window.location.href = "/auth/google";
+    }
 </script>
 
 <section class="section">

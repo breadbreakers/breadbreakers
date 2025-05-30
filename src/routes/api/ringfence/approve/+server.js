@@ -53,6 +53,26 @@ export async function POST(event) {
             .update({ status: 'ringfence_approved' })
             .eq('id', itemId);
 
+        // update amounts
+        const { data: balance, error: balanceError } = await supabase
+            .from('balance')
+            .select('*')
+            .single();
+
+        let balanceN = balance.amount;
+        let ringfenceN = balance.ringfence;
+        let itemCost = wipStatus.amount;
+        const newBalance = balanceN - itemCost;
+        const newRingfence = ringfenceN + itemCost;
+
+        const { data : balanceUpdate, balanceUpdateError } = await supabase
+            .from('balance')
+            .update({ 
+                amount: newBalance,
+                ringfence: newRingfence
+            })
+            .eq('amount', balanceN); // use the current value as a filter
+
         // send email to partner that ringfence is approved
         const partnerBody = `<p>Your Ringfence Request has been approved for ${itemData.title}.</p><p>Remarks: ${message}</p><p>Use <a href="https://breadbreakers.sg/claim?id=${itemData.id}">this form to submit a claims request</a> after the item is procured and delivered.`
 

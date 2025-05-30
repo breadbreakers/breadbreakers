@@ -46,12 +46,34 @@ export async function POST(event) {
 
         itemData = item;
 
+        // update amounts
+        const { data: balance, error: balanceError } = await supabase
+            .from('balance')
+            .select('*')
+            .single();
+
+        let balanceN = balance.amount;
+        let ringfenceN = balance.ringfence;
+        let itemCost = wipStatus.amount;
+        
+        // rejected ringfence - add back to total balance
+        const newBalance = balanceN + itemCost;
+        const newRingfence = ringfenceN - itemCost;
+
+        const { data : balanceUpdate, balanceUpdateError } = await supabase
+            .from('balance')
+            .update({ 
+                amount: newBalance,
+                ringfence: newRingfence
+            })
+            .eq('amount', balanceN); // use the current value as a filter
+
         // delete entry in wip table
         // rls only allows approvers to delete
         const { data, error } = await supabase
             .from('wip')
             .delete()
-            .eq('id', itemId);
+            .eq('id', itemId);    
 
         // send email to partner that ringfence is rejected
         const partnerBody = `<p>Your Ringfence Request has been rejected for ${itemData.title}.</p><p>Remarks: ${rejectMessage}</p>`

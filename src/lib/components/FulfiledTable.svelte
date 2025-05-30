@@ -36,7 +36,7 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle has-text-weight-semibold">Fulfiled</h2>
+        <h2 class="subtitle has-text-weight-semibold">🎁 Items Fulfiled</h2>
         <table
             bind:this={latestTable}
             id="latestTable"
@@ -54,3 +54,9 @@
         </table>
     </div>
 </section>
+
+<style>
+    table {
+        font-size: 0.85em
+    }
+</style>

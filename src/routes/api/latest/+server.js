@@ -1,16 +1,16 @@
-import { supabase } from '$lib/supabase';
-
 // Only allow sorting on these columns (must match your DB column names)
-const allowedColumns = ['fulfiled', 'item', 'Verified By', 'POC', 'id'];
+const allowedColumns = ['fulfiled', 'item', 'contact', 'id'];
 
 // Helper for building global search query
 function buildOrSearch(searchValue) {
-    // Adjust columns as needed for your schema
-    return `item.ilike.%${searchValue}%,Verified By.ilike.%${searchValue}%,POC.ilike.%${searchValue}%`;
+    const columns = ['fulfiled', 'item', 'contact', 'id', 'delivery'];
+    const filters = columns.map(col => `${col}.ilike.%${searchValue}%`).join(',');
+    return filters;
 }
 
 // POST: DataTables AJAX (full server-side processing)
-export async function POST({ request }) {
+export async function POST({ request, locals }) {
+
     const reqData = await request.json();
     const start = Number(reqData.start) || 0;
     const length = Number(reqData.length) || 10;
@@ -33,7 +33,7 @@ export async function POST({ request }) {
     // Global search
     const searchValue = reqData.search?.value?.trim();
 
-    let query = supabase
+    let query = locals.supabase
         .from('items')
         .select('*', { count: 'exact' });
 
@@ -75,7 +75,7 @@ export async function GET({ url }) {
         }
     }
 
-    let query = supabase
+    let query = locals.supabase
         .from('items')
         .select('*', { count: 'exact' });
 

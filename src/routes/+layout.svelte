@@ -1,9 +1,8 @@
 <script>
-  import { onMount } from "svelte";
-  import { supabase } from "$lib/supabase";
-  import { session } from "$lib/stores";
-  import { goto, invalidate } from "$app/navigation";
   import { page } from "$app/stores";
+  import { goto } from "$app/navigation"
+
+  export let data;
 
   const hideMenuOn = ["/logout"];
   $: showMenu = !hideMenuOn.includes($page.url.pathname);
@@ -13,33 +12,10 @@
     isMenuActive = !isMenuActive;
   }
 
-  async function handleLogout(event) {
-    event.preventDefault();
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      await goto("/logout");
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
-  }
-
-  onMount(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (data?.user) session.set({ user: data.user });
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, authSession) => {
-      session.set(authSession);
-    });
-
-    return () => subscription?.unsubscribe();
-  });
 </script>
 
 {#if showMenu}
+<div class="container">
 <nav class="navbar" aria-label="main navigation">
   <div class="navbar-brand">
     <button
@@ -61,20 +37,21 @@
     <div class="navbar-end">
       <a class="navbar-item" href="/about">About</a>
       <a class="navbar-item" href="/contact">Contact</a>
-      {#if $session?.user}
-        <a class="navbar-item" href="/" on:click|preventDefault={handleLogout}>Logout</a>
+      {#if data.loggedIn}
+        <a class="navbar-item" href="/logout">Logout</a>
       {:else}
         <a class="navbar-item" href="/login">Login</a>
       {/if}
     </div>
   </div>
 </nav>
+</div>
 {/if}
 
 <section class="section">
   <div class="container">
-    <h1 class="title">Bread Breakers 🍞</h1>
-    <h2 class="subtitle">Compassion in Action</h2>
+    <h1 class="title has-text-centered">Bread Breakers SG 🍞</h1>
+    <h2 class="subtitle is-6 has-text-centered pt-4">We partner with social workers to provide material essentials to those in need.</h2>
   </div>
 </section>
 

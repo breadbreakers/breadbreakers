@@ -1,29 +1,32 @@
 import { createServerClient } from '@supabase/ssr';
 import { env } from '$env/dynamic/private';
 
-export function createServerSupabaseClient(event) {
-    return createServerClient(
-        env.SUPABASE_URL,
-        env.SUPABASE_ANON_KEY,
-        {
-            cookies: {
-                getAll: () => event.cookies.getAll(),
-                setAll: (cookiesToSet) => {
-                    cookiesToSet.forEach(({ name, value, options }) => {
-                        event.cookies.set(name, value, options);
-                    });
-                }
-            }
+export function createSupabaseClient(request, cookies) {
+  return createServerClient(
+    env.SUPABASE_URL,
+    env.SUPABASE_ANON_KEY,
+    {
+      request,
+      cookies: {
+        get(name) {
+          return cookies.get(name);
+        },
+        set(name, value, options) {
+          cookies.set(name, value, {
+            ...options,
+            path: '/',
+            httpOnly: true,
+            sameSite: 'lax',
+            secure: true
+          });
+        },
+        remove(name, options) {
+          cookies.delete(name, {
+            ...options,
+            path: '/'
+          });
         }
-    );
-}
-
-export async function getServerItemData(event, itemId) {
-    const supabase = createServerSupabaseClient(event);
-    const { data: item } = await supabase
-        .from('requests')
-        .select('*')
-        .eq('id', itemId)
-        .single();
-    return item;
+      }
+    }
+  );
 }

@@ -52,7 +52,7 @@ export async function POST(event) {
             .from('wip')
             .update({ status: 'ringfence_approved' })
             .eq('id', itemId);
-
+           
         // send email to partner that claim is rejected
         const partnerBody = `<p>Your Claim Request has been rejected for ${itemData.title}.</p><p>Remarks: ${rejectMessage}.</p><p>Please provide the necessary details or clarifications and resubmit at <a href="https://breadbreakers.sg/claim?id=${itemId}">https://breadbreakers.sg/claim?id=${itemId}</a></p>`
 

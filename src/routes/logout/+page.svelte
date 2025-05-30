@@ -1,6 +1,5 @@
 <script>
     import { onMount } from "svelte";
-    import { goto } from "$app/navigation";
 
     let countdown = 3;
     let timer;

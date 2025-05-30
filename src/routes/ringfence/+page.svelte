@@ -150,6 +150,7 @@
               class="input"
               type="file"
               accept=".png,.jpg,.jpeg,.pdf"
+              disabled={isLoading}
               on:change={handleConfirmSW}
               required
             />

@@ -1,5 +1,3 @@
-import { supabase } from '$lib/supabase';
-
 const allowedColumns = ['date', 'title', 'contact_clean', 'description', 'id', 'votes'];
 
 // Extract sort info from DataTables request
@@ -22,24 +20,28 @@ function getSortInfo(reqData) {
     return { sortColumn, sortDir };
 }
 
-function buildSearchFilter(searchValue) {
-    return `title.ilike.%${searchValue}%,contact_clean.ilike.%${searchValue}%,description.ilike.%${searchValue}%`;
+// Helper for building global search query
+function buildOrSearch(searchValue) {
+    const columns = ['id', 'title', 'contact_clean', 'description'];
+    const filters = columns.map(col => `${col}.ilike.%${searchValue}%`).join(',');
+    return filters;
 }
 
 // POST handler
-export async function POST({ request }) {
+export async function POST({ request, locals }) {
     const reqData = await request.json();
     const start = Number(reqData.start) || 0;
     const length = Number(reqData.length) || 10;
     const { sortColumn, sortDir } = getSortInfo(reqData);
 
-    let query = supabase
+    let query = locals.supabase
         .from('requests_with_votes')
         .select('*', { count: 'exact' });
 
     const searchValue = reqData.search?.value?.trim();
+
     if (searchValue) {
-        query = query.or(buildSearchFilter(searchValue));
+        query = query.or(buildOrSearch(searchValue));
     }
 
     query = query
@@ -71,7 +73,7 @@ export async function GET({ url }) {
     const columnName = url.searchParams.get(`columns[${orderCol}][data]`);
     const sortColumn = allowedColumns.includes(columnName) ? columnName : 'date';
 
-    let query = supabase
+    let query = locals.supabase
         .from('requests_with_votes')
         .select('*', { count: 'exact' });
 

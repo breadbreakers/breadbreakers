@@ -1,15 +1,3 @@
-<script>
-  import { onMount } from "svelte";
-  import { supabase } from "$lib/supabase";
-
-  onMount(async () => {
-    const { error } = await supabase.auth.getUser();
-    if (!error) {
-      window.location.href = "/";
-    }
-  });
-</script>
-
 <section class="section">
   <div class="container">
     <div class="loading-spinner"></div>

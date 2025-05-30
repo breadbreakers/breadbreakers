@@ -1,46 +1,82 @@
 <script>
-import CurrencyFormatter from "$lib/components/CurrencyFormat.svelte";
+    import CurrencyFormatter from "$lib/components/CurrencyFormat.svelte";
 
-export let beneficiaryCount;
-export let nInNeed;
-export let balanceN;
+    export let beneficiaryCount;
+    export let nInNeed;
+    export let balanceN;
+    //export let ringfenceN;
+    export let nWip;
 </script>
 
-<section class="section">
-    <div class="container">
-        <div class="columns is-multiline">
-            <div class="column">
-                <div class="box">
-                    <div class="box-content has-text-centered">
-                        <h2 class="subtitle is-5">Beneficiaries Impacted</h2>
-
-                        <p class="title is-3 pt-4 pb-2">
-                            {beneficiaryCount}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="box">
-                    <div class="box-content has-text-centered">
-                        <h2 class="subtitle is-5">Items In Need</h2>
-
-                        <p class="title is-3 pt-4 pb-2">
-                            {nInNeed}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="box">
-                    <div class="box-content has-text-centered">
-                        <h2 class="subtitle is-5">Waiting to Serve</h2>
-                            <p class="title is-3 pt-4 pb-2">
-                                <CurrencyFormatter value={balanceN} currency="SGD" locale="en-SG" />
-                            </p>
-                    </div>
+<div class="container">
+    <div class="columns is-multiline is-mobile">
+        <div class="column is-half-mobile">
+            <div class="box">
+                <div class="box-content has-text-centered">
+                    <p class="title is-3 pt-4 pb-2 nowrap">
+                        {beneficiaryCount}
+                    </p>
+                    <p class="is-size-7">Beneficiaries Impacted</p>
                 </div>
             </div>
         </div>
+        <div class="column is-half-mobile">
+            <div class="box">
+                <div class="box-content has-text-centered">
+                    <p class="title is-3 pt-4 pb-2 nowrap">
+                        {nInNeed}
+                    </p>
+                    <p class="is-size-7">Items In Need</p>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half-mobile">
+            <div class="box">
+                <div class="box-content has-text-centered">
+                    <p class="title is-3 pt-4 pb-2 nowrap">
+                        {nWip}
+                    </p>
+                    <p class="is-size-7">
+                        {nWip === 1 ? "Assignment" : "Assignments"}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half-mobile">
+            <div class="box">
+                <div class="box-content has-text-centered">
+                    <p class="title is-3 pt-4 pb-2 nowrap">
+                        <CurrencyFormatter
+                            value={balanceN}
+                            currency="SGD"
+                            locale="en-SG"
+                        />
+                    </p>
+                    <p class="is-size-7">Ready to Serve</p>
+                </div>
+            </div>
+        </div>
+        <!--<div class="column">
+                <div class="box">
+                    <div class="box-content has-text-centered">
+                        <p class="title is-3 pt-4 pb-2 nowrap">
+                            <CurrencyFormatter value={ringfenceN} currency="SGD" locale="en-SG" />
+                        </p>
+                        <p class="is-size-7">Ringfenced</p>    
+                    </div>
+                </div>
+            </div>-->
     </div>
-</section>
+</div>
+
+<style>
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    .box {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+</style>

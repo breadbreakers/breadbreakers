@@ -73,6 +73,27 @@ export async function POST(event) {
             .delete()
             .eq('id', itemId);
 
+        // update amounts
+        const { data: balance, error: balanceError } = await supabase
+            .from('balance')
+            .select('*')
+            .single();
+
+        let balanceN = balance.amount;
+        let ringfenceN = balance.ringfence;
+        let itemCost = wipStatus.amount;
+        
+        // total balance does not change as it was removed during ringfence approval.
+        // just need to update the ringfence amount as it is approved
+        const newRingfence = ringfenceN - itemCost;
+
+        const { data : balanceUpdate, balanceUpdateError } = await supabase
+            .from('balance')
+            .update({ 
+                ringfence: newRingfence
+            })
+            .eq('amount', balanceN); // use the current value as a filter
+
         // send email to partner that claim is approved
         const partnerBody = `<p>Your Claim Request has been approved for ${itemData.title}.</p><p>Remarks: ${message}.</p><p>Please contact us if you did not receive your reimbursement.</p>`
 

@@ -13,15 +13,15 @@
 
 </script>
 
+
 <Infographic 
     beneficiaryCount={data.beneficiaryCount} 
     nInNeed={data.nInNeed} 
     balanceN={data.balanceN}
+    ringfenceN={data.ringfenceN}
+    nWip={data.nWip}
 />
 
 <FulfiledTable />
 
-<RequestsTable />
-
-<style>
-</style>
+<RequestsTable loggedIn={data.loggedIn} />
