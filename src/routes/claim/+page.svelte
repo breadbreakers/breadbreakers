@@ -136,6 +136,7 @@
               type="text"
               bind:value={cost}
               required
+              disabled={isLoading}
               pattern="^\d+(\.\d{1,2})?$"
               title="Please enter a valid amount (e.g. 123.45)"
             />
@@ -149,6 +150,7 @@
               id="receipt"
               class="input"
               type="file"
+              disabled={isLoading}
               accept=".png,.jpg,.jpeg,.pdf"
               on:change={handleReceiptChange}
               required
@@ -163,6 +165,7 @@
               id="delivery"
               class="input"
               type="file"
+              disabled={isLoading}
               accept=".png,.jpg,.jpeg,.pdf"
               on:change={handleDeliveryChange}
               required

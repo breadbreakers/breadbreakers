@@ -69,7 +69,7 @@
         <!-- svelte-ignore a11y_label_has_associated_control -->
         <label class="label">Item ID</label>
         <div class="control">
-          <input class="input" type="text" bind:value={itemId} required />
+          <input class="input" type="text" bind:value={itemId} required readonly />
         </div>
       </div>
 

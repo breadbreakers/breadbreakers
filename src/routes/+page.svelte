@@ -1,9 +1,18 @@
+<svelte:head>
+    <link rel="stylesheet" href="css/dataTables.dataTables.min.css">
+	<link rel="stylesheet" href="css/responsive.dataTables.css">
+	<script src="js/jquery-3.7.1.min.js"></script>
+	<script src="js/dataTables.min.js"></script>
+	<script src="js/dataTables.responsive.js"></script>
+	<script src="js/responsive.dataTables.js"></script>
+</svelte:head>
+
 <script>
     //import { onMount } from "svelte";    
     //import { page } from "$app/stores";    
     import Infographic from "$lib/components/Infographic.svelte";
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
-    import RequestsTable from "../lib/components/RequestsTable.svelte";
+    import RequestsTable from "$lib/components/RequestsTable.svelte";
 
     export let data;
 

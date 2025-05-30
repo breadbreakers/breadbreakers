@@ -1,14 +1,12 @@
 import { redirect } from '@sveltejs/kit';
-import { createSupabaseClient } from '$lib/server/supabase.server';
 
-export const load = async ({ request, cookies, url, parent }) => {
+export const load = async ({ url, parent, locals }) => {
   const { session } = await parent();
 
   const code = url.searchParams.get('code');
 
   if (code) {
-    const supabase = createSupabaseClient(request, cookies);
-
+    const supabase = locals.supabase;
     const maxRetries = 3;
     let retries = 0;
     let error = null;

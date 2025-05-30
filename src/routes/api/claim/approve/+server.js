@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseClient } from '$lib/server/supabase.server';
+import { getSgTime } from '$lib/sgtime'
 
 export async function POST(event) {
     const { request } = event;
@@ -11,7 +12,7 @@ export async function POST(event) {
 
         if (!approveMessage) {
             message = "Nil"
-        } else { 
+        } else {
             message = approveMessage
         }
 
@@ -50,16 +51,16 @@ export async function POST(event) {
             .eq('id', itemId)
             .single();
 
-        itemData = item;      
-        
+        itemData = item;
+
         // create entry in items
-        const { data : moveItem } = await supabase
+        const { data: moveItem } = await supabase
             .from('items')
             .insert([
                 {
                     id: itemId,
                     item: itemData.title,
-                    fulfiled: getCurrentDateString(),
+                    fulfiled: getSgTime(),
                     delivery: wipStatus.delivery,
                     contact: itemData.contact_clean,
                     cost: wipStatus.amount
@@ -82,14 +83,14 @@ export async function POST(event) {
         let balanceN = balance.amount;
         let ringfenceN = balance.ringfence;
         let itemCost = wipStatus.amount;
-        
+
         // total balance does not change as it was removed during ringfence approval.
         // just need to update the ringfence amount as it is approved
         const newRingfence = ringfenceN - itemCost;
 
-        const { data : balanceUpdate, balanceUpdateError } = await supabase
+        const { data: balanceUpdate, balanceUpdateError } = await supabase
             .from('balance')
-            .update({ 
+            .update({
                 ringfence: newRingfence
             })
             .eq('amount', balanceN); // use the current value as a filter
@@ -104,17 +105,15 @@ export async function POST(event) {
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });
 
+        // delete the personal data
+        const { data: deleteResult, error: deleteError } = await supabase
+            .from('pd')
+            .delete()
+            .eq('itemId', itemId);
+
         return json({ message: 'Claim Approved' }, { status: 200 });
     } catch (error) {
         console.error('Error sending email:', error);
         return json({ error: error.message }, { status: 500 });
     }
-}
-
-function getCurrentDateString() {
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, '0');
-  const dd = String(today.getDate()).padStart(2, '0');
-  return `${yyyy}-${mm}-${dd}`;
 }

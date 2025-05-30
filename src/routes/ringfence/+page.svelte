@@ -104,7 +104,7 @@
       <form class="box mt-4" on:submit={handleSubmit}>
         <div class="field">
           <div class="control">
-            <input class="input" type="hidden" bind:value={itemId} required disabled={isLoading} />
+            <input class="input" type="hidden" bind:value={itemId} required />
           </div>
         </div>
 

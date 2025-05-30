@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  import { goto } from "$app/navigation"
+  import { goto } from "$app/navigation";
 
   export let data;
 
@@ -12,46 +12,56 @@
     isMenuActive = !isMenuActive;
   }
 
+  // needed because svelte tries to be smart and loads the a href if you mouseover, unintentionally logging out
+  async function logout(event) {
+    event.preventDefault();
+    await goto("/logout");
+  }
 </script>
 
 {#if showMenu}
-<div class="container">
-<nav class="navbar" aria-label="main navigation">
-  <div class="navbar-brand">
-    <button
-      type="button"
-      class="navbar-burger"
-      aria-label="menu"
-      aria-expanded={isMenuActive}
-      on:click={toggleMenu}
-      tabindex="0"
-      class:is-active={isMenuActive}
-    >
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </button>
-  </div>
+  <div class="container">
+    <nav class="navbar" aria-label="main navigation">
+      <div class="navbar-brand">
+        <button
+          type="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded={isMenuActive}
+          on:click={toggleMenu}
+          tabindex="0"
+          class:is-active={isMenuActive}
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
 
-  <div class="navbar-menu" class:is-active={isMenuActive}>
-    <div class="navbar-end">
-      <a class="navbar-item" href="/about">About</a>
-      <a class="navbar-item" href="/contact">Contact</a>
-      {#if data.loggedIn}
-        <a class="navbar-item" href="/logout">Logout</a>
-      {:else}
-        <a class="navbar-item" href="/login">Login</a>
-      {/if}
-    </div>
+      <div class="navbar-menu" class:is-active={isMenuActive}>
+        <div class="navbar-end">
+          <a class="navbar-item" href="/about">About</a>
+          <a class="navbar-item" href="/contact">Contact</a>
+          {#if data.loggedIn}
+            <a class="navbar-item" href="/" on:click|preventDefault={logout}
+              >Logout</a
+            >
+          {:else}
+            <a class="navbar-item" href="/login">Login</a>
+          {/if}
+        </div>
+      </div>
+    </nav>
   </div>
-</nav>
-</div>
 {/if}
 
 <section class="section">
   <div class="container">
     <h1 class="title has-text-centered">Bread Breakers SG 🍞</h1>
-    <h2 class="subtitle is-6 has-text-centered pt-4">We partner with social workers to provide material essentials to those in need.</h2>
+    <h2 class="subtitle is-6 has-text-centered pt-4">
+      We partner with social workers to provide material essentials to those in
+      need.
+    </h2>
   </div>
 </section>
 

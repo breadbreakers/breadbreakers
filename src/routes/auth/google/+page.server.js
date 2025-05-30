@@ -1,10 +1,9 @@
 import { redirect } from '@sveltejs/kit';
-import { createSupabaseClient } from '$lib/server/supabase.server';
 
-export async function load({ request, cookies }) {
+export async function load({ request, locals }) {
   const origin = new URL(request.url).origin;
 
-  const supabase = createSupabaseClient(request, cookies);
+  const supabase = locals.supabase;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',

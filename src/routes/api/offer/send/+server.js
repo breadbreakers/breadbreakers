@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseClient } from '$lib/server/supabase.server';
+import { encrypt } from '$lib/crypto';
 
 export async function POST(event) {
     const { request } = event;
@@ -23,6 +24,10 @@ export async function POST(event) {
             return json({ error: 'Item already WIP' }, { status: 409 });
         }
 
+        // create unique link for SW to submit personal data
+        const uniqueString = `${itemId}_${partnerEmail}_${email}`
+        const uniqueLink = await encrypt(uniqueString);
+  
         //send email to social worker
         await sendEmail({
             to: email, // to the social worker
@@ -34,7 +39,7 @@ export async function POST(event) {
         });
 
         // send email to partner to tell them to use the link
-        let partnerBody = `<p>Dear Partner,</p><p>Your Offer Request has been sent to ${email}.</p><p>Once the social worker approves your assistance, <a href="https://breadbreakers.sg/ringfence?id=${itemId}">use this form to ringfence funds</a>.</p><p>Thank you for your support!</p>`;
+        let partnerBody = `<p>Dear Partner,</p><p>Your Offer Request has been sent to ${email}.</p><p>Once the social worker approves your assistance, share <a href"https://breadbreakers.sg/share?d=${uniqueLink}">this link with the social worker</a> to securely collect personal data. Then, <a href="https://breadbreakers.sg/ringfence?id=${itemId}">use this form to ringfence funds</a>.</p><p>Thank you for your support!</p>`;
         let partnerSubject = `[Offer Request Sent] ${subject} (${itemId})`;
         await sendEmail({
             to: partnerEmail,
