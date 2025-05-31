@@ -68,9 +68,3 @@
         </table>
     </div>
 </section>
-
-<style>
-    table {
-        font-size: 0.85em;
-    }
-</style>

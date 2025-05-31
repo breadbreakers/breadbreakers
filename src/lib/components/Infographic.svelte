@@ -13,7 +13,7 @@
         <div class="column is-half-mobile">
             <div class="box">
                 <div class="box-content has-text-centered">
-                    <p class="title is-3 pt-4 pb-2 nowrap">
+                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {beneficiaryCount}
                     </p>
                     <p class="is-size-7">Beneficiaries Impacted</p>
@@ -23,7 +23,7 @@
         <div class="column is-half-mobile">
             <div class="box">
                 <div class="box-content has-text-centered">
-                    <p class="title is-3 pt-4 pb-2 nowrap">
+                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {nInNeed}
                     </p>
                     <p class="is-size-7">Items In Need</p>
@@ -33,7 +33,7 @@
         <div class="column is-half-mobile">
             <div class="box">
                 <div class="box-content has-text-centered">
-                    <p class="title is-3 pt-4 pb-2 nowrap">
+                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {nWip}
                     </p>
                     <p class="is-size-7">
@@ -45,7 +45,7 @@
         <div class="column is-half-mobile">
             <div class="box">
                 <div class="box-content has-text-centered">
-                    <p class="title is-3 pt-4 pb-2 nowrap">
+                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         <CurrencyFormatter
                             value={balanceN}
                             currency="SGD"
@@ -78,5 +78,8 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+    }
+    .dashboard {
+        color: black;
     }
 </style>

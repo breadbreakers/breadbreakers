@@ -40,6 +40,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.dtr-expanded > th.dtr-control:
 table.dataTable.dtr-inline.collapsed.compact > tbody > tr > td.dtr-control,
 table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th.dtr-control {
   padding-left: 0.333em;
+  text-decoration: underline;
+  text-decoration-color: #dddddd;
 }
 table.dataTable.dtr-column > tbody > tr > td.dtr-control,
 table.dataTable.dtr-column > tbody > tr > th.dtr-control,

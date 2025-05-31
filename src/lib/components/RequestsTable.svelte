@@ -43,6 +43,7 @@
             serverSide: true,
             processing: true,
             responsive: true,
+            lengthChange: false,
             order: [[0, "desc"]],
             createdRow: function (row, data, dataIndex, cells) {
                 if (data.id) {
@@ -145,12 +146,12 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle has-text-weight-semibold">📦 Items Requested</h2>
+        <h2 class="subtitle is-6 has-text-weight-semibold">📦 Items Requested</h2>
         <table
             bind:this={requestsTable}
             id="requestsTable"
             style="width:100%"
-            class="  compact row-border responsive"
+            class="compact row-border responsive"
         >
             <thead>
                 <tr>
@@ -169,6 +170,6 @@
 
 <style>
     table {
-        font-size: 0.85em;
+        font-size: 0.95em;
     }
 </style>

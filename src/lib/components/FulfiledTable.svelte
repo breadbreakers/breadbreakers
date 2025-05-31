@@ -1,12 +1,14 @@
 <script>
     import { onMount } from "svelte";
-    
+
     let latestTable;
 
     onMount(async () => {
         globalThis.$(latestTable).DataTable({
             serverSide: true,
             processing: true,
+            lengthChange: false,
+            responsive: true,
             order: [[0, "desc"]],
             ajax: function (data, callback, settings) {
                 fetch(`/api/latest`, {
@@ -25,18 +27,27 @@
                     });
             },
             columns: [
-                { data: "fulfiled", title: "Date", className: "dt-left" },
+                {
+                    data: "fulfiled",
+                    title: "Date",
+                    className: "dt-left",
+                    render: function (data, type, row, meta) {
+                        return typeof data === "string"
+                            ? data.substring(0, 10)
+                            : data;
+                    },
+                },
                 { data: "item", title: "Item" },
                 { data: "contact", title: "VWO" },
                 { data: "id", title: "Reference" },
             ],
         });
-    })
+    });
 </script>
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle has-text-weight-semibold">🎁 Items Fulfiled</h2>
+        <h2 class="subtitle is-6 has-text-weight-semibold">🎁 Items Fulfiled</h2>
         <table
             bind:this={latestTable}
             id="latestTable"
@@ -47,7 +58,7 @@
                     <th>Date</th>
                     <th>Item</th>
                     <th>VWO</th>
-                    <th>Reference</th>
+                    <th class="none">Reference</th>
                 </tr>
             </thead>
             <tbody> </tbody>
@@ -57,6 +68,7 @@
 
 <style>
     table {
-        font-size: 0.85em
+        font-size: 0.95em;
     }
+    
 </style>
