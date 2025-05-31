@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Bread Breakers Singapore | Submit Expense</title>
+</svelte:head>
+
 <script>
   import { uploadFile } from '$lib/upload'; 
 

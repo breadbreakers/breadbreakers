@@ -7,7 +7,12 @@
         globalThis.$(ledgerTable).DataTable({
             serverSide: true,
             processing: true,
+            lengthChange: false,
+            responsive: true,
             order: [[0, "desc"]],
+            language: {
+                searchPlaceholder: "Search",
+            },
             ajax: function (data, callback, settings) {
                 fetch(`/api/ledger`, {
                     method: "POST",

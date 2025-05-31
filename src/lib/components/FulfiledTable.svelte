@@ -10,6 +10,9 @@
             lengthChange: false,
             responsive: true,
             order: [[0, "desc"]],
+            language: {
+                searchPlaceholder: "Search",
+            },
             ajax: function (data, callback, settings) {
                 fetch(`/api/latest`, {
                     method: "POST",
@@ -47,7 +50,9 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle is-6 has-text-weight-semibold">🎁 Items Fulfiled</h2>
+        <h2 class="subtitle is-6 has-text-weight-semibold">
+            🎁 Items Fulfiled
+        </h2>
         <table
             bind:this={latestTable}
             id="latestTable"
@@ -70,5 +75,4 @@
     table {
         font-size: 0.95em;
     }
-    
 </style>

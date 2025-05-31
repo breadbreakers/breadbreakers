@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Bread Breakers Singapore | Share Data</title>
+</svelte:head>
+
 <script>
   let name;
   let address;

@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Bread Breakers Singapore | View Data</title>
+</svelte:head>
+
 <script>
     export let data;
     const name = data.decryptedName;

@@ -16,7 +16,7 @@
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {beneficiaryCount}
                     </p>
-                    <p class="is-size-7">Beneficiaries Impacted</p>
+                    <p class="is-size-6">Fulfilled</p>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {nInNeed}
                     </p>
-                    <p class="is-size-7">Items In Need</p>
+                    <p class="is-size-6">Requested</p>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {nWip}
                     </p>
-                    <p class="is-size-7">
+                    <p class="is-size-6">
                         {nWip === 1 ? "Assignment" : "Assignments"}
                     </p>
                 </div>
@@ -52,7 +52,7 @@
                             locale="en-SG"
                         />
                     </p>
-                    <p class="is-size-7">Ready to Serve</p>
+                    <p class="is-size-6">Ready to Serve</p>
                 </div>
             </div>
         </div>
@@ -78,8 +78,13 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        --bulma-box-shadow: none;
+        --bulma-box-padding: 0;
+        box-shadow: none;
+        padding: 0;
     }
     .dashboard {
+        font-weight: 500;
         color: black;
     }
 </style>

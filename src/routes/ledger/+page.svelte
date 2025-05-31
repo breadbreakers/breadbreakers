@@ -5,6 +5,7 @@
 	<script src="js/dataTables.min.js"></script>
 	<script src="js/dataTables.responsive.js"></script>
 	<script src="js/responsive.dataTables.js"></script>
+	<title>Bread Breakers Singapore | Ledger</title>
 </svelte:head>
 
 <script>

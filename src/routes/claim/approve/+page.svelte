@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Bread Breakers Singapore | Approve Claim</title>
+</svelte:head>
+
 <script>
   import { onMount } from "svelte";
 

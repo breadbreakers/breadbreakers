@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Bread Breakers Singapore | Ringfence Request</title>
+</svelte:head>
+
 <script>
   import { onMount } from "svelte";
   import { uploadFile } from '$lib/upload.js'; 

@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Bread Breakers Singapore | Submit Incoming Cashflow</title>
+</svelte:head>
+
 <script>
   let itemDescription;
   let amount;

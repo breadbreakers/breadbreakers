@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Bread Breakers Singapore | Submit Claim</title>
+</svelte:head>
+
 <script>
   import { onMount } from "svelte";
   import { uploadFile } from '$lib/upload.js'; 

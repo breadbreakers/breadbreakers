@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Bread Breakers Singapore | Reject Ringfence</title>
+</svelte:head>
+
 <script>
   import { onMount } from "svelte";
 

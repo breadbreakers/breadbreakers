@@ -44,6 +44,9 @@
             processing: true,
             responsive: true,
             lengthChange: false,
+            language: {
+                searchPlaceholder: "Search",
+            },
             order: [[0, "desc"]],
             createdRow: function (row, data, dataIndex, cells) {
                 if (data.id) {
@@ -146,7 +149,9 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle is-6 has-text-weight-semibold">📦 Items Requested</h2>
+        <h2 class="subtitle is-6 has-text-weight-semibold">
+            📦 Items Requested
+        </h2>
         <table
             bind:this={requestsTable}
             id="requestsTable"
