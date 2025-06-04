@@ -16,6 +16,17 @@ export async function POST(event) {
 
         const supabase = createServerSupabaseClient(event);
 
+        const { data: balance, error: balanceError } = await supabase
+            .from('balance')
+            .select('amount')
+            .single();
+
+        let balanceN = balance.amount;
+
+        if (balanceN - cost < 0) {
+            return json({ error: 'Insufficient funds!' }, { status: 409 });
+        }
+
         const { data: { user } } = await supabase.auth.getUser();
         const partnerEmail = user.email;
 
@@ -87,11 +98,11 @@ export async function POST(event) {
             ]);
 
         // send email to partner that ringfence is submitted
-        const partnerBody = `Your Ringfence Request has been sent to ${approverEmail} for approval.`
+        const partnerBody = `<p>Dear Partner</p><p>Your Ringfence Request has been sent to ${approverEmail} for approval.</p><p>Please <u>do not</u> proceed with the purchase until the request is approved.</p>`
 
         await sendEmail({
             to: partnerEmail, // to the partner
-            subject: `[Ringfence Submitted] ${itemData.title} (${itemId})`,
+            subject: `Ringfence Request for ${itemData.title} (${itemId})`,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });
@@ -109,11 +120,12 @@ export async function POST(event) {
             <p>
                 <a href="https://breadbreakers.sg/ringfence/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject</a>
             </p>
+            <p><em>This is a system generated message. Do not reply.</em></p>
             `;
         
         await sendEmail({
             to: approverEmail,
-            subject: `[For Approval] Ringfence for ${itemData.title} (${itemId})`,
+            subject: `Ringfence Request for ${itemData.title} (${itemId})`,
             body: approverBody,
             replyTo: partnerEmail
         });

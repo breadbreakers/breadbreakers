@@ -78,24 +78,21 @@
       </div>
 
       <div class="field">
-        <!-- svelte-ignore a11y_label_has_associated_control -->
-        <label class="label">Social Worker Email</label>
+        <label for="swemail" class="label">Social Worker Email</label>
         <div class="control">
           <input class="input" type="email" bind:value={email} required />
         </div>
       </div>
 
       <div class="field">
-        <!-- svelte-ignore a11y_label_has_associated_control -->
-        <label class="label">Subject</label>
+        <label for="subject" class="label">Subject</label>
         <div class="control">
           <input class="input" type="text" bind:value={subject} required />
         </div>
       </div>
 
       <div class="field">
-        <!-- svelte-ignore a11y_label_has_associated_control -->
-        <label class="label">Body</label>
+        <label for="body" class="label">Body</label>
         <div class="control">
           <textarea class="textarea" bind:value={body} required></textarea>
         </div>

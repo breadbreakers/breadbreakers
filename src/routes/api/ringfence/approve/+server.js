@@ -31,7 +31,7 @@ export async function POST(event) {
             .single();
 
         if (wipStatus.status !== "ringfence_requested") {
-            return json({ message: 'RItem has not requested for ringfence.' }, { status: 200 });
+            return json({ message: 'Item has not requested for ringfence.' }, { status: 200 });
         }
 
         const partnerEmail = wipStatus.partner;
@@ -74,11 +74,11 @@ export async function POST(event) {
             .eq('amount', balanceN); // use the current value as a filter
 
         // send email to partner that ringfence is approved
-        const partnerBody = `<p>Your Ringfence Request has been approved for ${itemData.title}.</p><p>Remarks: ${message}</p><p>Use <a href="https://breadbreakers.sg/claim?id=${itemData.id}">this form to submit a claims request</a> after the item is procured and delivered.`
+        const partnerBody = `<p>Your Ringfence Request has been approved for ${itemData.title}.</p><p>Remarks: ${message}</p><p>Next steps:<br>- Purchase and arrange for delivery from any of the <a href="https://breadbreakers.sg/governance/procurement">authorised retailers</a>.<br>- Retain the receipt. Receipt must indicates the item billed to your name.<br>- Obtain proof of delivery from the social worker through email or WhatsApp.<br>- Request for reimbursement using the receipt and proof of delivery <a href="https://breadbreakers.sg/claim?id=${itemData.id}">using this link</a>.`
 
         await sendEmail({
             to: partnerEmail, 
-            subject: `[Ringfence Approved] ${itemData.title} (${itemId})`,
+            subject: `Ringfence Approved for ${itemData.title} (${itemId})`,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });

@@ -76,11 +76,11 @@ export async function POST(event) {
             .eq('id', itemId);    
 
         // send email to partner that ringfence is rejected
-        const partnerBody = `<p>Your Ringfence Request has been rejected for ${itemData.title}.</p><p>Remarks: ${rejectMessage}</p>`
+        const partnerBody = `<p>Your Ringfence Request has been rejected for ${itemData.title}.</p><p>Remarks: ${rejectMessage}</p><p>Please submit your Ringfence Request again.</p>`
 
         await sendEmail({
             to: partnerEmail,
-            subject: `[Ringfence Rejected] ${itemData.title} (${itemId})`,
+            subject: `Ringfence Rejected for ${itemData.title} (${itemId})`,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });

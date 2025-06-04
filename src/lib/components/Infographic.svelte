@@ -8,55 +8,56 @@
     export let nWip;
 </script>
 
-<div class="container">
-    <div class="columns is-multiline is-mobile">
-        <div class="column is-half-mobile">
-            <div class="box">
-                <div class="box-content has-text-centered">
-                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
-                        {beneficiaryCount}
-                    </p>
-                    <p class="is-size-6">Fulfilled</p>
+<section class="section">
+    <div class="container">
+        <div class="columns is-multiline is-mobile">
+            <div class="column is-half-mobile">
+                <div class="box">
+                    <div class="box-content has-text-centered">
+                        <p class="title is-3 pt-4 pb-2 nowrap dashboard">
+                            {beneficiaryCount}
+                        </p>
+                        <p class="is-size-6">Fulfilled</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="column is-half-mobile">
-            <div class="box">
-                <div class="box-content has-text-centered">
-                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
-                        {nInNeed}
-                    </p>
-                    <p class="is-size-6">Requested</p>
+            <div class="column is-half-mobile">
+                <div class="box">
+                    <div class="box-content has-text-centered">
+                        <p class="title is-3 pt-4 pb-2 nowrap dashboard">
+                            {nInNeed}
+                        </p>
+                        <p class="is-size-6">Requested</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="column is-half-mobile">
-            <div class="box">
-                <div class="box-content has-text-centered">
-                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
-                        {nWip}
-                    </p>
-                    <p class="is-size-6">
-                        {nWip === 1 ? "Assignment" : "Assignments"}
-                    </p>
+            <div class="column is-half-mobile">
+                <div class="box">
+                    <div class="box-content has-text-centered">
+                        <p class="title is-3 pt-4 pb-2 nowrap dashboard">
+                            {nWip}
+                        </p>
+                        <p class="is-size-6">
+                            {nWip === 1 ? "Assignment" : "Assignments"}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="column is-half-mobile">
-            <div class="box">
-                <div class="box-content has-text-centered">
-                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
-                        <CurrencyFormatter
-                            value={balanceN}
-                            currency="SGD"
-                            locale="en-SG"
-                        />
-                    </p>
-                    <p class="is-size-6">Ready to Serve</p>
+            <div class="column is-half-mobile">
+                <div class="box">
+                    <div class="box-content has-text-centered">
+                        <p class="title is-3 pt-4 pb-2 nowrap dashboard">
+                            <CurrencyFormatter
+                                value={balanceN}
+                                currency="SGD"
+                                locale="en-SG"
+                            />
+                        </p>
+                        <p class="is-size-6">Ready to Serve</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--<div class="column">
+            <!--<div class="column">
                 <div class="box">
                     <div class="box-content has-text-centered">
                         <p class="title is-3 pt-4 pb-2 nowrap">
@@ -66,8 +67,9 @@
                     </div>
                 </div>
             </div>-->
+        </div>
     </div>
-</div>
+</section>
 
 <style>
     .nowrap {

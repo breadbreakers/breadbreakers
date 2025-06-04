@@ -1,5 +1,6 @@
 <script>
   import { page } from "$app/stores";
+  import { goto } from "$app/navigation";
 
   const hideMenuOn = ["/logout"];
   $: showMenu = !hideMenuOn.includes($page.url.pathname);
@@ -44,6 +45,9 @@
         <div class="navbar-end">
           <a class="navbar-item" href="/" class:is-active={isActive("/")} on:click={closeMenu}>Home</a>
           <a class="navbar-item" href="/about" class:is-active={isActive("/about")} on:click={closeMenu}>About</a>
+          <a class="navbar-item" href="/financials" class:is-active={isActive("/financials")} on:click={closeMenu}>Financials</a>
+          <a class="navbar-item" href="/governance" class:is-active={isActive("/governance")} on:click={closeMenu}>Governance</a>
+          <a class="navbar-item" href="/donate" class:is-active={isActive("/donate")} on:click={closeMenu}>Donate</a>
           <a class="navbar-item" href="/contact" class:is-active={isActive("/contact")} on:click={closeMenu}>Contact</a
           >
           <a class="navbar-item" href="/login" class:is-active={isActive("/login")} on:click={closeMenu}>
@@ -56,9 +60,9 @@
   </div>
 </section>
 
-<div class="container mb-6">
+<div class="container pl-1 pr-1 hero">
   <div class="has-text-centered">
-    <img src="logo.png" width="500px" alt="bread breakers logo" />
+    <img src="/logo.png" width="500px" alt="bread breakers logo" />
   </div>
   <h2
     class="tagline subtitle is-6 has-text-centered has-text-weight-normal pt-4"
@@ -89,7 +93,8 @@
   }
 
   .tagline {
-    color: #555;
+    color: #3C3D37;
+    letter-spacing: -0.5px;
   }
 
   .navbar-burger {
@@ -102,12 +107,12 @@
 
   @font-face {
     font-family: "fontello";
-    src: url("./font/fontello.eot?2493361");
+    src: url("/font/fontello.eot?2493361");
     src:
-      url("./font/fontello.eot?2493361#iefix") format("embedded-opentype"),
-      url("./font/fontello.woff?2493361") format("woff"),
-      url("./font/fontello.ttf?2493361") format("truetype"),
-      url("./font/fontello.svg?2493361#fontello") format("svg");
+      url("/font/fontello.eot?2493361#iefix") format("embedded-opentype"),
+      url("/font/fontello.woff?2493361") format("woff"),
+      url("/font/fontello.ttf?2493361") format("truetype"),
+      url("/font/fontello.svg?2493361#fontello") format("svg");
     font-weight: normal;
     font-style: normal;
   }
@@ -168,7 +173,7 @@
   .navbar-item.is-active {
   background-color: white;
   color: black !important;
-  border-bottom: 2px solid darkgray;
+  font-weight: 500;
 }
 
 .navbar-item:hover,
@@ -177,6 +182,5 @@
   color: inherit !important;
   box-shadow: none !important;
   text-decoration: none !important;
-  /* Add any other properties you want to reset */
 }
 </style>
