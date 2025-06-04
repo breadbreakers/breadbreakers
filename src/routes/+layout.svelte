@@ -50,7 +50,7 @@
           <a class="navbar-item" href="/donate" class:is-active={isActive("/donate")} on:click={closeMenu}>Donate</a>
           <a class="navbar-item" href="/contact" class:is-active={isActive("/contact")} on:click={closeMenu}>Contact</a
           >
-          <a class="navbar-item" href="/login" class:is-active={isActive("/login")} on:click={closeMenu}>
+          <a class="navbar-item" href="/profile" class:is-active={isActive("/profile")} on:click={closeMenu}>
             <i class="demo-icon icon-user">&#xe800;</i>
             <span class="account-label">Account</span>
           </a>
