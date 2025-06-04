@@ -6,11 +6,11 @@ export async function load({ locals, url }) {
 
   // check if logged in
   const session = await locals.getUser?.();
-  if (!session) throw redirect(303, '/login');
+  if (!session) throw redirect(303, '/profile');
 
   // get user details
   const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
-  if (userError || !user) throw redirect(303, '/login');
+  if (userError || !user) throw redirect(303, '/profile');
 
   // check if is approver
   const { data: approver, error: approverError } = await locals.supabase

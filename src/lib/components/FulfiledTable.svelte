@@ -66,7 +66,7 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle is-6 has-text-weight-semibold">
+        <h2 class="subtitle is-5 has-text-weight-semibold">
             🎁 Items Fulfiled
         </h2>
         <table

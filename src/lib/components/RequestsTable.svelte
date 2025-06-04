@@ -81,7 +81,7 @@
                 { data: "date", title: "Date", className: "dt-left" },
                 { data: "title", title: "Item" },
                 { data: "contact_clean", title: "VWO" },
-                {
+                /*{
                     data: "votes",
                     title: "Priority",
                     orderable: true,
@@ -109,7 +109,7 @@
                             </button>
                         `;
                     },
-                },
+                },*/
                 { data: "id", title: "ID" },
                 { data: "description", title: "Description" },
             ],
@@ -149,7 +149,7 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle is-6 has-text-weight-semibold">
+        <h2 class="subtitle is-5 has-text-weight-semibold">
             📦 Items Requested
         </h2>
         <table
@@ -163,7 +163,7 @@
                     <th>Date</th>
                     <th>Item</th>
                     <th>VWO</th>
-                    <th class="all">Priority</th>
+                    <!--th class="all">Priority</th>-->
                     <th class="none">ID</th>
                     <th class="none">Description</th>
                 </tr>

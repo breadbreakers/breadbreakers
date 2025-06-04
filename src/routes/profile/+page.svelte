@@ -53,16 +53,21 @@
                             : data;
                     },
                 },
-                { data: "id", title: "ID", className: "dt-left"},                
+                { data: "id", title: "ID", className: "dt-left" },
                 {
                     data: "status",
                     title: "Status",
                     className: "dt-left",
                     render: function (data, type, row, meta) {
                         if (data) {
-                            return data.replace(/_/g, ' ').replace(/\w\S*/g, function(txt){
-                                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                            });
+                            return data
+                                .replace(/_/g, " ")
+                                .replace(/\w\S*/g, function (txt) {
+                                    return (
+                                        txt.charAt(0).toUpperCase() +
+                                        txt.substr(1).toLowerCase()
+                                    );
+                                });
                         }
                         return data;
                     },
@@ -72,7 +77,7 @@
                     title: "Link",
                     className: "dt-left",
                     render: function (data, type, row, meta) {
-                        return '<a href="' + data + '">' + data + '</a>';
+                        return '<a href="' + data + '">' + data + "</a>";
                     },
                 },
             ],
@@ -84,9 +89,9 @@
     <title>Bread Breakers Singapore | Profile</title>
 </svelte:head>
 
-<section class="section">
-    <div class="container">
-        {#if data.loggedIn}
+{#if data.loggedIn}
+    <section class="section">
+        <div class="container">
             <h2 class="subtitle is-6 has-text-weight-semibold">
                 🎁 Your Items
             </h2>
@@ -110,7 +115,11 @@
                     >Logout</button
                 >
             </div>
-        {:else}
+        </div>
+    </section>
+{:else}
+    <section class="section">
+        <div class="container has-text-centered">
             <button
                 on:click={signInWithGoogle}
                 name="submitbtn"
@@ -143,9 +152,9 @@
                 </svg>
                 Sign in with Google
             </button>
-        {/if}
-    </div>
-</section>
+        </div>
+    </section>
+{/if}
 
 <style>
     button {
@@ -158,6 +167,6 @@
         transition-duration: 200ms;
         transition-timing-function: ease;
         padding: 0.75em;
-        width: 20em;
+        width: 17em;
     }
 </style>

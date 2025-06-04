@@ -4,7 +4,7 @@ export async function load({ locals, url }) {
   // if no cookies, go to login page
   const session = await locals.getUser?.();
   
-  if (!session) throw redirect(303, '/login');
+  if (!session) throw redirect(303, '/profile');
 
   // get the user info
   const { data: { user }, error: userError } = await locals.supabase.auth.getUser();

@@ -5,7 +5,7 @@ export const load = async ({ url, parent, locals }) => {
 
   const session = await locals.getUser?.();
   
-  if (!session) throw redirect(303, '/login');
+  if (!session) throw redirect(303, '/profile');
 
   const code = url.searchParams.get('source');
 

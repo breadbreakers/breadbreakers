@@ -94,7 +94,7 @@
 
   .tagline {
     color: #3C3D37;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.35px;
   }
 
   .navbar-burger {
@@ -103,52 +103,6 @@
 
   .nav-section {
     padding: 0;
-  }
-
-  @font-face {
-    font-family: "fontello";
-    src: url("/font/fontello.eot?2493361");
-    src:
-      url("/font/fontello.eot?2493361#iefix") format("embedded-opentype"),
-      url("/font/fontello.woff?2493361") format("woff"),
-      url("/font/fontello.ttf?2493361") format("truetype"),
-      url("/font/fontello.svg?2493361#fontello") format("svg");
-    font-weight: normal;
-    font-style: normal;
-  }
-  .demo-icon {
-    font-family: "fontello";
-    font-style: normal;
-    font-weight: normal;
-    speak: never;
-
-    display: inline-block;
-    text-decoration: inherit;
-    width: 1em;
-    margin-right: 0.2em;
-    text-align: center;
-    /* opacity: .8; */
-
-    /* For safety - reset parent styles, that can break glyph codes*/
-    font-variant: normal;
-    text-transform: none;
-
-    /* fix buttons height, for twitter bootstrap */
-    line-height: 1em;
-
-    /* Animation center compensation - margins should be symmetric */
-    /* remove if not needed */
-    margin-left: 0.2em;
-
-    /* You can be more comfortable with increased icons size */
-    /* font-size: 120%; */
-
-    /* Font smoothing. That was taken from TWBS */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    /* Uncomment for 3D effect */
-    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   }
 
   @media screen and (min-width: 769px) {
