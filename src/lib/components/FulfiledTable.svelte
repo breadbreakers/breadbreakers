@@ -40,7 +40,15 @@
                             : data;
                     },
                 },
-                { data: "item", title: "Item" },
+                {
+                    data: "item",
+                    title: "Item",
+                    render: function (data, type, row, meta) {
+                        return (
+                            '🔗 <a href="' + row.delivery + '">' + data + "</a>"
+                        );
+                    },
+                },
                 { data: "contact", title: "VWO" },
                 { data: "id", title: "Reference" },
             ],

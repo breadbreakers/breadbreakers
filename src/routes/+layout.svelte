@@ -62,7 +62,7 @@
 
 <div class="container pl-1 pr-1 hero">
   <div class="has-text-centered">
-    <img src="/logo.png" width="500px" alt="bread breakers logo" />
+    <a href="/"><img src="/logo.png" width="500px" alt="bread breakers logo" /></a>
   </div>
   <h2
     class="tagline subtitle is-6 has-text-centered has-text-weight-normal pt-4"
