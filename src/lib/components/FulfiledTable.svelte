@@ -29,6 +29,14 @@
                         });
                     });
             },
+            columnDefs: [
+                {
+                    targets: 0, // date column
+                    createdCell: function (td) {
+                        globalThis.$(td).css("white-space", "nowrap");
+                    },
+                },
+            ],
             columns: [
                 {
                     data: "fulfiled",
@@ -45,7 +53,7 @@
                     title: "Item",
                     render: function (data, type, row, meta) {
                         return (
-                            '🔗 <a href="' + row.delivery + '">' + data + "</a>"
+                            '🔗<a target="_blank" href="' + row.delivery + '">' + data + "</a>"
                         );
                     },
                 },
