@@ -51,7 +51,8 @@ export async function POST(event) {
         .from('incoming')
         .insert([
           {
-            source: `Donation from ${encryptedDonor}`,
+            source: `Donation`,
+            id: encryptedDonor,
             amount,
             approveremail: donor,
             timestamp: getSgTime()
