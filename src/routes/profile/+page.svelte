@@ -4,8 +4,10 @@
 
     export let data;
 
+    let loggedInEmail = "";
+
     if (data.user !== null) {
-        const loggedInEmail = data.user.email;
+        loggedInEmail = data.user.email;
     }
 
     let workTable;
@@ -159,7 +161,11 @@
                         fill="#EA4335"
                     />
                 </svg>
+                
                 Sign in with Google
+                {#if isLoading}
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;
+                {/if}
             </button>
         </div>
     </section>
@@ -177,5 +183,29 @@
         transition-timing-function: ease;
         padding: 0.75em;
         width: 17em;
+    }
+
+    .spinner-border {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        vertical-align: text-bottom;
+        border: 0.25em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner-border .75s linear infinite;
+        animation: spinner-border .75s linear infinite;
+    }
+
+    @-webkit-keyframes spinner-border {
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spinner-border {
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>
