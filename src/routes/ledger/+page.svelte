@@ -128,7 +128,7 @@
 					className: "dt-right",
 					render: function (data, type, row) {
 						let amount = parseFloat(data);
-						let formatted = "$" + amount.toFixed(2);
+						let formatted = "$" + (amount/100).toFixed(2);
 						let colorClass =
 							amount < 0 ? "has-text-danger" : "has-text-success";
 						return `<span class="${colorClass}">${formatted}</span>`;

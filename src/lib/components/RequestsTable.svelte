@@ -7,7 +7,7 @@
     let userVotesMap = {};
     let voteCounts;
 
-    export let loggedIn;
+    //export let loggedIn;
 
     onMount(async () => {
         initRequestsTable();

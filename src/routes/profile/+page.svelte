@@ -104,7 +104,7 @@
             <h2 class="subtitle is-6 has-text-weight-semibold">
                 🎁 Your Items
             </h2>
-            <p>{loggedInEmail}</p>
+            <p>Logged in as {loggedInEmail}</p>
             <table
                 bind:this={workTable}
                 id="workTable"

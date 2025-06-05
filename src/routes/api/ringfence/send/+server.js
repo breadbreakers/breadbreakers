@@ -91,7 +91,7 @@ export async function POST(event) {
                     id: itemId,
                     status: "ringfence_requested",
                     partner: partnerEmail,
-                    amount: cost,
+                    amount: cost * 100,
                     link: linkUrl,
                     swconfirm: swConfirmUrl
                 }

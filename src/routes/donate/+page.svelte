@@ -24,9 +24,9 @@
             totalAmount = amount * 1.034 + 0.5;
         } else if (paymentType === "paynow") {
             totalAmount = amount * 1.013;
-        } else {
+        } else {*/
             totalAmount = amount;
-        }*/
+        //}
 
         totalAmount = parseFloat(totalAmount.toFixed(2));
     }
