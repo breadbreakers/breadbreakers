@@ -40,5 +40,12 @@ export async function sendEmail({ to, from, subject, body, replyto, bcc, cc }) {
     };
 
     const command = new SendEmailCommand(params);
-    await ses.send(command);
+    //console.log("Sending email with params:", params);
+    try {
+      const result = await ses.send(command);
+      //console.log("Email sent successfully:", result);
+    } catch (error) {
+      console.error("Error sending email:", error);
+      throw error;
+    }
 }

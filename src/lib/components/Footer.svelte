@@ -1,4 +1,3 @@
-<hr class="mt-6 mb-6" />
 <div class="content">
     <p class="is-size-7 has-text-centered">Bread Breakers (SG)
         <span
@@ -13,4 +12,3 @@
         <!--<br />UEN-->
     </p>
 </div>
-

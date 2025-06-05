@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  import { goto } from "$app/navigation";
+  import Footer from "$lib/components/Footer.svelte";
 
   const hideMenuOn = ["/logout"];
   $: showMenu = !hideMenuOn.includes($page.url.pathname);
@@ -75,6 +75,8 @@
 </div>
 
 <slot />
+
+<Footer />
 
 <style>
   .highlight {

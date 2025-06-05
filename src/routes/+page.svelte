@@ -2,7 +2,6 @@
     import Infographic from "$lib/components/Infographic.svelte";
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
     import RequestsTable from "$lib/components/RequestsTable.svelte";
-    import Footer from "$lib/components/Footer.svelte";
 
     export let data;
 
@@ -74,11 +73,7 @@
             </div>
         </div>
     </div>
-
-    <Footer />
 </section>
-
-
 
 <style>
 button {
