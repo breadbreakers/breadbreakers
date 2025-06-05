@@ -59,7 +59,7 @@ export const POST = async (event) => {
         // make sure claim abount == ringfence amount
         ringfencedAmount = wip.amount;
         
-        if (parseFloat(ringfencedAmount) !== parseFloat(cost)) {
+        if (parseInt(ringfencedAmount) !== parseInt(cost * 100)) {
             return json({ error: 'Claim amount not the same as ringfenced amount.' }, { status: 409 });
         }
 
@@ -153,21 +153,20 @@ export const POST = async (event) => {
         const partnerBody = `Your Claim Request has been sent for approval.`
         await sendEmail({
             to: partnerEmail, 
-            subject: `[Claim Submitted] ${itemData.title}`,
+            subject: `Claim Submitted for ${itemData.title}`,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });
 
         // send email to approver
         const approverBody = `
-            <h2>To Approve: ${itemData.title}</h2>
             <p><strong>Requester:</strong> ${partnerEmail}</p>
             <p><strong>Description:</strong> ${itemData.description}</p>
             <p><strong>Contact:</strong> ${itemData.contact_clean}</p>
-            <p><strong>Receipt:</strong> <a href="${receiptUrl}">Receipt</a></p>
-            <p><strong>Proof of delivery:</strong> <a href="${deliveryUrl}">Deliver</a></p>
-            <p><strong>Requested claim: </strong>$${cost}</p>
-            <p><strong>Paynow to:</strong>${partnerPaynow.paynow}</p>
+            <p><a href="${receiptUrl}"><strong>Receipt</strong></a><br>Verify that the receipt is billed to the requester.</p>
+            <p><a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a><br>Verify that all personal data has been redacted.</p>
+            <p><strong>Requested claim:</strong> $${cost}<br>Verify that the cost is reasonable for the item.</p>
+            <p><strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}</p>
 	        <img src="${paynowQRImage}" alt="PayNow QR Code" style="width:200px;height:200px;" />
             <p><a href="https://breadbreakers.sg/claim/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve</a></p>
             <p><a href="https://breadbreakers.sg/claim/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject</a></p>
@@ -175,7 +174,7 @@ export const POST = async (event) => {
    
         await sendEmail({
             to: approverEmail,
-            subject: `[For Approval] Claim for ${itemData.title} (${itemData.id})`,
+            subject: `Claim Request for ${itemData.title} (${itemData.id})`,
             body: approverBody,
         });
 

@@ -46,28 +46,6 @@ export async function POST(event) {
 
         itemData = item;
 
-        // update amounts
-        const { data: balance, error: balanceError } = await supabase
-            .from('balance')
-            .select('*')
-            .single();
-
-        let balanceN = balance.amount;
-        let ringfenceN = balance.ringfence;
-        let itemCost = wipStatus.amount;
-        
-        // rejected ringfence - add back to total balance
-        const newBalance = balanceN + (itemCost * 100);
-        const newRingfence = ringfenceN - (itemCost * 100);
-
-        const { data : balanceUpdate, balanceUpdateError } = await supabase
-            .from('balance')
-            .update({ 
-                amount: newBalance,
-                ringfence: newRingfence
-            })
-            .eq('amount', balanceN); // use the current value as a filter
-
         // delete entry in wip table
         // rls only allows approvers to delete
         const { data, error } = await supabase

@@ -41,12 +41,15 @@ export async function POST(event) {
 
   switch (stripeEvent.type) {
     case 'checkout.session.completed':
+      const sgTime = getSgTime();
+
       const amount = stripeEvent.data.object.amount_total;
       const donor = stripeEvent.data.object.customer_details.email;
-      const encryptedDonor = await encrypt(donor);
+      const encryptedDonor = await encrypt(sgTime);
 
       const supabase = createServerSupabaseService(event);
 
+      
       const { data: expense } = await supabase
         .from('incoming')
         .insert([
@@ -55,7 +58,7 @@ export async function POST(event) {
             id: encryptedDonor,
             amount,
             approveremail: donor,
-            timestamp: getSgTime()
+            timestamp: sgTime
           }
         ]);
 
@@ -75,6 +78,13 @@ export async function POST(event) {
         })
         .eq('amount', balanceN); // use the current value as a filter
 
+      const dollarAmount = (amount/100).toFixed(2);
+      await sendEmail({
+            to: donor,
+            subject: `Thank you for your support! 🙂`,
+            body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${encryptedDonor}</p>`,
+            bcc: 'hello@breadbreakers.sg' // for audit trail 
+        });
       break;
     default:
       break;

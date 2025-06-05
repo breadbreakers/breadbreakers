@@ -164,6 +164,7 @@
 
         <div class="field">
           <label for="delivery" class="label">Proof of Delivery (PNG, JPG, PDF)</label>
+          <p>Please ensure all personal identifable information is redacted out. This will be published on the website.</p>
           <div class="control">
             <input
               id="delivery"

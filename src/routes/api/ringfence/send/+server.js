@@ -18,7 +18,7 @@ export async function POST(event) {
 
         const { data: balance, error: balanceError } = await supabase
             .from('balance')
-            .select('amount')
+            .select('*')
             .single();
 
         let balanceN = balance.amount;
