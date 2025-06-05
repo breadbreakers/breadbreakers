@@ -33,7 +33,7 @@ export async function POST(event) {
             .single();
 
         let balanceN = balance.amount;
-        let newBalance = balanceN + amount;
+        let newBalance = balanceN + (amount * 100);
 
         const { data: balanceUpdate, balanceUpdateError } = await supabase
             .from('balance')

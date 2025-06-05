@@ -29,8 +29,25 @@
                         });
                     });
             },
+            columnDefs: [
+                {
+                    targets: 0, // date column
+                    createdCell: function (td) {
+                        globalThis.$(td).css("white-space", "nowrap");
+                    },
+                },
+            ],
             columns: [
-                { data: "timestamp", title: "Date", className: "dt-left" },
+                {
+                    data: "timestamp",
+                    title: "Date",
+                    className: "dt-left",
+                    render: function (data, type, row, meta) {
+                        return typeof data === "string"
+                            ? data.substring(0, 10)
+                            : data;
+                    },
+                },
                 { data: "description", title: "Description" },
                 {
                     data: "amount",
@@ -42,6 +59,20 @@
                         let colorClass =
                             amount < 0 ? "has-text-danger" : "has-text-success";
                         return `<span class="${colorClass}">${formatted}</span>`;
+                    },
+                },
+                {
+                    data: "id",
+                    title: "ID",
+                    render: function (data) {
+                        return data != null ? data : "NA";
+                    },
+                },
+                {
+                    data: "contact",
+                    title: "VWO",
+                    render: function (data) {
+                        return data != null ? data : "NA";
                     },
                 },
             ],
@@ -67,9 +98,17 @@
                     <th>Date</th>
                     <th>Description</th>
                     <th>Amount</th>
+                    <th class="none">ID</th>
+                    <th class="none">VWO</th>
                 </tr>
             </thead>
             <tbody> </tbody>
         </table>
     </div>
 </section>
+
+<style>
+    table {
+        font-size: 0.95em;
+    }
+</style>

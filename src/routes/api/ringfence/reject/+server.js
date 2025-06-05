@@ -57,8 +57,8 @@ export async function POST(event) {
         let itemCost = wipStatus.amount;
         
         // rejected ringfence - add back to total balance
-        const newBalance = balanceN + itemCost;
-        const newRingfence = ringfenceN - itemCost;
+        const newBalance = balanceN + (itemCost * 100);
+        const newRingfence = ringfenceN - (itemCost * 100);
 
         const { data : balanceUpdate, balanceUpdateError } = await supabase
             .from('balance')

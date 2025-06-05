@@ -53,7 +53,11 @@
                     title: "Item",
                     render: function (data, type, row, meta) {
                         return (
-                            '🔗<a target="_blank" href="' + row.delivery + '">' + data + "</a>"
+                            '🔗<a target="_blank" href="' +
+                            row.delivery +
+                            '">' +
+                            data +
+                            "</a>"
                         );
                     },
                 },
@@ -64,28 +68,24 @@
     });
 </script>
 
-<section class="section">
-    <div class="container">
-        <h2 class="subtitle is-5 has-text-weight-semibold">
-            🎁 Items Fulfiled
-        </h2>
-        <table
-            bind:this={latestTable}
-            id="latestTable"
-            class="compact row-border responsive"
-        >
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Item</th>
-                    <th>VWO</th>
-                    <th class="none">Reference</th>
-                </tr>
-            </thead>
-            <tbody> </tbody>
-        </table>
-    </div>
-</section>
+<div class="container">
+    <h2 class="subtitle is-5 has-text-weight-semibold">🎁 Items Fulfiled</h2>
+    <table
+        bind:this={latestTable}
+        id="latestTable"
+        class="compact row-border responsive"
+    >
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Item</th>
+                <th class="none">VWO</th>
+                <th class="none">Reference</th>
+            </tr>
+        </thead>
+        <tbody> </tbody>
+    </table>
+</div>
 
 <style>
     table {

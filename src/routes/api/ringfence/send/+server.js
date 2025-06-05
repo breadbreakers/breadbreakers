@@ -23,7 +23,7 @@ export async function POST(event) {
 
         let balanceN = balance.amount;
 
-        if (balanceN - cost < 0) {
+        if (balanceN - (cost * 100) < 0) {
             return json({ error: 'Insufficient funds!' }, { status: 409 });
         }
 

@@ -147,31 +147,27 @@
     }
 </script>
 
-<section class="section">
-    <div class="container">
-        <h2 class="subtitle is-5 has-text-weight-semibold">
-            📦 Items Requested
-        </h2>
-        <table
-            bind:this={requestsTable}
-            id="requestsTable"
-            style="width:100%"
-            class="compact row-border responsive"
-        >
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Item</th>
-                    <th>VWO</th>
-                    <!--th class="all">Priority</th>-->
-                    <th class="none">ID</th>
-                    <th class="none">Description</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-</section>
+<div class="container">
+    <h2 class="subtitle is-5 has-text-weight-semibold">📦 Items Requested</h2>
+    <table
+        bind:this={requestsTable}
+        id="requestsTable"
+        style="width:100%"
+        class="compact row-border responsive"
+    >
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Item</th>
+                <th class="none">VWO</th>
+                <!--th class="all">Priority</th>-->
+                <th class="none">ID</th>
+                <th class="none">Description</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
 <style>
     table {

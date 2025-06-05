@@ -5,14 +5,17 @@
     export let data;
 
     let workTable;
+    let isLoading = false;
 
     function signInWithGoogle() {
+        isLoading = true;
         window.location.href = "/auth/google";
     }
 
     // needed because svelte tries to be smart and loads the a href if you mouseover, unintentionally logging out
     async function logout(event) {
         event.preventDefault();
+        isLoading = true;
         await goto("/logout");
     }
 
@@ -111,7 +114,7 @@
                 <tbody></tbody>
             </table>
             <div class="has-text-centered">
-                <button class="button" on:click|preventDefault={logout}
+                <button class="button" disabled={isLoading} on:click|preventDefault={logout}
                     >Logout</button
                 >
             </div>
@@ -124,6 +127,7 @@
                 on:click={signInWithGoogle}
                 name="submitbtn"
                 type="submit"
+                disabled={isLoading}
                 class="button-logo button-sso"
             >
                 <svg

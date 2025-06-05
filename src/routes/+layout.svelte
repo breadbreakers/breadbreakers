@@ -45,7 +45,7 @@
         <div class="navbar-end">
           <a class="navbar-item" href="/" class:is-active={isActive("/")} on:click={closeMenu}>Home</a>
           <a class="navbar-item" href="/about" class:is-active={isActive("/about")} on:click={closeMenu}>About</a>
-          <a class="navbar-item" href="/financials" class:is-active={isActive("/financials")} on:click={closeMenu}>Financials</a>
+          <a class="navbar-item" href="/ledger" class:is-active={isActive("/financials")} on:click={closeMenu}>Financials</a>
           <a class="navbar-item" href="/governance" class:is-active={isActive("/governance")} on:click={closeMenu}>Governance</a>
           <a class="navbar-item" href="/donate" class:is-active={isActive("/donate")} on:click={closeMenu}>Donate</a>
           <a class="navbar-item" href="/contact" class:is-active={isActive("/contact")} on:click={closeMenu}>Contact</a
@@ -95,6 +95,8 @@
   .tagline {
     color: #3C3D37;
     letter-spacing: -0.35px;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
   }
 
   .navbar-burger {
