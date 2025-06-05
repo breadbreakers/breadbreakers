@@ -130,7 +130,11 @@
 						let amount = parseFloat(data);
 						let formatted = "$" + (amount/100).toFixed(2);
 						let colorClass =
-							amount < 0 ? "has-text-danger" : "has-text-success";
+  amount < 0
+    ? "has-text-danger"
+    : amount > 0
+    ? "has-text-success"
+    : "has-text-black";
 						return `<span class="${colorClass}">${formatted}</span>`;
 					},
 				},
