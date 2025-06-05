@@ -10,7 +10,7 @@
     function showTable(event, table) {
         event.preventDefault();
         event.stopPropagation();
-        activeTable = table;
+        activeTable = activeTable === table ? null : table;
     }
 </script>
 
@@ -66,9 +66,9 @@
         <div class="content mt-3">
             <div class="columns">
                 <div class="column">
-                    <button class="is-fullwidth button is-warning is-light"
-                        >🤝 Partner With Us</button
-                    >
+                    <a href="/partner"><button class="is-fullwidth button is-warning is-light"
+                        >🤝 Partner With Us</button></a>
+                    
                 </div>
             </div>
         </div>

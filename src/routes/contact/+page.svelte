@@ -62,7 +62,7 @@
       {#if status !== 'success'}
       <div class="field">
         <div class="control">
-          <button class="button is-primary" type="submit" disabled={status === 'submitting'}>
+          <button class="button is-primary is-fullwidth is-primary" type="submit" disabled={status === 'submitting'}>
             {#if status === 'submitting'}
               Submitting...
             {:else}

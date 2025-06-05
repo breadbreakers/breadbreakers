@@ -4,6 +4,10 @@
 
     export let data;
 
+    if (data.user !== null) {
+        const loggedInEmail = data.user.email;
+    }
+
     let workTable;
     let isLoading = false;
 
@@ -98,6 +102,7 @@
             <h2 class="subtitle is-6 has-text-weight-semibold">
                 🎁 Your Items
             </h2>
+            <p>{loggedInEmail}</p>
             <table
                 bind:this={workTable}
                 id="workTable"

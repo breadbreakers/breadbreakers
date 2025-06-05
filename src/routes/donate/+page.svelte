@@ -127,7 +127,7 @@
                 class="button is-fullwidth is-warning is-light mt-4"
                 type="submit">Donate</button
             >
-
+            <p class="has-text-centered">Still in development. Payments will not go through.</p>
             <div class="content mt-4 is-size-7">
                 <p>
                     We use <a href="https://stripe.com/en-sg">Stripe</a> as our payment processor to ensure your
