@@ -144,7 +144,8 @@ export const POST = async (event) => {
             .update([
                 {
                     status: "claim_requested",
-                    delivery: deliveryUrl
+                    delivery: deliveryUrl,
+                    receipt: receiptUrl
                 }
             ])
             .eq('id', itemId);

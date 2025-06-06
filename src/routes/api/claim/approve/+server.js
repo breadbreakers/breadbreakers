@@ -63,7 +63,8 @@ export async function POST(event) {
                     fulfiled: getSgTime(),
                     delivery: wipStatus.delivery,
                     contact: itemData.contact_clean,
-                    cost: wipStatus.amount
+                    cost: wipStatus.amount,
+                    receipt: wipStatus.receipt
                 }
             ]);
 

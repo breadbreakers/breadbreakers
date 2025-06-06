@@ -149,6 +149,7 @@
 
         <div class="field">
           <label for="receipt" class="label">Upload Receipt (PNG, JPG, PDF)</label>
+          <p>Please ensure all personal identifable information is redacted out. This will be published on the website.</p>
           <div class="control">
             <input
               id="receipt"
