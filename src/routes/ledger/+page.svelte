@@ -113,7 +113,7 @@
 			columns: [
 				{
 					data: "timestamp",
-					title: "Date",
+					title: "Fulfilled",
 					className: "dt-left",
 					render: function (data, type, row, meta) {
 						return typeof data === "string"
@@ -121,7 +121,23 @@
 							: data;
 					},
 				},
-				{ data: "description", title: "Description" },
+				{
+                    data: "description",
+                    title: "Description",
+                    render: function (data, type, row, meta) {
+						if (row.receipt !== null) {
+							return (
+								'🔗<a target="_blank" href="' +
+								row.receipt +
+								'">' +
+								data +
+								"</a>"
+							);
+						} else {
+							return data;
+						}
+                    },
+                },
 				{
 					data: "amount",
 					title: "Amount",
@@ -209,7 +225,7 @@
 		>
 			<thead>
 				<tr>
-					<th>Date</th>
+					<th>Fulfilled</th>
 					<th>Description</th>
 					<th>Amount</th>
 					<th class="none">ID</th>

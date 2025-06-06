@@ -47,16 +47,13 @@ export const POST = async ({ request }) => {
 
     const fileId = driveResponse.data.id;
 
-    // let delivery be visible to public
-    if (label === "proof_of_delivery" ) {
-      await drive.permissions.create({
-        fileId,
-        requestBody: {
-          role: 'reader',
-          type: 'anyone',
-        },
-      });
-    }
+    await drive.permissions.create({
+      fileId,
+      requestBody: {
+        role: 'reader',
+        type: 'anyone',
+      },
+    });    
 
     const fileUrl = `https://drive.google.com/uc?id=${fileId}&export=download`;
 
