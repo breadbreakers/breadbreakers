@@ -92,7 +92,7 @@ export async function POST(event) {
             .update({
                 ringfence: newRingfence
             })
-            .eq('amount', balanceN); // use the current value as a filter
+            .eq('ringfence', ringfenceN); // use the current value as a filter
 
         // send email to partner that claim is approved
         const partnerBody = `<p>Your Claim Request has been approved for ${itemData.title}.</p><p>Remarks: ${message}.</p><p>Please contact us if you did not receive your reimbursement.</p>`

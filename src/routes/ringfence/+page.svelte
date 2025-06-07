@@ -168,7 +168,7 @@
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Sending..." : "Send"}
+              {isLoading ? "Sending... " : "Send"}
             </button>
           </div>
         </div>

@@ -16,7 +16,7 @@ export async function POST(event) {
 
         const supabase = createServerSupabaseClient(event);
 
-        const { data: balance, error: balanceError } = await locals.supabase.rpc('get_dashboard_stats');
+        const { data: balance, error: balanceError } = await supabase.rpc('get_dashboard_stats');
 
         let balanceN = balance.balanceData;
 

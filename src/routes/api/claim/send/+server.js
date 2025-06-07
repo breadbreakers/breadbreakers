@@ -164,7 +164,7 @@ export const POST = async (event) => {
             <p><strong>Requester:</strong> ${partnerEmail}</p>
             <p><strong>Description:</strong> ${itemData.description}</p>
             <p><strong>Contact:</strong> ${itemData.contact_clean}</p>
-            <p><a href="${receiptUrl}"><strong>Receipt</strong></a><br>Verify that the receipt is billed to the requester.</p>
+            <p><a href="${receiptUrl}"><strong>Receipt</strong></a><br>Verify that all personal data has been redacted. Verify that the item matches the request.</p>
             <p><a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a><br>Verify that all personal data has been redacted.</p>
             <p><strong>Requested claim:</strong> $${cost}<br>Verify that the cost is reasonable for the item.</p>
             <p><strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}</p>

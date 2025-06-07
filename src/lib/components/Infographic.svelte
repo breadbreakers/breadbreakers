@@ -7,8 +7,6 @@
     export let ringfenceN;
     export let nWip;
 
-    console.log(balanceN, ringfenceN)
-
 </script>
 
 <div class="container">
