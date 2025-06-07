@@ -20,28 +20,12 @@ export async function POST(event) {
             .insert([
                 {
                     description: itemDescription,
-                    amount,
+                    amount: amount * 100,
                     approveremail: approverEmail,
                     link: receiptUrl,
                     timestamp: getSgTime()
                 }
             ]);
-
-        // update amounts
-        const { data: balance, error: balanceError } = await supabase
-            .from('balance')
-            .select('amount')
-            .single();
-
-        let balanceN = balance.amount;
-        let newBalance = balanceN - (amount * 100);
-
-        const { data: balanceUpdate, balanceUpdateError } = await supabase
-            .from('balance')
-            .update({
-                amount: newBalance
-            })
-            .eq('amount', balanceN); // use the current value as a filter
 
         return json({ message: 'Expense Submitted' }, { status: 200 });
     } catch (error) {

@@ -25,8 +25,8 @@
     <Infographic
         beneficiaryCount={data.beneficiaryCount}
         nInNeed={data.nInNeed}
-        balanceN={data.balanceN}
-        ringfenceN={data.ringfenceN}
+        balanceN={data.balanceN / 100}
+        ringfenceN={data.ringfenceN / 100}
         nWip={data.nWip}
     />
     <div class="container">

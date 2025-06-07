@@ -81,11 +81,9 @@ export async function POST(event) {
             .select('*')
             .single();
 
-        let balanceN = balance.amount;
         let ringfenceN = balance.ringfence;
         let itemCost = wipStatus.amount;
 
-        // total balance does not change as it was removed during ringfence approval.
         // just need to update the ringfence amount as it is approved
         const newRingfence = ringfenceN - itemCost;
 

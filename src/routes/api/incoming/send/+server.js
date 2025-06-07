@@ -14,33 +14,17 @@ export async function POST(event) {
 
         const supabase = createServerSupabaseClient(event);
 
-        // create entry in expenses
+        // create entry in incoming table
         const { data: expense } = await supabase
             .from('incoming')
             .insert([
                 {
                     source: itemDescription,
-                    amount,
+                    amount: amount * 100,
                     approveremail: approverEmail,
                     timestamp: getSgTime()
                 }
             ]);
-
-        // update amounts
-        const { data: balance, error: balanceError } = await supabase
-            .from('balance')
-            .select('amount')
-            .single();
-
-        let balanceN = balance.amount;
-        let newBalance = balanceN + (amount * 100);
-
-        const { data: balanceUpdate, balanceUpdateError } = await supabase
-            .from('balance')
-            .update({
-                amount: newBalance
-            })
-            .eq('amount', balanceN); // use the current value as a filter
 
         return json({ message: 'Expense Submitted' }, { status: 200 });
     } catch (error) {

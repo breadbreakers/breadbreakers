@@ -89,19 +89,6 @@ export async function POST(event) {
             }
           ]);
 
-        const { data: balance, error: balanceError } = await supabase
-          .from('balance')
-          .select('amount')
-          .single();
-
-        const balanceN = balance.amount;
-        const newBalance = balanceN + amount - stripeFee;
-
-        const { error: updateError } = await supabase
-          .from('balance')
-          .update({ amount: newBalance })
-          .eq('amount', balanceN); // use optimistic update
-
         // Send thank-you email
         const dollarAmount = (amount / 100).toFixed(2);
         await sendEmail({

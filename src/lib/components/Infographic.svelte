@@ -4,8 +4,11 @@
     export let beneficiaryCount;
     export let nInNeed;
     export let balanceN;
-    //export let ringfenceN;
+    export let ringfenceN;
     export let nWip;
+
+    console.log(balanceN, ringfenceN)
+
 </script>
 
 <div class="container">
@@ -47,7 +50,7 @@
                 <div class="box-content has-text-centered">
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         <CurrencyFormatter
-                            value={balanceN}
+                            value={balanceN - ringfenceN}
                             currency="SGD"
                             locale="en-SG"
                         />
