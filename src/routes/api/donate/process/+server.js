@@ -101,7 +101,7 @@ export async function POST(event) {
         await sendEmail({
           to: donor,
           subject: `Thank you for your support! 🙂`,
-          body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${chargeId}</p><p>Please note that a processing fee of $${stripeFee} is deducted by our payment provider to facilitate secure payments.</p>`,
+          body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${chargeId}</p><p>Please note that a processing fee of $${(stripeFee/100).toFixed(2)} is deducted by our payment provider to facilitate secure payments.</p>`,
           bcc: 'hello@breadbreakers.sg'
         });
 
@@ -109,11 +109,13 @@ export async function POST(event) {
         console.error(err);
       }
       break;
-    case 'balance.available':
+    /*case 'balance.available':
       try {
+        console.log("###")
         const stripeBalance = await stripe.balance.retrieve();
+        console.log(stripeBalance)
         const sgdAvailable = stripeBalance.available.find((entry) => entry.currency === 'sgd');
-
+        console.log(sgdAvailable)
         if (sgdAvailable && sgdAvailable.amount > 0) {
           const payout = await stripe.payouts.create({
             amount: sgdAvailable.amount,
@@ -127,7 +129,7 @@ export async function POST(event) {
       } catch (err) {
         console.error('❌ Error creating Stripe payout:', err.message);
       }
-      break;
+      break;*/
     default:
       console.log(`Unhandled event type ${stripeEvent.type}`);
       break;
