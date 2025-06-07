@@ -8,20 +8,17 @@ import { getSgTime } from '$lib/sgtime';
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
-const MAX_RETRIES = 5;
-const RETRY_DELAY_MS = 2000; // 2 seconds
-
-async function getBalanceTransactionWithRetry(chargeId, stripe) {
-  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+async function getBalanceTransactionWithRetry(chargeId, stripe, maxRetries = 5, delayMs = 2000) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
     const charge = await stripe.charges.retrieve(chargeId);
     if (charge.balance_transaction) {
       return charge.balance_transaction;
     }
-    if (attempt < MAX_RETRIES) {
-      await new Promise(res => setTimeout(res, RETRY_DELAY_MS));
+    if (attempt < maxRetries) {
+      await new Promise((res) => setTimeout(res, delayMs));
     }
   }
-  throw new Error('Balance transaction still null after retries');
+  throw new Error('balance_transaction is still null after retries');
 }
 
 export async function POST(event) {
@@ -47,15 +44,24 @@ export async function POST(event) {
   const sgTime = getSgTime();
 
   switch (stripeEvent.type) {
-    case 'payment_intent.succeeded':
+    //case 'payment_intent.succeeded':
+    case 'checkout.session.completed':
       try {
-        const paymentIntent = stripeEvent.data.object;
-        const amount = paymentIntent.amount_received;
-        const donor = paymentIntent.receipt_email;
+        const session = stripeEvent.data.object;
+        const paymentIntentId = session.payment_intent;
+        const donor = session.customer_email || session.customer_details?.email;
+
+        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
         const chargeId = paymentIntent.latest_charge;
+
+        // 🔁 Wait for balance_transaction to be available
         const balanceTxId = await getBalanceTransactionWithRetry(chargeId, stripe);
         const balanceTx = await stripe.balanceTransactions.retrieve(balanceTxId);
-        const stripeFee = balanceTx.fee;
+        const stripeFee = balanceTx.fee;           // processing fee
+        const amount = paymentIntent.amount;
+
+        console.log('💰 Gross amount (before fees):', amount);
+        console.log('💸 Stripe fee:', stripeFee);
 
         // insert expense for fees
         const { data: feeExpense, error: feeError } = await supabase
@@ -101,7 +107,7 @@ export async function POST(event) {
         await sendEmail({
           to: donor,
           subject: `Thank you for your support! 🙂`,
-          body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${chargeId}</p><p>Please note that a processing fee of $${(stripeFee/100).toFixed(2)} is deducted by our payment provider to facilitate secure payments.</p>`,
+          body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${chargeId}</p><p>Please note that a processing fee of $${(stripeFee / 100).toFixed(2)} is deducted by our payment provider to facilitate secure payments.</p>`,
           bcc: 'hello@breadbreakers.sg'
         });
 
