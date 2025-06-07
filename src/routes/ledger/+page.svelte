@@ -45,8 +45,8 @@
 		];
 
 		if (selectedYear === currentYear) {
-			let result = months.slice(currentMonth - 1, currentMonth);			
-			return result
+			let result = months.slice(currentMonth - 1, currentMonth);
+			return result;
 		}
 
 		return months;
@@ -122,43 +122,54 @@
 					},
 				},
 				{
-                    data: "description",
-                    title: "Description",
-                    render: function (data, type, row, meta) {
+					data: "description",
+					title: "Description",
+					render: function (data, type, row, meta) {
 						if (row.receipt !== null) {
-							return (
-								'🔗<a target="_blank" href="' +
-								row.receipt +
-								'">' +
-								data +
-								"</a>"
-							);
+							if (row.receipt.substring(0, 4) == "http") {
+								return (
+									'🔗<a target="_blank" href="' +
+									row.receipt +
+									'">' +
+									data +
+									"</a>"
+								);
+							} else {
+								return data;
+							}
 						} else {
 							return data;
 						}
-                    },
-                },
+					},
+				},
 				{
 					data: "amount",
 					title: "Amount",
 					className: "dt-right",
 					render: function (data, type, row) {
 						let amount = parseFloat(data);
-						let formatted = "$" + (amount/100).toFixed(2);
+						let formatted = "$" + (amount / 100).toFixed(2);
 						let colorClass =
-  amount < 0
-    ? "has-text-danger"
-    : amount > 0
-    ? "has-text-success"
-    : "has-text-black";
+							amount < 0
+								? "has-text-danger"
+								: amount > 0
+									? "has-text-success"
+									: "has-text-black";
 						return `<span class="${colorClass}">${formatted}</span>`;
 					},
 				},
 				{
 					data: "id",
 					title: "ID",
-					render: function (data) {
-						return data != null ? data : "NA";
+					render: function (data, type, row, meta) {
+						if (row.description === "Stripe Transaction Fee") {
+							return row.receipt;
+						}
+						if (data == null) {
+							// regular expense submitted from the form;
+							return "NA";
+						}
+						return data;
 					},
 				},
 				{
