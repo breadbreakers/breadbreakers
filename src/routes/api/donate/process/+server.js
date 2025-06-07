@@ -8,6 +8,22 @@ import { getSgTime } from '$lib/sgtime';
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
+const MAX_RETRIES = 5;
+const RETRY_DELAY_MS = 2000; // 2 seconds
+
+async function getBalanceTransactionWithRetry(chargeId, stripe) {
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const charge = await stripe.charges.retrieve(chargeId);
+    if (charge.balance_transaction) {
+      return charge.balance_transaction;
+    }
+    if (attempt < MAX_RETRIES) {
+      await new Promise(res => setTimeout(res, RETRY_DELAY_MS));
+    }
+  }
+  throw new Error('Balance transaction still null after retries');
+}
+
 export async function POST(event) {
   const { request } = event;
 
@@ -27,61 +43,51 @@ export async function POST(event) {
     throw error(400, 'Invalid request');
   }
 
+  const supabase = createServerSupabaseService(event);
+  const sgTime = getSgTime();
+
   switch (stripeEvent.type) {
-    case 'checkout.session.completed':
-      const sgTime = getSgTime();
-      const amount = stripeEvent.data.object.amount_total;
-      const donor = stripeEvent.data.object.customer_details.email;
-      const encryptedDonor = stripeEvent.data.object.id;
-      const supabase = createServerSupabaseService(event);
+    case 'payment_intent.succeeded':
+      try {
+        const paymentIntent = stripeEvent.data.object;
+        const amount = paymentIntent.amount_received;
+        const donor = paymentIntent.receipt_email;
+        const chargeId = paymentIntent.latest_charge;
+        const balanceTxId = await getBalanceTransactionWithRetry(chargeId, stripe);
+        const balanceTx = await stripe.balanceTransactions.retrieve(balanceTxId);
+        const stripeFee = balanceTx.fee;
 
-      // Insert donation record
-      const { data: expense, error: insertError } = await supabase
-        .from('incoming')
-        .insert([
-          {
-            source: `Donation`,
-            id: encryptedDonor,
-            amount,
-            approveremail: donor,
-            timestamp: sgTime
-          }
-        ]);
+        // insert expense for fees
+        const { data: feeExpense, error: feeError } = await supabase
+          .from('expenses')
+          .insert([
+            {
+              description: `Stripe Transaction Fee`,
+              amount: stripeFee,
+              approveremail: donor,
+              link: chargeId,
+              timestamp: sgTime
+            }
+          ]);
 
-      if (insertError) {
-        console.error('Error inserting donation:', insertError);
-      }
+        // Insert donation record
+        const { data: expense, error: insertError } = await supabase
+          .from('incoming')
+          .insert([
+            {
+              source: `Donation`,
+              id: chargeId,
+              amount,
+              approveremail: donor,
+              timestamp: sgTime
+            }
+          ]);
 
-      // get fees and insert into expenses
-      const paymentIntentId = stripeEvent.data.object.payment_intent;
-      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-      const chargeId = paymentIntent.charges.data[0]?.id;
-      const charge = await stripe.charges.retrieve(chargeId);
-      const balanceTxId = charge.balance_transaction;
-      const balanceTx = await stripe.balanceTransactions.retrieve(balanceTxId);
-      const stripeFee = balanceTx.fee; // in cents
+        const { data: balance, error: balanceError } = await supabase
+          .from('balance')
+          .select('amount')
+          .single();
 
-      const { data: feeExpense, error: feeError } = await supabase
-        .from('expenses')
-        .insert([
-          {
-            description: `Stripe Processing Fee`,
-            amount: stripeFee,
-            approveremail: donor,
-            link: encryptedDonor,
-            timestamp: sgTime
-          }
-        ]);
-
-      // Update internal balance table
-      const { data: balance, error: balanceError } = await supabase
-        .from('balance')
-        .select('amount')
-        .single();
-
-      if (!balance || balanceError) {
-        console.error('Error retrieving balance:', balanceError);
-      } else {
         const balanceN = balance.amount;
         const newBalance = balanceN + amount - stripeFee;
 
@@ -90,21 +96,20 @@ export async function POST(event) {
           .update({ amount: newBalance })
           .eq('amount', balanceN); // use optimistic update
 
-        if (updateError) {
-          console.error('Error updating balance:', updateError);
-        }
+        // Send thank-you email
+        const dollarAmount = (amount / 100).toFixed(2);
+        await sendEmail({
+          to: donor,
+          subject: `Thank you for your support! 🙂`,
+          body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${chargeId}</p><p>Please note that a processing fee of $${stripeFee} is deducted by our payment provider to facilitate secure payments.</p>`,
+          bcc: 'hello@breadbreakers.sg'
+        });
+
+      } catch (err) {
+        console.error(err);
       }
-
-      // Send thank-you email
-      const dollarAmount = (amount / 100).toFixed(2);
-      await sendEmail({
-        to: donor,
-        subject: `Thank you for your support! 🙂`,
-        body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${encryptedDonor}</p>`,
-        bcc: 'hello@breadbreakers.sg'
-      });
-
-      // Immediately trigger a Stripe payout
+      break;
+    case 'balance.available':
       try {
         const stripeBalance = await stripe.balance.retrieve();
         const sgdAvailable = stripeBalance.available.find((entry) => entry.currency === 'sgd');
@@ -122,9 +127,7 @@ export async function POST(event) {
       } catch (err) {
         console.error('❌ Error creating Stripe payout:', err.message);
       }
-
       break;
-
     default:
       console.log(`Unhandled event type ${stripeEvent.type}`);
       break;
