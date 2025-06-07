@@ -4,53 +4,39 @@ import { error, json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseService } from '$lib/server/supabase.server';
 import { encrypt } from '$lib/crypto';
-import { getSgTime } from '$lib/sgtime'
+import { getSgTime } from '$lib/sgtime';
 
-// Initialize Stripe with your API secret key (sk_...)
 const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
 export async function POST(event) {
-
   const { request } = event;
 
-  // Get the raw request body as text (required for signature verification)
   const body = await request.text();
-  // Get the Stripe signature from the headers
   const signature = request.headers.get('stripe-signature');
 
-  // Check for signature and webhook secret
-  if (!signature) {
-    console.warn('⚠️ Webhook signature is missing.');
-    throw error(400, 'Invalid request');
-  }
-  if (!env.STRIPE_WEBHOOK_SECRET) {
-    console.warn('⚠️ STRIPE_WEBHOOK_SECRET is missing.');
+  if (!signature || !env.STRIPE_WEBHOOK_SECRET) {
+    console.warn('⚠️ Missing Stripe webhook signature or secret.');
     throw error(400, 'Invalid request');
   }
 
   let stripeEvent;
   try {
-    // Verify the webhook signature and construct the event
     stripeEvent = stripe.webhooks.constructEvent(body, signature, env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     console.warn('⚠️ Webhook signature verification failed.', err.message);
     throw error(400, 'Invalid request');
   }
 
-  // Handle the event
-
   switch (stripeEvent.type) {
     case 'checkout.session.completed':
       const sgTime = getSgTime();
-
       const amount = stripeEvent.data.object.amount_total;
       const donor = stripeEvent.data.object.customer_details.email;
-      const encryptedDonor = await encrypt(sgTime);
-
+      const encryptedDonor = stripeEvent.data.object.id;
       const supabase = createServerSupabaseService(event);
 
-      
-      const { data: expense } = await supabase
+      // Insert donation record
+      const { data: expense, error: insertError } = await supabase
         .from('incoming')
         .insert([
           {
@@ -62,34 +48,66 @@ export async function POST(event) {
           }
         ]);
 
-      // update amounts
+      if (insertError) {
+        console.error('Error inserting donation:', insertError);
+      }
+
+      // Update internal balance table
       const { data: balance, error: balanceError } = await supabase
         .from('balance')
         .select('amount')
         .single();
 
-      let balanceN = balance.amount;
-      let newBalance = balanceN + amount;
+      if (!balance || balanceError) {
+        console.error('Error retrieving balance:', balanceError);
+      } else {
+        const balanceN = balance.amount;
+        const newBalance = balanceN + amount;
 
-      const { data: balanceUpdate, balanceUpdateError } = await supabase
-        .from('balance')
-        .update({
-          amount: newBalance
-        })
-        .eq('amount', balanceN); // use the current value as a filter
+        const { error: updateError } = await supabase
+          .from('balance')
+          .update({ amount: newBalance })
+          .eq('amount', balanceN); // use optimistic update
 
-      const dollarAmount = (amount/100).toFixed(2);
+        if (updateError) {
+          console.error('Error updating balance:', updateError);
+        }
+      }
+
+      // Send thank-you email
+      const dollarAmount = (amount / 100).toFixed(2);
       await sendEmail({
-            to: donor,
-            subject: `Thank you for your support! 🙂`,
-            body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${encryptedDonor}</p>`,
-            bcc: 'hello@breadbreakers.sg' // for audit trail 
-        });
+        to: donor,
+        subject: `Thank you for your support! 🙂`,
+        body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${encryptedDonor}</p>`,
+        bcc: 'hello@breadbreakers.sg'
+      });
+
+      // Immediately trigger a Stripe payout
+      try {
+        const stripeBalance = await stripe.balance.retrieve();
+        const sgdAvailable = stripeBalance.available.find((entry) => entry.currency === 'sgd');
+
+        if (sgdAvailable && sgdAvailable.amount > 0) {
+          const payout = await stripe.payouts.create({
+            amount: sgdAvailable.amount,
+            currency: 'sgd'
+          });
+
+          console.log('✅ Payout created:', payout.id);
+        } else {
+          console.warn('ℹ️ No available SGD balance to payout.');
+        }
+      } catch (err) {
+        console.error('❌ Error creating Stripe payout:', err.message);
+      }
+
       break;
+
     default:
+      console.log(`Unhandled event type ${stripeEvent.type}`);
       break;
   }
 
-  // Respond to Stripe to acknowledge receipt
   return json({ received: true });
 }
