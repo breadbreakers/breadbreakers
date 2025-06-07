@@ -52,6 +52,27 @@ export async function POST(event) {
         console.error('Error inserting donation:', insertError);
       }
 
+      // get fees and insert into expenses
+      const paymentIntentId = stripeEvent.data.object.payment_intent;
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+      const chargeId = paymentIntent.charges.data[0]?.id;
+      const charge = await stripe.charges.retrieve(chargeId);
+      const balanceTxId = charge.balance_transaction;
+      const balanceTx = await stripe.balanceTransactions.retrieve(balanceTxId);
+      const stripeFee = balanceTx.fee; // in cents
+
+      const { data: feeExpense, error: feeError } = await supabase
+        .from('expenses')
+        .insert([
+          {
+            description: `Stripe Processing Fee`,
+            amount: stripeFee,
+            approveremail: donor,
+            link: encryptedDonor,
+            timestamp: sgTime
+          }
+        ]);
+
       // Update internal balance table
       const { data: balance, error: balanceError } = await supabase
         .from('balance')
@@ -62,7 +83,7 @@ export async function POST(event) {
         console.error('Error retrieving balance:', balanceError);
       } else {
         const balanceN = balance.amount;
-        const newBalance = balanceN + amount;
+        const newBalance = balanceN + amount - stripeFee;
 
         const { error: updateError } = await supabase
           .from('balance')
