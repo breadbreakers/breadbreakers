@@ -4,7 +4,7 @@ export async function load({ locals }) {
     const session = await locals.getUser();
 
     return {
-        balanceN: (data.balanceData.amount/100).toFixed(2),
-        ringfenceN: (data.balanceData.ringfence/100).toFixed(2)
+        balanceN: (data.balanceData/100).toFixed(2),
+        ringfenceN: (data.ringfenceN/100).toFixed(2)
     };
 }
