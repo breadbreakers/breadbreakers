@@ -21,7 +21,8 @@ export async function POST({ request }) {
 		}],
 		mode: recurring ? 'subscription' : 'payment',
 		success_url: 'https://breadbreakers.sg/donate/success',
-		cancel_url: 'https://breadbreakers.sg/donate'
+		cancel_url: 'https://breadbreakers.sg/donate',
+		customer_email: data.get('email')
 	};
 
 	const session = await stripe.checkout.sessions.create(sessionParams);

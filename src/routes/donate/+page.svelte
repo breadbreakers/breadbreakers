@@ -3,7 +3,7 @@
 
     let amount = "";
     let recurring = false;
-    let presetAmounts = [10, 25, 50, 100];
+    let presetAmounts = [10, 25, 50, 100, 200];
     let selectedAmount = null;
     let paymentType = "card"; // Default to card
     let totalAmount = 0;
@@ -20,13 +20,8 @@
             return;
         }
 
-        /*if (paymentType === "card") {
-            totalAmount = amount * 1.034 + 0.5;
-        } else if (paymentType === "paynow") {
-            totalAmount = amount * 1.013;
-        } else {*/
-            totalAmount = amount;
-        //}
+        totalAmount = amount;
+
 
         totalAmount = parseFloat(totalAmount.toFixed(2));
     }
@@ -69,7 +64,7 @@
                     <button
                         class="button is-info is-light is-fullwidth"
                         type="button"
-                        on:click={() => handlePreset(preset)}>{preset}</button
+                        on:click={() => handlePreset(preset)}>${preset}</button
                     >
                 {/each}
             </div>
@@ -87,38 +82,17 @@
                 </div>
             </div>
 
-            <!--<div class="field">
-                <div class="field-body">
-                    <div class="field is-grouped">
-                        <label class="label">
-                            <input
-                                class="radio"
-                                type="radio"
-                                value="card"
-                                bind:group={paymentType}
-                            />
-                            Credit Card
-                        </label>
-                        <label class="label">
-                            <input
-                                class="radio"
-                                type="radio"
-                                value="paynow"
-                                bind:group={paymentType}
-                            />
-                            PayNow
-                        </label>
-                    </div>
+            <div class="field">
+                <label for="email" class="label">Email address</label>
+                <div class="control">
+                    <input
+                        class="input"
+                        type="email"
+                        name="email"
+                        required
+                    />
                 </div>
             </div>
-
-            <div class="field">
-                <p class="is-size-6 has-text-weight-semibold">Total Amount: <CurrencyFormatter
-                            value={totalAmount}
-                            currency="SGD"
-                            locale="en-SG"
-                        /></p>
-            </div>-->
 
             <input type="hidden" name="recurring" value={recurring} />
             <input type="hidden" name="amount" value={totalAmount} />
