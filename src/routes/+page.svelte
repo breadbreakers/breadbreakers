@@ -76,8 +76,5 @@
 </section>
 
 <style>
-button {
-    font-weight: 400;
-    letter-spacing: -0.5px;
-}
+
 </style>

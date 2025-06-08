@@ -29,7 +29,7 @@
                 <li><a href="#">Conflict of Interest</a></li>
                 <li><a href="#">Whistleblowing</a></li>
                 <li>
-                    <a href="./governance/code-of-conduct">Code of Conduct</a>
+                    <a href="/governance/code-of-conduct">Code of Conduct</a>
                 </li>
             </ul>
 
@@ -37,12 +37,12 @@
                 IT & Data Governance
             </h3>
             <ul>
-                <li><a href="#">Data Management Policy</a></li>
+                <li><a href="/governance/data-governance">Data Management Policy</a></li>
             </ul>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Finance</h3>
             <ul>
-                <li><a href="./governance/procurement">Procurement</a></li>
+                <li><a href="/governance/procurement">Procurement</a></li>
                 <li><a href="#">Donations</a></li>
             </ul>
         </div>

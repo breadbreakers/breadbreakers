@@ -70,7 +70,7 @@
             <p>
                 No physical (in-store) purchases are allowed. This restriction
                 helps mitigate the submission of fraudulent
-                receipts and ensures all transactions are traceable.
+                receipts and ensures all transactions are tagged to individuals requesting for claims.
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">

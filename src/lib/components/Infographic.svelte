@@ -87,7 +87,4 @@
         color: black;
         margin-bottom: 0;
     }
-    .tagtext {
-        letter-spacing: -0.5px;
-    }
 </style>

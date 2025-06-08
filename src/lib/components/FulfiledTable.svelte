@@ -88,8 +88,5 @@
 </div>
 
 <style>
-    table {
-        font-size: 0.9em;
-        letter-spacing: -0.35px
-    }
+
 </style>

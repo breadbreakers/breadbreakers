@@ -15,7 +15,10 @@
   }
 
   function isActive(path) {
-    return $page.url.pathname === path;
+    if (path === "/") {
+      return $page.url.pathname === "/";
+    }
+    return $page.url.pathname.startsWith(path);
   }
 </script>
 
@@ -43,14 +46,48 @@
 
       <div class="navbar-menu" class:is-active={isMenuActive}>
         <div class="navbar-end">
-          <a class="navbar-item" href="/" class:is-active={isActive("/")} on:click={closeMenu}>Home</a>
-          <a class="navbar-item" href="/about" class:is-active={isActive("/about")} on:click={closeMenu}>About</a>
-          <a class="navbar-item" href="/ledger" class:is-active={isActive("/ledger")} on:click={closeMenu}>Financials</a>
-          <a class="navbar-item" href="/governance" class:is-active={isActive("/governance")} on:click={closeMenu}>Governance</a>
-          <a class="navbar-item" href="/donate" class:is-active={isActive("/donate")} on:click={closeMenu}>Donate</a>
-          <a class="navbar-item" href="/contact" class:is-active={isActive("/contact")} on:click={closeMenu}>Contact</a
+          <a
+            class="navbar-item"
+            href="/"
+            class:is-active={isActive("/")}
+            on:click={closeMenu}>Home</a
           >
-          <a class="navbar-item" href="/profile" class:is-active={isActive("/profile")} on:click={closeMenu}>
+          <a
+            class="navbar-item"
+            href="/about"
+            class:is-active={isActive("/about")}
+            on:click={closeMenu}>About</a
+          >
+          <a
+            class="navbar-item"
+            href="/ledger"
+            class:is-active={isActive("/ledger")}
+            on:click={closeMenu}>Financials</a
+          >
+          <a
+            class="navbar-item"
+            href="/governance"
+            class:is-active={isActive("/governance")}
+            on:click={closeMenu}>Governance</a
+          >
+          <a
+            class="navbar-item"
+            href="/donate"
+            class:is-active={isActive("/donate")}
+            on:click={closeMenu}>Donate</a
+          >
+          <a
+            class="navbar-item"
+            href="/contact"
+            class:is-active={isActive("/contact")}
+            on:click={closeMenu}>Contact</a
+          >
+          <a
+            class="navbar-item"
+            href="/profile"
+            class:is-active={isActive("/profile")}
+            on:click={closeMenu}
+          >
             <i class="demo-icon icon-user">&#xe800;</i>
             <span class="account-label">Account</span>
           </a>
@@ -62,7 +99,9 @@
 
 <div class="container pl-1 pr-1 hero">
   <div class="has-text-centered">
-    <a href="/"><img src="/logo.png" width="500px" alt="bread breakers logo" /></a>
+    <a href="/"
+      ><img src="/logo.png" width="500px" alt="bread breakers logo" /></a
+    >
   </div>
   <h2
     class="tagline subtitle is-6 has-text-centered has-text-weight-normal pt-4"
@@ -95,8 +134,7 @@
   }
 
   .tagline {
-    color: #3C3D37;
-    letter-spacing: -0.35px;
+    color: #3c3d37;
     margin-left: 0.5em;
     margin-right: 0.5em;
   }
@@ -118,7 +156,6 @@
   /* Hide the label by default */
   .account-label {
     display: none;
-    margin-left: 0.5em;
   }
 
   /* Show the label only on mobile when the menu is active */
@@ -129,16 +166,25 @@
   }
 
   .navbar-item.is-active {
-  background-color: white;
-  color: black !important;
-  font-weight: 500;
-}
+    background-color: white;
+    color: black !important;
+    font-weight: 500;
+    text-decoration: underline;
+  }
 
-.navbar-item:hover,
-.navbar-item:focus {
-  background: none !important;
-  color: inherit !important;
-  box-shadow: none !important;
-  text-decoration: none !important;
-}
+  .navbar-item.is-active a {
+    text-decoration: underline;
+  }
+
+  .navbar-item.is-active .account-label {
+    text-decoration: none;
+  }
+
+  .navbar-item:hover,
+  .navbar-item:focus {
+    background: none !important;
+    color: inherit !important;
+    box-shadow: none !important;
+
+  }
 </style>
