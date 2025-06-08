@@ -53,23 +53,6 @@ export async function POST(event) {
             .update({ status: 'ringfence_approved' })
             .eq('id', itemId);
 
-        // update amounts
-        const { data: balance, error: balanceError } = await supabase
-            .from('balance')
-            .select('*')
-            .single();
-
-        let ringfenceN = balance.ringfence;
-        let itemCost = wipStatus.amount;
-        const newRingfence = ringfenceN + itemCost;
-
-        const { data : balanceUpdate, balanceUpdateError } = await supabase
-            .from('balance')
-            .update({ 
-                ringfence: newRingfence
-            })
-            .eq('ringfence', ringfenceN); // use the current value as a filter
-
         // send email to partner that ringfence is approved
         const partnerBody = `<p>Your Ringfence Request has been approved for ${itemData.title}.</p><p>Remarks: ${message}</p><p>Next steps:<br>- Purchase and arrange for delivery from any of the <a href="https://breadbreakers.sg/governance/procurement">authorised retailers</a>.<br>- Retain the receipt and ensure it is billed to your name.<br>- Once the item is delievered, obtain proof of delivery from the social worker through email or WhatsApp.<br>- Request for reimbursement using the receipt and proof of delivery <a href="https://breadbreakers.sg/claim?id=${itemData.id}">using this link</a>.`
 
