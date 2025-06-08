@@ -2,7 +2,6 @@
     import Infographic from "$lib/components/Infographic.svelte";
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
     import RequestsTable from "$lib/components/RequestsTable.svelte";
-    import { operatingBudget } from '$lib/stores.js';
 
     export let data;
 
@@ -26,7 +25,7 @@
     <Infographic
         beneficiaryCount={data.beneficiaryCount}
         nInNeed={data.nInNeed}
-        balanceN={(data.balanceN - data.ringfenceN) / 100}
+        balanceN={data.balanceN / 100}
         ringfenceN={data.ringfenceN / 100}
         nWip={data.nWip}
     />

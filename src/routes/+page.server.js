@@ -8,7 +8,7 @@ export async function load({ locals }) {
     return {
         beneficiaryCount: data.beneficiaryCount,
         nInNeed: data.wipCount,
-        balanceN: data.balanceData,
+        balanceN: data.balanceData - data.operatingIncoming - data.ringfenceN,
         ringfenceN: data.ringfenceN,
         nWip: data.inNeedCount - data.wipCount,
         loggedIn

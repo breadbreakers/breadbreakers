@@ -89,6 +89,7 @@
 
 <style>
     table {
-        font-size: 0.95em;
+        font-size: 0.9em;
+        letter-spacing: -0.35px
     }
 </style>

@@ -1,7 +1,6 @@
 <script>
 	import { onMount } from "svelte";
 	import CurrencyFormatter from "$lib/components/CurrencyFormat.svelte";
-	import { operatingBudget } from '$lib/stores.js';
 
 	let ledgerTable;
 	export let data;
@@ -10,6 +9,7 @@
 
 	const balanceN = data.balanceN;
 	const ringfenceN = data.ringfenceN;
+	const operatingN = data.operatingN;
 
 	const MIN_YEAR = 2025;
 	const MIN_MONTH = "May"; // Must match one of the month names below
@@ -166,16 +166,19 @@
 						if (row.description === "Stripe Transaction Fee") {
 							return row.receipt;
 						}
+						if (row.id === null && row.flow_type === "inflow" ) {
+							return "NA";
+						}
 						if (data == null) {
 							// regular expense submitted from the form;
-							return "NA";
+							return "Operating Fund Expense";
 						}
 						return data;
 					},
 				},
 				{
 					data: "contact",
-					title: "VWO",
+					title: "Reference",
 					render: function (data) {
 						return data != null ? data : "NA";
 					},
@@ -200,56 +203,60 @@
 			<div class="column is-half-mobile">
 				<div class="box">
 					<div class="box-content has-text-centered">
-						<p class="title is-3 pt-4 pb-2 nowrap dashboard">
+						<div class="is-size-7 pt-4">(A)</div>
+						<p class="title is-3 pb-2 nowrap dashboard">
 							<CurrencyFormatter
 								value={balanceN}
 								currency="SGD"
 								locale="en-SG"
 							/>
 						</p>
-						<p class="is-size-6 pb-4 tagtext">(A) Total Funds</p>
+						<p class="is-size-6 pb-4 tagtext">Total Funds</p>
 					</div>
 				</div>
 			</div>
 			<div class="column is-half-mobile">
 				<div class="box">
 					<div class="box-content has-text-centered">
-						<p class="title is-3 pt-4 pb-2 nowrap dashboard">
+						<div class="is-size-7 pt-4">(B)</div>
+						<p class="title is-3 pb-2 nowrap dashboard">
 							<CurrencyFormatter
-								value={$operatingBudget/100}
+								value={operatingN}
 								currency="SGD"
 								locale="en-SG"
 							/>
 						</p>
-						<p class="is-size-6 pb-4 tagtext">(B) Operating Fund</p>
+						<p class="is-size-6 pb-4 tagtext">Operating Fund</p>
 					</div>
 				</div>
 			</div>
 			<div class="column is-half-mobile">
 				<div class="box">
 					<div class="box-content has-text-centered">
-						<p class="title is-3 pt-4 pb-2 nowrap dashboard">
+						<div class="is-size-7 pt-4">(C)</div>
+						<p class="title is-3 pb-2 nowrap dashboard">
 							<CurrencyFormatter
 								value={ringfenceN}
 								currency="SGD"
 								locale="en-SG"
 							/>
 						</p>
-						<p class="is-size-6 pb-4 tagtext">(C) Ringfenced</p>
+						<p class="is-size-6 pb-4 tagtext">Ringfenced</p>
 					</div>
 				</div>
 			</div>
 			<div class="column is-half-mobile">
 				<div class="box">
 					<div class="box-content has-text-centered">
-						<p class="title is-3 pt-4 pb-2 nowrap dashboard">
+						<div class="is-size-7 pt-4">(A - B - C)</div>
+						<p class="title is-3 pb-2 nowrap dashboard">
 							<CurrencyFormatter
-								value={balanceN - ringfenceN - ($operatingBudget/100)}
+								value={balanceN - ringfenceN -operatingN}
 								currency="SGD"
 								locale="en-SG"
 							/>
 						</p>
-						<p class="is-size-6 pb-4 tagtext">(A - B - C) Available</p>
+						<p class="is-size-6 pb-4 tagtext">Ready to Serve</p>
 					</div>
 				</div>
 			</div>
@@ -270,7 +277,7 @@
 					<th>Description</th>
 					<th>Amount</th>
 					<th class="none">ID</th>
-					<th class="none">VWO</th>
+					<th class="none">Reference</th>
 				</tr>
 			</thead>
 			<tbody> </tbody>
