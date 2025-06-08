@@ -7,6 +7,7 @@ export async function POST({ request }) {
 	const data = await request.formData();
 	const amount = Number(data.get('amount')) * 100; // Stripe expects cents
 	const recurring = data.get('recurring') === 'true';
+	const fund = data.get('fund');
 
 	let sessionParams = {
 		payment_method_types: (recurring? ['card'] : ['paynow', 'card']),
@@ -20,9 +21,12 @@ export async function POST({ request }) {
 			quantity: 1
 		}],
 		mode: recurring ? 'subscription' : 'payment',
-		success_url: 'https://breadbreakers.sg/donate/success',
+		success_url: `https://breadbreakers.sg/donate/success`,
 		cancel_url: 'https://breadbreakers.sg/donate',
-		customer_email: data.get('email')
+		customer_email: data.get('email'),
+		metadata: {
+			fund
+		}
 	};
 
 	const session = await stripe.checkout.sessions.create(sessionParams);

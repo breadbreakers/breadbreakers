@@ -3,7 +3,7 @@ const allowedColumns = ['description', 'amount', 'contact', 'id'];
 
 // Helper for building global search query
 function buildOrSearch(searchValue) {
-    const columns = ['description', 'amount', 'contact', 'id'];
+    const columns = ['description', 'contact', 'id'];
     const filters = columns.map(col => `${col}.ilike.%${searchValue}%`).join(',');
     return filters;
 }

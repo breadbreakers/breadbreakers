@@ -22,7 +22,6 @@
 
         totalAmount = amount;
 
-
         totalAmount = parseFloat(totalAmount.toFixed(2));
     }
 
@@ -83,14 +82,21 @@
             </div>
 
             <div class="field">
+                <label for="fund" class="label">Fund</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select name="fund" id="type" required>
+                            <option value="mission" selected>Mission</option>
+                            <option value="operating">Operating (Admin & Expenses)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
                 <label for="email" class="label">Email address</label>
                 <div class="control">
-                    <input
-                        class="input"
-                        type="email"
-                        name="email"
-                        required
-                    />
+                    <input class="input" type="email" name="email" required />
                 </div>
             </div>
 
@@ -101,11 +107,13 @@
                 class="button is-fullwidth is-warning is-light mt-4"
                 type="submit">Donate</button
             >
-            <p class="has-text-centered">Still in development. Payments will not go through.</p>
+            <p class="has-text-centered">
+                Still in development. Payments will not go through.
+            </p>
             <div class="content mt-4 is-size-7">
                 <p>
-                    We use <a href="https://stripe.com/en-sg">Stripe</a> as our payment processor to ensure your
-                    donation is handled securely and efficiently.
+                    We use <a href="https://stripe.com/en-sg">Stripe</a> as our payment
+                    processor to ensure your donation is handled securely and efficiently.
                 </p>
                 <ul>
                     <li>

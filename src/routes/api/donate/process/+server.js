@@ -44,10 +44,10 @@ export async function POST(event) {
   const sgTime = getSgTime();
 
   switch (stripeEvent.type) {
-    //case 'payment_intent.succeeded':
     case 'checkout.session.completed':
       try {
         const session = stripeEvent.data.object;
+        const fund = stripeEvent.data.object.metadata.fund
         const paymentIntentId = session.payment_intent;
         const donor = session.customer_email || session.customer_details?.email;
 
@@ -85,7 +85,8 @@ export async function POST(event) {
               id: chargeId,
               amount,
               approveremail: donor,
-              timestamp: sgTime
+              timestamp: sgTime,
+              fund
             }
           ]);
 

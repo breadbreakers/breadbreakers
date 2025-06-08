@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from "svelte";
 	import CurrencyFormatter from "$lib/components/CurrencyFormat.svelte";
+	import { operatingBudget } from '$lib/stores.js';
 
 	let ledgerTable;
 	export let data;
@@ -201,12 +202,26 @@
 					<div class="box-content has-text-centered">
 						<p class="title is-3 pt-4 pb-2 nowrap dashboard">
 							<CurrencyFormatter
-								value={balanceN - ringfenceN}
+								value={balanceN}
 								currency="SGD"
 								locale="en-SG"
 							/>
 						</p>
-						<p class="is-size-6 pb-4 tagtext">Available</p>
+						<p class="is-size-6 pb-4 tagtext">(A) Total Funds</p>
+					</div>
+				</div>
+			</div>
+			<div class="column is-half-mobile">
+				<div class="box">
+					<div class="box-content has-text-centered">
+						<p class="title is-3 pt-4 pb-2 nowrap dashboard">
+							<CurrencyFormatter
+								value={$operatingBudget/100}
+								currency="SGD"
+								locale="en-SG"
+							/>
+						</p>
+						<p class="is-size-6 pb-4 tagtext">(B) Operating Fund</p>
 					</div>
 				</div>
 			</div>
@@ -220,10 +235,25 @@
 								locale="en-SG"
 							/>
 						</p>
-						<p class="is-size-6 pb-4 tagtext">Ringfenced</p>
+						<p class="is-size-6 pb-4 tagtext">(C) Ringfenced</p>
 					</div>
 				</div>
 			</div>
+			<div class="column is-half-mobile">
+				<div class="box">
+					<div class="box-content has-text-centered">
+						<p class="title is-3 pt-4 pb-2 nowrap dashboard">
+							<CurrencyFormatter
+								value={balanceN - ringfenceN - ($operatingBudget/100)}
+								currency="SGD"
+								locale="en-SG"
+							/>
+						</p>
+						<p class="is-size-6 pb-4 tagtext">(A - B - C) Available</p>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 
 		<h2 class="subtitle has-text-weight-semibold pt-4">
