@@ -81,7 +81,7 @@ export async function POST(event) {
           .from('incoming')
           .insert([
             {
-              source: (fund == 'operating' ? 'Donation (Operating Fund)' : 'Donation (Mission Fund)'),
+              source: (fund == 'operating' ? 'Donation (Operating Fund)' : 'Donation (Beneficary Fund)'),
               id: chargeId,
               amount,
               approveremail: donor,

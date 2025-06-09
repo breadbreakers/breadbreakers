@@ -72,6 +72,12 @@
           >
           <a
             class="navbar-item"
+            href="/get-involved"
+            class:is-active={isActive("/get-involved")}
+            on:click={closeMenu}>Partner</a
+          >
+          <a
+            class="navbar-item"
             href="/donate"
             class:is-active={isActive("/donate")}
             on:click={closeMenu}>Donate</a
@@ -130,7 +136,8 @@
   }
 
   .navbar-item {
-    font-size: 0.85em;
+    font-size: 0.9em;
+    font-weight: 400;
   }
 
   .tagline {
@@ -167,12 +174,7 @@
 
   .navbar-item.is-active {
     background-color: white;
-    color: black !important;
-    font-weight: 500;
-    text-decoration: underline;
-  }
-
-  .navbar-item.is-active a {
+    font-weight: 600;
     text-decoration: underline;
   }
 

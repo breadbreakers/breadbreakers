@@ -13,7 +13,7 @@
             </ul>
         </nav>
 
-        <h2 class="subtitle">Governance</h2>
+        <h2 class="subtitle has-text-weight-semibold pt-4">Governance</h2>
 
         <div class="content">
             <p class="content">
@@ -22,7 +22,7 @@
                 accountability guide every decision to support the mission and
                 serve the community with care.
             </p>
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Operations
             </h3>
             <ul>
@@ -33,14 +33,14 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 IT & Data Governance
             </h3>
             <ul>
                 <li><a href="/governance/data-governance">Data Management Policy</a></li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Finance</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Finance</h3>
             <ul>
                 <li><a href="/governance/procurement">Procurement</a></li>
                 <li><a href="#">Donations</a></li>

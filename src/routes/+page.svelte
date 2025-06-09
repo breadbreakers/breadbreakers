@@ -1,3 +1,10 @@
+<svelte:head>
+    <title
+        >Bread Breakers Singapore | We partner with social workers to
+        transparently provide material essentials to those in need</title
+    >
+</svelte:head>
+
 <script>
     import Infographic from "$lib/components/Infographic.svelte";
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
@@ -13,13 +20,6 @@
         activeTable = activeTable === table ? null : table;
     }
 </script>
-
-<svelte:head>
-    <title
-        >Bread Breakers Singapore | We partner with social workers to
-        transparently provide material essentials to those in need</title
-    >
-</svelte:head>
 
 <section class="section">
     <Infographic
@@ -66,8 +66,8 @@
         <div class="content mt-3">
             <div class="columns">
                 <div class="column">
-                    <a href="/partner"><button class="is-fullwidth button is-warning is-light"
-                        >🤝 Partner With Us</button></a>
+                    <a href="/get-involved"><button class="is-fullwidth button is-warning is-light"
+                        >🤝 Get Involved</button></a>
                     
                 </div>
             </div>

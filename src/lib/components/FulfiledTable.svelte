@@ -43,9 +43,10 @@
                     title: "Date",
                     className: "dt-left",
                     render: function (data, type, row, meta) {
-                        return typeof data === "string"
+                        const d = typeof data === "string"
                             ? data.substring(0, 10)
                             : data;
+                        return '<span class="has-text-weight-normal has-text-black">' + d + '</span>'
                     },
                 },
                 {
@@ -53,7 +54,7 @@
                     title: "Item",
                     render: function (data, type, row, meta) {
                         return (
-                            '🔗<a target="_blank" href="' +
+                            '<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal has-text-black" target="_blank" href="' +
                             row.delivery +
                             '">' +
                             data +

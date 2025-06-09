@@ -13,15 +13,15 @@
                 <li><a href="/">🏠Home</a></li>
                 <li><a href="/governance">Governance</a></li>
                 <li class="is-active">
-                    <a href="./" aria-current="page">Data</a>
+                    <a href="./" aria-current="page">Data Governance</a>
                 </li>
             </ul>
         </nav>
 
-        <h2 class="subtitle">Data Governance</h2>
+        <h2 class="subtitle has-text-weight-semibold pt-4">Data Governance</h2>
 
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Purpose</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Purpose</h3>
             <p>
                 Our Data Management Policy establishes a framework for
                 identifying, classifying, and managing data assets within our
@@ -34,7 +34,7 @@
                 > and other applicable data protection regulations.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Scope</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Scope</h3>
             <p>
                 This policy applies to all organization volunteers, employees,
                 contractors, and stakeholders. It encompasses the systematic
@@ -46,7 +46,7 @@
                 mandatory, and exceptions require President approval.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Data Ownership
             </h3>
             <p>
@@ -56,7 +56,7 @@
                 PDPA and organizational policies.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Safeguards
             </h3>
             <ul>
@@ -78,7 +78,7 @@
                 <li>Define and enforce data retention periods.</li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Data Subject Rights
             </h3>
             <p>
@@ -88,7 +88,7 @@
                 provided in accordance with PDPA guidelines.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Breach Notification
             </h3>
             <p>
@@ -98,7 +98,7 @@
                 notified within the mandated timelines.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Policy Maintenance and Review
             </h3>
             <p>
@@ -108,7 +108,7 @@
                 realities.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Data Inventory
             </h3>
             <p>
@@ -119,7 +119,7 @@
                 and limited to the super administrator.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Roles and Responsibilities by Data Type
             </h3>
             <p>

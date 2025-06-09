@@ -86,8 +86,10 @@
                 <div class="control">
                     <div class="select is-fullwidth">
                         <select name="fund" id="type" required>
-                            <option value="mission" selected>Mission</option>
-                            <option value="operating">Operating (Admin & Expenses)</option>
+                            <option value="mission" selected>Beneficary Fund</option>
+                            <option value="operating"
+                                >Operating Fund</option
+                            >
                         </select>
                     </div>
                 </div>
@@ -104,13 +106,29 @@
             <input type="hidden" name="amount" value={totalAmount} />
 
             <button
-                class="button is-fullwidth is-warning is-light mt-4"
-                type="submit">Donate</button
+                class="button is-fullwidth is-info mt-4"
+                type="submit">Donate (Under Development)</button
             >
-            <p class="has-text-centered">
-                Still in development. Payments will not go through.
-            </p>
-            <div class="content mt-4 is-size-7">
+            <div class="content mt-4 is-size-6">
+                <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                    Our Funds
+                </h3>
+                <p>
+                    We operate with two distinct funds to ensure clarity and
+                    accountability. The Beneficiary Fund is used solely to
+                    procure and deliver essential items directly to individuals
+                    and families in need. Every dollar goes toward verified,
+                    tangible needs. The Operating Fund supports the
+                    behind-the-scenes infrastructure that makes our work
+                    possible, covering necessary expenses such as logistics,
+                    technology, and basic administrative support. This
+                    separation ensures that donations are used purposefully and
+                    transparently, whether for direct aid or sustaining the
+                    means to deliver it.
+                </p>
+                <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                    Processing Fees
+                </h3>
                 <p>
                     We use <a href="https://stripe.com/en-sg">Stripe</a> as our payment
                     processor to ensure your donation is handled securely and efficiently.

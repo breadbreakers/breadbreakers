@@ -18,10 +18,10 @@
             </ul>
         </nav>
 
-        <h2 class="subtitle">Code of Conduct</h2>
+        <h2 class="subtitle has-text-weight-semibold pt-4">Code of Conduct</h2>
 
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Purpose</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Purpose</h3>
             <p>
                 This Code of Conduct outlines the expected standards of behavior
                 for all volunteers engaged with Bread Breakers. It ensures a
@@ -36,7 +36,7 @@
                 Bread Breakers’ mission.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Scope</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Scope</h3>
             <p>
                 This Code applies to all individuals who voluntarily offer their
                 time and services to Bread Breakers without payment or material
@@ -54,7 +54,7 @@
                 obtain consent before capturing any such data.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Responsibilities</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Responsibilities</h3>
             <p>Volunteers are expected to:</p>
             <ul>
                 <li>
@@ -80,7 +80,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Prohibited Conduct</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Prohibited Conduct</h3>
             <p>Volunteers are not to:</p>
             <ul>
                 <li>
@@ -105,7 +105,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Confidentiality and Data Protection</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Confidentiality and Data Protection</h3>
             <ul>
                 <li>
                     Confidential Information must be used only for purposes

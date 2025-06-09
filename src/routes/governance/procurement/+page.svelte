@@ -18,10 +18,10 @@
             </ul>
         </nav>
 
-        <h2 class="subtitle">Procurement Policy</h2>
+        <h2 class="subtitle has-text-weight-semibold pt-4">Procurement Policy</h2>
 
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Purpose</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Purpose</h3>
             <p class="content">
                 This policy establishes clear, fair, and transparent procedures
                 for the procurement of goods, ensuring value for money, fitness
@@ -29,14 +29,14 @@
                 opportunities for fraud, collusion, or misuse of funds.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">Scope</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Scope</h3>
             <p class="content">
                 This policy applies to all volunteers and committee members
                 involved in the procurement of goods for Bread Breakers
                 Singapore.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Approved Retailers
             </h3>
             <p class="content">
@@ -73,7 +73,7 @@
                 receipts and ensures all transactions are tagged to individuals requesting for claims.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Procurement Process
             </h3>
 
@@ -101,7 +101,7 @@
                 <li>Price (not solely the lowest price)</li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Purchase and Documentation
             </h3>
 
@@ -115,7 +115,7 @@
                 purposes.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Segregation of Duties
             </h3>
 
@@ -148,7 +148,7 @@
                 another designated Committee member.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                  Ethical Standards &amp; Conflict of Interest
             </h3>
 
@@ -157,7 +157,7 @@
                 and avoid any actual or perceived conflicts of interest.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                  Record Keeping
             </h3>
 
