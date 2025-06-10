@@ -28,11 +28,11 @@ export const load = async ({ url, parent, locals }) => {
     if (error) {
       console.error('Error exchanging code for session after retries:', error);
       // Handle error appropriately, maybe redirect to an error page
-      throw redirect(303, '/'); // Redirect even on error
+      throw redirect(303, url.pathname); // Redirect even on error
     }
 
-    throw redirect(303, '/');
+    throw redirect(303, url.pathname);
   }
 
-  throw redirect(303, '/');
+  throw redirect(303, url.pathname);
 };
