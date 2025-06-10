@@ -129,17 +129,15 @@
         </div>
 
         <div class="field">
-          <label for="cost" class="label">Cost (SGD)</label>
+          <label for="cost" class="label">Cost including delivery (SGD)</label>
           <div class="control">
             <input
               id="cost"
               class="input"
-              type="text"
+              type="number"
               disabled={isLoading}
               bind:value={cost}
               required
-              pattern="^\d+(\.\d{(1, 2)})?$"
-              title="Please enter a valid amount (e.g. 123.45)"
             />
           </div>
         </div>
