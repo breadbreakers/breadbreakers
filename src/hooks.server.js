@@ -16,10 +16,10 @@ export const handle = async ({ event, resolve }) => {
           cookies.forEach(({ name, value, options }) => {
             event.cookies.set(name, value, { 
               path: '/',
+              ...options,
               secure: true,
               httpOnly: true,
-              sameSite: 'lax',
-              ...options
+              sameSite: 'lax'              
             })
           })
         }

@@ -13,6 +13,4 @@ export async function load({ request, locals }) {
   });
 
   throw redirect(303, data.url);
-
-  
 }
