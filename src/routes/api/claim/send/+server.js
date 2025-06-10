@@ -167,7 +167,7 @@ export const POST = async (event) => {
             <p><a href="${originalUrl}"><strong>Original Receipt</strong></a><br>Verify that the item matches the request, and the Requester is clearly identifiable.</p>
             <p><a href="${receiptUrl}"><strong>Redacted Receipt</strong></a><br>Verify that all personal data has been redacted, and it is the same as the original.</p>
             <p><a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a><br>Verify that all personal data has been redacted.</p>
-            <p><strong>Requested claim:</strong> $${cost}<br>Verify that the cost is reasonable for the item.</p>
+            <p><strong>Requested claim:</strong> $${cost}</p>
             <p><strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}</p>
 	        <img src="${paynowQRImage}" alt="PayNow QR Code" style="width:200px;height:200px;" />
             <p><a href="https://breadbreakers.sg/claim/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve</a></p>

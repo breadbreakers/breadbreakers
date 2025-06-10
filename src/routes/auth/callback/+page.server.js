@@ -28,10 +28,10 @@ export const load = async ({ url, parent, locals }) => {
     if (error) {
       console.error('Error exchanging code for session after retries:', error);
       // Handle error appropriately, maybe redirect to an error page
-      return { session }; // Or throw an error
+      throw redirect(303, '/'); // Redirect even on error
     }
 
-    //console.log('Cookies after exchangeCodeForSession:', cookies.getAll());
+    throw redirect(303, '/');
   }
 
   throw redirect(303, '/');

@@ -169,7 +169,8 @@
               id="cost"
               class="input"
               type="number"
-            step="0.01"
+              min="0"
+              step="0.01"
               disabled={isLoading}
               bind:value={cost}
               required

@@ -180,8 +180,8 @@
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Call to Action
             </h3>
-            <p>We invite individuals and communities to
-                partner with us in transforming “wish lists” into real,
+            <p><a href="/contact">We invite individuals and communities to
+                partner with us</a> in transforming “wish lists” into real,
                 delivered relief, lightening the load of social workers and
                 bringing practical faith, hope, and love to those most in need.
             </p>

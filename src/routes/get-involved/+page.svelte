@@ -22,11 +22,11 @@
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
-                Deliver the Mission
+                Execute the Mission
             </h3>
             <p>
                 If you don't have financial means but have time, energy, or
-                skills, <a href="/contact">come join us as an active delivery or procurement
+                skills, <a href="/contact">come join us as an active procurement
                 partner</a>. We’ll provide the funds. You help us turn compassion
                 into action.
             </p>

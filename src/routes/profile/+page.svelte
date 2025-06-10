@@ -51,6 +51,14 @@
                         });
                     });
             },
+            columnDefs: [
+                {
+                    targets: 0, // date column
+                    createdCell: function (td) {
+                        globalThis.$(td).css("white-space", "nowrap");
+                    },
+                },
+            ],
             columns: [
                 {
                     data: "created_at",
@@ -86,7 +94,7 @@
                     title: "Link",
                     className: "dt-left",
                     render: function (data, type, row, meta) {
-                        return '<a href="' + data + '">' + data + "</a>";
+                        return '<a class="has-text-weight-normal has-text-black" href="' + data + '">' + data + "</a>";
                     },
                 },
             ],

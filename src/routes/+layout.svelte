@@ -45,7 +45,7 @@
       </div>
 
       <div class="navbar-menu" class:is-active={isMenuActive}>
-        <div class="navbar-end">
+        <div class="navbar-start navbar-links">
           <a
             class="navbar-item"
             href="/"
@@ -57,6 +57,12 @@
             href="/about"
             class:is-active={isActive("/about")}
             on:click={closeMenu}>About</a
+          >
+          <a
+            class="navbar-item"
+            href="/faq"
+            class:is-active={isActive("/faq")}
+            on:click={closeMenu}>FAQ</a
           >
           <a
             class="navbar-item"
@@ -112,7 +118,7 @@
   <h2
     class="tagline subtitle is-6 has-text-centered has-text-weight-normal pt-4"
   >
-    We partner with social workers to <span
+    We partner with social service professionals to <span
       class="highlight has-text-weight-medium"
       >transparently provide material essentials</span
     > to those in need.
@@ -187,6 +193,18 @@
     background: none !important;
     color: inherit !important;
     box-shadow: none !important;
-
   }
+
+  .navbar-links {
+  flex-grow: 1;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1023px) {
+  .navbar-links {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
 </style>

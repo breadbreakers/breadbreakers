@@ -163,7 +163,9 @@
             <input
               id="claimAmount"
               class="input"
-              type="text"
+              type="number"
+              min="0"
+              step="0.01"
               bind:value={cost}
               required
               disabled={isLoading}
