@@ -10,7 +10,7 @@ export async function load({ locals }) {
     // check if is partner
     if (loggedIn) {
         const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
-        
+
         const { data: partner, error: partnerError } = await locals.supabase
             .from('partners')
             .select('email')
