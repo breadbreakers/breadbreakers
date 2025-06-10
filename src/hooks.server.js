@@ -19,7 +19,7 @@ export const handle = async ({ event, resolve }) => {
               ...options,
               secure: true,
               httpOnly: true,
-              sameSite: 'lax'              
+              sameSite: 'strict'              
             })
           })
         }
