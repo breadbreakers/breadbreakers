@@ -180,11 +180,7 @@
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Call to Action
             </h3>
-            <p>
-                The need is present—often unseen, yet deeply personal. The
-                mandate to act is clear. Bread Breakers Singapore exists to be a
-                trustworthy, efficient, and radically transparent channel for
-                compassionate action. We invite individuals and communities to
+            <p>We invite individuals and communities to
                 partner with us in transforming “wish lists” into real,
                 delivered relief, lightening the load of social workers and
                 bringing practical faith, hope, and love to those most in need.
