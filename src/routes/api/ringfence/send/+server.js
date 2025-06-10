@@ -110,7 +110,7 @@ export async function POST(event) {
             <p><strong>Contact:</strong> ${itemData.contact_clean}</p>
             <p><strong>To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a></p>
             <p><a href="${swConfirmUrl}"><strong>Social worker confirmation</strong></a></p>
-            <p><strong>Amount to ringfence:</strong> $${cost}</p>
+            <p><strong>Amount to ringfence (cost + delivery):</strong> $${cost}</p>
             <p>
                 <a href="https://breadbreakers.sg/ringfence/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve</a>
             </p>
