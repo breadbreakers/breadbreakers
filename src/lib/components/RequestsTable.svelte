@@ -8,6 +8,7 @@
     let voteCounts;
 
     //export let loggedIn;
+    export let isPartner;
 
     onMount(async () => {
         initRequestsTable();
@@ -24,7 +25,7 @@
         });
     });
 
-    async function getVotes() {
+    /*async function getVotes() {
         const getVotes = await fetch("/api/votes/get", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -36,7 +37,7 @@
 
         voteCounts = serverVoteCounts || {};
         userVotesMap = serverUserVotes || {};
-    }
+    }*/
 
     async function initRequestsTable() {
         globalThis.$(requestsTable).DataTable({
@@ -79,7 +80,23 @@
             ],
             columns: [
                 { data: "date", title: "Date", className: "dt-left" },
-                { data: "title", title: "Item" },
+                //{ data: "title", title: "Item" },
+                {
+                    data: "title",
+                    title: "Item",
+                    className: "dt-left",
+                    render: function (data, type, row, meta) {
+                        if (isPartner) {
+                            return (
+                                `<i class="demo-icon icon-basket-1">&#xe803;</i><a target="_blank" class="has-text-weight-normal has-text-black" href="https://breadbreakers.sg/ringfence?id=${row.id}">` +
+                                data +
+                                "</a>"
+                            );
+                        } else {
+                            return data;
+                        }
+                    },
+                },
                 { data: "contact_clean", title: "VWO" },
                 /*{
                     data: "votes",

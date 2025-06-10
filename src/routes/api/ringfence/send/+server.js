@@ -8,10 +8,14 @@ export async function POST(event) {
     let approverEmail;
 
     try {
-        const { itemId, linkUrl, cost, swConfirmUrl } = await request.json();
+        const { itemId, linkUrl, cost, swConfirmUrl, itemCostUrl } = await request.json();
 
-        if (!itemId || !linkUrl || !cost || !swConfirmUrl) {
+        if (!itemId || !linkUrl || !cost || !swConfirmUrl || !itemCostUrl) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
+        }
+
+        if (cost < 0) {
+            return json({ error: 'Cost cannot be less than 0.' }, { status: 409 });
         }
 
         const supabase = createServerSupabaseClient(event);
@@ -108,9 +112,10 @@ export async function POST(event) {
         const approverBody = `
             <p><strong>Description:</strong> ${itemData.description}</p>
             <p><strong>Contact:</strong> ${itemData.contact_clean}</p>
-            <p><strong>To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a></p>
-            <p><a href="${swConfirmUrl}"><strong>Social worker confirmation</strong></a></p>
             <p><strong>Amount to ringfence (cost + delivery):</strong> $${cost}</p>
+            <p><strong>To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>Is the purchase from an <a href="https://breadbreakers.sg/governance/procurement">authorised retailer</a>?, or explicitly requested from the Social Worker?</p>
+            <p><a href="${itemCostUrl}"><strong>Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?</p>
+            <p><a href="${swConfirmUrl}"><strong>Social worker confirmation</strong></a><br>Did the social worker provide the necessary contact information?<br>Did the screenshot specify the item?</p>
             <p>
                 <a href="https://breadbreakers.sg/ringfence/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve</a>
             </p>

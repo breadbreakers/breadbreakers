@@ -101,7 +101,11 @@
       <div class="field">
         <div class="control mt-4">
           <button class="button is-primary" type="submit" disabled={isLoading}>
-            {isLoading ? "Sending..." : "Send"}
+            {#if isLoading}
+            Sending... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+            {:else}
+            Send
+            {/if}
           </button>
         </div>
       </div>

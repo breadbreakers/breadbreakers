@@ -58,7 +58,10 @@
 
     {#if activeTable === "requests"}
         <div class="content mt-6 mb-6">
-            <RequestsTable loggedIn={data.loggedIn} />
+            <RequestsTable 
+                loggedIn={data.loggedIn}
+                isPartner={data.isPartner}
+            />
         </div>
     {/if}
 

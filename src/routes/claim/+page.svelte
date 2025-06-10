@@ -9,12 +9,14 @@
   let itemId = "";
   let receiptUrl = ""; // For receipt file
   let deliveryUrl = ""; // For proof of delivery file
+  let originalUrl = "";
   let cost = "";
   let isLoading = false;
   let success = false;
   let error = "";
   let selectedReceipt = null;
   let selectedDelivery = null;
+  let selectedOriginal = null;
 
   export let data;
   const item = data.item;
@@ -23,6 +25,22 @@
     const params = new URLSearchParams(window.location.search);
     itemId = params.get("id") || "";
   });
+
+  function handleOriginalChange(event) {
+    const file = event.target.files[0];
+    if (!file) {
+      selectedOriginal = null;
+      return;
+    }
+    const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("Only PNG, JPG, and PDF files are allowed.");
+      event.target.value = "";
+      selectedOriginal = null;
+      return;
+    }
+    selectedOriginal = file;
+  }
 
   function handleReceiptChange(event) {
     const file = event.target.files[0];
@@ -72,12 +90,19 @@
       isLoading = false;
       return;
     }
+    if (!selectedOriginal) {
+      error = "Please upload the original receipt.";
+      isLoading = false;
+      return;
+    }
 
     try {
       // Upload receipt
       receiptUrl = await uploadFile(selectedReceipt, "receipt", itemId);
       // Upload proof of delivery
       deliveryUrl = await uploadFile(selectedDelivery, "proof_of_delivery", itemId);
+      // Upload original receipt
+      originalUrl = await uploadFile(selectedOriginal, "original_receipt", itemId);
     } catch (err) {
       error = "File upload failed: " + err.message;
       isLoading = false;
@@ -94,6 +119,7 @@
           itemId,
           receiptUrl,
           deliveryUrl,
+          originalUrl,
           cost,
         }),
       });
@@ -148,7 +174,23 @@
         </div>
 
         <div class="field">
-          <label for="receipt" class="label">Upload Receipt (PNG, JPG, PDF)</label>
+          <label for="receipt" class="label">Upload Original Receipt (PNG, JPG, PDF)</label>
+          <p>This receipt should show that the item was billed to your name. This is retained for audit purposes.</p>
+          <div class="control">
+            <input
+              id="receipt"
+              class="input"
+              type="file"
+              disabled={isLoading}
+              accept=".png,.jpg,.jpeg,.pdf"
+              on:change={handleOriginalChange}
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="receipt" class="label">Upload Redacted Receipt (PNG, JPG, PDF)</label>
           <p>Please ensure all personal identifable information is redacted out. This will be published on the website.</p>
           <div class="control">
             <input
@@ -186,7 +228,11 @@
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Sending..." : "Send"}
+              {#if isLoading}
+              Sending... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+              {:else}
+              Send
+              {/if}
             </button>
           </div>
         </div>

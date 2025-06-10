@@ -15,9 +15,9 @@ export const POST = async (event) => {
     let approverEmail;
 
     try {
-        const { itemId, receiptUrl, deliveryUrl, cost } = await request.json();
+        const { itemId, receiptUrl, deliveryUrl, cost, originalUrl } = await request.json();
 
-        if (!itemId || !receiptUrl || !deliveryUrl || !cost) {
+        if (!itemId || !receiptUrl || !deliveryUrl || !cost || !originalUrl) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
         }
 
@@ -164,7 +164,8 @@ export const POST = async (event) => {
             <p><strong>Requester:</strong> ${partnerEmail}</p>
             <p><strong>Description:</strong> ${itemData.description}</p>
             <p><strong>Contact:</strong> ${itemData.contact_clean}</p>
-            <p><a href="${receiptUrl}"><strong>Receipt</strong></a><br>Verify that all personal data has been redacted. Verify that the item matches the request.</p>
+            <p><a href="${originalUrl}"><strong>Original Receipt</strong></a><br>Verify that the item matches the request, and the Requester is clearly identifiable.</p>
+            <p><a href="${receiptUrl}"><strong>Redacted Receipt</strong></a><br>Verify that all personal data has been redacted, and it is the same as the original.</p>
             <p><a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a><br>Verify that all personal data has been redacted.</p>
             <p><strong>Requested claim:</strong> $${cost}<br>Verify that the cost is reasonable for the item.</p>
             <p><strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}</p>

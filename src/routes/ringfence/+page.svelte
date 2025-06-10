@@ -13,7 +13,9 @@
   let success = false;
   let error;
   let swConfirmUrl;
+  let itemCostUrl;
   let selectedFile = null;
+  let itemCostFile = null;
 
   export let data;
   const item = data.item;
@@ -35,9 +37,24 @@
       return;
     }
 
+    if (!itemCostFile) {
+      error = "Please upload screenshot of item cost inclusive of delivery fee.";
+      isLoading = false;
+      return;
+    }
+
     try {
       // Upload confirmation
       swConfirmUrl = await uploadFile(selectedFile, "sw_confirm", itemId);
+    } catch (err) {
+      error = "File upload failed: " + err.message;
+      isLoading = false;
+      return;
+    }
+
+    try {
+      // Upload itemcost
+      itemCostUrl = await uploadFile(itemCostFile, "itemcost", itemId);
     } catch (err) {
       error = "File upload failed: " + err.message;
       isLoading = false;
@@ -55,6 +72,7 @@
           linkUrl,
           cost,
           swConfirmUrl,
+          itemCostUrl
         }),
       });
 
@@ -86,6 +104,22 @@
       return;
     }
     selectedFile = file;
+  }
+
+  function handleItemCost(event) {
+    const file = event.target.files[0];
+    if (!file) {
+      itemCostFile = null;
+      return;
+    }
+    const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("Only PNG, JPG, and PDF files are allowed.");
+      event.target.value = "";
+      selecteitemCostFiledFile = null;
+      return;
+    }
+    itemCostFile = file;
   }
 </script>
 
@@ -144,9 +178,27 @@
         </div>
 
         <div class="field">
+          <label for="itemCost" class="label"
+            >Screenshot showing total cost, inclusive of delivery (PNG, JPG, PDF)</label
+          >
+          <div class="control">
+            <input
+              id="itemCost"
+              class="input"
+              type="file"
+              accept=".png,.jpg,.jpeg,.pdf"
+              disabled={isLoading}
+              on:change={handleItemCost}
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field">
           <label for="socialWorkerConfirmation" class="label"
             >Social Worker Confirmation (PNG, JPG, PDF)</label
           >
+          <p class="mb-2">Please ensure the description of the item is shown in the attachment.</p>
           <div class="control">
             <input
               id="socialWorkerConfirmation"
@@ -167,7 +219,11 @@
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Sending... " : "Send"}
+              {#if isLoading}
+              Sending... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+              {:else}
+              Send
+              {/if}
             </button>
           </div>
         </div>

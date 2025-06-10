@@ -95,7 +95,11 @@
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Sending..." : "Reject"}
+              {#if isLoading}
+              Rejecting... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+              {:else}
+              Reject
+              {/if}
             </button>
           </div>
         </div>

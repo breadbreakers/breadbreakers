@@ -50,10 +50,11 @@ export async function load({ locals, url }) {
       .eq('id', itemId)
       .single();
 
-    if (!fetchedItem || itemError) throw redirect(303, '/');
+    if (!fetchedItem || itemError) throw redirect(303, '/'); //no such item in request table
+
     itemData = fetchedItem;
   }
 
   // Return only validated data
-  return { session, user, item: itemData };
+  return { item: itemData };
 }

@@ -4,7 +4,7 @@
     export let beneficiaryCount;
     export let nInNeed;
     export let balanceN;
-    export let ringfenceN;
+    // export let ringfenceN;
     export let nWip;
 
 </script>
