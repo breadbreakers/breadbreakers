@@ -16,7 +16,8 @@ export const handle = async ({ event, resolve }) => {
           cookies.forEach(({ name, value, options }) => {
             event.cookies.set(name, value, { 
               path: '/',
-              secure: env.NODE_ENV === 'production',
+              secure: true,
+              httpOnly: true,
               sameSite: 'lax',
               ...options
             })

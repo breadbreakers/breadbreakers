@@ -135,7 +135,7 @@
                     return;
                 }
 
-                await getVotes();
+                //await getVotes();
                 const table = globalThis.$(requestsTable).DataTable();
                 table.ajax.reload(null, false);
             } catch (e) {
