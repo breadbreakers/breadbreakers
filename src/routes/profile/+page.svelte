@@ -16,7 +16,9 @@
 
     function signInWithGoogle() {
         isLoading = true;
-        window.location.href = "/auth/google";
+        const redirectTo = window.location.pathname + window.location.search;
+        const encodedRedirectTo = encodeURIComponent(redirectTo);
+        window.location.href = `/auth/google?redirectTo=${encodedRedirectTo}`;
     }
 
     // needed because svelte tries to be smart and loads the a href if you mouseover, unintentionally logging out

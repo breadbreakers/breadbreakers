@@ -4,7 +4,11 @@ export async function load({ locals, url }) {
 
   // check if logged in
   const session = await locals.getUser?.();
-  if (!session) throw redirect(303, '/profile');
+  if (!session) {
+    const redirectTo = url.pathname + url.search;
+    const encodedRedirectTo = encodeURIComponent(redirectTo);
+    throw redirect(303, `/profile?redirectTo=${encodedRedirectTo}`);
+  }
 
   // get user details
   const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
