@@ -84,7 +84,7 @@
               class="textarea"
               id="approveMessage"
               bind:value={approveMessage}
-              required></textarea>
+              ></textarea>
             
           </div>
         </div>

@@ -31,6 +31,9 @@
                 <li>
                     <a href="/governance/code-of-conduct">Code of Conduct</a>
                 </li>
+                <li>
+                    <a href="/governance/terms-of-service">Terms of Service</a>
+                </li>
             </ul>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">

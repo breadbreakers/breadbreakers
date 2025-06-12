@@ -29,9 +29,9 @@
                 the types and locations of our data and defines ownership and
                 accountability. By implementing effective data management
                 practices, we aim to enhance governance, protect sensitive
-                information, and ensure compliance with the <strong
-                    >Personal Data Protection Act (PDPA)</strong
-                > and other applicable data protection regulations.
+                information, and ensure compliance with the Personal Data
+                Protection Act (PDPA) and other applicable data protection
+                regulations.
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Scope</h3>
@@ -56,9 +56,8 @@
                 PDPA and organizational policies.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
-                Safeguards
-            </h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Safeguards</h3>
+            <p>The following requirements have been established:</p>
             <ul>
                 <li>Maintain a data inventory.</li>
                 <li>Document definitions for each data category.</li>
@@ -109,17 +108,6 @@
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
-                Data Inventory
-            </h3>
-            <p>
-                The Administrator (President) has full access to all data.
-                Direct database access is disabled by default and temporarily
-                enabled for troubleshooting or maintenance. All modification
-                activities are logged. OS access is secured via SSH certificates
-                and limited to the super administrator.
-            </p>
-
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                 Roles and Responsibilities by Data Type
             </h3>
             <p>
@@ -144,58 +132,99 @@
                 </li>
             </ul>
 
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                Disclosure of Personal Data
+            </h3>
+            <p>
+                We do not sell or rent your personal data to third parties. We
+                only disclose personal data when necessary and in compliance
+                with PDPA, such as:
+            </p>
+            <ul>
+                <li>
+                    Law Enforcement/Regulators: When required by law or a court
+                    order, or to cooperate with government bodies.
+                </li>
+                <li>
+                    With Consent: To any other third party with your explicit
+                    consent.
+                </li>
+            </ul>
+
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                Data Inventory
+            </h3>
+
+            <p>
+                We collect personal data that is reasonably necessary for our
+                operations.
+            </p>
+
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Data Category</th>
+                            <th>Category</th>
                             <th>Purpose(s) of Collection</th>
                             <th>Source of Data</th>
                             <th>Retention</th>
-                            <th>Access Controls</th>
+                            <th>Access Rights</th>
                             <th>Security Measures</th>
                             <th>Asset</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Beneficiary Name / Address / Mobile</td>
-                            <td>Delivery of items</td>
-                            <td>Social Worker</td>
-                            <td>Until delivery completion (automated)</td>
+                            <td>Beneficiary Name, Address, Mobile Number</td>
+                            <td>Procurement and delivery of items</td>
+                            <td>Social Workers</td>
+                            <td>Until delivery completion</td>
                             <td
-                                >Partners: Read-only access for assigned
-                                beneficiaries; Admin: full access</td
-                            >
+                                >Partners (only able to access the beneficiaries
+                                they are serving)
+                            </td>
                             <td
-                                >Encrypted at rest and in transit; CRUD event
-                                logging enabled</td
+                                >Multi-factor authentication; Database encrypted
+                                at rest and in transit; Database change event
+                                logging; Row level security policies</td
                             >
-                            <td
-                                >PostgreSQL Database (Hosted on Supabase
-                                Platform)</td
-                            >
+                            <td>PostgreSQL Database</td>
                         </tr>
                         <tr>
                             <td>Donor Email</td>
                             <td>Receipts, communication</td>
-                            <td>Donor</td>
+                            <td>Donation web page</td>
                             <td>5 years</td>
-                            <td>Gmail account (Admin only)</td>
-                            <td>Google MFA; managed by President</td>
-                            <td>Gmail</td>
+                            <td>President</td>
+                            <td
+                                >Multi-factor authentication; Database encrypted
+                                in transit; Database change event logging</td
+                            >
+                            <td>PostgreSQL Database</td>
                         </tr>
                         <tr>
-                            <td>Member Name / Address / Mobile</td>
-                            <td>Administrative filing</td>
-                            <td>Members</td>
-                            <td>Until membership termination</td>
-                            <td>Google Drive (MC access only)</td>
+                            <td>Partner Name, Mobile Number</td>
                             <td
-                                >Password-protected files; passwords known to
-                                President and Secretary only</td
+                                >Notification of request and approvals;
+                                Reimbursement via PayNow</td
                             >
-                            <td>Google Drive</td>
+                            <td>Partner registration forms</td>
+                            <td>Until termination</td>
+                            <td>President</td>
+                            <td
+                                >Multi-factor authentication; Database encrypted
+                                in transit; Database change event logging</td
+                            >
+                            <td>Google Sheets; PostgreSQL Database</td>
+                        </tr>
+                        <tr>
+                            <td>Member Name, Address, Mobile Number</td>
+                            <td>Regulatory/administrative filing</td>
+                            <td>Member registration forms</td>
+                            <td>Until termination</td>
+                            <td>President</td>
+                            <td>Multi-factor authentication</td>
+                            <td>Google Sheets</td>
                         </tr>
                     </tbody>
                 </table>
