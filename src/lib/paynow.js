@@ -79,7 +79,7 @@ function generatePayNowStr( opts ) {
         [{ id: '00', value: 'SG.PAYNOW' },
         { id: '01', value: '0' },                 // 0 for mobile, 2 for UEN. 1 is not used.
         { id: '02', value: '65' + opts.mobile },            // PayNow UEN (Company Unique Entity Number)
-        { id: '03', value: opts.editable.toString() },       // 1 = Payment amount is editable, 0 = Not Editable
+        { id: '03', value: '0' },       // 1 = Payment amount is editable, 0 = Not Editable
         { id: '04', value: opts.expiry }]         // Expiry date (YYYYMMDD)
     },
     { id: '52', value: '0000' },                  // ID 52: Merchant Category Code (not used)
