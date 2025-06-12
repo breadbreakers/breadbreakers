@@ -1,3 +1,20 @@
+<script>
+  import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
+
+  export let data;
+
+  onMount(() => {
+    const target = data.redirectTo || '/';
+
+    // Remove the code param from the URL without triggering a reload
+    window.history.replaceState({}, '', target);
+
+    // Then navigate to the target route (client-side)
+    goto(target, { replaceState: true });
+  });
+</script>
+
 <section class="section">
   <div class="container">
     <div class="loading-spinner"></div>
@@ -18,11 +35,7 @@
   }
 
   @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 </style>
