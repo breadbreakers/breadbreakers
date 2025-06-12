@@ -19,13 +19,13 @@ export async function POST(event) {
 
         // check if item is in ringfence_requested state
         // rls only allows logged in user to view their own rows
-        const { data: wipStatus } = await supabase
+        const { data: wip } = await supabase
             .from('wip')
             .select('*')
             .eq('id', itemId)
             .single();
 
-        if (wipStatus.status !== "claim_requested") {
+        if (wip.status !== "claim_requested") {
             return new Response('<p>Partner has not requested for claim.</p>', {
                 status: 200,
                 headers: {
@@ -34,7 +34,7 @@ export async function POST(event) {
             });
         }
 
-        const partnerEmail = wipStatus.partner;
+        const partnerEmail = wip.partner;
 
         // update entry in wip table back to ringfence_approved
         // rls only allows approvers to delete
