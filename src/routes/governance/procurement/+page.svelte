@@ -67,6 +67,8 @@
                 <li><a href="https://www.watsons.com.sg/">Watsons</a></li>
             </ul>
 
+            <p>Exceptions will be permitted only upon documented request by the social worker or beneficiary.</p>
+
             <p>
                 No physical (in-store) purchases are allowed. This restriction
                 helps mitigate the submission of fraudulent

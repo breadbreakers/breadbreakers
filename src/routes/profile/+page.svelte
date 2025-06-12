@@ -1,7 +1,7 @@
 <script>
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
-    import { env } from '$env/dynamic/public';
+    import { env } from "$env/dynamic/public";
 
     export let data;
 
@@ -155,22 +155,32 @@
                 🎁 Your Items
             </h2>
             <p>Logged in as {loggedInEmail}</p>
-            <table
-                bind:this={workTable}
-                id="workTable"
-                class="compact row-border responsive"
-            >
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>ID</th>
-                        <th>Status</th>
-                        <th class="none">Actions</th>
-                        <th class="none">Link</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            {#if data.isPartner}
+                <p>
+                    <i class="demo-icon icon-attach">&#xe801;</i><a
+                        target="_blank"
+                        class="has-text-weight-normal"
+                        href="/Partner Guide.pdf">Guide for Partners</a
+                    >
+                </p>
+
+                <table
+                    bind:this={workTable}
+                    id="workTable"
+                    class="compact row-border responsive"
+                >
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>ID</th>
+                            <th>Status</th>
+                            <th class="none">Actions</th>
+                            <th class="none">Link</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            {/if}
             <div class="has-text-centered">
                 <button
                     class="button"

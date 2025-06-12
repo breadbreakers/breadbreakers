@@ -199,7 +199,7 @@
           <label for="socialWorkerConfirmation" class="label"
             >Social Worker Confirmation (PNG, JPG, PDF)</label
           >
-          <p class="mb-2">Please ensure the description of the item is shown in the attachment.</p>
+          <p class="mb-2">Please ensure the description of the item is shown in the attachment, and the receipients name, address and mobile number is shown.</p>
           <div class="control">
             <input
               id="socialWorkerConfirmation"

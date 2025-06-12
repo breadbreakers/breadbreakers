@@ -86,10 +86,10 @@
                 <div class="control">
                     <div class="select is-fullwidth">
                         <select name="fund" id="type" required>
-                            <option value="mission" selected>Beneficary Fund</option>
-                            <option value="operating"
-                                >Operating Fund</option
+                            <option value="mission" selected
+                                >Beneficary Fund</option
                             >
+                            <option value="operating">Operating Fund</option>
                         </select>
                     </div>
                 </div>
@@ -105,11 +105,21 @@
             <input type="hidden" name="recurring" value={recurring} />
             <input type="hidden" name="amount" value={totalAmount} />
 
-            <button
-                class="button is-fullwidth is-info mt-4"
-                type="submit">Donate (Under Development)</button
+            <button class="button is-fullwidth is-info mt-4" type="submit"
+                >Donate (Under Development)</button
             >
             <div class="content mt-4 is-size-6">
+                <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                    Tax Exemptions
+                </h3>
+                <p>
+                    Donations made to us are currently not tax-deductible. This
+                    is because we are not an Institution of a Public
+                    Character (IPC). Achieving IPC status requires a significant
+                    track record of good governance and charitable work, which
+                    we will diligently build towards. Your generosity, even without tax exemption,
+                    makes an immediate and tangible difference.
+                </p>
                 <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                     Our Funds
                 </h3>

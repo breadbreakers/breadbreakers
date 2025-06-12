@@ -16,26 +16,7 @@
 </script>
 
 <section class="section">
-  <div class="container">
-    <div class="loading-spinner"></div>
-    <p>Completing authentication...</p>
+  <div class="container has-text-centered">
+    <p><i class="demo-icon icon-spin6 animate-spin">&#xe839;</i></p>
   </div>
 </section>
-<div class="loading-container"></div>
-
-<style>
-  .loading-spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-</style>

@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Bread Breakers Singapore | FAQ</title>
+</svelte:head>
+
 <script>
     let activeIndex = null;
 
@@ -5,10 +9,6 @@
         activeIndex = activeIndex === index ? null : index;
     }
 </script>
-
-<svelte:head>
-    <title>Bread Breakers Singapore | FAQ</title>
-</svelte:head>
 
 <section class="section">
     <div class="container">
@@ -428,22 +428,24 @@
                         </p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="container mt-6">
-        <div class="content">
-            <h3 class="is-size-6 has-text-weight-normal">Recommended Reads:</h3>
-            <ul>
-                <li>
-                    <a
-                        class="has-text-weight-normal"
-                        href="https://www.ethosbooks.com.sg/products/this-is-what-inequality-looks-like"
-                        >This Is What Inequality Looks Like</a
+                <div class="accordion-item" class:is-active={activeIndex === 10}>
+                    <button
+                        type="button"
+                        class="accordion-header"
+                        on:click={() => toggleAccordion(10)}
                     >
-                </li>
-            </ul>
+                        <h3 class="is-size-6 has-text-weight-normal">
+                            How does Bread Breakers Singapore prevent conflicts of interest, such as social workers procuring, receiving or using donated items?
+                        </h3>
+                    </button>
+                    <div class="accordion-content">
+                        <p>
+                            Social workers only identify and verify needs. They do not handle donations, funds, or item procurement. All purchases are made by our trusted partners. Proof of delivery is documented and reflected on our website to ensure full accountability.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

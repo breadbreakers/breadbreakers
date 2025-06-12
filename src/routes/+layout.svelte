@@ -86,6 +86,12 @@
           >
           <a
             class="navbar-item"
+            href="/resources"
+            class:is-active={isActive("/resources")}
+            on:click|preventDefault={() => closeMenu('/resources')}>Resources</a
+          >
+          <a
+            class="navbar-item"
             href="/donate"
             class:is-active={isActive("/donate")}
             on:click|preventDefault={() => closeMenu('/donate')}>Donate</a

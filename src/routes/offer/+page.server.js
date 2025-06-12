@@ -33,5 +33,5 @@ export async function load({ locals, url }) {
   if (requestsError || !requests) throw redirect(303, '/');
 
   // return only validated data
-  return { session, user };
+  return { requests };
 }

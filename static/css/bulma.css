@@ -13,6 +13,17 @@
   --bulma-control-focus-shadow-l: 50%;
 }
 
+@media screen and (max-width: 768px) {
+  .mobile-image-top {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-image-top .image {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
 /* Bulma Themes */
 :root {
   --bulma-scheme-h: 221;
