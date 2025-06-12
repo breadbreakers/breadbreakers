@@ -36,7 +36,7 @@
           class="navbar-burger"
           aria-label="menu"
           aria-expanded={isMenuActive}
-          on:click={toggleMenu}
+          on:click={() => toggleMenu()}
           tabindex="0"
           class:is-active={isMenuActive}
         >
@@ -52,55 +52,55 @@
             class="navbar-item"
             href="/"
             class:is-active={isActive("/")}
-            on:click|preventDefault={closeMenu('/')}>Home</a
+            on:click|preventDefault={() => closeMenu('/')}>Home</a
           >
           <a
             class="navbar-item"
             href="/about"
             class:is-active={isActive("/about")}
-            on:click|preventDefault={closeMenu('/about')}>About</a
+            on:click|preventDefault={() => closeMenu('/about')}>About</a
           >
           <a
             class="navbar-item"
             href="/faq"
             class:is-active={isActive("/faq")}
-            on:click|preventDefault={closeMenu('/faq')}>FAQ</a
+            on:click|preventDefault={() => closeMenu('/faq')}>FAQ</a
           >
           <a
             class="navbar-item"
             href="/ledger"
             class:is-active={isActive("/ledger")}
-            on:click|preventDefault={closeMenu('/ledger')}>Financials</a
+            on:click|preventDefault={() => closeMenu('/ledger')}>Financials</a
           >
           <a
             class="navbar-item"
             href="/governance"
             class:is-active={isActive("/governance")}
-            on:click|preventDefault={closeMenu('governance')}>Governance</a
+            on:click|preventDefault={() => closeMenu('governance')}>Governance</a
           >
           <a
             class="navbar-item"
             href="/get-involved"
             class:is-active={isActive("/get-involved")}
-            on:click|preventDefault={closeMenu('/get-involved')}>Partner</a
+            on:click|preventDefault={() => closeMenu('/get-involved')}>Partner</a
           >
           <a
             class="navbar-item"
             href="/donate"
             class:is-active={isActive("/donate")}
-            on:click|preventDefault={closeMenu('/donate')}>Donate</a
+            on:click|preventDefault={() => closeMenu('/donate')}>Donate</a
           >
           <a
             class="navbar-item"
             href="/contact"
             class:is-active={isActive("/contact")}
-            on:click|preventDefault={closeMenu('/contact')}>Contact</a
+            on:click|preventDefault={() => closeMenu('/contact')}>Contact</a
           >
           <a
             class="navbar-item"
             href="/profile"
             class:is-active={isActive("/profile")}
-            on:click|preventDefault={closeMenu('/profile')}
+            on:click|preventDefault={() => closeMenu('/profile')}
           >
             <i class="demo-icon icon-user">&#xe800;</i>
             <span class="account-label">Account</span>

@@ -21,7 +21,7 @@ export async function load({ locals }) {
             isPartner = true
         }        
     }
-console.log(data)
+
     return {
         beneficiaryCount: data.beneficiaryCount,
         nInNeed: data.inNeedCount - data.wipCount,
