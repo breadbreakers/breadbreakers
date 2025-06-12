@@ -1,9 +1,9 @@
 // Only allow sorting on these columns (must match your DB column names)
-const allowedColumns = ['id', 'status', 'created_at'];
+const allowedColumns = ['id', 'status', 'title', 'created_at'];
 
 // Helper for building global search query
 function buildOrSearch(searchValue) {
-    const columns = ['id', 'status'];
+    const columns = ['id', 'title', 'status'];
     const filters = columns.map(col => `${col}.ilike.%${searchValue}%`).join(',');
     return filters;
 }

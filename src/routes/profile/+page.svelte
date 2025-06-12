@@ -76,6 +76,7 @@
                             : data;
                     },
                 },
+                { data: "title", title: "Title", className: "dt-left" },
                 { data: "id", title: "ID", className: "dt-left" },
                 {
                     data: "status",
@@ -154,7 +155,7 @@
     <section class="section">
         <div class="container">
             <h2 class="subtitle is-6 has-text-weight-semibold">
-                🎁 Your Items
+                🎁 Your Assignments
             </h2>
             <p>Logged in as {loggedInEmail}</p>
             {#if data.isPartner}
@@ -174,8 +175,9 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>ID</th>
-                            <th>Status</th>
+                            <th>Title</th>
+                            <th class="none">ID</th>
+                            <th class="none">Status</th>
                             <th class="none">Actions</th>
                             <th class="none">Link</th>
                         </tr>
