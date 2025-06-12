@@ -7,6 +7,7 @@ export const load = async ({ url, parent, locals }) => {
 
   if (code) {
     const supabase = locals.supabase;
+
     const maxRetries = 3;
     let retries = 0;
     let error = null;

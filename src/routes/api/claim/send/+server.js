@@ -75,17 +75,6 @@ export const POST = async (event) => {
             .eq('email', partnerEmail)
             .single();
 
-        // get the items based on itemId
-        let itemData = null;
-
-        const { data: item, error: itemError } = await supabase
-            .from('requests')
-            .select('*')
-            .eq('id', itemId)
-            .single();
-
-        itemData = item;
-
         // setup paynow
         const QRstring = generatePayNowStr({
             mobile: partnerPaynow.paynow,
@@ -154,7 +143,7 @@ export const POST = async (event) => {
         const partnerBody = `Your Claim Request has been sent for approval.`
         await sendEmail({
             to: partnerEmail, 
-            subject: `Claim Submitted for ${itemData.title}`,
+            subject: `Claim Submitted for ${wip.title}`,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });
@@ -162,21 +151,21 @@ export const POST = async (event) => {
         // send email to approver
         const approverBody = `
             <p><strong>Requester:</strong> ${partnerEmail}</p>
-            <p><strong>Description:</strong> ${itemData.description}</p>
-            <p><strong>Contact:</strong> ${itemData.contact_clean}</p>
+            <p><strong>Description:</strong> ${wip.description}</p>
+            <p><strong>Contact:</strong> ${wip.contact}</p>
             <p><a href="${originalUrl}"><strong>Original Receipt</strong></a><br>Verify that the item matches the request, and the Requester is clearly identifiable.</p>
             <p><a href="${receiptUrl}"><strong>Redacted Receipt</strong></a><br>Verify that all personal data has been redacted, and it is the same as the original.</p>
             <p><a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a><br>Verify that all personal data has been redacted.</p>
             <p><strong>Requested claim:</strong> $${cost}</p>
             <p><strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}</p>
 	        <img src="${paynowQRImage}" alt="PayNow QR Code" style="width:200px;height:200px;" />
-            <p><a href="https://breadbreakers.sg/claim/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve</a></p>
-            <p><a href="https://breadbreakers.sg/claim/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject</a></p>
+            <p><a href="https://breadbreakers.sg/claim/approve?id=${wip.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve</a></p>
+            <p><a href="https://breadbreakers.sg/claim/reject?id=${wip.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject</a></p>
             `;
    
         await sendEmail({
             to: approverEmail,
-            subject: `Claim Request for ${itemData.title} (${itemData.id})`,
+            subject: `Claim Request for ${wip.title} (${wip.id})`,
             body: approverBody,
         });
 

@@ -35,17 +35,6 @@ export async function POST(event) {
 
         const partnerEmail = wipStatus.partner;
 
-        // get the items based on itemId
-        let itemData = null;
-
-        const { data: item, error: itemError } = await supabase
-            .from('requests')
-            .select('*')
-            .eq('id', itemId)
-            .single();
-
-        itemData = item;
-
         // update entry in wip table back to ringfence_approved
         // rls only allows approvers to delete
         const { data, error } = await supabase
@@ -54,11 +43,11 @@ export async function POST(event) {
             .eq('id', itemId);
            
         // send email to partner that claim is rejected
-        const partnerBody = `<p>Your Claim Request has been rejected for ${itemData.title}.</p><p>Remarks: ${rejectMessage}.</p><p>Please provide the necessary details or clarifications and resubmit at <a href="https://breadbreakers.sg/claim?id=${itemId}">https://breadbreakers.sg/claim?id=${itemId}</a></p>`
+        const partnerBody = `<p>Your Claim Request has been rejected for ${wip.title}.</p><p>Remarks: ${rejectMessage}.</p><p>Please provide the necessary details or clarifications and resubmit at <a href="https://breadbreakers.sg/claim?id=${itemId}">https://breadbreakers.sg/claim?id=${itemId}</a></p>`
 
         await sendEmail({
             to: partnerEmail,
-            subject: `Claim Rejected for ${itemData.title} (${itemId})`,
+            subject: `Claim Rejected for ${wip.title} (${itemId})`,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });

@@ -36,17 +36,6 @@ export async function POST(event) {
 
         const partnerEmail = wipStatus.partner;
 
-        // get the items based on itemId
-        let itemData = null;
-
-        const { data: item, error: itemError } = await supabase
-            .from('requests')
-            .select('*')
-            .eq('id', itemId)
-            .single();
-
-        itemData = item;
-
         // update wip table that is approved
         const { data, error } = await supabase
             .from('wip')
@@ -54,11 +43,11 @@ export async function POST(event) {
             .eq('id', itemId);
 
         // send email to partner that ringfence is approved
-        const partnerBody = `<p>Your Ringfence Request has been approved for ${itemData.title}.</p><p>Remarks: ${message}</p><p>Next steps:<br>- Purchase and arrange for delivery from any of the <a href="https://breadbreakers.sg/governance/procurement">authorised retailers</a>.<br>- Retain the receipt and ensure it is billed to your name.<br>- Once the item is delievered, obtain proof of delivery from the social worker through email or WhatsApp.<br>- Request for reimbursement using the receipt and proof of delivery <a href="https://breadbreakers.sg/claim?id=${itemData.id}">using this link</a>.`
+        const partnerBody = `<p>Your Ringfence Request has been approved for ${wip.title}.</p><p>Remarks: ${message}</p><p>Next steps:<br>- Purchase and arrange for delivery from any of the <a href="https://breadbreakers.sg/governance/procurement">authorised retailers</a>.<br>- Retain the receipt and ensure it is billed to your name.<br>- Once the item is delievered, obtain proof of delivery from the social worker through email or WhatsApp.<br>- Request for reimbursement using the receipt and proof of delivery <a href="https://breadbreakers.sg/claim?id=${wip.id}">using this link</a>.`
 
         await sendEmail({
             to: partnerEmail, 
-            subject: `Ringfence Approved for ${itemData.title} (${itemId})`,
+            subject: `Ringfence Approved for ${wip.title} (${itemId})`,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });

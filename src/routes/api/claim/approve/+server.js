@@ -25,13 +25,13 @@ export async function POST(event) {
 
         // check if item is in ringfence_requested state
         // rls only allows logged in user to view their own rows
-        const { data: wipStatus } = await supabase
+        const { data: wip } = await supabase
             .from('wip')
             .select('*')
             .eq('id', itemId)
             .single();
 
-        if (wipStatus.status !== "claim_requested") {
+        if (wip.status !== "claim_requested") {
             return new Response('<p>Partner has not requested for claim.</p>', {
                 status: 200,
                 headers: {
@@ -40,18 +40,7 @@ export async function POST(event) {
             });
         }
 
-        const partnerEmail = wipStatus.partner;
-
-        // get the items based on itemId
-        let itemData = null;
-
-        const { data: item, error: itemError } = await supabase
-            .from('requests')
-            .select('*')
-            .eq('id', itemId)
-            .single();
-
-        itemData = item;
+        const partnerEmail = wip.partner;
 
         // create entry in items
         const { data: moveItem } = await supabase
@@ -59,28 +48,22 @@ export async function POST(event) {
             .insert([
                 {
                     id: itemId,
-                    item: itemData.title,
+                    item: wip.title,
                     fulfiled: getSgTime(),
-                    delivery: wipStatus.delivery,
-                    contact: itemData.contact_clean,
-                    cost: wipStatus.amount,
-                    receipt: wipStatus.receipt
+                    delivery: wip.delivery,
+                    contact: wip.contact,
+                    cost: wip.amount,
+                    receipt: wip.receipt
                 }
             ]);
 
-        // delete entry in wip table
-        // rls only allows approvers to delete
-        const { data, error } = await supabase
-            .from('wip')
-            .delete()
-            .eq('id', itemId);
 
         // send email to partner that claim is approved
-        const partnerBody = `<p>Your Claim Request has been approved for ${itemData.title}.</p><p>Remarks: ${message}.</p><p>Please contact us if you did not receive your reimbursement.</p>`
+        const partnerBody = `<p>Your Claim Request has been approved for ${wip.title}.</p><p>Remarks: ${message}.</p><p>Please contact us if you did not receive your reimbursement.</p>`
 
         await sendEmail({
             to: partnerEmail,
-            subject: `Claim Approved for ${itemData.title} (${itemId})`,
+            subject: `Claim Approved for ${wip.title} (${itemId})`,
             body: partnerBody,
             bcc: 'hello@breadbreakers.sg' // for audit trail 
         });
@@ -90,6 +73,13 @@ export async function POST(event) {
             .from('pd')
             .delete()
             .eq('itemId', itemId);
+
+        // delete entry in wip table
+        // rls only allows approvers to delete
+        const { data, error } = await supabase
+            .from('wip')
+            .delete()
+            .eq('id', itemId);
 
         return json({ message: 'Claim Approved' }, { status: 200 });
     } catch (error) {

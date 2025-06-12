@@ -35,7 +35,6 @@
                             What challenges do vulnerable individuals and
                             families in Singapore specifically face?
                         </h3>
-  
                     </button>
                     <div class="accordion-content">
                         <p>
@@ -128,7 +127,6 @@
                             How does Bread Breakers ensure its operations are
                             trustworthy and effective?
                         </h3>
-
                     </button>
                     <div class="accordion-content">
                         <p>
@@ -197,7 +195,6 @@
                             How does Bread Breakers address the issue of dignity
                             for recipients?
                         </h3>
-
                     </button>
                     <div class="accordion-content">
                         <p>
@@ -239,7 +236,6 @@
                             Is poverty in Singapore just about individuals
                             making "bad choices"?
                         </h3>
-
                     </button>
                     <div class="accordion-content">
                         <p>
@@ -285,7 +281,6 @@
                             How can individuals and communities partner with
                             Bread Breakers to help?
                         </h3>
-
                     </button>
                     <div class="accordion-content">
                         <p>
@@ -326,7 +321,6 @@
                             Should I still donate when the beneficiary seems to
                             have an abundance of items at home?
                         </h3>
-
                     </button>
                     <div class="accordion-content">
                         <p>
@@ -363,7 +357,6 @@
                             Can I give more than what was requested for a
                             beneficiary?
                         </h3>
-
                     </button>
                     <div class="accordion-content">
                         <p>
@@ -391,7 +384,6 @@
                             Can I donate to non-individuals (e.g., if a VWO
                             requests for 50 bottles of ketchup)?
                         </h3>
-
                     </button>
                     <div class="accordion-content">
                         <p>
@@ -401,6 +393,38 @@
                             explore those avenues if you wish to contribute in
                             that manner. Our niche is ensuring direct,
                             person-to-person impact.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item" class:is-active={activeIndex === 9}>
+                    <button
+                        type="button"
+                        class="accordion-header"
+                        on:click={() => toggleAccordion(9)}
+                    >
+                        <h3 class="is-size-6 has-text-weight-normal">
+                            Some beneficiaries request
+                            branded or slightly more expensive items. Should
+                            these requests be fulfilled?
+                        </h3>
+                    </button>
+                    <div class="accordion-content">
+                        <p>
+                            Our mission is to serve the needy without judgment.
+                            While it might seem counterintuitive to provide what
+                            appears to be a "luxury" item, everyone has a right
+                            to choice and preferences, even in challenging
+                            circumstances. There are often nuances we aren't
+                            aware of. For example, a baby might experience hives
+                            or rashes from certain diaper brands, necessitating
+                            a specific, seemingly more expensive alternative.
+                            Similarly, allergies to particular milk powders
+                            could mean a child requires a specialized,
+                            higher-cost formula. We trust that beneficiaries are
+                            requesting items based on genuine needs and personal
+                            preferences, and our role is to provide support, not
+                            to question their specific requirements.
                         </p>
                     </div>
                 </div>

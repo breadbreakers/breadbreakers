@@ -94,7 +94,11 @@ export async function POST(event) {
                     partner: partnerEmail,
                     amount: cost * 100,
                     link: linkUrl,
-                    swconfirm: swConfirmUrl
+                    swconfirm: swConfirmUrl,
+                    itemSupport: itemCostUrl,
+                    title: itemData.title,
+                    description: itemData.description,
+                    contact: itemData.contact_clean
                 }
             ]);
 

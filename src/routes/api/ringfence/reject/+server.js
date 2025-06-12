@@ -35,16 +35,15 @@ export async function POST(event) {
 
         const partnerEmail = wipStatus.partner;
 
-        // get the items based on itemId
-        let itemData = null;
+        // send email to partner that ringfence is rejected
+        const partnerBody = `<p>Your Ringfence Request has been rejected for ${wip.title}.</p><p>Remarks: ${rejectMessage}</p><p>Please submit your Ringfence Request again.</p>`
 
-        const { data: item, error: itemError } = await supabase
-            .from('requests')
-            .select('*')
-            .eq('id', itemId)
-            .single();
-
-        itemData = item;
+        await sendEmail({
+            to: partnerEmail,
+            subject: `Ringfence Rejected for ${wip.title} (${itemId})`,
+            body: partnerBody,
+            bcc: 'hello@breadbreakers.sg' // for audit trail 
+        });
 
         // delete entry in wip table
         // rls only allows approvers to delete
@@ -52,16 +51,6 @@ export async function POST(event) {
             .from('wip')
             .delete()
             .eq('id', itemId);    
-
-        // send email to partner that ringfence is rejected
-        const partnerBody = `<p>Your Ringfence Request has been rejected for ${itemData.title}.</p><p>Remarks: ${rejectMessage}</p><p>Please submit your Ringfence Request again.</p>`
-
-        await sendEmail({
-            to: partnerEmail,
-            subject: `Ringfence Rejected for ${itemData.title} (${itemId})`,
-            body: partnerBody,
-            bcc: 'hello@breadbreakers.sg' // for audit trail 
-        });
 
         return json({ message: 'Ringfence Rejected' }, { status: 200 });
     } catch (error) {
