@@ -1,6 +1,7 @@
 <script>
   import { page } from "$app/stores";
   import Footer from "$lib/components/Footer.svelte";
+  import { goto } from "$app/navigation";
 
   const hideMenuOn = ["/logout"];
   $: showMenu = !hideMenuOn.includes($page.url.pathname);
@@ -10,8 +11,9 @@
     isMenuActive = !isMenuActive;
   }
 
-  function closeMenu() {
+  function closeMenu(path) {
     isMenuActive = false;
+    goto(path)
   }
 
   function isActive(path) {
@@ -50,55 +52,55 @@
             class="navbar-item"
             href="/"
             class:is-active={isActive("/")}
-            on:click={closeMenu}>Home</a
+            on:click|preventDefault={closeMenu('/')}>Home</a
           >
           <a
             class="navbar-item"
             href="/about"
             class:is-active={isActive("/about")}
-            on:click={closeMenu}>About</a
+            on:click|preventDefault={closeMenu('/about')}>About</a
           >
           <a
             class="navbar-item"
             href="/faq"
             class:is-active={isActive("/faq")}
-            on:click={closeMenu}>FAQ</a
+            on:click|preventDefault={closeMenu('/faq')}>FAQ</a
           >
           <a
             class="navbar-item"
             href="/ledger"
             class:is-active={isActive("/ledger")}
-            on:click={closeMenu}>Financials</a
+            on:click|preventDefault={closeMenu('/ledger')}>Financials</a
           >
           <a
             class="navbar-item"
             href="/governance"
             class:is-active={isActive("/governance")}
-            on:click={closeMenu}>Governance</a
+            on:click|preventDefault={closeMenu('governance')}>Governance</a
           >
           <a
             class="navbar-item"
             href="/get-involved"
             class:is-active={isActive("/get-involved")}
-            on:click={closeMenu}>Partner</a
+            on:click|preventDefault={closeMenu('/get-involved')}>Partner</a
           >
           <a
             class="navbar-item"
             href="/donate"
             class:is-active={isActive("/donate")}
-            on:click={closeMenu}>Donate</a
+            on:click|preventDefault={closeMenu('/donate')}>Donate</a
           >
           <a
             class="navbar-item"
             href="/contact"
             class:is-active={isActive("/contact")}
-            on:click={closeMenu}>Contact</a
+            on:click|preventDefault={closeMenu('/contact')}>Contact</a
           >
           <a
             class="navbar-item"
             href="/profile"
             class:is-active={isActive("/profile")}
-            on:click={closeMenu}
+            on:click|preventDefault={closeMenu('/profile')}
           >
             <i class="demo-icon icon-user">&#xe800;</i>
             <span class="account-label">Account</span>

@@ -40,7 +40,10 @@
                 fetch(`/api/workdone`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
+                    body: (() => {
+                        data.partneremail = loggedInEmail;
+                        return JSON.stringify(data);
+                    })(),
                 })
                     .then((response) => response.json())
                     .then((result) => {

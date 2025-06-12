@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { env } from '$env/dynamic/public';
+    import { OFFER_SUBJECT, OFFER_EMAIL } from "$lib/strings"
 
     let requestsTable;
 
@@ -87,17 +88,10 @@
                     title: "Item",
                     className: "dt-left",
                     render: function (data, type, row, meta) {
-                        if (isPartner) {
-                            return (
-                                `<i class="demo-icon icon-basket-1">&#xe803;</i><a target="_blank" class="has-text-weight-normal has-text-black" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">` +
-                                data +
-                                "</a>"
-                            );
-                        } else {
-                            return data;
-                        }
+                        return data;                        
                     },
                 },
+                { data: "id", title: "ID" },
                 { data: "contact_clean", title: "VWO" },
                 /*{
                     data: "votes",
@@ -128,8 +122,20 @@
                         `;
                     },
                 },*/
-                { data: "id", title: "ID" },
+                
                 { data: "description", title: "Description" },
+                {
+                    data: "id",
+                    title: "Actions",
+                    className: "dt-left",
+                    render: function (data, type, row, meta) {
+                        if (isPartner) {
+                            return `<i class="demo-icon icon-mail">&#xe804;</i><a href="mailto:?subject=${OFFER_SUBJECT} ${row.title}&body=${OFFER_EMAIL}%0D%0A%0D%0A${row.title}%0D%0A${row.description}%0D%0A%0D%0ARef: ${row.id}%0D%0A%0D%0AWarmest regards,%0D%0A" class="pr-2 has-text-weight-normal has-text-black">Offer</a><i class="demo-icon icon-shop">&#xe805;</i><a class="has-text-weight-normal has-text-black" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>`;
+                        } else {
+                            return ""
+                        }
+                    }
+                }
             ],
         });
     }
@@ -177,10 +183,13 @@
             <tr>
                 <th>Date</th>
                 <th>Item</th>
-                <th class="none">VWO</th>
-                <!--th class="all">Priority</th>-->
                 <th class="none">ID</th>
+                <th class="none">VWO</th>
+                <!--th class="all">Priority</th>-->                
                 <th class="none">Description</th>
+                {#if isPartner}
+                <th class="none">Actions</th>
+                {/if}
             </tr>
         </thead>
         <tbody></tbody>
@@ -191,4 +200,5 @@
     table {
         font-size: 0.95em;
     }
+    
 </style>

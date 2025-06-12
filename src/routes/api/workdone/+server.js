@@ -35,7 +35,8 @@ export async function POST({ request, locals }) {
 
     let query = locals.supabase
         .from('wip')
-        .select('*', { count: 'exact' });
+        .select('*', { count: 'exact' })
+        .eq('partner', reqData.partneremail);
 
     if (searchValue) {
         query = query.or(buildOrSearch(searchValue));
