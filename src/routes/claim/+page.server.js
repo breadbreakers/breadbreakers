@@ -11,7 +11,7 @@ export async function load({ locals, url }) {
   const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
   if (userError || !user) throw redirect(303, '/');
 
-   // check if is partner
+   // check if is partner (this is the claim request page for partners)
   const { data: partner, error: partnerError } = await locals.supabase
     .from('partners')
     .select('email')
@@ -37,18 +37,6 @@ export async function load({ locals, url }) {
     throw redirect(303, '/');
   }
 
-  // get the item details based on the get param  
-  let itemData = null;
-  if (itemId) {
-    const { data, error } = await locals.supabase
-      .from('requests')
-      .select('*')
-      .eq('id', itemId)
-      .single();
-    
-    if (!error) itemData = data;
-  }
-
   // Return only validated data
-  return { session, user, item: itemData };
+  return { session, user, item: wip };
 }

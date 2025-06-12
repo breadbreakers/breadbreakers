@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseClient } from '$lib/server/supabase.server';
+import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
 export async function POST(event) {
     const { request } = event;
@@ -42,7 +43,7 @@ export async function POST(event) {
             to: partnerEmail,
             subject: `Ringfence Rejected for ${wip.title} (${itemId})`,
             body: partnerBody,
-            bcc: 'hello@breadbreakers.sg' // for audit trail 
+            bcc: BREADBREAKERS_EMAIL // for audit trail 
         });
 
         // delete entry in wip table

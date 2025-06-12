@@ -34,20 +34,6 @@ export async function load({ locals, url }) {
     throw redirect(303, '/');
   }
 
-  // get the item details based on the get param
-  
-  let itemData = null;
-  if (itemId) {
-    const { data: fetchedItem, error: itemError } = await locals.supabase
-      .from('requests')
-      .select('*')
-      .eq('id', itemId)
-      .single();
-
-    if (!fetchedItem || itemError) throw redirect(303, '/');
-    itemData = fetchedItem;
-  }
-
   // Return only validated data
-  return { session, user, item: itemData };
+  return { session, user, item: wip };
 }

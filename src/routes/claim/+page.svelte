@@ -143,7 +143,7 @@
   <div class="container">
     <h2 class="subtitle is-4">Claim Request</h2>
 
-    <h3 class="mt-4 has-text-weight-medium">{item.contact_clean}</h3>
+    <h3 class="mt-4 has-text-weight-medium">{item.contact}</h3>
     <h3 class="mt-4">{item.title}</h3>
     <h3 class="mt-4">{item.description}</h3>
 

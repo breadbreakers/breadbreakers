@@ -28,6 +28,7 @@ export async function load({ locals, url }) {
     .eq('id', itemId)
     .single();
 
+  // at this stage there should be no wip row for this item
   if (wip !== null) {
     if (wip.status == "ringfence_requested") {
       throw redirect(303, '/');
@@ -37,10 +38,10 @@ export async function load({ locals, url }) {
       throw redirect(303, '/');
     }
 
-    if (wip.status == "claim_requestesd") {
+    if (wip.status == "claim_requested") {
       throw redirect(303, '/');
     }
-  }
+  } 
 
   let itemData = null;
   if (itemId) {

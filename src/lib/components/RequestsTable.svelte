@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { env } from '$env/dynamic/public';
 
     let requestsTable;
 
@@ -88,7 +89,7 @@
                     render: function (data, type, row, meta) {
                         if (isPartner) {
                             return (
-                                `<i class="demo-icon icon-basket-1">&#xe803;</i><a target="_blank" class="has-text-weight-normal has-text-black" href="https://breadbreakers.sg/ringfence?id=${row.id}">` +
+                                `<i class="demo-icon icon-basket-1">&#xe803;</i><a target="_blank" class="has-text-weight-normal has-text-black" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">` +
                                 data +
                                 "</a>"
                             );

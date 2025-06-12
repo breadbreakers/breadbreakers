@@ -1,5 +1,6 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import { env } from '$env/dynamic/private';
+import { BREADBREAKERS_EMAIL_FROM } from "$lib/strings";
 
 const REGION = "us-east-1";
 
@@ -35,7 +36,7 @@ export async function sendEmail({ to, from, subject, body, replyto, bcc, cc }) {
                 Data: subjectClean,
             },
         },
-        Source: 'Bread Breakers <hello@breadbreakers.sg>',
+        Source: BREADBREAKERS_EMAIL_FROM,
         ReplyToAddresses: replyto ? [replyto] : [],
     };
 

@@ -5,6 +5,7 @@ import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseService } from '$lib/server/supabase.server';
 import { encrypt } from '$lib/crypto';
 import { getSgTime } from '$lib/sgtime';
+import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
@@ -96,7 +97,7 @@ export async function POST(event) {
           to: donor,
           subject: `Thank you for your support! 🙂`,
           body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${chargeId}</p><p>Please note that a processing fee of $${(stripeFee / 100).toFixed(2)} is deducted by our payment provider to facilitate secure payments.</p>`,
-          bcc: 'hello@breadbreakers.sg'
+          bcc: BREADBREAKERS_EMAIL
         });
 
       } catch (err) {

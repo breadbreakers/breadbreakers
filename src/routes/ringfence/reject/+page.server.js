@@ -39,7 +39,7 @@ export async function load({ locals, url }) {
   let itemData = null;
   if (itemId) {
     const { data: fetchedItem, error: itemError } = await locals.supabase
-      .from('requests')
+      .from('wip')
       .select('*')
       .eq('id', itemId)
       .single();

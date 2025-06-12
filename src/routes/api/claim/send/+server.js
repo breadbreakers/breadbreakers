@@ -6,6 +6,7 @@ import { generatePayNowStr } from '$lib/paynow.js';
 import QRCode from 'qrcode';
 import { Readable } from 'stream';
 import { createServerSupabaseClient } from '$lib/server/supabase.server';
+import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
 export const POST = async (event) => {
     const { request } = event;
@@ -145,7 +146,7 @@ export const POST = async (event) => {
             to: partnerEmail, 
             subject: `Claim Submitted for ${wip.title}`,
             body: partnerBody,
-            bcc: 'hello@breadbreakers.sg' // for audit trail 
+            bcc: BREADBREAKERS_EMAIL // for audit trail 
         });
 
         // send email to approver

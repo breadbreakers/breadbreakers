@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseClient } from '$lib/server/supabase.server';
 import { encrypt } from '$lib/crypto';
+import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
 export async function POST(event) {
     const { request } = event;
@@ -48,7 +49,7 @@ export async function POST(event) {
             to: partnerEmail,
             subject: partnerSubject,
             body: partnerBody,
-            bcc: 'hello@breadbreakers.sg'
+            bcc: BREADBREAKERS_EMAIL
         });
 
         return json({ success: true });

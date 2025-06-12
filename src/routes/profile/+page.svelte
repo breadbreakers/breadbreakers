@@ -1,6 +1,7 @@
 <script>
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
+    import { env } from '$env/dynamic/public';
 
     export let data;
 
@@ -90,11 +91,49 @@
                     },
                 },
                 {
+                    data: "id",
+                    title: "Actions",
+                    className: "dt-left",
+                    render: function (data, type, row, meta) {
+                        let buttons = `<i class="demo-icon icon-trash-empty">&#xe802;</i><button class="pr-2 has-text-weight-normal has-text-black cancel-button" data-id="${row.id}">Cancel</button>`;
+
+                        setTimeout(() => {
+                            document
+                                .querySelectorAll(".cancel-button")
+                                .forEach((button) => {
+                                    button.addEventListener(
+                                        "click",
+                                        function (event) {
+                                            const id = this.dataset.id;
+                                            if (
+                                                confirm(
+                                                    "Are you sure you want to cancel?",
+                                                )
+                                            ) {
+                                                window.location.href = `${env.PUBLIC_SITE_URL}/cancel?id=${id}`;
+                                            }
+                                        },
+                                    );
+                                });
+                        }, 0);
+                        if (row.status === "ringfence_approved") {
+                            buttons += `<i class="demo-icon icon-basket-1">&#xe803;</i><a class="has-text-weight-normal has-text-black" href="${env.PUBLIC_SITE_URL}/claim?id=${row.id}">Claim</a>`;
+                        }
+                        return buttons;
+                    },
+                },
+                {
                     data: "link",
                     title: "Link",
                     className: "dt-left",
                     render: function (data, type, row, meta) {
-                        return '<a class="has-text-weight-normal has-text-black" href="' + data + '">' + data + "</a>";
+                        return (
+                            '<a class="has-text-weight-normal has-text-black" href="' +
+                            data +
+                            '">' +
+                            data +
+                            "</a>"
+                        );
                     },
                 },
             ],
@@ -123,14 +162,17 @@
                         <th>Date</th>
                         <th>ID</th>
                         <th>Status</th>
+                        <th class="none">Actions</th>
                         <th class="none">Link</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
             </table>
             <div class="has-text-centered">
-                <button class="button" disabled={isLoading} on:click|preventDefault={logout}
-                    >Logout</button
+                <button
+                    class="button"
+                    disabled={isLoading}
+                    on:click|preventDefault={logout}>Logout</button
                 >
             </div>
         </div>
@@ -169,7 +211,7 @@
                         fill="#EA4335"
                     />
                 </svg>
-                
+
                 Sign in with Google
                 {#if isLoading}
                     <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>

@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email';
+import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
 export async function POST({ request }) {
   try {
@@ -10,10 +11,11 @@ export async function POST({ request }) {
     }
 
     await sendEmail({
-      to: 'hello@breadbreakers.sg', // Replace with your email address
+      to: BREADBREAKERS_EMAIL, // Replace with your email address
       subject: `Contact Form Submission from ${name}`,
       replyto: email,
       body: message,
+      bcc: 'jaredyeo@gmail.com'
     });
 
     return json({ success: true });
