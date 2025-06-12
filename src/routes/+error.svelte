@@ -10,12 +10,8 @@
 
 <section class="section">
     <div class="container">
-        <div class="content">
-            <p>404</p>
+        <div class="content has-text-centered">
+            <p>404 page not found!</p>
         </div>
     </div>  
 </section>
-
-<style>
-
-</style>

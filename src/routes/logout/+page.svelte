@@ -5,7 +5,7 @@
 <script>
     import { onMount } from "svelte";
 
-    let countdown = 3;
+    let countdown = 0;
     let timer;
 
     onMount(() => {
@@ -24,6 +24,6 @@
 <section class="section">
     <div class="container">
         <h1 class="subtitle">Logged out successfully</h1>
-        <p>Redirecting to home page in {countdown} seconds...</p>
+        <p>Redirecting to home page...</p>
     </div>
 </section>

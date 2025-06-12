@@ -32,7 +32,8 @@ export const load = async ({ url, parent, locals }) => {
       throw redirect(303, '/'); // Redirect even on error
     }
 
-    throw redirect(303, '/');
+    const redirectUrl = new URL('/', url.origin);
+    throw redirect(303, redirectUrl.toString());
   }
 
   throw redirect(303, '/');
