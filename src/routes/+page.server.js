@@ -24,10 +24,10 @@ export async function load({ locals }) {
 
     return {
         beneficiaryCount: data.beneficiaryCount,
-        nInNeed: data.wipCount,
+        nInNeed: data.inNeedCount - data.wipCount,
         balanceN: data.balanceData - data.operatingIncoming - data.ringfenceN,
         ringfenceN: data.ringfenceN,
-        nWip: data.inNeedCount - data.wipCount,
+        nWip: data.wipCount,
         loggedIn,
         isPartner
     };

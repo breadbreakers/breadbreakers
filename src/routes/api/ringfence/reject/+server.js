@@ -19,13 +19,13 @@ export async function POST(event) {
 
         // check if item is in ringfence_requested state
         // rls only allows logged in user to view their own rows
-        const { data: wipStatus } = await supabase
+        const { data: wip } = await supabase
             .from('wip')
             .select('*')
             .eq('id', itemId)
             .single();
 
-        if (wipStatus.status !== "ringfence_requested") {
+        if (wip.status !== "ringfence_requested") {
             return new Response('<p>Item has not requested for ringfence.</p>', {
                 status: 200,
                 headers: {
@@ -34,7 +34,7 @@ export async function POST(event) {
             });
         }
 
-        const partnerEmail = wipStatus.partner;
+        const partnerEmail = wip.partner;
 
         // send email to partner that ringfence is rejected
         const partnerBody = `<p>Your Ringfence Request has been rejected for ${wip.title}.</p><p>Remarks: ${rejectMessage}</p><p>Please submit your Ringfence Request again.</p>`
