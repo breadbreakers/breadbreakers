@@ -25,17 +25,17 @@ export async function POST(event) {
 
         // check if item is in ringfence_requested state
         // rls only allows logged in user to view their own rows
-        const { data: wipStatus } = await supabase
+        const { data: wip } = await supabase
             .from('wip')
             .select('*')
             .eq('id', itemId)
             .single();
 
-        if (wipStatus.status !== "ringfence_requested") {
+        if (wip.status !== "ringfence_requested") {
             return json({ message: 'Item has not requested for ringfence.' }, { status: 200 });
         }
 
-        const partnerEmail = wipStatus.partner;
+        const partnerEmail = wip.partner;
 
         // update wip table that is approved
         const { data, error } = await supabase
