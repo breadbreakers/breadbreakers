@@ -5,7 +5,7 @@ const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 export async function POST({ request }) {
 	const data = await request.formData();
-	const amount = Number(data.get('amount')) * 100; // Stripe expects cents
+	const amount = Math.round(Number(data.get('amount')) * 100);
 	const recurring = data.get('recurring') === 'true';
 	const fund = data.get('fund');
 

@@ -86,14 +86,14 @@ export async function POST(event) {
         itemData = item;
 
         // insert into wip table
-        const { data } = await supabase
+        const { data, error: insError } = await supabase
             .from('wip')
             .insert([
                 {
                     id: itemId,
                     status: "ringfence_requested",
                     partner: partnerEmail,
-                    amount: cost * 100,
+                    amount: Math.round(cost * 100),
                     link: linkUrl,
                     swconfirm: swConfirmUrl,
                     itemSupport: itemCostUrl,

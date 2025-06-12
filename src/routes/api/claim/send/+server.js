@@ -60,7 +60,7 @@ export const POST = async (event) => {
         // make sure claim abount == ringfence amount
         ringfencedAmount = wip.amount;
         
-        if (parseInt(ringfencedAmount) !== parseInt(cost * 100)) {
+        if (ringfencedAmount !== Math.round(cost * 100)) {
             return json({ error: 'Claim amount not the same as ringfenced amount.' }, { status: 409 });
         }
 

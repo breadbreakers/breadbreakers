@@ -20,7 +20,7 @@ export async function POST(event) {
             .insert([
                 {
                     source: itemDescription,
-                    amount: amount * 100,
+                    amount: Math.round(amount * 100),
                     approveremail: approverEmail,
                     timestamp: getSgTime()
                 }

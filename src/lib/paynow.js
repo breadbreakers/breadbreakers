@@ -86,7 +86,7 @@ function generatePayNowStr( opts ) {
     { id: '53', value: '702' },                   // ID 53: Currency. SGD is 702
     { id: '54', value: opts.amount.toString() },  // ID 54: Transaction Amount
     { id: '58', value: 'SG' },                    // ID 58: 2-letter Country Code (SG)
-    { id: '59', value: 'COMPANY NAME' },          // ID 59: Company Name
+    { id: '59', value: 'BREAD BREAKERS' },          // ID 59: Company Name
     { id: '60', value: 'Singapore' },             // ID 60: Merchant City
     {
       id: '62', value: [{                         // ID 62: Additional data fields
@@ -94,6 +94,7 @@ function generatePayNowStr( opts ) {
       }]
     }
   ]
+  
 
   let str = p.reduce((final, current) => {
     if (Array.isArray(current.value)) { //nest loop
