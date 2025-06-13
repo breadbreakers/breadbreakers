@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Bread Breakers Singapore | Partner With Us.</title>
+    <title>Bread Breakers Singapore | Partner With Us</title>
 </svelte:head>
 
 <section class="section">
@@ -8,11 +8,12 @@
         <div class="content">
             <p>
                 We believe that everyone has a role to play in this work of
-                practical compassion, whether through giving or serving.
+                practical compassion, whether through giving, serving, or simply
+                showing care.
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
-                Fund the Mission
+                Fund the Mission (Donors)
             </h3>
             <p>
                 If you're in a season where you can give financially, <a
@@ -22,13 +23,41 @@
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
-                Execute the Mission
+                Execute the Mission (Partners)
             </h3>
             <p>
-                If you don't have financial means but have time, energy, or
-                skills, <a href="/contact">come join us as an active procurement
-                partner</a>. We’ll provide the funds. You help us turn compassion
-                into action.
+                If you may not be able to give financially but have time,
+                energy, or skills, <a href="/contact"
+                    >come join us as an active procurement partner</a
+                >. We provide the funds. You help us turn compassion into
+                action.
+            </p>
+            <p>Partners may support in one of two ways:</p>
+            <ul>
+                <li>
+                    <strong>Procurement & Delivery:</strong> Take charge of fulfilling
+                    item requests by purchasing and delivering them to beneficiaries
+                    on our behalf.
+                </li>
+                <li>
+                    <strong>Adopt a Family:</strong> Commit to supporting a family’s
+                    recurring needs (e.g. groceries) over a defined period of time.
+                    This arrangement is coordinated in agreement with a supporting
+                    social worker to ensure appropriateness and alignment.
+                </li>
+            </ul>
+
+            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+                Minister the Mission (Encouragers)
+            </h3>
+            <p>
+                Not all help needs to be physical or financial. If you have a
+                heart to encourage, you can serve as someone who sends messages of hope, encouragement, and dignity
+                after a delivery is made.
+            </p>
+            <p>
+                These simple acts of kindness remind our beneficiaries that they
+                are not alone, and they are deeply valued and loved by God.
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
@@ -36,10 +65,10 @@
             </h3>
             <p>
                 Because we are stewarding public donations with transparency and
-                care, all partners will go
-                through a simple screening and onboarding process. This ensures
-                every action taken under the Bread Breakers name maintains the
-                integrity and trust we've committed to our supporters.
+                care, all partners go through a simple screening and onboarding
+                process. This helps ensure that every action taken under the
+                Bread Breakers name upholds the trust and integrity we are
+                committed to.
             </p>
         </div>
     </div>
