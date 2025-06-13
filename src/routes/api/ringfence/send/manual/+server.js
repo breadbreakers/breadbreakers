@@ -9,9 +9,9 @@ export async function POST(event) {
     let approverEmail;
 
     try {
-        const { itemId, linkUrl, cost, swConfirmUrl, itemCostUrl } = await request.json();
+        const { itemId, linkUrl, cost, swConfirmUrl, itemCostUrl, itemTitle, itemDesc, itemContact } = await request.json();
 
-        if (!itemId || !linkUrl || !cost || !swConfirmUrl || !itemCostUrl) {
+        if (!itemId || !linkUrl || !cost || !swConfirmUrl || !itemCostUrl || !itemTitle || !itemDesc || !itemContact) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
         }
 
@@ -75,16 +75,13 @@ export async function POST(event) {
 
         // don't need to check if it's a partner, because RLS already checks if logged in user is in the partners table before allowing  insert.
 
-        // get the items based on itemId
-        let itemData = null;
-
-        const { data: item, error: itemError } = await supabase
-            .from('requests')
-            .select('*')
-            .eq('id', itemId)
-            .single();
-
-        itemData = item;
+        // populate the item
+        let itemData = {
+            title: itemTitle,
+            description: itemDesc,
+            contact_clean: itemContact,
+            id: itemId
+        };
 
         // insert into wip table
         const { data, error: insError } = await supabase
