@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import Footer from "$lib/components/Footer.svelte";
   import { goto } from "$app/navigation";
+  import { env } from '$env/dynamic/public';
 
   const hideMenuOn = ["/logout"];
   $: showMenu = !hideMenuOn.includes($page.url.pathname);
@@ -13,7 +14,7 @@
 
   function closeMenu(path) {
     isMenuActive = false;
-    goto(path)
+    goto(env.PUBLIC_SITE_URL + path)
   }
 
   function isActive(path) {
@@ -76,7 +77,7 @@
             class="navbar-item"
             href="/governance"
             class:is-active={isActive("/governance")}
-            on:click|preventDefault={() => closeMenu('governance')}>Governance</a
+            on:click|preventDefault={() => closeMenu('/governance')}>Governance</a
           >
           <a
             class="navbar-item"

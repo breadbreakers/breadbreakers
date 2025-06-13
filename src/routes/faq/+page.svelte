@@ -1,7 +1,3 @@
-<svelte:head>
-    <title>Bread Breakers Singapore | FAQ</title>
-</svelte:head>
-
 <script>
     let activeIndex = null;
 
@@ -9,6 +5,10 @@
         activeIndex = activeIndex === index ? null : index;
     }
 </script>
+
+<svelte:head>
+    <title>Bread Breakers Singapore | FAQ</title>
+</svelte:head>
 
 <section class="section">
     <div class="container">
@@ -404,9 +404,8 @@
                         on:click={() => toggleAccordion(9)}
                     >
                         <h3 class="is-size-6 has-text-weight-normal">
-                            Some beneficiaries request
-                            branded or slightly more expensive items. Should
-                            these requests be fulfilled?
+                            Some beneficiaries request branded or slightly more
+                            expensive items. Should these requests be fulfilled?
                         </h3>
                     </button>
                     <div class="accordion-content">
@@ -429,19 +428,58 @@
                     </div>
                 </div>
 
-                <div class="accordion-item" class:is-active={activeIndex === 10}>
+                <div
+                    class="accordion-item"
+                    class:is-active={activeIndex === 10}
+                >
                     <button
                         type="button"
                         class="accordion-header"
                         on:click={() => toggleAccordion(10)}
                     >
                         <h3 class="is-size-6 has-text-weight-normal">
-                            How does Bread Breakers Singapore prevent conflicts of interest, such as social workers procuring, receiving or using donated items?
+                            How does Bread Breakers Singapore prevent conflicts
+                            of interest, such as social workers procuring,
+                            receiving or using donated items?
                         </h3>
                     </button>
                     <div class="accordion-content">
                         <p>
-                            Social workers only identify and verify needs. They do not handle donations, funds, or item procurement. All purchases are made by our trusted partners. Proof of delivery is documented and reflected on our website to ensure full accountability.
+                            Social workers only identify and verify needs. They
+                            do not handle donations, funds, or item procurement.
+                            All purchases are made by our trusted partners.
+                            Proof of delivery is documented and reflected on our
+                            website to ensure full accountability.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="accordion-item"
+                    class:is-active={activeIndex === 10}
+                >
+                    <button
+                        type="button"
+                        class="accordion-header"
+                        on:click={() => toggleAccordion(10)}
+                    >
+                        <h3 class="is-size-6 has-text-weight-normal">
+                            Should I attend to the beneficaries request for
+                            other items?
+                        </h3>
+                    </button>
+                    <div class="accordion-content">
+                        <p>
+                            Providing a beneficiary with significantly more than
+                            their declared or verified needs can inadvertently
+                            complicate their standing with social service
+                            agencies. It might create a perception that their
+                            financial situation is better than what they've
+                            declared, potentially impacting their eligibility
+                            for crucial long-term or ongoing government and
+                            social support schemes. Our priority is to ensure
+                            they receive appropriate aid without jeopardizing
+                            their overall support network.
                         </p>
                     </div>
                 </div>
