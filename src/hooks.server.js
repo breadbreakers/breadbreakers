@@ -40,8 +40,10 @@ export const handle = async ({ event, resolve }) => {
     [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline'",
-      "style-src 'self' 'unsafe-inline'",
-      "font-src 'self' data:",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "font-src 'self' data: https://fonts.gstatic.com",
+      "img-src 'self' data: https://cdn.shopify.com",
+      "object-src 'self'",
       "frame-src 'self'"
     ].join('; ')
   );
