@@ -1,3 +1,4 @@
+// src/routes/auth/callback/+page.svelte
 <script>
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
@@ -5,12 +6,14 @@
   export let data;
 
   onMount(() => {
+    // Use the redirectTo passed from the server
     const target = data.redirectTo || '/';
 
-    // Remove the code param from the URL without triggering a reload
-    window.history.replaceState({}, '', target);
+    // Clean URL by removing all query parameters (including code and redirectTo)
+    const cleanUrl = window.location.pathname;
+    window.history.replaceState({}, '', cleanUrl);
 
-    // Then navigate to the target route (client-side)
+    // Navigate to the target route
     goto(target, { replaceState: true });
   });
 </script>
