@@ -1,12 +1,28 @@
+// src/routes/auth/callback/+page.server.js
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ url, parent, locals }) => {
   const code = url.searchParams.get('code');
-  const rawRedirectTo  = url.searchParams.get('redirectTo'); // now works!
-  let finalRedirect;
+  const rawRedirectTo = url.searchParams.get('redirectTo');
+  let finalRedirect = '/'; // default redirect
+  
   if (rawRedirectTo) {
-    finalRedirect = decodeURIComponent(decodeURIComponent(rawRedirectTo.split("/profile?redirectTo=")[1]));
-  } 
+    try {
+      if (rawRedirectTo.includes('/profile?redirectTo=')) {
+        finalRedirect = decodeURIComponent(decodeURIComponent(rawRedirectTo.split("/profile?redirectTo=")[1]));
+      } else {
+        finalRedirect = decodeURIComponent(rawRedirectTo);
+      }
+      
+      // Validate that it's a safe relative path
+      if (!/^\/(?!\/)/.test(finalRedirect)) {
+        finalRedirect = '/';
+      }
+    } catch (e) {
+      console.error('Error decoding redirectTo:', e);
+      finalRedirect = '/';
+    }
+  }
 
   if (code) {
     const supabase = locals.supabase;
@@ -28,12 +44,12 @@ export const load = async ({ url, parent, locals }) => {
       throw redirect(303, '/');
     }
 
-    if (finalRedirect && /^\/(?!\/)/.test(finalRedirect)) {
-      throw redirect(303, finalRedirect);
-    }
-
-    throw redirect(303, "/");
+    // Instead of throwing a redirect, return the redirect target to the client
+    return {
+      redirectTo: finalRedirect
+    };
   }
 
+  // If no code, redirect immediately
   throw redirect(303, '/');
 };
