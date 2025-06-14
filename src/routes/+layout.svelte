@@ -1,11 +1,12 @@
 <script>
-  import { page } from "$app/stores";
+  import { page, navigating } from "$app/stores";
   import Footer from "$lib/components/Footer.svelte";
   import { goto } from "$app/navigation";
   import { env } from '$env/dynamic/public';
 
   const hideMenuOn = ["/logout"];
   $: showMenu = !hideMenuOn.includes($page.url.pathname);
+  $: isNavigating = $navigating !== null;
   let isMenuActive = false;
 
   function toggleMenu() {
@@ -41,9 +42,13 @@
           tabindex="0"
           class:is-active={isMenuActive}
         >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+          {#if isNavigating}
+            <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+          {:else}
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          {/if}
         </button>
       </div>
 
@@ -205,15 +210,15 @@
   }
 
   .navbar-links {
-  flex-grow: 1;
-  justify-content: center;
-}
-
-@media screen and (max-width: 1023px) {
-  .navbar-links {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+    flex-grow: 1;
+    justify-content: center;
   }
-}
+
+  @media screen and (max-width: 1023px) {
+    .navbar-links {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+  }
 </style>
