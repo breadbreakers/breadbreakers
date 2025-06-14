@@ -42,8 +42,6 @@ export const handle = async ({ event, resolve }) => {
       "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
-      `img-src 'self' data: https://your-supabase-project.supabase.co`,
-      `connect-src 'self' https://your-supabase-project.supabase.co`,
       "frame-src 'self'"
     ].join('; ')
   );
