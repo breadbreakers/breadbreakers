@@ -1,4 +1,3 @@
-// src/routes/auth/callback/+page.server.js
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ url, parent, locals }) => {
