@@ -1,4 +1,3 @@
-// src/routes/auth/callback/+page.svelte
 <script>
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
