@@ -13,95 +13,90 @@
 
 [[redirects]]
   from = "/*.php"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.asp"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.aspx"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.cgi"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.pl"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.jsp"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.sh"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.bak"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.old"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.tmp"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.swp"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.sql"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.env"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.git"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.htaccess"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.htpasswd"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.ini"
-  to = "/"
+  to = "/404"
   status = 404
 
 [[redirects]]
   from = "/*.conf"
-  to = "/"
-  status = 404
-
-[[redirects]]
-  from = "/*.aspx"
-  to = "/"
+  to = "/404"
   status = 404
