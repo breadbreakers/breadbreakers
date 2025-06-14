@@ -8,7 +8,6 @@
   $: showMenu = !hideMenuOn.includes($page.url.pathname);
   $: isNavigating = $navigating !== null;
   let isMenuActive = false;
-  let clickedPath = null;
 
   function toggleMenu() {
     isMenuActive = !isMenuActive;
@@ -16,13 +15,7 @@
 
   function closeMenu(path) {
     isMenuActive = false;
-    clickedPath = path; // Track which link was clicked
     goto(env.PUBLIC_SITE_URL + path)
-  }
-
-  // Reset clicked path when navigation completes
-  $: if (!isNavigating) {
-    clickedPath = null;
   }
 
   function isActive(path) {
@@ -65,70 +58,60 @@
             class="navbar-item"
             href="/"
             class:is-active={isActive("/")}
-            class:is-loading={isNavigating && clickedPath === '/'}
             on:click|preventDefault={() => closeMenu('/')}>Home</a
           >
           <a
             class="navbar-item"
             href="/about"
             class:is-active={isActive("/about")}
-            class:is-loading={isNavigating && clickedPath === '/about'}
             on:click|preventDefault={() => closeMenu('/about')}>About</a
           >
           <a
             class="navbar-item"
             href="/faq"
             class:is-active={isActive("/faq")}
-            class:is-loading={isNavigating && clickedPath === '/faq'}
             on:click|preventDefault={() => closeMenu('/faq')}>FAQ</a
           >
           <a
             class="navbar-item"
             href="/ledger"
             class:is-active={isActive("/ledger")}
-            class:is-loading={isNavigating && clickedPath === '/ledger'}
             on:click|preventDefault={() => closeMenu('/ledger')}>Financials</a
           >
           <a
             class="navbar-item"
             href="/governance"
             class:is-active={isActive("/governance")}
-            class:is-loading={isNavigating && clickedPath === '/governance'}
             on:click|preventDefault={() => closeMenu('/governance')}>Governance</a
           >
           <a
             class="navbar-item"
             href="/get-involved"
             class:is-active={isActive("/get-involved")}
-            class:is-loading={isNavigating && clickedPath === '/get-involved'}
             on:click|preventDefault={() => closeMenu('/get-involved')}>Partner</a
           >
           <a
             class="navbar-item"
             href="/resources"
             class:is-active={isActive("/resources")}
-            class:is-loading={isNavigating && clickedPath === '/resources'}
             on:click|preventDefault={() => closeMenu('/resources')}>Resources</a
           >
           <a
             class="navbar-item"
             href="/donate"
             class:is-active={isActive("/donate")}
-            class:is-loading={isNavigating && clickedPath === '/donate'}
             on:click|preventDefault={() => closeMenu('/donate')}>Donate</a
           >
           <a
             class="navbar-item"
             href="/contact"
             class:is-active={isActive("/contact")}
-            class:is-loading={isNavigating && clickedPath === '/contact'}
             on:click|preventDefault={() => closeMenu('/contact')}>Contact</a
           >
           <a
             class="navbar-item"
             href="/profile"
             class:is-active={isActive("/profile")}
-            class:is-loading={isNavigating && clickedPath === '/profile'}
             on:click|preventDefault={() => closeMenu('/profile')}
           >
             <i class="demo-icon icon-user">&#xe800;</i>
@@ -175,42 +158,6 @@
   .navbar-item {
     font-size: 0.9em;
     font-weight: 400;
-    display: inline-block;
-    position: relative;
-    color: #0087ca;
-    text-decoration: none;
-  }
-
-  .navbar-item.is-loading::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 0.05em;
-    bottom: 0;
-    left: 0;
-    border-radius: 5px;
-    background: currentColor;
-    transform-origin: left;
-    transform: scaleX(0);
-    animation: loading-underline 1s ease-in-out infinite;
-  }
-
-  @keyframes loading-underline {
-    0% {
-      transform: scaleX(0);
-      transform-origin: left;
-    }
-    50% {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-    51% {
-      transform-origin: right;
-    }
-    100% {
-      transform: scaleX(0);
-      transform-origin: right;
-    }
   }
 
   .tagline {
@@ -272,19 +219,6 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
-    }
-  }
-
-  .animate-spin {
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
     }
   }
 </style>
