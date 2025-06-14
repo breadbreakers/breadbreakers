@@ -129,8 +129,8 @@
                 Radical Transparency
             </h4>
             <p>
-                We believe trust is built through openness. Our finances and
-                operations are shared in full, including monthly bank and debit
+                We believe trust is built through openness. <a href="/ledger">Our finances and
+                operations are shared in full</a>, including monthly bank and debit
                 statements, procurement records, and delivery reports. This
                 open-book approach builds confidence in how donations are used
                 and underscores our commitment to integrity.
@@ -170,8 +170,8 @@
                 Cultivating Community Empathy
             </h4>
             <p>
-                We create space for families—especially those with young
-                children—to connect meaningfully with the diverse realities in
+                We create space for families, especially those with young
+                children to connect meaningfully with the diverse realities in
                 our society. Through acts of giving, they gain a deeper
                 understanding of others’ needs and develop empathy and social
                 awareness from a young age.

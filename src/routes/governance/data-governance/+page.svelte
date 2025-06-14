@@ -175,7 +175,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Beneficiary Name, Address, Mobile Number</td>
+                            <td>Beneficiary Address</td>
                             <td>Procurement and delivery of items</td>
                             <td>Social Workers</td>
                             <td>Until delivery completion</td>

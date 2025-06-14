@@ -47,6 +47,11 @@
                         >Data Management Policy</a
                     >
                 </li>
+                <li>
+                    <a href="/governance/tech-stack"
+                        >Technology Stack / Operating Costs</a
+                    >
+                </li>
             </ul>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Finance</h3>
