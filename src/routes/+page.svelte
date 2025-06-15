@@ -34,18 +34,20 @@
             <div class="columns">
                 <div class="column">
                     <button
-                        on:click={(event) => showTable(event, "fulfilled")}
-                        class="is-fullwidth button is-info is-light"
-                        >🎁 Items Fulfilled</button
-                    >
-                </div>
-                <div class="column">
-                    <button
                         on:click={(event) => showTable(event, "requests")}
                         class="is-fullwidth button is-primary is-light"
                         >📦 Items Requested</button
                     >
                 </div>
+
+                <div class="column">
+                    <button
+                        on:click={(event) => showTable(event, "fulfilled")}
+                        class="is-fullwidth button is-info is-light"
+                        >🎁 Items Fulfilled</button
+                    >
+                </div>
+
             </div>
         </div>
     </div>

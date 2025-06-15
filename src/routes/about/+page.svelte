@@ -2,6 +2,10 @@
     <title>Bread Breakers Singapore | About Us</title>
 </svelte:head>
 
+<script>
+    import BackToTop from "$lib/components/BackToTop.svelte";
+</script>
+
 <section class="section">
     <div class="container">
         <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
@@ -186,5 +190,6 @@
                 bringing practical faith, hope, and love to those most in need.
             </p>
         </div>
+        <BackToTop />
     </div>
 </section>

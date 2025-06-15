@@ -1,4 +1,6 @@
 <script>
+    import BackToTop from "$lib/components/BackToTop.svelte";
+    
     let activeIndex = null;
 
     function toggleAccordion(index) {
@@ -485,6 +487,7 @@
                 </div>
             </div>
         </div>
+        <BackToTop />
     </div>
 </section>
 

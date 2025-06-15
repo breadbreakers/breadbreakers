@@ -1,11 +1,12 @@
+<script>
+    import Zoom from "svelte-medium-image-zoom";
+    import "svelte-medium-image-zoom/dist/styles.css";
+    import BackToTop from "$lib/components/BackToTop.svelte";
+</script>
+
 <svelte:head>
     <title>Bread Breakers Singapore | Partner With Us</title>
 </svelte:head>
-
-<script>
-    import Zoom from 'svelte-medium-image-zoom';
-    import 'svelte-medium-image-zoom/dist/styles.css';
-</script>
 
 <section class="section">
     <div class="container">
@@ -94,6 +95,7 @@
                 committed to.
             </p>
         </div>
+        <BackToTop />
     </div>
 </section>
 
