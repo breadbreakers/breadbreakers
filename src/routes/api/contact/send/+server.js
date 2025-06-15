@@ -1,9 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
-import { env } from '$env/static/private';
-
-const RECAPTCHA_SECRET_KEY = env.RECAPTCHA_SECRET_KEY;
+import { RECAPTCHA_SECRET_KEY } from '$env/static/private';
 
 export async function POST({ request, cookies }) {
   try {
