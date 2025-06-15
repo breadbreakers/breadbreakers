@@ -36,7 +36,10 @@
             <p>
                 Any data breach, whether suspected or confirmed, will be
                 immediately reported to the DPO. If there is significant risk,
-                we will <a href="https://www.pdpc.gov.sg/report-data-breach/self-assessment">notify the PDPC</a> and affected individuals as required.
+                we will <a
+                    href="https://www.pdpc.gov.sg/report-data-breach/self-assessment"
+                    >notify the PDPC</a
+                > and affected individuals as required.
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
@@ -54,13 +57,21 @@
                     <strong>Consent:</strong> With your explicit written consent
                 </li>
             </ul>
-
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
-                Your Privacy Choices
+                Cookies and Authentication
             </h3>
             <p>
-                You may choose what personal information to share. However,
-                opting out of certain uses may affect service delivery.
+                We use cookies solely for authentication purposes. These cookies are essential for enabling
+                secure login and maintaining session integrity. They do not
+                track users for advertising or analytics purposes.
+            </p>
+            <p>
+                When you log in, we retrieve and store your email
+                address. This email is used only for operational purposes such
+                as verifying identity, managing access permissions, and
+                communicating organizational updates. We do not use this
+                information for marketing, profiling, or any third-party
+                sharing.
             </p>
         </div>
 

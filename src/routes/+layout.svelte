@@ -1,22 +1,25 @@
 <script>
   import { page, navigating } from "$app/stores";
-  import { afterNavigate } from '$app/navigation';
-  import { onDestroy } from 'svelte';
+  import { afterNavigate } from "$app/navigation";
+  import { onDestroy } from "svelte";
   import Footer from "$lib/components/Footer.svelte";
   import { goto } from "$app/navigation";
-  import { env } from '$env/dynamic/public';
+  import { env } from "$env/dynamic/public";
+  import { browser } from "$app/environment";
 
-  afterNavigate(() => {
-    const badge = document.querySelector('.grecaptcha-badge');
-    if (badge) {
-      badge.remove(); 
-    }
-  });
+  if (browser) {
+    afterNavigate(() => {
+      const badge = document.querySelector(".grecaptcha-badge");
+      if (badge) {
+        badge.remove();
+      }
+    });
 
-  onDestroy(() => {
-    const badge = document.querySelector('.grecaptcha-badge');
-    if (badge) badge.remove();
-  });
+    onDestroy(() => {
+      const badge = document.querySelector(".grecaptcha-badge");
+      if (badge) badge.remove();
+    });
+  }
 
   const hideMenuOn = ["/logout"];
   $: showMenu = !hideMenuOn.includes($page.url.pathname);
@@ -31,7 +34,7 @@
   function closeMenu(path) {
     isMenuActive = false;
     clickedPath = path; // Track which link was clicked
-    goto(env.PUBLIC_SITE_URL + path)
+    goto(env.PUBLIC_SITE_URL + path);
   }
 
   // Reset clicked path when navigation completes
@@ -79,71 +82,73 @@
             class="navbar-item"
             href="/"
             class:is-active={isActive("/")}
-            class:is-loading={isNavigating && clickedPath === '/'}
-            on:click|preventDefault={() => closeMenu('/')}>Home</a
+            class:is-loading={isNavigating && clickedPath === "/"}
+            on:click|preventDefault={() => closeMenu("/")}>Home</a
           >
           <a
             class="navbar-item"
             href="/about"
             class:is-active={isActive("/about")}
-            class:is-loading={isNavigating && clickedPath === '/about'}
-            on:click|preventDefault={() => closeMenu('/about')}>About</a
+            class:is-loading={isNavigating && clickedPath === "/about"}
+            on:click|preventDefault={() => closeMenu("/about")}>About</a
           >
           <a
             class="navbar-item"
             href="/faq"
             class:is-active={isActive("/faq")}
-            class:is-loading={isNavigating && clickedPath === '/faq'}
-            on:click|preventDefault={() => closeMenu('/faq')}>FAQ</a
+            class:is-loading={isNavigating && clickedPath === "/faq"}
+            on:click|preventDefault={() => closeMenu("/faq")}>FAQ</a
           >
           <a
             class="navbar-item"
             href="/ledger"
             class:is-active={isActive("/ledger")}
-            class:is-loading={isNavigating && clickedPath === '/ledger'}
-            on:click|preventDefault={() => closeMenu('/ledger')}>Financials</a
+            class:is-loading={isNavigating && clickedPath === "/ledger"}
+            on:click|preventDefault={() => closeMenu("/ledger")}>Financials</a
           >
           <a
             class="navbar-item"
             href="/governance"
             class:is-active={isActive("/governance")}
-            class:is-loading={isNavigating && clickedPath === '/governance'}
-            on:click|preventDefault={() => closeMenu('/governance')}>Governance</a
+            class:is-loading={isNavigating && clickedPath === "/governance"}
+            on:click|preventDefault={() => closeMenu("/governance")}
+            >Governance</a
           >
           <a
             class="navbar-item"
             href="/get-involved"
             class:is-active={isActive("/get-involved")}
-            class:is-loading={isNavigating && clickedPath === '/get-involved'}
-            on:click|preventDefault={() => closeMenu('/get-involved')}>Partner</a
+            class:is-loading={isNavigating && clickedPath === "/get-involved"}
+            on:click|preventDefault={() => closeMenu("/get-involved")}
+            >Partner</a
           >
           <a
             class="navbar-item"
             href="/resources"
             class:is-active={isActive("/resources")}
-            class:is-loading={isNavigating && clickedPath === '/resources'}
-            on:click|preventDefault={() => closeMenu('/resources')}>Resources</a
+            class:is-loading={isNavigating && clickedPath === "/resources"}
+            on:click|preventDefault={() => closeMenu("/resources")}>Resources</a
           >
           <a
             class="navbar-item"
             href="/donate"
             class:is-active={isActive("/donate")}
-            class:is-loading={isNavigating && clickedPath === '/donate'}
-            on:click|preventDefault={() => closeMenu('/donate')}>Donate</a
+            class:is-loading={isNavigating && clickedPath === "/donate"}
+            on:click|preventDefault={() => closeMenu("/donate")}>Donate</a
           >
           <a
             class="navbar-item"
             href="/contact"
             class:is-active={isActive("/contact")}
-            class:is-loading={isNavigating && clickedPath === '/contact'}
-            on:click|preventDefault={() => closeMenu('/contact')}>Contact</a
+            class:is-loading={isNavigating && clickedPath === "/contact"}
+            on:click|preventDefault={() => closeMenu("/contact")}>Contact</a
           >
           <a
             class="navbar-item"
             href="/profile"
             class:is-active={isActive("/profile")}
-            class:is-loading={isNavigating && clickedPath === '/profile'}
-            on:click|preventDefault={() => closeMenu('/profile')}
+            class:is-loading={isNavigating && clickedPath === "/profile"}
+            on:click|preventDefault={() => closeMenu("/profile")}
           >
             <i class="demo-icon icon-user">&#xe800;</i>
             <span class="account-label">Account</span>
@@ -196,9 +201,9 @@
     .navbar-item {
       position: relative;
     }
-    
+
     .navbar-item.is-loading::after {
-      content: '';
+      content: "";
       position: absolute;
       width: 100%;
       height: 0.05em;
