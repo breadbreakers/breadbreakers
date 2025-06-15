@@ -1,17 +1,45 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
+import { env } from '$env/static/private';
 
-export async function POST({ request }) {
+const RECAPTCHA_SECRET_KEY = env.RECAPTCHA_SECRET_KEY;
+
+export async function POST({ request, cookies }) {
   try {
-    const { name, email, message } = await request.json();
+    const { name, email, message, recaptchaToken, csrfToken } = await request.json();
 
-    if (!name || !email || !message) {
+    // Basic validation
+    if (!name || !email || !message || !recaptchaToken || !csrfToken) {
       return json({ success: false, error: 'Missing required fields' }, { status: 400 });
     }
 
+    // ✅ CSRF Validation
+    const storedToken = cookies.get('csrf_token');
+    if (!storedToken || storedToken !== csrfToken) {
+      return json({ success: false, error: 'Invalid CSRF token' }, { status: 403 });
+    }
+
+    // ✅ Verify reCAPTCHA v3 token
+    const verificationRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        secret: RECAPTCHA_SECRET_KEY,
+        response: recaptchaToken
+      })
+    });
+
+    const verificationData = await verificationRes.json();
+    console.log('reCAPTCHA verification result:', verificationData);
+
+    if (!verificationData.success || verificationData.score < 0.5) {
+      return json({ success: false, error: 'reCAPTCHA verification failed' }, { status: 400 });
+    }
+
+    // ✅ Send the email
     await sendEmail({
-      to: BREADBREAKERS_EMAIL, // Replace with your email address
+      to: BREADBREAKERS_EMAIL,
       subject: `Contact Form Submission from ${name}`,
       replyto: email,
       body: message,
@@ -19,8 +47,9 @@ export async function POST({ request }) {
     });
 
     return json({ success: true });
+
   } catch (error) {
-    console.error("Error sending email:", error);
-    return json({ success: false, error: error.message }, { status: 500 });
+    console.error('Error sending contact form:', error);
+    return json({ success: false, error: 'Internal Server Error' }, { status: 500 });
   }
 }

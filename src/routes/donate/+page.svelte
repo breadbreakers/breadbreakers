@@ -28,9 +28,21 @@
     $: calculateTotal(amount, paymentType);
 </script>
 
+<svelte:head>
+    <title>Bread Breakers Singapore | Donate</title>
+</svelte:head>
+
 <section class="section">
     <div class="container">
         <h2 class="subtitle is-5 has-text-weight-semibold">🎁 Donate</h2>
+        <div class="notification is-warning is-light">
+            Bread Breakers Singapore will never solicit or accept donations
+            through any channels other than this official donate webpage. Please
+            be aware that we do not accept donations via direct bank transfers,
+            cryptocurrency, or any quasi-currency platforms. To ensure the
+            security and transparency of your contribution, always donate
+            exclusively through the designated form on this page.
+        </div>
         <form method="POST" action="/api/donate">
             <div class="field">
                 <div class="field-body">
@@ -114,11 +126,11 @@
                 </h3>
                 <p>
                     Donations made to us are currently not tax-deductible. This
-                    is because we are not an Institution of a Public
-                    Character (IPC). Achieving IPC status requires a significant
-                    track record of good governance and charitable work, which
-                    we will diligently build towards. Your generosity, even without tax exemption,
-                    makes an immediate and tangible difference.
+                    is because we are not an Institution of a Public Character
+                    (IPC). Achieving IPC status requires a significant track
+                    record of good governance and charitable work, which we will
+                    diligently build towards. Your generosity, even without tax
+                    exemption, makes an immediate and tangible difference.
                 </p>
                 <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
                     Our Funds

@@ -2,6 +2,11 @@
     <title>Bread Breakers Singapore | Partner With Us</title>
 </svelte:head>
 
+<script>
+    import Zoom from 'svelte-medium-image-zoom';
+    import 'svelte-medium-image-zoom/dist/styles.css';
+</script>
+
 <section class="section">
     <div class="container">
         <h2 class="subtitle has-text-weight-semibold pt-4">Partner With Us</h2>
@@ -47,21 +52,31 @@
                 </li>
             </ul>
 
-<a href="/flowchart.jpg" target="_blank" rel="noopener noreferrer">
-  <img src="/flowchart.jpg" alt="Flowchart" class="flowchart-image" />
-</a>
-<p class="flowchart-info">Click to enlarge</p>
+            <Zoom>
+                <img
+                    src="/flowchart.jpg"
+                    alt="Flowchart"
+                    class="flowchart-image"
+                />
+            </Zoom>
+            <p class="flowchart-info">Click to enlarge</p>
 
-<p>Due to our lean, volunteer-led model, individuals serving on the Working Group may also directly serve as Partners involved to aid procurement and delivery. To maintain strict integrity and transparency, a Working Group member acting as a Partner cannot approve their own requests, and must be approved by another designated member from the Working Group.
-</p>
+            <p>
+                Due to our lean, volunteer-led model, individuals serving on the
+                Working Group may also directly serve as Partners involved to
+                aid procurement and delivery. To maintain strict integrity and
+                transparency, a Working Group member acting as a Partner cannot
+                approve their own requests, and must be approved by another
+                designated member from the Working Group.
+            </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
                 Minister the Mission (Encouragers)
             </h3>
             <p>
                 Not all help needs to be physical or financial. If you have a
-                heart to encourage, you can serve as someone who sends messages of hope, encouragement, and dignity
-                after a delivery is made.
+                heart to encourage, you can serve as someone who sends messages
+                of hope, encouragement, and dignity after a delivery is made.
             </p>
             <p>
                 These simple acts of kindness remind our beneficiaries that they
@@ -77,28 +92,28 @@
                 process. This helps ensure that every action taken under the
                 Bread Breakers name upholds the trust and integrity we are
                 committed to.
-</p>
+            </p>
         </div>
     </div>
 </section>
 
 <style>
-  .flowchart-image {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .flowchart-info {
-    text-align: center;
-    font-size: 0.8em;
-    margin-top: 0.5em;
-  }
-
-  @media (max-width: 600px) {
     .flowchart-image {
-      width: 80%;
-      display: block;
-      margin: 0 auto;
+        max-width: 100%;
+        height: auto;
     }
-  }
+
+    .flowchart-info {
+        text-align: center;
+        font-size: 0.8em;
+        margin-top: 0.5em;
+    }
+
+    @media (max-width: 600px) {
+        .flowchart-image {
+            width: 80%;
+            display: block;
+            margin: 0 auto;
+        }
+    }
 </style>
