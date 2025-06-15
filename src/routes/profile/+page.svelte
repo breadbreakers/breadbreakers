@@ -166,6 +166,13 @@
                         href="/Partner Guide.pdf">Guide for Partners</a
                     >
                 </p>
+                <p>
+                    <i class="demo-icon icon-attach">&#xe801;</i><a
+                        target="_blank"
+                        class="has-text-weight-normal"
+                        href="/CSA_SGCyberSafe_Employees-Toolkit_2022.pdf">Cybersecurity Toolkit</a
+                    >
+                </p>
 
                 <table
                     bind:this={workTable}

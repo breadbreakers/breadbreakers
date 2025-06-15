@@ -33,7 +33,7 @@
             </h3>
             <p>
                 If you may not be able to give financially but have time,
-                energy, or skills, <a href="/contact"
+                energy, or skills, <a href="https://forms.gle/w5ptTEM3UvxESy5M7"
                     >come join us as an active procurement partner</a
                 >. We provide the funds. You help us turn compassion into
                 action.
@@ -60,7 +60,7 @@
                     class="flowchart-image"
                 />
             </Zoom>
-            <p class="flowchart-info">Click to enlarge</p>
+            <p class="flowchart-info">🔎 Enlarge</p>
 
             <p>
                 Due to our lean, volunteer-led model, individuals serving on the

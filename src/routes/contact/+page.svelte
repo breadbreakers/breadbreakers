@@ -1,10 +1,3 @@
-<svelte:head>
-  <title>Bread Breakers Singapore | Contact Us</title>
-  <script
-    src="https://www.google.com/recaptcha/api.js?render=6LeWZmErAAAAAJTf7_XmRU4Kl5uzi21akB_h5N2E"
-  ></script>
-</svelte:head>
-
 <script>
   import { invalidateAll } from "$app/navigation";
   import { onMount } from "svelte";
@@ -31,7 +24,7 @@
       { action: "submit" },
     );
 
-    console.log("Generated reCAPTCHA token:", recaptchaToken); 
+    console.log("Generated reCAPTCHA token:", recaptchaToken);
 
     const response = await fetch("/api/contact/send", {
       method: "POST",
@@ -62,9 +55,26 @@
   }
 </script>
 
+<svelte:head>
+  <title>Bread Breakers Singapore | Contact Us</title>
+  <script
+    src="https://www.google.com/recaptcha/api.js?render=6LeWZmErAAAAAJTf7_XmRU4Kl5uzi21akB_h5N2E"
+  ></script>
+</svelte:head>
+
 <section class="section">
   <div class="container">
     <h2 class="subtitle is-5 has-text-weight-semibold">Contact Us</h2>
+    <div class="content">
+      <p>
+        If you have a question, please <a href="/faq">read our FAQ</a> first! If you can't find
+        answers there, we are happy to assist.
+      </p>
+      <p>
+        If have a comment or feedback, feel free to reach out to us using the
+        contact form below.
+      </p>
+    </div>
     <form on:submit|preventDefault={handleSubmit}>
       <div class="field">
         <label class="label" for="name">Name</label>
@@ -116,8 +126,11 @@
             </button>
           </div>
         </div>
+              <p><a class="has-text-weight-normal" href="/governance/privacy-policy">Privacy policy</a></p>
       {/if}
     </form>
+
+    
 
     {#if status === "success"}
       <div class="notification is-success mt-3 has-text-centered">

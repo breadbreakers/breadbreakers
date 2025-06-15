@@ -1,6 +1,6 @@
 <script>
     import BackToTop from "$lib/components/BackToTop.svelte";
-    
+
     let activeIndex = null;
 
     function toggleAccordion(index) {
@@ -27,6 +27,10 @@
 
         <div class="accordion">
             <div class="content">
+                <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                    Beneficiaries
+                </h3>
+
                 <div class="accordion-item" class:is-active={activeIndex === 1}>
                     <button
                         type="button"
@@ -39,6 +43,11 @@
                         </h3>
                     </button>
                     <div class="accordion-content">
+                        <p>
+                            Source: <a href="/resources"
+                                >What Inequality Looks Like</a
+                            >
+                        </p>
                         <p>
                             Low-income individuals and families face a myriad of
                             challenges:
@@ -126,6 +135,155 @@
                         on:click={() => toggleAccordion(2)}
                     >
                         <h3 class="is-size-6 has-text-weight-normal">
+                            Some beneficiaries request branded or slightly more
+                            expensive items. Should these requests be fulfilled?
+                        </h3>
+                    </button>
+                    <div class="accordion-content">
+                        <p>
+                            Our mission is to serve the needy without judgment.
+                            While it might seem counterintuitive to provide what
+                            appears to be a "luxury" item, everyone has a right
+                            to choice and preferences, even in challenging
+                            circumstances. There are often nuances we aren't
+                            aware of. For example, a baby might experience hives
+                            or rashes from certain diaper brands, necessitating
+                            a specific, seemingly more expensive alternative.
+                            Similarly, allergies to particular milk powders
+                            could mean a child requires a specialized,
+                            higher-cost formula. We trust that beneficiaries are
+                            requesting items based on genuine needs and personal
+                            preferences, and our role is to provide support, not
+                            to question their specific requirements.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item" class:is-active={activeIndex === 3}>
+                    <button
+                        type="button"
+                        class="accordion-header"
+                        on:click={() => toggleAccordion(3)}
+                    >
+                        <h3 class="is-size-6 has-text-weight-normal">
+                            Should I still donate when the beneficiary appears
+                            to already have an abundance of items?
+                        </h3>
+                    </button>
+                    <div class="accordion-content">
+                        <p>
+                            Many donated items, especially consumables like
+                            food, toiletries, or certain household essentials,
+                            are used up quickly. What appears as 'a lot' today
+                            might be depleted in a few weeks, or even days.
+                            Needs are ongoing, not a one-time fix.
+                        </p>
+                        <p>
+                            We focus on providing specific, verified items that
+                            have been identified as critical by social workers.
+                            The items you see might not address the precise,
+                            current, and urgent need on our list. Your donation
+                            ensures a very particular gap is filled.
+                        </p>
+                        <p>
+                            Our process ensures that individuals receive exactly
+                            what they need, not just generic aid. This prevents
+                            waste and respects the dignity of the beneficiary by
+                            not overloading them with items they don't
+                            explicitly require.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item" class:is-active={activeIndex === 4}>
+                    <button
+                        type="button"
+                        class="accordion-header"
+                        on:click={() => toggleAccordion(4)}
+                    >
+                        <h3 class="is-size-6 has-text-weight-normal">
+                            Can I give more than what was requested for a
+                            beneficiary?
+                        </h3>
+                    </button>
+                    <div class="accordion-content">
+                        <p>
+                            Providing a beneficiary with significantly more than
+                            their declared or verified needs can inadvertently
+                            complicate their standing with social service
+                            agencies. It might create a perception that their
+                            financial situation is better than what they've
+                            declared, potentially impacting their eligibility
+                            for crucial long-term or ongoing government and
+                            social support schemes. Our priority is to ensure
+                            they receive appropriate aid without jeopardizing
+                            their overall support network.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item" class:is-active={activeIndex === 5}>
+                    <button
+                        type="button"
+                        class="accordion-header"
+                        on:click={() => toggleAccordion(5)}
+                    >
+                        <h3 class="is-size-6 has-text-weight-normal">
+                            Should I attend to the beneficaries request for
+                            other items?
+                        </h3>
+                    </button>
+                    <div class="accordion-content">
+                        <p>
+                            Providing a beneficiary with significantly more than
+                            their declared or verified needs can inadvertently
+                            complicate their standing with social service
+                            agencies. It might create a perception that their
+                            financial situation is better than what they've
+                            declared, potentially impacting their eligibility
+                            for crucial long-term or ongoing government and
+                            social support schemes. Our priority is to ensure
+                            they receive appropriate aid without jeopardizing
+                            their overall support network.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item" class:is-active={activeIndex === 6}>
+                    <button
+                        type="button"
+                        class="accordion-header"
+                        on:click={() => toggleAccordion(6)}
+                    >
+                        <h3 class="is-size-6 has-text-weight-normal">
+                            Doesn't repeatedly giving aid make needy people
+                            reliant on others?
+                        </h3>
+                    </button>
+                    <div class="accordion-content">
+                        <p>
+                            We focus on specific, immediate needs like groceries
+                            or essentials, acting as a safety net during tough
+                            times, not a long-term crutch. Our aid is integrated
+                            with social workers' efforts to help beneficiaries
+                            build long-term self-sufficiency. We provide
+                            temporary relief so they can focus on regaining
+                            stability and fending for themselves.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                    Operating Model
+                </h3>
+
+                <div class="accordion-item" class:is-active={activeIndex === 7}>
+                    <button
+                        type="button"
+                        class="accordion-header"
+                        on:click={() => toggleAccordion(7)}
+                    >
+                        <h3 class="is-size-6 has-text-weight-normal">
                             How does Bread Breakers ensure its operations are
                             trustworthy and effective?
                         </h3>
@@ -187,11 +345,11 @@
                     </div>
                 </div>
 
-                <div class="accordion-item" class:is-active={activeIndex === 3}>
+                <div class="accordion-item" class:is-active={activeIndex === 8}>
                     <button
                         type="button"
                         class="accordion-header"
-                        on:click={() => toggleAccordion(3)}
+                        on:click={() => toggleAccordion(8)}
                     >
                         <h3 class="is-size-6 has-text-weight-normal">
                             How does Bread Breakers address the issue of dignity
@@ -228,159 +386,11 @@
                     </div>
                 </div>
 
-                <div class="accordion-item" class:is-active={activeIndex === 4}>
+                <div class="accordion-item" class:is-active={activeIndex === 9}>
                     <button
                         type="button"
                         class="accordion-header"
-                        on:click={() => toggleAccordion(4)}
-                    >
-                        <h3 class="is-size-6 has-text-weight-normal">
-                            Is poverty in Singapore just about individuals
-                            making "bad choices"?
-                        </h3>
-                    </button>
-                    <div class="accordion-content">
-                        <p>
-                            Poverty is not primarily about individual failings
-                            or "bad choices." While common prejudices suggest
-                            low-income persons have different "values" or avoid
-                            employment, these are empirically inaccurate and
-                            damaging. It is more accurate to say that low-income
-                            parents have limited options for managing their need
-                            for money and their children's need for care,
-                            largely due to poor employment conditions and a lack
-                            of continuous, unconditional public support.
-                        </p>
-                        <p>
-                            The idea that poverty is an individual "mindset"
-                            problem is a powerful distraction from looking at
-                            poverty as linked to inequality. People in positions
-                            of authority often hold the mindset that low-income
-                            persons' problems are due to not having the "right
-                            mindsets," despite the fact that power is a material
-                            condition, not a frame of mind. Changing how
-                            low-income individuals think about themselves will
-                            not change their lack of control over time, leverage
-                            in the labor market, or bargaining power with
-                            various authorities.
-                        </p>
-                        <p>
-                            Instead, poverty is deeply linked to structural
-                            conditions of inequality. To study poverty without
-                            acknowledging inequality can lead to misrecognizing
-                            structural issues as individual failings.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="accordion-item" class:is-active={activeIndex === 5}>
-                    <button
-                        type="button"
-                        class="accordion-header"
-                        on:click={() => toggleAccordion(5)}
-                    >
-                        <h3 class="is-size-6 has-text-weight-normal">
-                            How can individuals and communities partner with
-                            Bread Breakers to help?
-                        </h3>
-                    </button>
-                    <div class="accordion-content">
-                        <p>
-                            The need for support is present, often unseen yet
-                            deeply personal, and the mandate to act is clear.
-                            Bread Breakers Singapore exists to be a trustworthy,
-                            efficient, and radically transparent channel for
-                            compassionate action. We invite individuals and
-                            communities to partner with us in transforming "wish
-                            lists" into real, delivered relief, lightening the
-                            load of social workers, and bringing practical
-                            faith, hope, and love to those most in need.
-                        </p>
-                        <p>
-                            To address the persistence of poverty and
-                            inequality, it is crucial to disrupt the narrative
-                            that views poverty as an individual problem and
-                            acknowledge that everyone is implicated and
-                            entangled in the existing social matrix. We must
-                            move beyond viewing "the poor" as an "other" group
-                            to "help" and instead understand that wealth and
-                            elitism are two sides of the same coin as poverty
-                            and marginality. By expanding our narratives and
-                            confronting uncomfortable truths about our society,
-                            we can begin to talk about meaningful solutions and
-                            foster a more empathetic community.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="accordion-item" class:is-active={activeIndex === 6}>
-                    <button
-                        type="button"
-                        class="accordion-header"
-                        on:click={() => toggleAccordion(6)}
-                    >
-                        <h3 class="is-size-6 has-text-weight-normal">
-                            Should I still donate when the beneficiary seems to
-                            have an abundance of items at home?
-                        </h3>
-                    </button>
-                    <div class="accordion-content">
-                        <p>
-                            Many donated items, especially consumables like
-                            food, toiletries, or certain household essentials,
-                            are used up quickly. What appears as 'a lot' today
-                            might be depleted in a few weeks, or even days.
-                            Needs are ongoing, not a one-time fix.
-                        </p>
-                        <p>
-                            We focus on providing specific, verified items that
-                            have been identified as critical by social workers.
-                            The items you see might not address the precise,
-                            current, and urgent need on our list. Your donation
-                            ensures a very particular gap is filled.
-                        </p>
-                        <p>
-                            Our process ensures that individuals receive exactly
-                            what they need, not just generic aid. This prevents
-                            waste and respects the dignity of the beneficiary by
-                            not overloading them with items they don't
-                            explicitly require.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="accordion-item" class:is-active={activeIndex === 7}>
-                    <button
-                        type="button"
-                        class="accordion-header"
-                        on:click={() => toggleAccordion(7)}
-                    >
-                        <h3 class="is-size-6 has-text-weight-normal">
-                            Can I give more than what was requested for a
-                            beneficiary?
-                        </h3>
-                    </button>
-                    <div class="accordion-content">
-                        <p>
-                            Providing a beneficiary with significantly more than
-                            their declared or verified needs can inadvertently
-                            complicate their standing with social service
-                            agencies. It might create a perception that their
-                            financial situation is better than what they've
-                            declared, potentially impacting their eligibility
-                            for crucial long-term or ongoing government and
-                            social support schemes. Our priority is to ensure
-                            they receive appropriate aid without jeopardizing
-                            their overall support network.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="accordion-item" class:is-active={activeIndex === 8}>
-                    <button
-                        type="button"
-                        class="accordion-header"
-                        on:click={() => toggleAccordion(8)}
+                        on:click={() => toggleAccordion(9)}
                     >
                         <h3 class="is-size-6 has-text-weight-normal">
                             Can I donate to non-individuals (e.g., if a VWO
@@ -389,7 +399,7 @@
                     </button>
                     <div class="accordion-content">
                         <p>
-                            There are many other excellent charities and
+                            No. There are many other excellent charities and
                             platforms that specialize in supporting VWOs and
                             community pantries directly. We encourage you to
                             explore those avenues if you wish to contribute in
@@ -399,41 +409,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item" class:is-active={activeIndex === 9}>
-                    <button
-                        type="button"
-                        class="accordion-header"
-                        on:click={() => toggleAccordion(9)}
-                    >
-                        <h3 class="is-size-6 has-text-weight-normal">
-                            Some beneficiaries request branded or slightly more
-                            expensive items. Should these requests be fulfilled?
-                        </h3>
-                    </button>
-                    <div class="accordion-content">
-                        <p>
-                            Our mission is to serve the needy without judgment.
-                            While it might seem counterintuitive to provide what
-                            appears to be a "luxury" item, everyone has a right
-                            to choice and preferences, even in challenging
-                            circumstances. There are often nuances we aren't
-                            aware of. For example, a baby might experience hives
-                            or rashes from certain diaper brands, necessitating
-                            a specific, seemingly more expensive alternative.
-                            Similarly, allergies to particular milk powders
-                            could mean a child requires a specialized,
-                            higher-cost formula. We trust that beneficiaries are
-                            requesting items based on genuine needs and personal
-                            preferences, and our role is to provide support, not
-                            to question their specific requirements.
-                        </p>
-                    </div>
-                </div>
-
-                <div
-                    class="accordion-item"
-                    class:is-active={activeIndex === 10}
-                >
+                <div class="accordion-item" class:is-active={activeIndex === 10}>
                     <button
                         type="button"
                         class="accordion-header"
@@ -452,36 +428,6 @@
                             All purchases are made by our trusted partners.
                             Proof of delivery is documented and reflected on our
                             website to ensure full accountability.
-                        </p>
-                    </div>
-                </div>
-
-                <div
-                    class="accordion-item"
-                    class:is-active={activeIndex === 10}
-                >
-                    <button
-                        type="button"
-                        class="accordion-header"
-                        on:click={() => toggleAccordion(10)}
-                    >
-                        <h3 class="is-size-6 has-text-weight-normal">
-                            Should I attend to the beneficaries request for
-                            other items?
-                        </h3>
-                    </button>
-                    <div class="accordion-content">
-                        <p>
-                            Providing a beneficiary with significantly more than
-                            their declared or verified needs can inadvertently
-                            complicate their standing with social service
-                            agencies. It might create a perception that their
-                            financial situation is better than what they've
-                            declared, potentially impacting their eligibility
-                            for crucial long-term or ongoing government and
-                            social support schemes. Our priority is to ensure
-                            they receive appropriate aid without jeopardizing
-                            their overall support network.
                         </p>
                     </div>
                 </div>
