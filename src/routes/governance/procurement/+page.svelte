@@ -138,7 +138,7 @@
             </p>
 
             <p>
-                The President shall review and approve all procurement requests.
+                The President or appointed delegate shall review and approve all procurement requests.
             </p>
 
             <p>

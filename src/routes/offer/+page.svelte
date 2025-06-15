@@ -11,7 +11,7 @@
     const params = new URLSearchParams(window.location.search);
     email = params.get("email") || "";
 
-    mailto = `mailto:${email}?subject=${OFFER_SUBJECT} ${data.requests.title}&body=${OFFER_EMAIL}%0D%0A%0D%0AWarmest regards,%0D%0A%0D%0A${data.requests.title}%0D%0A${data.requests.description}%0D%0A%0D%0ARef: ${data.requests.id}`;
+    mailto = `mailto:${email}?subject=${OFFER_SUBJECT} ${data.requests.title}&body=${OFFER_EMAIL}%0D%0A%0D%0AWarmest regards,%0D%0A%0D%0A--%0D%0A%0D%0A${data.requests.title}%0D%0A${data.requests.description}%0D%0A%0D%0ARef: ${data.requests.id}`;
   });
 </script>
 

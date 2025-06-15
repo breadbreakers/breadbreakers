@@ -1,8 +1,22 @@
 <script>
   import { page, navigating } from "$app/stores";
+  import { afterNavigate } from '$app/navigation';
+  import { onDestroy } from 'svelte';
   import Footer from "$lib/components/Footer.svelte";
   import { goto } from "$app/navigation";
   import { env } from '$env/dynamic/public';
+
+  afterNavigate(() => {
+    const badge = document.querySelector('.grecaptcha-badge');
+    if (badge) {
+      badge.remove(); 
+    }
+  });
+
+  onDestroy(() => {
+    const badge = document.querySelector('.grecaptcha-badge');
+    if (badge) badge.remove();
+  });
 
   const hideMenuOn = ["/logout"];
   $: showMenu = !hideMenuOn.includes($page.url.pathname);

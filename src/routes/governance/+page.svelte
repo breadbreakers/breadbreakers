@@ -48,8 +48,13 @@
                     >
                 </li>
                 <li>
+                    <a href="/governance/privacy-policy"
+                        >Privacy Policy</a
+                    >
+                </li>
+                <li>
                     <a href="/governance/tech-stack"
-                        >Technology Stack / Operating Costs</a
+                        >Technology Stack</a
                     >
                 </li>
             </ul>
