@@ -19,7 +19,7 @@
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
-                Fund the Mission (Donors)
+                🪙 Fund the Mission (Donors)
             </h3>
             <p>
                 If you're in a season where you can give financially, <a
@@ -29,7 +29,7 @@
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
-                Execute the Mission (Partners)
+                💪🏻 Execute the Mission (Partners)
             </h3>
             <p>
                 If you may not be able to give financially but have time,
@@ -55,7 +55,7 @@
 
             <Zoom>
                 <img
-                    src="/flowchart.jpg"
+                    src="/flowchart-simple.png"
                     alt="Flowchart"
                     class="flowchart-image"
                 />
@@ -72,7 +72,7 @@
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
-                Minister the Mission (Encouragers)
+                🙏🏻 Minister the Mission (Encouragers)
             </h3>
             <p>
                 Not all help needs to be physical or financial. If you have a

@@ -120,7 +120,7 @@
             class:is-active={isActive("/get-involved")}
             class:is-loading={isNavigating && clickedPath === "/get-involved"}
             on:click|preventDefault={() => closeMenu("/get-involved")}
-            >Partner</a
+            >Partner With Us</a
           >
           <a
             class="navbar-item"

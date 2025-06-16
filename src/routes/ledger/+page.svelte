@@ -129,7 +129,7 @@
 						if (row.receipt !== null) {
 							if (row.receipt.substring(0, 4) == "http") {
 								return (
-									'<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal has-text-black" target="_blank" href="' +
+									'<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
 									row.receipt +
 									'">' +
 									data +

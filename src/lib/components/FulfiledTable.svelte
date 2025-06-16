@@ -54,7 +54,7 @@
                     title: "Item",
                     render: function (data, type, row, meta) {
                         return (
-                            '<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal has-text-black" target="_blank" href="' +
+                            '<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
                             row.delivery +
                             '">' +
                             data +
@@ -88,6 +88,3 @@
     </table>
 </div>
 
-<style>
-
-</style>
