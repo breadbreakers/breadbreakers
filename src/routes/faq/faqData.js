@@ -160,7 +160,7 @@ export const faqData = [
     },
     {
         category: "Operating Model",
-        question: "How does Bread Breakers ensure its operations are trustworthy and effective?",
+        question: "How does Bread Breakers (SG) ensure its operations are trustworthy and effective?",
         answer: `We are committed to several guiding principles to
             ensure our work is impactful and reliable:
             <ul>
@@ -215,7 +215,7 @@ export const faqData = [
     },
     {
         category: "Operating Model",
-        question: "How does Bread Breakers address the issue of dignity for recipients?",
+        question: "How does Bread Breakers (SG) address the issue of dignity for recipients?",
         answer: `Our work is not only about providing goods; it is
             fundamentally about offering care, dignity, and
             hope. Each item delivered serves as a tangible
@@ -231,7 +231,7 @@ export const faqData = [
             instances of rudeness and disrespect in their daily
             lives. The current systems of social support can
             sometimes be dignity-harming due to intrusive
-            questioning and repeated scrutiny. Bread Breakers
+            questioning and repeated scrutiny. Bread Breakers (SG)
             aims to counteract this by providing support in a
             way that affirms the recipient's inherent worth,
             without the stigma often attached to seeking aid. We
@@ -253,7 +253,7 @@ export const faqData = [
     },
     {
         category: "Operating Model",
-        question: "How does Bread Breakers Singapore prevent conflicts of interest, such as social workers procuring, receiving or using donated items?",
+        question: "How does Bread Breakers (SG) prevent conflicts of interest, such as social workers procuring, receiving or using donated items?",
         answer: `Social workers only identify and verify needs. They
             do not handle donations, funds, or item procurement.
             All purchases are made by our trusted partners.

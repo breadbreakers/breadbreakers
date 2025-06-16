@@ -194,7 +194,7 @@
 </script>
 
 <svelte:head>
-	<title>Bread Breakers Singapore | Ledger</title>
+	<title>Bread Breakers (SG) | Ledger</title>
 </svelte:head>
 
 <section class="section">

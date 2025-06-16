@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Procurement Policy</title>
+    <title>Bread Breakers (SG) | Procurement Policy</title>
 </svelte:head>
 
 <section class="section">
@@ -33,7 +33,7 @@
             <p class="content">
                 This policy applies to all volunteers and committee members
                 involved in the procurement of goods for Bread Breakers
-                Singapore.
+                (SG).
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
@@ -113,7 +113,7 @@
                 name and address.
             </p>
             <p>
-                All receipts will be stored securely by Bread Breakers for audit
+                All receipts will be stored securely by Bread Breakers (SG) for audit
                 purposes.
             </p>
 

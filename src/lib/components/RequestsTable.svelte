@@ -11,6 +11,22 @@
 
     //export let loggedIn;
     export let isPartner;
+    export let catData;
+
+    // Sort descending
+  $: sorted = [...catData].sort((a, b) => b.percentage - a.percentage);
+
+  // Slice top 5
+  $: topFive = sorted.slice(0, 5);
+
+  // Combine the rest into "Others"
+  $: othersTotal = sorted.slice(5).reduce((sum, item) => sum + item.percentage, 0);
+  $: displayData = [...topFive, ...(othersTotal > 0 ? [{ category: "Others", percentage: parseFloat(othersTotal.toFixed(2)) }] : [])];
+
+  // Color palette
+  const colors = [
+    '#E82C0C', '#FF530D', '#FF9900', '#E8C700', '#AEE815', '#ddd' // last color = "Others"
+  ];
 
     onMount(async () => {
         initRequestsTable();
@@ -194,11 +210,67 @@
         </thead>
         <tbody></tbody>
     </table>
+
+<div class="stacked-bar">
+    {#each displayData as item, i}
+      <div
+        class="segment"
+        style="width: {item.percentage}%; background-color: {colors[i % colors.length]}"
+        title="{item.category}: {item.percentage}%"
+      ></div>
+    {/each}
+  </div>
+
+  <div class="legend mt-4">
+    {#each displayData as item, i}
+      <div class="legend-item">
+        <div
+          class="legend-color"
+          style="background-color: {colors[i % colors.length]}"
+        ></div>
+        <span>{item.category} ({item.percentage}%)</span>
+      </div>
+    {/each}
+  </div>
+
 </div>
 
 <style>
     table {
         font-size: 0.95em;
     }
+
+.stacked-bar {
+    display: flex;
+    height: 2rem;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+  }
+
+  .segment {
+    height: 100%;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .legend-color {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    border-radius: 2px;
+  }
     
 </style>

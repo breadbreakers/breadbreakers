@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Partner With Us</title>
+    <title>Bread Breakers (SG) | Partner With Us</title>
 </svelte:head>
 
 <section class="section">
@@ -55,7 +55,7 @@
 
             <Zoom>
                 <img
-                    src="/flowchart-simple.png"
+                    src="/flowchart-simple.jpg"
                     alt="Flowchart"
                     class="flowchart-image"
                 />
@@ -91,7 +91,7 @@
                 Because we are stewarding public donations with transparency and
                 care, all partners go through a simple screening and onboarding
                 process. This helps ensure that every action taken under the
-                Bread Breakers name upholds the trust and integrity we are
+                Bread Breakers (SG) name upholds the trust and integrity we are
                 committed to.
             </p>
         </div>

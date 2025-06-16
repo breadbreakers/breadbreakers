@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | FAQ</title>
+    <title>Bread Breakers (SG) | FAQ</title>
 </svelte:head>
 
 <section class="section">

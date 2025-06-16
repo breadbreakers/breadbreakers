@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Bread Breakers Singapore | Submit Expense</title>
+    <title>Bread Breakers (SG) | Submit Expense</title>
 </svelte:head>
 
 <script>

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Donation Policy</title>
+    <title>Bread Breakers (SG) | Donation Policy</title>
 </svelte:head>
 
 <section class="section">
@@ -25,7 +25,7 @@
                 Purpose of Donations
             </h3>
             <p>
-                Bread Breakers Singapore is a volunteer-led, non-profit
+                Bread Breakers (SG) is a volunteer-led, non-profit
                 organisation dedicated to supporting individuals and communities
                 in need. We rely on donations to sustain our mission and serve
                 effectively.
@@ -46,7 +46,7 @@
                 </li>
                 <li>
                     <strong>Operating Fund:</strong> This fund supports the internal
-                    functioning of Bread Breakers Singapore. It helps cover administrative
+                    functioning of Bread Breakers (SG). It helps cover administrative
                     expenses, technology, communication, transportation, volunteer
                     support, and other general upkeep required to run our programmes.
                 </li>
@@ -59,7 +59,7 @@
                 Refund & Tax Policy
             </h3>
             <p>
-                All donations made to Bread Breakers Singapore are <strong
+                All donations made to Bread Breakers (SG) are <strong
                     >non-refundable</strong
                 >.
             </p>

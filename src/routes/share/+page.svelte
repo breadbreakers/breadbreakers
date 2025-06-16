@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Bread Breakers Singapore | Share Data</title>
+    <title>Bread Breakers (SG) | Share Data</title>
 </svelte:head>
 
 <script>
@@ -182,7 +182,7 @@
               disabled={isLoading}
               required
             />
-            By providing this information to Bread Breakers Singapore, you consent to the collection and use of the personal data solely for the purpose of facilitating the delivery of items to the intended beneficiary. 
+            By providing this information to Bread Breakers (SG), you consent to the collection and use of the personal data solely for the purpose of facilitating the delivery of items to the intended beneficiary. 
           </label>
         </div>
 

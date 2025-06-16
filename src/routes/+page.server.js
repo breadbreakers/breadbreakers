@@ -7,6 +7,11 @@ export async function load({ locals }) {
 
     let isPartner = false;
 
+    const { data: catData, error: catError } = await locals.supabase
+        .from('category_summary')
+        .select('*')
+        .order('percentage', { ascending: false });
+
     // check if is partner
     if (loggedIn) {
         const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
@@ -19,7 +24,7 @@ export async function load({ locals }) {
 
         if (partner) {
             isPartner = true
-        }        
+        }
     }
 
     return {
@@ -29,6 +34,7 @@ export async function load({ locals }) {
         ringfenceN: data.ringfenceN,
         nWip: data.wipCount,
         loggedIn,
-        isPartner
+        isPartner,
+        catData
     };
 }

@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Bread Breakers Singapore | Logout</title>
+    <title>Bread Breakers (SG) | Logout</title>
 </svelte:head>
 
 <script>

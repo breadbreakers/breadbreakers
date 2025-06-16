@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Terms of Service</title>
+    <title>Bread Breakers (SG) | Terms of Service</title>
 </svelte:head>
 
 <section class="section">
@@ -31,7 +31,7 @@
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Our Mission</h3>
             <p>
-                Bread Breakers Singapore is dedicated to facilitating direct,
+                Bread Breakers (SG) is dedicated to facilitating direct,
                 verified, and transparent aid to individuals and families in
                 need in Singapore. We connect specific, verified needs with
                 willing donors and manage the procurement and delivery of
@@ -39,7 +39,7 @@
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Definitions</h3>
-            <p>"We," "Us," "Our": Refers to "Bread Breakers Singapore."</p>
+            <p>"We," "Us," "Our": Refers to "Bread Breakers (SG)."</p>
             <p>
                 "Services": Refers to our website, online platform, aid
                 coordination, procurement, and delivery initiatives.
@@ -55,7 +55,7 @@
             </p>
             <p>
                 "Donor": An individual or entity making a financial contribution
-                to Bread Breakers Singapore.
+                to Bread Breakers (SG).
             </p>
             <p>
                 "Partner": A screened and trusted volunteer who assists in
@@ -77,7 +77,7 @@
                     must be accurate, complete, and truthful.
                 </li>
                 <li>
-                    Act with Integrity: Engage with "Bread Breakers Singapore"
+                    Act with Integrity: Engage with "Bread Breakers (SG)"
                     and its community respectfully and ethically.
                 </li>
                 <li>
@@ -103,7 +103,7 @@
             <ul>
                 <li>
                     You provide consent for personal data to be shared with
-                    Bread Breakers Singapore for the purpose of receiving aid
+                    Bread Breakers (SG) for the purpose of receiving aid
                     for your clients.
                 </li>
                 <li>
@@ -118,14 +118,14 @@
             <ul>
                 <li>All donations are made voluntarily.</li>
                 <li>
-                    Donations to "Bread Breakers Singapore" are currently not
+                    Donations to "Bread Breakers (SG)" are currently not
                     tax-deductible as we are not yet an Institution of a Public
                     Character (IPC).
                 </li>
                 <li>
                     You acknowledge that funds will be used to procure specified
                     items for verified beneficiaries and for the operational
-                    costs of Bread Breakers Singapore.
+                    costs of Bread Breakers (SG).
                 </li>
                 <li>
                     All payment transactions are subject to the terms and
@@ -153,7 +153,7 @@
                     confidentiality as per our Data Management Policy.
                 </li>
                 <li>
-                    Bread Breakers Singapore reserves the right to conduct
+                    Bread Breakers (SG) reserves the right to conduct
                     audits where deemed necessary for roles involving handling
                     of funds or sensitive beneficiary interactions.
                 </li>
@@ -168,7 +168,7 @@
                 Limitation of Liability
             </h3>
             <p>
-                "Bread Breakers Singapore" provides its Services on an "as is"
+                "Bread Breakers (SG)" provides its Services on an "as is"
                 and "as available" basis. We do not warrant that our Services
                 will be uninterrupted, error-free, or secure. We will not be
                 liable for any damages arising from your use of, or inability to
@@ -180,7 +180,7 @@
             </h3>
             <p>
                 You agree to indemnify and hold harmless "Bread Breakers
-                Singapore" and its directors, officers, employees, and
+                (SG)" and its directors, officers, employees, and
                 volunteers from any claims, liabilities, damages, costs, and
                 expenses arising from your misuse of our Services or your breach
                 of these Terms.

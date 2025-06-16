@@ -162,7 +162,7 @@
 <div class="container pl-1 pr-1 hero">
   <div class="has-text-centered">
     <a href="/"
-      ><img src="/logo.png" width="500px" alt="bread breakers logo" /></a
+      ><img src="/logo.png" width="500px" alt="bread breakers (SG) logo" /></a
     >
   </div>
   <h2

@@ -148,7 +148,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Profile</title>
+    <title>Bread Breakers (SG) | Profile</title>
 </svelte:head>
 
 {#if data.loggedIn}

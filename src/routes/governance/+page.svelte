@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Bread Breakers Singapore | Governance</title>
+    <title>Bread Breakers (SG) | Governance</title>
 </svelte:head>
 
 <section class="section">

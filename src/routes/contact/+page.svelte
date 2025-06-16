@@ -56,7 +56,7 @@
 </script>
 
 <svelte:head>
-  <title>Bread Breakers Singapore | Contact Us</title>
+  <title>Bread Breakers (SG) | Contact Us</title>
   <script
     src="https://www.google.com/recaptcha/api.js?render=6LeWZmErAAAAAJTf7_XmRU4Kl5uzi21akB_h5N2E"
   ></script>

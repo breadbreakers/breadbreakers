@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Whistleblowing</title>
+    <title>Bread Breakers (SG) | Whistleblowing</title>
 </svelte:head>
 
 <section class="section">

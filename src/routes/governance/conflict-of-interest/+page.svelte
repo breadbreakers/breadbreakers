@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Conflict of Interest Declaration</title>
+    <title>Bread Breakers (SG) | Conflict of Interest Declaration</title>
 </svelte:head>
 
 <section class="section">
@@ -27,7 +27,7 @@
                 Why Declarations Matter
             </h3>
             <p>
-                Bread Breakers Singapore operates in a position of trust toward
+                Bread Breakers (SG) operates in a position of trust toward
                 our beneficiaries, donors, community partners, and the wider
                 public. Maintaining this trust is essential to the integrity and
                 transparency of our mission.
@@ -73,7 +73,7 @@
             <p>
                 Members and volunteers should disclose any situation where
                 personal interests could conflict with their responsibilities to
-                Bread Breakers Singapore. Common examples include:
+                Bread Breakers (SG). Common examples include:
             </p>
             <ul>
                 <li>
@@ -82,10 +82,10 @@
                 </li>
                 <li>
                     Financial interests in organisations that may benefit from a
-                    relationship with Bread Breakers Singapore
+                    relationship with Bread (SG) Singapore
                 </li>
                 <li>
-                    Gifts or benefits received in connection with Bread Breakers
+                    Gifts or benefits received in connection with Bread Breakers (SG)
                     Singapore roles
                 </li>
             </ul>

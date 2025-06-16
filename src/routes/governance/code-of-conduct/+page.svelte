@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Code of Conduct</title>
+    <title>Bread Breakers (SG) | Code of Conduct</title>
 </svelte:head>
 
 <section class="section">
@@ -24,7 +24,7 @@
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Purpose</h3>
             <p>
                 This Code of Conduct outlines the expected standards of behavior
-                for all volunteers engaged with Bread Breakers. It ensures a
+                for all volunteers engaged with Bread Breakers (SG). It ensures a
                 safe, respectful, and professional environment for volunteers,
                 beneficiaries, and the broader community.
             </p>
@@ -32,14 +32,14 @@
             <p>
                 Volunteers are expected to uphold the highest standards of
                 conduct in all their roles and interactions. "Volunteer" refers
-                to any person offering services without compensation to support
-                Bread Breakers’ mission.
+                to any person offering services without compensation to support the
+                Bread Breakers (SG) mission.
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Scope</h3>
             <p>
                 This Code applies to all individuals who voluntarily offer their
-                time and services to Bread Breakers without payment or material
+                time and services to Bread Breakers (SG) without payment or material
                 benefit. It governs conduct during volunteer activities, as well
                 as any interactions involving the organization, its
                 stakeholders, and the public.
@@ -85,7 +85,7 @@
             <ul>
                 <li>
                     Engage in actions that could bring harm or disrepute to
-                    the Bread Breakers or its beneficiaries.
+                    the Bread Breakers (SG) or its beneficiaries.
                 </li>
                 <li>
                     Seek or accept personal rewards, gifts, or benefits.

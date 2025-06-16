@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Privacy Policy</title>
+    <title>Bread Breakers (SG) | Privacy Policy</title>
 </svelte:head>
 
 <section class="section">

@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Bread Breakers Singapore | Ringfence Request</title>
+    <title>Bread Breakers (SG) | Ringfence Request</title>
 </svelte:head>
 
 <script>

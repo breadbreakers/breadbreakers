@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Bread Breakers Singapore | View Data</title>
+    <title>Bread Breakers (SG) | View Data</title>
 </svelte:head>
 
 <script>
@@ -19,6 +19,6 @@
         <p><strong>Address</strong> {address}</p>
         <p><strong>Has lift?</strong> {lift}</p>
         <p><strong>Mobile</strong> {mobile}</p>
-        <div class="notification is-danger mt-4"><p><strong>Bread Breakers Singapore places the highest priority on protecting personal data and operates in accordance with the Personal Data Protection Act (PDPA). Any failure to uphold this responsibility may incur severe penalties. Please do not store this data on any personal device. For future reference, kindly access the link provided in your email.</strong></p></div>
+        <div class="notification is-danger mt-4"><p><strong>Bread Breakers (SG) places the highest priority on protecting personal data and operates in accordance with the Personal Data Protection Act (PDPA). Any failure to uphold this responsibility may incur severe penalties. Please do not store this data on any personal device. For future reference, kindly access the link provided in your email.</strong></p></div>
     </div>
 </section>

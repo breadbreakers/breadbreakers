@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Bread Breakers Singapore | Reject Claim</title>
+    <title>Bread Breakers (SG) | Reject Claim</title>
 </svelte:head>
 
 <script>

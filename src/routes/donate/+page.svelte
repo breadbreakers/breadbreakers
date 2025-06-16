@@ -29,14 +29,14 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Donate</title>
+    <title>Bread Breakers (SG) | Donate</title>
 </svelte:head>
 
 <section class="section">
     <div class="container">
         <h2 class="subtitle is-5 has-text-weight-semibold">🎁 Donate</h2>
         <div class="notification is-warning is-light">
-            Bread Breakers Singapore will never solicit or accept donations
+            Bread Breakers (SG) will never solicit or accept donations
             through any channels other than this official donate webpage. We do not accept donations via direct bank transfers,
             cryptocurrency, or any quasi-currency platforms. To ensure the
             security and transparency of your contribution, always donate

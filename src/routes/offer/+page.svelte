@@ -16,7 +16,7 @@
 </script>
 
 <svelte:head>
-  <title>Bread Breakers Singapore | Offer Assistance</title>
+  <title>Bread Breakers (SG) | Offer Assistance</title>
 </svelte:head>
 
 <div class="section">

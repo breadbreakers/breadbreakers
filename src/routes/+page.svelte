@@ -1,6 +1,6 @@
 <svelte:head>
     <title
-        >Bread Breakers Singapore | We partner with social workers to
+        >Bread Breakers (SG) | We partner with social workers to
         transparently provide material essentials to those in need</title
     >
 </svelte:head>
@@ -63,6 +63,7 @@
             <RequestsTable 
                 loggedIn={data.loggedIn}
                 isPartner={data.isPartner}
+                catData={data.catData}
             />
         </div>
     {/if}

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Data Management Policy</title>
+    <title>Bread Breakers (SG) | Data Management Policy</title>
 </svelte:head>
 
 <section class="section">
@@ -32,7 +32,7 @@
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Scope</h3>
             <p>
-                Applies to all Bread Breakers Singapore stakeholders. Covers all
+                Applies to all Bread Breakers (SG) stakeholders. Covers all
                 data assets including sensitive and regulated data, requiring
                 adherence to inventory, retention, and disposal practices.
             </p>
@@ -41,7 +41,7 @@
                 Data Ownership
             </h3>
             <p>
-                Bread Breakers Singapore is the data owner and is accountable
+                Bread Breakers (SG) is the data owner and is accountable
                 for classification, protection, and retention aligned with PDPA
                 and internal policies.
             </p>

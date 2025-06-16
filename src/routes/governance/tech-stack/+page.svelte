@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Bread Breakers Singapore | Technology Stack</title>
+    <title>Bread Breakers (SG) | Technology Stack</title>
 </svelte:head>
 
 <section class="section">
@@ -23,7 +23,7 @@
         <div class="content">
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Purpose</h3>
             <p>
-                Bread Breakers uses a secure, cost-efficient architecture with modern cloud tooling: static site hosting, self-managed database, cloud-based email and storage APIs.
+                Bread Breakers (SG) uses a secure, cost-efficient architecture with modern cloud tooling: static site hosting, self-managed database, cloud-based email and storage APIs.
             </p>
 
             <div style="overflow-x: auto;">
