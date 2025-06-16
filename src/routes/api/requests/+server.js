@@ -35,7 +35,7 @@ export async function POST({ request, locals }) {
     const { sortColumn, sortDir } = getSortInfo(reqData);
 
     let query = locals.supabase
-        .from('requests_with_votes')
+        .from('requests')
         .select('*', { count: 'exact' });
 
     const searchValue = reqData.search?.value?.trim();
