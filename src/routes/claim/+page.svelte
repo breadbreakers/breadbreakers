@@ -170,7 +170,7 @@
               step="0.01"
               bind:value={cost}
               required
-              disabled={isLoading}
+              disabled
               pattern="^\d+(\.\d{1,2})?$"
               title="Please enter a valid amount (e.g. 123.45)"
             />

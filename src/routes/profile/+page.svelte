@@ -113,7 +113,7 @@
                                             const id = this.dataset.id;
                                             if (
                                                 confirm(
-                                                    "Are you sure you want to cancel?",
+                                                    "Are you sure you want to cancel this request? The entire workflow will need to be restarted again. This action cannot be reversed.",
                                                 )
                                             ) {
                                                 window.location.href = `${env.PUBLIC_SITE_URL}/cancel?id=${id}`;

@@ -160,8 +160,8 @@ export const POST = async (event) => {
             <p><strong>Requested claim:</strong> $${cost}</p>
             <p><strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}</p>
 	        <img src="${paynowQRImage}" alt="PayNow QR Code" style="width:200px;height:200px;" />
-            <p><a href="https://breadbreakers.sg/claim/approve?id=${wip.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve</a></p>
-            <p><a href="https://breadbreakers.sg/claim/reject?id=${wip.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject</a></p>
+            <p><a href="https://breadbreakers.sg/claim/approve?id=${wip.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve Claim</a></p>
+            <p><a href="https://breadbreakers.sg/claim/reject?id=${wip.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject Claim</a></p>
             `;
    
         await sendEmail({
