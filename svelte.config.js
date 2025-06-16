@@ -1,4 +1,5 @@
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapter from '@sveltejs/adapter-netlify';
+
 export default {
   kit: {
     adapter: adapter()
