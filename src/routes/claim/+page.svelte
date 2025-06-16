@@ -21,6 +21,8 @@
   export let data;
   const item = data.item;
 
+  cost = (item.amount/100).toFixed(2);
+
   onMount(() => {
     const params = new URLSearchParams(window.location.search);
     itemId = params.get("id") || "";
