@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
-    import { env } from '$env/dynamic/public';
-    import { OFFER_SUBJECT, OFFER_EMAIL } from "$lib/strings"
+    import { env } from "$env/dynamic/public";
+    import { OFFER_SUBJECT, OFFER_EMAIL } from "$lib/strings";
 
     let requestsTable;
 
@@ -14,19 +14,36 @@
     export let catData;
 
     // Sort descending
-  $: sorted = [...catData].sort((a, b) => b.percentage - a.percentage);
+    $: sorted = [...catData].sort((a, b) => b.percentage - a.percentage);
 
-  // Slice top 5
-  $: topFive = sorted.slice(0, 5);
+    // Slice top 5
+    $: topFive = sorted.slice(0, 5);
 
-  // Combine the rest into "Others"
-  $: othersTotal = sorted.slice(5).reduce((sum, item) => sum + item.percentage, 0);
-  $: displayData = [...topFive, ...(othersTotal > 0 ? [{ category: "Others", percentage: parseFloat(othersTotal.toFixed(2)) }] : [])];
+    // Combine the rest into "Others"
+    $: othersTotal = sorted
+        .slice(5)
+        .reduce((sum, item) => sum + item.percentage, 0);
+    $: displayData = [
+        ...topFive,
+        ...(othersTotal > 0
+            ? [
+                  {
+                      category: "Others",
+                      percentage: parseFloat(othersTotal.toFixed(2)),
+                  },
+              ]
+            : []),
+    ];
 
-  // Color palette
-  const colors = [
-    '#E82C0C', '#FF530D', '#FF9900', '#E8C700', '#AEE815', '#ddd' // last color = "Others"
-  ];
+    // Color palette
+    const colors = [
+        "#E82C0C",
+        "#FF530D",
+        "#FF9900",
+        "#E8C700",
+        "#AEE815",
+        "#ddd", // last color = "Others"
+    ];
 
     onMount(async () => {
         initRequestsTable();
@@ -58,6 +75,10 @@
     }*/
 
     async function initRequestsTable() {
+        if (globalThis.$.fn.dataTable.isDataTable(requestsTable)) {
+            globalThis.$(requestsTable).DataTable().clear().destroy();
+        }
+
         globalThis.$(requestsTable).DataTable({
             serverSide: true,
             processing: true,
@@ -104,7 +125,7 @@
                     title: "Item",
                     className: "dt-left",
                     render: function (data, type, row, meta) {
-                        return data;                        
+                        return data;
                     },
                 },
                 { data: "id", title: "ID" },
@@ -138,7 +159,7 @@
                         `;
                     },
                 },*/
-                
+
                 { data: "description", title: "Description" },
                 {
                     data: "id",
@@ -148,10 +169,10 @@
                         if (isPartner) {
                             return `<i class="demo-icon icon-mail">&#xe804;</i><a href="mailto:?subject=${OFFER_SUBJECT} ${row.title}&body=${OFFER_EMAIL}%0D%0A%0D%0A${row.title}%0D%0A${row.description}%0D%0A%0D%0ARef: ${row.id}%0D%0A%0D%0A" class="pr-2 has-text-weight-normal is-underlined has-text-black">Offer</a><i class="demo-icon icon-shop">&#xe805;</i><a class="has-text-weight-normal has-text-black" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>`;
                         } else {
-                            return ""
+                            return "";
                         }
-                    }
-                }
+                    },
+                },
             ],
         });
     }
@@ -201,38 +222,39 @@
                 <th>Item</th>
                 <th class="none">ID</th>
                 <th class="none">VWO</th>
-                <!--th class="all">Priority</th>-->                
+                <!--th class="all">Priority</th>-->
                 <th class="none">Description</th>
                 {#if isPartner}
-                <th class="none">Actions</th>
+                    <th class="none">Actions</th>
                 {/if}
             </tr>
         </thead>
         <tbody></tbody>
     </table>
 
-<div class="stacked-bar">
-    {#each displayData as item, i}
-      <div
-        class="segment"
-        style="width: {item.percentage}%; background-color: {colors[i % colors.length]}"
-        title="{item.category}: {item.percentage}%"
-      ></div>
-    {/each}
-  </div>
+    <div class="stacked-bar">
+        {#each displayData as item, i}
+            <div
+                class="segment"
+                style="width: {item.percentage}%; background-color: {colors[
+                    i % colors.length
+                ]}"
+                title="{item.category}: {item.percentage}%"
+            ></div>
+        {/each}
+    </div>
 
-  <div class="legend mt-4">
-    {#each displayData as item, i}
-      <div class="legend-item">
-        <div
-          class="legend-color"
-          style="background-color: {colors[i % colors.length]}"
-        ></div>
-        <span>{item.category} ({item.percentage}%)</span>
-      </div>
-    {/each}
-  </div>
-
+    <div class="legend mt-4">
+        {#each displayData as item, i}
+            <div class="legend-item">
+                <div
+                    class="legend-color"
+                    style="background-color: {colors[i % colors.length]}"
+                ></div>
+                <span>{item.category} ({item.percentage}%)</span>
+            </div>
+        {/each}
+    </div>
 </div>
 
 <style>
@@ -240,37 +262,36 @@
         font-size: 0.95em;
     }
 
-.stacked-bar {
-    display: flex;
-    height: 2rem;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid #ddd;
-  }
+    .stacked-bar {
+        display: flex;
+        height: 2rem;
+        border-radius: 6px;
+        overflow: hidden;
+        border: 1px solid #ddd;
+    }
 
-  .segment {
-    height: 100%;
-  }
+    .segment {
+        height: 100%;
+    }
 
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-  }
+    .legend {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
 
-  .legend-item {
-    display: flex;
-    align-items: center;
-    margin-right: 1rem;
-    margin-bottom: 0.5rem;
-  }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin-right: 1rem;
+        margin-bottom: 0.5rem;
+    }
 
-  .legend-color {
-    width: 1rem;
-    height: 1rem;
-    margin-right: 0.5rem;
-    border-radius: 2px;
-  }
-    
+    .legend-color {
+        width: 1rem;
+        height: 1rem;
+        margin-right: 0.5rem;
+        border-radius: 2px;
+    }
 </style>

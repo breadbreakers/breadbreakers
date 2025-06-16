@@ -46,6 +46,7 @@ export async function POST({ request, locals }) {
 
     query = query
         .order(sortColumn, { ascending: sortDir === 'asc' })
+        .order('id', { ascending: true }) 
         .range(start, start + length - 1);
 
     const { data, count, error } = await query;
@@ -54,7 +55,10 @@ export async function POST({ request, locals }) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     }
 
+    //console.log('Pagination:', { start, length, draw: reqData.draw });
+
     return new Response(JSON.stringify({
+        draw: reqData.draw,
         data,
         recordsTotal: count,
         recordsFiltered: count
