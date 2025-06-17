@@ -31,12 +31,12 @@
     />
     <div class="container">
         <div class="content mt-6">
-            <div class="columns">
+            <div class="columns is-mobile">
                 <div class="column">
                     <button
                         on:click={(event) => showTable(event, "requests")}
                         class="is-fullwidth button is-primary is-light"
-                        >📦 Items Requested</button
+                        >📦 Items In Need</button
                     >
                 </div>
 
