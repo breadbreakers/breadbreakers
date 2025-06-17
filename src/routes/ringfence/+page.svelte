@@ -12,6 +12,7 @@
   let isLoading = false;
   let success = false;
   let error;
+  let remarks = "";
   let swConfirmUrl;
   let itemCostUrl;
   let selectedFile = null;
@@ -72,7 +73,8 @@
           linkUrl,
           cost,
           swConfirmUrl,
-          itemCostUrl
+          itemCostUrl,
+          remarks
         }),
       });
 
@@ -210,6 +212,14 @@
               on:change={handleConfirmSW}
               required
             />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="remarks">Remarks</label>
+          <div class="control">
+            <textarea class="textarea" disabled={isLoading} id="remarks" bind:value={remarks}
+            ></textarea>
           </div>
         </div>
 

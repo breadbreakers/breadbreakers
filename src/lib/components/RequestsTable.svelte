@@ -264,7 +264,7 @@
 
     .stacked-bar {
         display: flex;
-        height: 2rem;
+        height: 1rem;
         border-radius: 6px;
         overflow: hidden;
         border: 1px solid #ddd;

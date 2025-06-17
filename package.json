@@ -20,7 +20,8 @@
 	"dependencies": {
 		"@aws-sdk/client-ses": "^3.817.0",
 		"@supabase/ssr": "^0.6.1",
-		"googleapis": "^149.0.0",
+		"@sveltejs/adapter-cloudflare": "^7.0.4",
+		"googleapis": "^150.0.1",
 		"qrcode": "^1.5.4",
 		"stripe": "^18.2.1",
 		"svelte-medium-image-zoom": "^0.2.6"
