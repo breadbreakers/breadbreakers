@@ -86,7 +86,7 @@ export const POST = async (event) => {
 
         // === Generate and Resize PayNow QR ===
         const payload = await sgqr.generate_code({
-            number: partnerPaynow.paynow,
+            number: `+65${partnerPaynow.paynow}`,
             amount: cost.toString(),
             type: 'image/png',
             comments: itemId,
