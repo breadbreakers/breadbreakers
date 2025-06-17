@@ -1,67 +1,109 @@
-import { generatePayNowStr } from '$lib/paynow.js';
-import QRCode from 'qrcode';
 import { env } from '$env/dynamic/private';
 import { Readable } from 'stream';
 import { google } from 'googleapis';
+import * as sgqr from 'sgqr';
+import sharp from 'sharp';
 
-const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID;
-            // setup paynow
-                    const QRstring = generatePayNowStr({
-                        mobile: '93809025',
-                        amount: '1',
-                        expiry: getOneMonthLaterYYYYMMDD(),
-                        refNumber: '123',
-                    });
-            
-                    const qrImageDataURL = await QRCode.toDataURL(QRstring);
-                    const base64Data = qrImageDataURL.replace(/^data:image\/png;base64,/, '');
-                    const buffer = Buffer.from(base64Data, 'base64');
-                    const stream = Readable.from(buffer);
-            
-                    const auth = new google.auth.GoogleAuth({
-                        credentials: {
-                            client_email: env.GOOGLE_CLIENT_EMAIL,
-                            private_key: env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-                        },
-                        scopes: ['https://www.googleapis.com/auth/drive.file'],
-                    });
-            
-                    const drive = google.drive({ version: 'v3', auth });
-            
-                    // Upload the file
-                    const driveResponse = await drive.files.create({
-                        requestBody: {
-                            name: `QR_TEST.png`,
-                            mimeType: 'image/png',
-                            parents: [FOLDER_ID],
-                        },
-                        media: {
-                            mimeType: 'image/png',
-                            body: stream,
-                        },
-                        fields: 'id',
-                    });
-            
-                    const fileId = driveResponse.data.id;
-            
-                    // Set permission to public
-                    await drive.permissions.create({
-                        fileId,
-                        requestBody: {
-                            role: 'reader',
-                            type: 'anyone',
-                        },
-                    });
-            
-                    // Return public image link
-                    const paynowQRImage = `https://drive.google.com/uc?id=${fileId}`;
+// === CONFIGURATION ===
+const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID; // base folder (e.g., "PayNow_QRCodes")
 
+// === GENERATE PAYNOW QR ===
+const payload = await sgqr.generate_code({
+  number: '+6593809025',
+  amount: '1',
+  type: 'image/png',
+  comments: '123456',
+});
 
-                    function getOneMonthLaterYYYYMMDD() {
-    const date = new Date();
-    date.setMonth(date.getMonth() + 1);
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    return `${yyyy}${mm}${dd}`;
+const inputBuffer = Buffer.from(payload);
+
+// === RESIZE TO 5% ===
+const metadata = await sharp(inputBuffer).metadata();
+const resizedBuffer = await sharp(inputBuffer)
+  .resize({
+    width: Math.round(metadata.width * 0.05),
+    withoutEnlargement: true,
+  })
+  .png()
+  .toBuffer();
+
+const stream = Readable.from(resizedBuffer);
+
+// === GOOGLE DRIVE AUTH ===
+const auth = new google.auth.GoogleAuth({
+  credentials: {
+    client_email: env.GOOGLE_CLIENT_EMAIL,
+    private_key: env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  },
+  scopes: ['https://www.googleapis.com/auth/drive.file'],
+});
+
+const drive = google.drive({ version: 'v3', auth });
+
+// === DATE-BASED FOLDER STRUCTURE ===
+const now = new Date();
+const year = now.getFullYear().toString();
+const monthNum = String(now.getMonth() + 1).padStart(2, '0');
+const monthName = now.toLocaleString('default', { month: 'long' });
+const monthFolderName = `${monthNum} ${monthName}`;
+
+// === FIND OR CREATE FOLDER ===
+async function getOrCreateFolder(name, parentId = null) {
+  const query = `'${parentId || 'root'}' in parents and name='${name}' and mimeType='application/vnd.google-apps.folder' and trashed=false`;
+
+  const res = await drive.files.list({
+    q: query,
+    fields: 'files(id, name)',
+    spaces: 'drive',
+  });
+
+  if (res.data.files.length > 0) {
+    return res.data.files[0].id;
+  }
+
+  const folderMetadata = {
+    name,
+    mimeType: 'application/vnd.google-apps.folder',
+    parents: parentId ? [parentId] : [],
+  };
+
+  const folder = await drive.files.create({
+    requestBody: folderMetadata,
+    fields: 'id',
+  });
+
+  return folder.data.id;
 }
+
+// === CREATE NESTED FOLDERS ===
+const yearFolderId = await getOrCreateFolder(year, FOLDER_ID);
+const monthFolderId = await getOrCreateFolder(monthFolderName, yearFolderId);
+
+// === UPLOAD TO GOOGLE DRIVE ===
+const driveResponse = await drive.files.create({
+  requestBody: {
+    name: `QR_CODE_${Date.now()}.png`,
+    mimeType: 'image/png',
+    parents: [monthFolderId],
+  },
+  media: {
+    mimeType: 'image/png',
+    body: stream,
+  },
+  fields: 'id',
+});
+
+const fileId = driveResponse.data.id;
+
+// === SET PERMISSION TO PUBLIC ===
+await drive.permissions.create({
+  fileId,
+  requestBody: {
+    role: 'reader',
+    type: 'anyone',
+  },
+});
+
+// === PUBLIC URL ===
+const publicUrl = `https://drive.google.com/uc?id=${fileId}`;
+console.log('✅ Public QR Code URL:', publicUrl);
