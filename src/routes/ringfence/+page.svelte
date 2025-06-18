@@ -27,70 +27,62 @@
   });
 
   async function handleSubmit(event) {
-    event.preventDefault();
-    isLoading = true;
-    error = "";
-    success = false;
+  event.preventDefault();
+  isLoading = true;
+  error = "";
+  success = false;
 
-    if (!selectedFile) {
-      error = "Please upload confirmation from social worker.";
-      isLoading = false;
-      return;
-    }
-
-    if (!itemCostFile) {
-      error = "Please upload screenshot of item cost inclusive of delivery fee.";
-      isLoading = false;
-      return;
-    }
-
-    try {
-      // Upload confirmation
-      swConfirmUrl = await uploadFile(selectedFile, "sw_confirm", itemId);
-    } catch (err) {
-      error = "File upload failed: " + err.message;
-      isLoading = false;
-      return;
-    }
-
-    try {
-      // Upload itemcost
-      itemCostUrl = await uploadFile(itemCostFile, "itemcost", itemId);
-    } catch (err) {
-      error = "File upload failed: " + err.message;
-      isLoading = false;
-      return;
-    }
-
-    try {
-      const response = await fetch("/api/ringfence/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          itemId,
-          linkUrl,
-          cost,
-          swConfirmUrl,
-          itemCostUrl,
-          remarks
-        }),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error);
-      }
-
-      success = true;
-    } catch (err) {
-      error = err.message;
-    } finally {
-      isLoading = false;
-    }
+  if (!selectedFile) {
+    error = "Please upload confirmation from social worker.";
+    isLoading = false;
+    return;
   }
+
+  if (!itemCostFile) {
+    error = "Please upload screenshot of item cost inclusive of delivery fee.";
+    isLoading = false;
+    return;
+  }
+
+  try {
+    // Upload both files concurrently
+    const [swConfirmResult, itemCostResult] = await Promise.all([
+      uploadFile(selectedFile, "sw_confirm", itemId),
+      uploadFile(itemCostFile, "itemcost", itemId)
+    ]);
+
+    swConfirmUrl = swConfirmResult;
+    itemCostUrl = itemCostResult;
+
+    // Now send the ringfence request
+    const response = await fetch("/api/ringfence/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        itemId,
+        linkUrl,
+        cost,
+        swConfirmUrl,
+        itemCostUrl,
+        remarks
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error);
+    }
+
+    success = true;
+  } catch (err) {
+    error = "Upload failed: " + err.message;
+  } finally {
+    isLoading = false;
+  }
+}
 
   function handleConfirmSW(event) {
     const file = event.target.files[0];

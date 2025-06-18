@@ -32,9 +32,9 @@ export const POST = async (event) => {
     const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID;
 
     try {
-        const { itemId, receiptUrl, deliveryUrl, cost, originalUrl } = await request.json();
+        const { itemId, receiptUrl, deliveryUrl, cost } = await request.json();
 
-        if (!itemId || !receiptUrl || !deliveryUrl || !cost || !originalUrl) {
+        if (!itemId || !receiptUrl || !deliveryUrl || !cost) {
             return json({ error: 'Missing required fields' }, { status: 400 });
         }
 
@@ -165,7 +165,7 @@ export const POST = async (event) => {
         await sendEmail({
             to: partnerEmail,
             subject: `Claim Submitted for ${wip.title}`,
-            body: `Your Claim Request has been sent for approval.`,
+            body: `Your Claim Request has been sent to ${approverEmail} for approval.`,
             bcc: BREADBREAKERS_EMAIL,
         });
 
@@ -174,7 +174,6 @@ export const POST = async (event) => {
             <p><strong>Requester:</strong> ${partnerEmail}</p>
             <p><strong>Description:</strong> ${wip.description}</p>
             <p><strong>Contact:</strong> ${wip.contact}</p>
-            <p><a href="${originalUrl}"><strong>Original Receipt</strong></a></p>
             <p><a href="${receiptUrl}"><strong>Redacted Receipt</strong></a></p>
             <p><a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a></p>
             <p><strong>Requested claim:</strong> $${cost}</p>

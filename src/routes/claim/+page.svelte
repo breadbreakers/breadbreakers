@@ -1,15 +1,10 @@
-<svelte:head>
-    <title>Bread Breakers (SG) | Submit Claim</title>
-</svelte:head>
-
 <script>
   import { onMount } from "svelte";
-  import { uploadFile } from '$lib/upload.js'; 
+  import { uploadFile } from "$lib/upload.js";
 
   let itemId = "";
   let receiptUrl = ""; // For receipt file
   let deliveryUrl = ""; // For proof of delivery file
-  let originalUrl = "";
   let cost = "";
   let isLoading = false;
   let success = false;
@@ -21,28 +16,12 @@
   export let data;
   const item = data.item;
 
-  cost = (item.amount/100).toFixed(2);
+  cost = (item.amount / 100).toFixed(2);
 
   onMount(() => {
     const params = new URLSearchParams(window.location.search);
     itemId = params.get("id") || "";
   });
-
-  function handleOriginalChange(event) {
-    const file = event.target.files[0];
-    if (!file) {
-      selectedOriginal = null;
-      return;
-    }
-    const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
-    if (!allowedTypes.includes(file.type)) {
-      alert("Only PNG, JPG, and PDF files are allowed.");
-      event.target.value = "";
-      selectedOriginal = null;
-      return;
-    }
-    selectedOriginal = file;
-  }
 
   function handleReceiptChange(event) {
     const file = event.target.files[0];
@@ -92,26 +71,20 @@
       isLoading = false;
       return;
     }
-    if (!selectedOriginal) {
-      error = "Please upload the original receipt.";
-      isLoading = false;
-      return;
-    }
 
     try {
-      // Upload receipt
-      receiptUrl = await uploadFile(selectedReceipt, "receipt", itemId);
-      // Upload proof of delivery
-      deliveryUrl = await uploadFile(selectedDelivery, "proof_of_delivery", itemId);
-      // Upload original receipt
-      originalUrl = await uploadFile(selectedOriginal, "original_receipt", itemId);
-    } catch (err) {
-      error = "File upload failed: " + err.message;
-      isLoading = false;
-      return;
-    }
+      // Upload all files concurrently
+      const [receiptResult, deliveryResult, originalResult] = await Promise.all(
+        [
+          uploadFile(selectedReceipt, "receipt", itemId),
+          uploadFile(selectedDelivery, "proof_of_delivery", itemId)
+        ],
+      );
 
-    try {
+      receiptUrl = receiptResult;
+      deliveryUrl = deliveryResult;
+
+      // Now send the claim request
       const response = await fetch("/api/claim/send", {
         method: "POST",
         headers: {
@@ -121,7 +94,6 @@
           itemId,
           receiptUrl,
           deliveryUrl,
-          originalUrl,
           cost,
         }),
       });
@@ -134,12 +106,16 @@
 
       success = true;
     } catch (err) {
-      error = err.message;
+      error = "Upload failed: " + err.message;
     } finally {
       isLoading = false;
     }
   }
 </script>
+
+<svelte:head>
+  <title>Bread Breakers (SG) | Submit Claim</title>
+</svelte:head>
 
 <div class="section">
   <div class="container">
@@ -171,31 +147,20 @@
               bind:value={cost}
               required
               disabled
-              pattern="^\d+(\.\d{1,2})?$"
+              pattern="^\d+(\.\d{(1, 2)})?$"
               title="Please enter a valid amount (e.g. 123.45)"
             />
           </div>
         </div>
 
         <div class="field">
-          <label for="receipt" class="label">Upload Original Receipt (PNG, JPG, PDF)</label>
-          <p>This receipt should show that the item was billed to your name. This is retained for audit purposes.</p>
-          <div class="control">
-            <input
-              id="receipt"
-              class="input"
-              type="file"
-              disabled={isLoading}
-              accept=".png,.jpg,.jpeg,.pdf"
-              on:change={handleOriginalChange}
-              required
-            />
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="receipt" class="label">Upload Redacted Receipt (PNG, JPG, PDF)</label>
-          <p>Please ensure all personal identifable information is redacted out. This will be published on the website.</p>
+          <label for="receipt" class="label"
+            >Upload Redacted Receipt (PNG, JPG, PDF)</label
+          >
+          <p>
+            Please ensure all personal identifable information is redacted out.
+            This will be published on the website.
+          </p>
           <div class="control">
             <input
               id="receipt"
@@ -210,8 +175,13 @@
         </div>
 
         <div class="field">
-          <label for="delivery" class="label">Proof of Delivery (PNG, JPG, PDF)</label>
-          <p>Please ensure all personal identifable information is redacted out. This will be published on the website.</p>
+          <label for="delivery" class="label"
+            >Proof of Delivery (PNG, JPG, PDF)</label
+          >
+          <p>
+            Please ensure all personal identifable information is redacted out.
+            This will be published on the website.
+          </p>
           <div class="control">
             <input
               id="delivery"
@@ -233,9 +203,11 @@
               disabled={isLoading}
             >
               {#if isLoading}
-              Sending... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+                Sending... <i class="demo-icon icon-spin6 animate-spin"
+                  >&#xe839;</i
+                >
               {:else}
-              Send
+                Send
               {/if}
             </button>
           </div>
