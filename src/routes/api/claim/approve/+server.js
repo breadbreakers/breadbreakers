@@ -60,7 +60,7 @@ export async function POST(event) {
 
 
         // send email to partner that claim is approved
-        const partnerBody = `<p>Your Claim Request has been approved for ${wip.title}.</p><p>Remarks: ${message}.</p><p>Please contact us if you did not receive your reimbursement.</p>`
+        const partnerBody = `<p>Your Claim Request has been approved for ${wip.title}.</p><p>Remarks: ${message}.</p><p>Please contact us if you did not receive your reimbursement.</p><p>Please remove personal details of beneficaries stored on your device.</p><p>Thank you for your support!</p>`
 
         await sendEmail({
             to: partnerEmail,

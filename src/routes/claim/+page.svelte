@@ -1,27 +1,102 @@
 <script>
   import { onMount } from "svelte";
-  import { uploadFile } from "$lib/upload.js";
+  import { uploadFiles } from "$lib/upload.js";
 
   let itemId = "";
   let receiptUrl = ""; // For receipt file
   let deliveryUrl = ""; // For proof of delivery file
-  let cost = "";
+  let cost; // Changed to not be initialized with "" for number type
   let isLoading = false;
   let success = false;
   let error = "";
   let selectedReceipt = null;
   let selectedDelivery = null;
-  let selectedOriginal = null;
+
+  // Progress tracking
+  let uploadProgress = { receipt: 0, delivery: 0 };
+  let currentStep = "";
 
   export let data;
   const item = data.item;
 
-  cost = (item.amount / 100).toFixed(2);
-
   onMount(() => {
     const params = new URLSearchParams(window.location.search);
     itemId = params.get("id") || "";
+    cost = (item.amount / 100).toFixed(2);
   });
+
+  // Helper function to update individual file progress
+  function updateProgress(type, percent) {
+    if (type === "receipt") {
+      uploadProgress.receipt = percent;
+    } else if (type === "proof_of_delivery") {
+      uploadProgress.delivery = percent;
+    }
+    uploadProgress = { ...uploadProgress }; // Trigger reactivity
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    isLoading = true;
+    error = "";
+    success = false;
+    uploadProgress = { receipt: 0, delivery: 0 }; // Reset progress
+
+    if (!selectedReceipt) {
+      error = "Please upload a receipt file.";
+      isLoading = false;
+      return;
+    }
+    if (!selectedDelivery) {
+      error = "Please upload a proof of delivery file.";
+      isLoading = false;
+      return;
+    }
+
+    try {
+      // Step 1: Upload files in parallel with progress tracking
+      currentStep = "Uploading files...";
+      const uploadedUrls = await uploadFiles(
+        [selectedReceipt, selectedDelivery],
+        ["receipt", "proof_of_delivery"],
+        itemId,
+        updateProgress
+      );
+
+      receiptUrl = uploadedUrls[0];
+      deliveryUrl = uploadedUrls[1];
+
+      // Step 2: Send API request
+      currentStep = "Processing request...";
+      const response = await fetch("/api/claim/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          itemId,
+          receiptUrl,
+          deliveryUrl,
+          cost,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send claim");
+      }
+
+      success = true;
+      currentStep = "Complete!";
+    } catch (err) {
+      error = "Claim submission failed: " + err.message;
+      console.error("Claim submission error:", err);
+    } finally {
+      isLoading = false;
+      uploadProgress = { receipt: 0, delivery: 0 }; // Reset progress on completion/error
+    }
+  }
 
   function handleReceiptChange(event) {
     const file = event.target.files[0];
@@ -55,61 +130,13 @@
     selectedDelivery = file;
   }
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    isLoading = true;
-    error = "";
-    success = false;
-
-    if (!selectedReceipt) {
-      error = "Please upload a receipt file.";
-      isLoading = false;
-      return;
-    }
-    if (!selectedDelivery) {
-      error = "Please upload a proof of delivery file.";
-      isLoading = false;
-      return;
-    }
-
-    try {
-      // Upload all files concurrently
-      const [receiptResult, deliveryResult, originalResult] = await Promise.all(
-        [
-          uploadFile(selectedReceipt, "receipt", itemId),
-          uploadFile(selectedDelivery, "proof_of_delivery", itemId)
-        ],
-      );
-
-      receiptUrl = receiptResult;
-      deliveryUrl = deliveryResult;
-
-      // Now send the claim request
-      const response = await fetch("/api/claim/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          itemId,
-          receiptUrl,
-          deliveryUrl,
-          cost,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || "Failed to send claim");
-      }
-
-      success = true;
-    } catch (err) {
-      error = "Upload failed: " + err.message;
-    } finally {
-      isLoading = false;
-    }
+  // Helper function to format file size (copied from your working file)
+  function formatFileSize(bytes) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   }
 </script>
 
@@ -121,14 +148,16 @@
   <div class="container">
     <h2 class="subtitle is-4">Claim Request</h2>
 
-    <h3 class="mt-4 has-text-weight-medium">{item.contact}</h3>
+    <h3 class="mt-4 has-text-weight-medium">{item.contact_clean}</h3>
     <h3 class="mt-4">{item.title}</h3>
     <h3 class="mt-4">{item.description}</h3>
 
     {#if success}
       <div class="mt-4 notification is-success">Submitted!</div>
     {:else if error}
-      <div class="mt-4 notification is-danger">{error}</div>
+      <div class="mt-4 notification is-danger">
+        {error}
+      </div>
     {/if}
 
     {#if !success}
@@ -158,9 +187,16 @@
             >Upload Redacted Receipt (PNG, JPG, PDF)</label
           >
           <p>
-            Please ensure all personal identifable information is redacted out.
+            Please ensure all personal identifiable information is redacted out.
             This will be published on the website.
           </p>
+          {#if selectedReceipt}
+            <p class="is-size-7 has-text-grey mb-2">
+              Selected: {selectedReceipt.name} ({formatFileSize(
+                selectedReceipt.size
+              )})
+            </p>
+          {/if}
           <div class="control">
             <input
               id="receipt"
@@ -179,9 +215,16 @@
             >Proof of Delivery (PNG, JPG, PDF)</label
           >
           <p>
-            Please ensure all personal identifable information is redacted out.
+            Please ensure all personal identifiable information is redacted out.
             This will be published on the website.
           </p>
+          {#if selectedDelivery}
+            <p class="is-size-7 has-text-grey mb-2">
+              Selected: {selectedDelivery.name} ({formatFileSize(
+                selectedDelivery.size
+              )})
+            </p>
+          {/if}
           <div class="control">
             <input
               id="delivery"
@@ -203,7 +246,7 @@
               disabled={isLoading}
             >
               {#if isLoading}
-                Sending... <i class="demo-icon icon-spin6 animate-spin"
+                Processing... <i class="demo-icon icon-spin6 animate-spin"
                   >&#xe839;</i
                 >
               {:else}
@@ -215,5 +258,58 @@
       </form>
       <h3 class="is-size-7 mt-4">Item ID {itemId}</h3>
     {/if}
+    {#if isLoading}
+      <div class="mt-4 notification is-info is-light">
+        <div class="mb-2">{currentStep}</div>
+
+        {#if currentStep === "Uploading files..."}
+          <div class="mb-2">
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
+                  <span class="is-size-7"
+                    >Receipt Upload: {uploadProgress.receipt}%</span
+                  >
+                </div>
+              </div>
+            </div>
+            <progress
+              class="progress is-small is-primary"
+              value={uploadProgress.receipt}
+              max="100">{uploadProgress.receipt}%</progress
+            >
+          </div>
+
+          <div class="mb-2">
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
+                  <span class="is-size-7"
+                    >Delivery Proof: {uploadProgress.delivery}%</span
+                  >
+                </div>
+              </div>
+            </div>
+            <progress
+              class="progress is-small is-primary"
+              value={uploadProgress.delivery}
+              max="100">{uploadProgress.delivery}%</progress
+            >
+          </div>
+        {:else}
+          <progress class="progress is-small is-primary"></progress>
+        {/if}
+      </div>
+    {/if}
   </div>
 </div>
+
+<style>
+  .progress {
+    height: 0.5rem;
+  }
+
+  .level.is-mobile {
+    margin-bottom: 0.25rem;
+  }
+</style>

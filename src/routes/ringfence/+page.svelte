@@ -1,10 +1,6 @@
-<svelte:head>
-    <title>Bread Breakers (SG) | Ringfence Request</title>
-</svelte:head>
-
 <script>
   import { onMount } from "svelte";
-  import { uploadFile } from '$lib/upload.js'; 
+  import { uploadFiles } from "$lib/upload.js"; // Import uploadFiles for batch processing
 
   let itemId;
   let linkUrl;
@@ -15,8 +11,12 @@
   let remarks = "";
   let swConfirmUrl;
   let itemCostUrl;
-  let selectedFile = null;
-  let itemCostFile = null;
+  let selectedFile = null; // Corresponds to social worker confirmation
+  let itemCostFile = null; // Corresponds to item cost screenshot
+
+  // Progress tracking
+  let uploadProgress = { sw: 0, itemCost: 0 };
+  let currentStep = "";
 
   export let data;
   const item = data.item;
@@ -26,63 +26,81 @@
     itemId = params.get("id") || "";
   });
 
+  // Helper function to update individual file progress for the UI
+  function updateProgress(type, percent) {
+    if (type === "sw_confirm") {
+      uploadProgress.sw = percent;
+    } else if (type === "itemcost") {
+      uploadProgress.itemCost = percent;
+    }
+    uploadProgress = { ...uploadProgress }; // Trigger reactivity
+  }
+
   async function handleSubmit(event) {
-  event.preventDefault();
-  isLoading = true;
-  error = "";
-  success = false;
+    event.preventDefault();
+    isLoading = true;
+    error = "";
+    success = false;
+    uploadProgress = { sw: 0, itemCost: 0 }; // Reset progress
 
-  if (!selectedFile) {
-    error = "Please upload confirmation from social worker.";
-    isLoading = false;
-    return;
-  }
-
-  if (!itemCostFile) {
-    error = "Please upload screenshot of item cost inclusive of delivery fee.";
-    isLoading = false;
-    return;
-  }
-
-  try {
-    // Upload both files concurrently
-    const [swConfirmResult, itemCostResult] = await Promise.all([
-      uploadFile(selectedFile, "sw_confirm", itemId),
-      uploadFile(itemCostFile, "itemcost", itemId)
-    ]);
-
-    swConfirmUrl = swConfirmResult;
-    itemCostUrl = itemCostResult;
-
-    // Now send the ringfence request
-    const response = await fetch("/api/ringfence/send", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        itemId,
-        linkUrl,
-        cost,
-        swConfirmUrl,
-        itemCostUrl,
-        remarks
-      }),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.error);
+    if (!selectedFile) {
+      error = "Please upload confirmation from social worker.";
+      isLoading = false;
+      return;
     }
 
-    success = true;
-  } catch (err) {
-    error = "Upload failed: " + err.message;
-  } finally {
-    isLoading = false;
+    if (!itemCostFile) {
+      error = "Please upload screenshot of item cost inclusive of delivery fee.";
+      isLoading = false;
+      return;
+    }
+
+    try {
+      // Step 1: Upload files in parallel with progress tracking using uploadFiles from $lib/upload.js
+      currentStep = "Uploading files...";
+      const uploadedUrls = await uploadFiles(
+        [selectedFile, itemCostFile],
+        ["sw_confirm", "itemcost"], // These types match the expected types in your upload.js
+        itemId,
+        updateProgress // Pass the updateProgress callback for UI updates
+      );
+
+      swConfirmUrl = uploadedUrls[0];
+      itemCostUrl = uploadedUrls[1];
+
+      // Step 2: Send API request
+      currentStep = "Processing request...";
+      const response = await fetch("/api/ringfence/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          itemId,
+          linkUrl,
+          cost,
+          swConfirmUrl,
+          itemCostUrl,
+          remarks,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error);
+      }
+
+      success = true;
+      currentStep = "Complete!";
+    } catch (err) {
+      error = "Upload failed: " + err.message;
+      console.error("Upload error:", err);
+    } finally {
+      isLoading = false;
+      uploadProgress = { sw: 0, itemCost: 0 }; // Reset progress on completion/error
+    }
   }
-}
 
   function handleConfirmSW(event) {
     const file = event.target.files[0];
@@ -110,12 +128,25 @@
     if (!allowedTypes.includes(file.type)) {
       alert("Only PNG, JPG, and PDF files are allowed.");
       event.target.value = "";
-      selecteitemCostFiledFile = null;
+      itemCostFile = null;
       return;
     }
     itemCostFile = file;
   }
+
+  // Helper function to format file size
+  function formatFileSize(bytes) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  }
 </script>
+
+<svelte:head>
+  <title>Bread Breakers (SG) | Ringfence Request</title>
+</svelte:head>
 
 <div class="section">
   <div class="container">
@@ -132,6 +163,7 @@
         {error}
       </div>
     {/if}
+
     {#if !success}
       <form class="box mt-4" on:submit={handleSubmit}>
         <div class="field">
@@ -173,9 +205,18 @@
         </div>
 
         <div class="field">
-          <label for="itemCost" class="label"
-            >Screenshot showing total cost, inclusive of delivery (PNG, JPG, PDF). <strong>Redact all name, address and mobile numbers.</strong></label
-          >
+          <label for="itemCost" class="label">
+            Screenshot showing total cost, inclusive of delivery (PNG, JPG,
+            PDF).
+            <strong>Redact all name, address and mobile numbers.</strong>
+          </label>
+          {#if itemCostFile}
+            <p class="is-size-7 has-text-grey mb-2">
+              Selected: {itemCostFile.name} ({formatFileSize(
+                itemCostFile.size
+              )})
+            </p>
+          {/if}
           <div class="control">
             <input
               id="itemCost"
@@ -190,10 +231,18 @@
         </div>
 
         <div class="field">
-          <label for="socialWorkerConfirmation" class="label"
-            >Social Worker Confirmation (PNG, JPG, PDF)</label
-          >
-          <p class="mb-2">Please ensure the description of the item is shown in the attachment. <strong>Redact all name, address and mobile numbers.</strong></p>
+          <label for="socialWorkerConfirmation" class="label">
+            Social Worker Confirmation (PNG, JPG, PDF)
+          </label>
+          <p class="mb-2">
+            Please ensure the description of the item is shown in the
+            attachment. <strong>Redact all name, address and mobile numbers.</strong>
+          </p>
+          {#if selectedFile}
+            <p class="is-size-7 has-text-grey mb-2">
+              Selected: {selectedFile.name} ({formatFileSize(selectedFile.size)})
+            </p>
+          {/if}
           <div class="control">
             <input
               id="socialWorkerConfirmation"
@@ -210,7 +259,11 @@
         <div class="field">
           <label class="label" for="remarks">Remarks</label>
           <div class="control">
-            <textarea class="textarea" disabled={isLoading} id="remarks" bind:value={remarks}
+            <textarea
+              class="textarea"
+              disabled={isLoading}
+              id="remarks"
+              bind:value={remarks}
             ></textarea>
           </div>
         </div>
@@ -223,9 +276,11 @@
               disabled={isLoading}
             >
               {#if isLoading}
-              Sending... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+                Processing... <i class="demo-icon icon-spin6 animate-spin"
+                  >&#xe839;</i
+                >
               {:else}
-              Send
+                Send
               {/if}
             </button>
           </div>
@@ -233,5 +288,58 @@
       </form>
       <h3 class="is-size-7 mt-4">Item ID {itemId}</h3>
     {/if}
+    {#if isLoading}
+      <div class="mt-4 notification is-info is-light">
+        <div class="mb-2">{currentStep}</div>
+
+        {#if currentStep === "Uploading files..."}
+          <div class="mb-2">
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
+                  <span class="is-size-7"
+                    >Social Worker Confirmation: {uploadProgress.sw}%</span
+                  >
+                </div>
+              </div>
+            </div>
+            <progress
+              class="progress is-small is-primary"
+              value={uploadProgress.sw}
+              max="100">{uploadProgress.sw}%</progress
+            >
+          </div>
+
+          <div class="mb-2">
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
+                  <span class="is-size-7"
+                    >Item Cost Screenshot: {uploadProgress.itemCost}%</span
+                  >
+                </div>
+              </div>
+            </div>
+            <progress
+              class="progress is-small is-primary"
+              value={uploadProgress.itemCost}
+              max="100">{uploadProgress.itemCost}%</progress
+            >
+          </div>
+        {:else}
+          <progress class="progress is-small is-primary"></progress>
+        {/if}
+      </div>
+    {/if}
   </div>
 </div>
+
+<style>
+  .progress {
+    height: 0.5rem;
+  }
+
+  .level.is-mobile {
+    margin-bottom: 0.25rem;
+  }
+</style>

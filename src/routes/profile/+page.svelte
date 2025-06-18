@@ -123,7 +123,7 @@
                                 });
                         }, 0);
                         if (row.status === "ringfence_approved") {
-                            buttons += `<i class="demo-icon icon-basket-1">&#xe803;</i><a class="has-text-weight-normal has-text-black" href="${env.PUBLIC_SITE_URL}/claim?id=${row.id}">Claim</a>`;
+                            buttons += `<i class="demo-icon icon-basket-1">&#xe803;</i><a target="_blank" class="has-text-weight-normal has-text-black" href="${env.PUBLIC_SITE_URL}/claim?id=${row.id}">Claim</a>`;
                         }
                         return buttons;
                     },
