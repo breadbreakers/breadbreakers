@@ -27,7 +27,7 @@ ${data.requests.description}
 Ref: ${data.requests.id}
 `;
       whatsAppMsg = encodeURIComponent(whatsAppMsg);
-      whatsApp = `https://web.whatsapp.com/send?phone=65${mobileN}&text=${whatsAppMsg}`;
+      whatsApp = `https://wa.me/65${mobileN}?text=${whatsAppMsg}`;
     }
   });
 </script>
