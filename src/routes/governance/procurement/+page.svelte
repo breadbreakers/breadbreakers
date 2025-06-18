@@ -65,6 +65,8 @@
                 <li><a href="https://www.challenger.sg">Challenger</a></li>
                 <li><a href="https://www.guardian.com.sg">Guardian</a></li>
                 <li><a href="https://www.watsons.com.sg/">Watsons</a></li>
+                <li><a href="https://www.fortytwo.sg/">FortyTwo</a></li>
+                <li><a href="https://www.bedandbasics.sg/">Bedandbasics.sg</a></li>
             </ul>
 
             <p>Exceptions will be permitted only upon documented request by the social worker or beneficiary, or in exceptional cases where the retailer offers a substantial discount, subject to the approval of the President.</p>
