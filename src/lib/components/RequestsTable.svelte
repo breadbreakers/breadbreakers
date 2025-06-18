@@ -9,7 +9,6 @@
     let userVotesMap = {};
     let voteCounts;
 
-    //export let loggedIn;
     export let isPartner;
     export let catData;
 
@@ -60,20 +59,6 @@
         });
     });
 
-    /*async function getVotes() {
-        const getVotes = await fetch("/api/votes/get", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({}), // You can send empty or minimal payload
-        });
-
-        const { voteCounts: serverVoteCounts, userVotes: serverUserVotes } =
-            await getVotes.json();
-
-        voteCounts = serverVoteCounts || {};
-        userVotesMap = serverUserVotes || {};
-    }*/
-
     async function initRequestsTable() {
         if (globalThis.$.fn.dataTable.isDataTable(requestsTable)) {
             globalThis.$(requestsTable).DataTable().clear().destroy();
@@ -119,7 +104,6 @@
             ],
             columns: [
                 { data: "date", title: "Date", className: "dt-left" },
-                //{ data: "title", title: "Item" },
                 {
                     data: "title",
                     title: "Item",
@@ -130,36 +114,6 @@
                 },
                 { data: "id", title: "ID" },
                 { data: "contact_clean", title: "VWO" },
-                /*{
-                    data: "votes",
-                    title: "Priority",
-                    orderable: true,
-
-                    render: function (data, type, row) {
-                        const hasVoted = !!userVotesMap[row.id];
-                        const isDisabled = !loggedIn || isVoting;
-
-                        return `
-                            <button 
-                                class="button vote-button" 
-                                data-id="${row.id}" 
-                                style="border:0; box-shadow: none; padding: 0; font-size: 0.85em;" 
-                                ${isDisabled ? "disabled" : ""}
-                            >
-                                <span style="padding-right: 0.25em;">${row.votes}</span>
-                                ${
-                                    loggedIn
-                                        ? hasVoted
-                                            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="gold" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.94 8.63L22 9.24L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.24L9.06 8.63L12 2Z"/></svg>'
-                                            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="#ddd" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.94 8.63L22 9.24L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.24L9.06 8.63L12 2Z"/></svg>'
-                                        : ""
-                                }
-                                
-                            </button>
-                        `;
-                    },
-                },*/
-
                 { data: "description", title: "Description" },
                 {
                     data: "id",
@@ -167,7 +121,7 @@
                     className: "dt-left",
                     render: function (data, type, row, meta) {
                         if (isPartner) {
-                            return `<i class="demo-icon icon-mail">&#xe804;</i><a href="mailto:?subject=${OFFER_SUBJECT} ${row.title}&body=${OFFER_EMAIL}%0D%0A%0D%0A${row.title}%0D%0A${row.description}%0D%0A%0D%0ARef: ${row.id}%0D%0A%0D%0A" class="pr-2 has-text-weight-normal is-underlined has-text-black">Offer</a><i class="demo-icon icon-shop">&#xe805;</i><a class="has-text-weight-normal has-text-black" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>`;
+                            return `<i class="demo-icon icon-mail">&#xe804;</i><a target="_blank" href="/offer?id=${row.id}" class="pr-2 has-text-weight-normal is-underlined has-text-black">Offer</a><i class="demo-icon icon-shop">&#xe805;</i><a class="has-text-weight-normal has-text-black" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>`;
                         } else {
                             return "";
                         }
@@ -222,7 +176,6 @@
                 <th>Item</th>
                 <th class="none">ID</th>
                 <th class="none">VWO</th>
-                <!--th class="all">Priority</th>-->
                 <th class="none">Description</th>
                 {#if isPartner}
                     <th class="none">Actions</th>

@@ -129,17 +129,26 @@
                     },
                 },
                 {
-                    data: "link",
-                    title: "Link",
+                    data: "amount",
+                    title: "Cost",
                     className: "dt-left",
                     render: function (data, type, row, meta) {
-                        return (
-                            '<a class="has-text-weight-normal has-text-black" href="' +
-                            data +
-                            '">' +
-                            data +
-                            "</a>"
-                        );
+                        return (`$${(data/100).toFixed(2)}`);
+                    },
+                },
+                {
+                    data: "contact",
+                    title: "Contact",
+                    className: "dt-left",
+                    render: function (data, type, row, meta) {
+                        const pattern = /\b[89]\d{7}\b/g;
+                        let mobileN = false;
+                        mobileN = String(data).match(pattern);
+                        if (mobileN) {
+                            return (`<a target="_blank" href="https://web.whatsapp.com/send?phone=65${mobileN}"><i class="demo-icon icon-whatsapp">&#xF232;</i>WhatsApp</a> ${data}`)
+                        } else {
+                            return data
+                        }
                     },
                 },
             ],
@@ -184,9 +193,10 @@
                             <th>Date</th>
                             <th>Title</th>
                             <th class="none">ID</th>
-                            <th class="none">Status</th>
+                            <th>Status</th>
                             <th class="none">Actions</th>
-                            <th class="none">Link</th>
+                            <th class="none">Cost</th>
+                            <th class="none">Contact</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
