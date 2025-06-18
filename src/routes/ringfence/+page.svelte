@@ -182,7 +182,7 @@
 
         <div class="field">
           <label for="itemCost" class="label"
-            >Screenshot showing total cost, inclusive of delivery (PNG, JPG, PDF)</label
+            >Screenshot showing total cost, inclusive of delivery (PNG, JPG, PDF). <strong>Redact all name, address and mobile numbers.</strong></label
           >
           <div class="control">
             <input
@@ -201,7 +201,7 @@
           <label for="socialWorkerConfirmation" class="label"
             >Social Worker Confirmation (PNG, JPG, PDF)</label
           >
-          <p class="mb-2">Please ensure the description of the item is shown in the attachment, and the receipients name, address and mobile number is shown.</p>
+          <p class="mb-2">Please ensure the description of the item is shown in the attachment. <strong>Redact all name, address and mobile numbers.</strong></p>
           <div class="control">
             <input
               id="socialWorkerConfirmation"

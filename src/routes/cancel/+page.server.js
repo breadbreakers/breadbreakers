@@ -1,4 +1,6 @@
 import { redirect } from '@sveltejs/kit';
+import { sendEmail } from '$lib/email.js';
+import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
 export async function load({ locals, url }) {
   // check if logged in
@@ -18,6 +20,8 @@ export async function load({ locals, url }) {
 
   if (partnerError || !partner) throw redirect(303, '/');
 
+  const partnerEmail = user.email;
+
   // get the item details based on the get param
   const itemId = url.searchParams.get('id');
 
@@ -32,10 +36,55 @@ export async function load({ locals, url }) {
     throw redirect(303, '/'); // no such wip
   }
 
+  let approverEmail;
+
+  const { data: getApprover } = await locals.supabase
+    .from('approvers')
+    .select('*')
+    .eq('role', 'president')
+    .single();
+
+  approverEmail = getApprover.email;
+
+  // get approver list and check if partner is inside
+  const { data: approverCheck } = await locals.supabase
+    .from('approvers')
+    .select('*')
+    .eq('email', partnerEmail)
+    .single();
+
+  // if the partner is the approver, route it to the checker
+  if (approverCheck) {
+    approverEmail = approverCheck.checker;
+  }
+
+  // send email to partner that ringfence is deleted
+  const partnerBody = `<p>Dear Partner</p><p>Your Ringfence Request has been removed.</p>`
+
+  await sendEmail({
+    to: partnerEmail, // to the partner
+    subject: `Ringfence Request Removed for ${wip.title} (${itemId})`,
+    body: partnerBody,
+    bcc: BREADBREAKERS_EMAIL // for audit trail 
+  });
+
+  const approverBody = `
+    <p>Parter ${partnerEmail} has removed the Ringfence Request.</p>
+    <p><strong>Item:</strong> ${wip.title}</p>
+    <p><strong>Description:</strong> ${wip.description}</p>
+  `;
+
+  await sendEmail({
+    to: approverEmail,
+    subject: `Ringfence Request Removed for ${wip.title} (${itemId})`,
+    body: approverBody,
+    replyTo: partnerEmail
+  });
+
   const { data: deleteResult, error: deleteError } = await locals.supabase
     .from('wip')
     .delete()
-    .eq('id', itemId);  
+    .eq('id', itemId);
 
   // Return only validated data
   throw redirect(303, "/profile");
