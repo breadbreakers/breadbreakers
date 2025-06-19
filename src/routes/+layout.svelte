@@ -161,8 +161,9 @@
 
 <div class="container pl-1 pr-1 hero">
   <div class="has-text-centered">
+    <!-- svelte-ignore a11y_consider_explicit_label -->
     <a href="/"
-      ><enhanced:img src="$lib/images/logo.png" class="logo" sizes="(min-width: 768px) 50vw, 100vw" alt="Responsive image" /></a
+      ><enhanced:img src="$lib/images/logo.png" class="logo" sizes="(min-width: 768px) 50vw, 100vw" alt="Bread Breakers (SG) Logo" fetchpriority="high" loading="eager" /></a
     >
   </div>
   <h2
