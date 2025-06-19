@@ -7,6 +7,7 @@ export async function load({ locals, url }) {
     const loggedIn = session ? true : false;
 
     let isPartner = false;
+    let isApprover = false;
 
     // check if is partner
     if (loggedIn) {
@@ -20,10 +21,20 @@ export async function load({ locals, url }) {
 
         if (partner) {
             isPartner = true
-        }        
+        }
+
+        const { data: approver, error: approverError } = await locals.supabase
+            .from('approvers')
+            .select('email')
+            .eq('email', user.email)
+            .single();
+
+        if (approver) {
+            isApprover = true
+        }
     }
     
     return {
-        loggedIn, user, isPartner
+        loggedIn, user, isPartner, isApprover
     };
 }

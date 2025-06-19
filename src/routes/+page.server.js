@@ -1,31 +1,17 @@
 export async function load({ locals }) {
-
-    const { data, error } = await locals.supabase.rpc('get_dashboard_stats');
     const session = await locals.getUser();
+    const loggedIn = !!session;
 
-    const loggedIn = session ? true : false;
+    let userEmail = null;
 
-    let isPartner = false;
-
-    const { data: catData, error: catError } = await locals.supabase
-        .from('category_summary')
-        .select('*')
-        .order('percentage', { ascending: false });
-
-    // check if is partner
     if (loggedIn) {
-        const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
-
-        const { data: partner, error: partnerError } = await locals.supabase
-            .from('partners')
-            .select('email')
-            .eq('email', user.email)
-            .single();
-
-        if (partner) {
-            isPartner = true
-        }
+        const { data: { user }, error } = await locals.supabase.auth.getUser();
+        userEmail = user.email;
     }
+
+    const { data, error } = await locals.supabase.rpc('get_dashboard_stats', {
+        email: userEmail
+    });
 
     return {
         beneficiaryCount: data.beneficiaryCount,
@@ -34,7 +20,7 @@ export async function load({ locals }) {
         ringfenceN: data.ringfenceN,
         nWip: data.wipCount,
         loggedIn,
-        isPartner,
-        catData
+        isPartner: data.isPartner,
+        catData: data.categorySummary
     };
 }

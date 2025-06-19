@@ -22,8 +22,7 @@
 </script>
 
 <section class="section">
-    <div class="container">
-        <h1 class="subtitle">Logged out successfully</h1>
-        <p>Redirecting to home page...</p>
-    </div>
+  <div class="container has-text-centered">
+    <p><i class="demo-icon icon-spin6 animate-spin">&#xe839;</i></p>
+  </div>
 </section>
