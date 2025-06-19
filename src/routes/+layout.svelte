@@ -162,7 +162,7 @@
 <div class="container pl-1 pr-1 hero">
   <div class="has-text-centered">
     <a href="/"
-      ><img src="/logo.png" width="500px" alt="bread breakers (SG) logo" /></a
+      ><enhanced:img src="/static/logo.png" class="logo" sizes="(min-width: 768px) 50vw, 100vw" alt="Responsive image" /></a
     >
   </div>
   <h2
@@ -308,5 +308,10 @@
     to {
       transform: rotate(360deg);
     }
+  }
+
+  .logo {
+    width: 500px;
+    height: auto; /* keeps aspect ratio */
   }
 </style>

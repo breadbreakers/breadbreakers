@@ -10,24 +10,42 @@
 	<meta name="apple-mobile-web-app-title" content="Bread Breakers" />
 	<link rel="manifest" href="%sveltekit.assets%/site.webmanifest" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="%sveltekit.assets%/css/bulma.css">
-	<link rel="stylesheet" href="%sveltekit.assets%/css/dataTables.dataTables.min.css">
-	<link rel="stylesheet" href="%sveltekit.assets%/css/responsive.dataTables.css">
-	<link rel="stylesheet" href="%sveltekit.assets%/css/animation.css">
+	
+	<!-- Preconnect to external domains -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-		rel="stylesheet">
-	<script src="%sveltekit.assets%/js/jquery-3.7.1.min.js"></script>
-	<script src="%sveltekit.assets%/js/dataTables.min.js"></script>
-	<script src="%sveltekit.assets%/js/dataTables.responsive.js"></script>
-	<script src="%sveltekit.assets%/js/responsive.dataTables.js"></script>
+	
+	<!-- Preload critical resources -->
+	<link rel="preload" href="%sveltekit.assets%/css/bulma.min.css" as="style">
+
+	<!-- Critical CSS - Load synchronously -->
+	<link rel="stylesheet" href="%sveltekit.assets%/css/bulma.min.css">
+	
+	<!-- Non-critical CSS - Load asynchronously -->
+	<link rel="preload" href="%sveltekit.assets%/css/dataTables.dataTables.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="%sveltekit.assets%/css/responsive.dataTables.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="%sveltekit.assets%/css/animation.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	
+	<!-- Fallback for browsers that don't support preload -->
+	<noscript>
+		<link rel="stylesheet" href="%sveltekit.assets%/css/dataTables.dataTables.min.css">
+		<link rel="stylesheet" href="%sveltekit.assets%/css/responsive.dataTables.css">
+		<link rel="stylesheet" href="%sveltekit.assets%/css/animation.css">
+	</noscript>
+	
+	<!-- Google Fonts - Load asynchronously -->
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+	</noscript>
+	
 	<meta name="description"
 		content="Bread Breakers Singapore delivers essential items like diapers, milk, and essential items directly to needy families in SG. Support our mission with low overhead and high impact.">
 	<meta name="keywords"
 		content="Bread Breakers Singapore, charity, non-profit, Singapore, needy families, direct aid, essential items, diapers, milk powder, fridges, laptops, social workers, community support, transparency, radical transparency, low overhead, tax-deductible donations, Christian charity, poverty alleviation, social awareness, empathy">
 	%sveltekit.head%
+	
+	<!-- Inline critical CSS -->
 	<style>
 		html {
 			letter-spacing: -0.35px;
@@ -38,7 +56,6 @@
 			color: darkred;
 			text-decoration: none;
 			font-weight: 600;
-
 		}
 
 		a:hover,
@@ -69,7 +86,6 @@
 			text-decoration-color: #ddd !important;
 		}
 
-
 		@font-face {
 			font-family: "fontello";
 			src: url("/font/fontello.eot?249361");
@@ -86,40 +102,42 @@
 			font-family: "fontello";
 			font-style: normal;
 			font-weight: normal;
-
 			display: inline-block;
 			text-decoration: inherit;
 			width: 1em;
 			margin-right: 0.2em;
 			text-align: center;
-			/* opacity: .8; */
-
-			/* For safety - reset parent styles, that can break glyph codes*/
 			font-variant: normal;
 			text-transform: none;
-
-			/* fix buttons height, for twitter bootstrap */
 			line-height: 1em;
-
-			/* Animation center compensation - margins should be symmetric */
-			/* remove if not needed */
 			margin-left: 0.2em;
-
-			/* You can be more comfortable with increased icons size */
-			/* font-size: 120%; */
-
-			/* Font smoothing. That was taken from TWBS */
 			-webkit-font-smoothing: antialiased;
 			-moz-osx-font-smoothing: grayscale;
-
-			/* Uncomment for 3D effect */
-			/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+		}
+		
+		/* Prevent layout shift for logo */
+		.logo-container {
+			width: 405px;
+			height: 73px;
+			display: block;
+		}
+		
+		.logo-container img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
 		}
 	</style>
 </head>
 
 <body data-sveltekit-preload-data="hover">
 	<div style="display: contents">%sveltekit.body%</div>
+	
+	<!-- Load JavaScript after page content -->
+	<script src="%sveltekit.assets%/js/jquery-3.7.1.min.js" defer></script>
+	<script src="%sveltekit.assets%/js/dataTables.min.js" defer></script>
+	<script src="%sveltekit.assets%/js/dataTables.responsive.js" defer></script>
+	<script src="%sveltekit.assets%/js/responsive.dataTables.js" defer></script>
 </body>
 
 </html>
