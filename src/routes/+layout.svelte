@@ -162,7 +162,7 @@
 <div class="container pl-1 pr-1 hero">
   <div class="has-text-centered">
     <a href="/"
-      ><enhanced:img src="/static/logo.png" class="logo" sizes="(min-width: 768px) 50vw, 100vw" alt="Responsive image" /></a
+      ><enhanced:img src="$lib/images/logo.png" class="logo" sizes="(min-width: 768px) 50vw, 100vw" alt="Responsive image" /></a
     >
   </div>
   <h2
