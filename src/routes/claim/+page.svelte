@@ -1,20 +1,23 @@
 <script>
   import { onMount } from "svelte";
-  import { uploadFiles } from "$lib/upload.js";
+  import { uploadFilesWithPrivacyCheck } from "$lib/upload.js";
 
   let itemId = "";
-  let receiptUrl = ""; // For receipt file
-  let deliveryUrl = ""; // For proof of delivery file
-  let cost; // Changed to not be initialized with "" for number type
+  let receiptUrl = "";
+  let deliveryUrl = "";
+  let cost;
   let isLoading = false;
   let success = false;
   let error = "";
   let selectedReceipt = null;
   let selectedDelivery = null;
 
-  // Progress tracking
+  // Enhanced progress tracking
   let uploadProgress = { receipt: 0, delivery: 0 };
   let currentStep = "";
+  let privacyCheckStatus = "";
+  let showPrivacyWarnings = false;
+  let privacyWarnings = [];
 
   export let data;
   const item = data.item;
@@ -25,14 +28,32 @@
     cost = (item.amount / 100).toFixed(2);
   });
 
-  // Helper function to update individual file progress
   function updateProgress(type, percent) {
-    if (type === "receipt") {
+    if (type === "claim_receipt") {
       uploadProgress.receipt = percent;
-    } else if (type === "proof_of_delivery") {
+    } else if (type === "claim_delivery") {
       uploadProgress.delivery = percent;
     }
-    uploadProgress = { ...uploadProgress }; // Trigger reactivity
+    uploadProgress = { ...uploadProgress };
+  }
+
+  function updatePrivacyCheck(status) {
+    privacyCheckStatus = status;
+  }
+
+  // Enhanced file validation
+  function validateFile(file, maxSize = 10 * 1024 * 1024) {
+    const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
+    
+    if (!allowedTypes.includes(file.type)) {
+      throw new Error("Only PNG, JPG, and PDF files are allowed.");
+    }
+    
+    if (file.size > maxSize) {
+      throw new Error(`File too large. Maximum size is ${formatFileSize(maxSize)}.`);
+    }
+    
+    return true;
   }
 
   async function handleSubmit(event) {
@@ -40,34 +61,40 @@
     isLoading = true;
     error = "";
     success = false;
-    uploadProgress = { receipt: 0, delivery: 0 }; // Reset progress
-
-    if (!selectedReceipt) {
-      error = "Please upload a receipt file.";
-      isLoading = false;
-      return;
-    }
-    if (!selectedDelivery) {
-      error = "Please upload a proof of delivery file.";
-      isLoading = false;
-      return;
-    }
+    privacyWarnings = [];
+    showPrivacyWarnings = false;
+    uploadProgress = { receipt: 0, delivery: 0 };
+    privacyCheckStatus = "";
 
     try {
-      // Step 1: Upload files in parallel with progress tracking
-      currentStep = "Uploading files...";
-      const uploadedUrls = await uploadFiles(
+      // Validate files first
+      if (!selectedReceipt) {
+        throw new Error("Please upload a receipt file.");
+      }
+      if (!selectedDelivery) {
+        throw new Error("Please upload a proof of delivery file.");
+      }
+
+      validateFile(selectedReceipt);
+      validateFile(selectedDelivery);
+
+      currentStep = "Validating files...";
+
+      // Upload files with privacy check
+      const uploadResult = await uploadFilesWithPrivacyCheck(
         [selectedReceipt, selectedDelivery],
         ["claim_receipt", "claim_delivery"],
         itemId,
-        updateProgress
+        updateProgress,
+        updatePrivacyCheck
       );
 
-      receiptUrl = uploadedUrls[0].fileUrl;
-      deliveryUrl = uploadedUrls[1].fileUrl;
+      receiptUrl = uploadResult.uploadResults[0].fileUrl || uploadResult.uploadResults[0];
+      deliveryUrl = uploadResult.uploadResults[1].fileUrl || uploadResult.uploadResults[1];
 
-      // Step 2: Send API request
-      currentStep = "Processing request...";
+      currentStep = "Submitting claim...";
+      
+      // Send API request with privacy analysis
       const response = await fetch("/api/claim/send", {
         method: "POST",
         headers: {
@@ -77,7 +104,8 @@
           itemId,
           receiptUrl,
           deliveryUrl,
-          cost,
+          cost: parseFloat(cost),
+          privacyAnalysis: uploadResult.privacyAnalysis,
         }),
       });
 
@@ -88,13 +116,17 @@
       }
 
       success = true;
-      currentStep = "Complete!";
+      currentStep = "Claim submitted successfully!";
+      
     } catch (err) {
       error = "Claim submission failed: " + err.message;
       console.error("Claim submission error:", err);
     } finally {
       isLoading = false;
-      uploadProgress = { receipt: 0, delivery: 0 }; // Reset progress on completion/error
+      if (!success) {
+        uploadProgress = { receipt: 0, delivery: 0 };
+        privacyCheckStatus = "";
+      }
     }
   }
 
@@ -104,14 +136,16 @@
       selectedReceipt = null;
       return;
     }
-    const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
-    if (!allowedTypes.includes(file.type)) {
-      alert("Only PNG, JPG, and PDF files are allowed.");
+    
+    try {
+      validateFile(file);
+      selectedReceipt = file;
+      error = ""; // Clear any previous errors
+    } catch (err) {
+      alert(err.message);
       event.target.value = "";
       selectedReceipt = null;
-      return;
     }
-    selectedReceipt = file;
   }
 
   function handleDeliveryChange(event) {
@@ -120,17 +154,18 @@
       selectedDelivery = null;
       return;
     }
-    const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
-    if (!allowedTypes.includes(file.type)) {
-      alert("Only PNG, JPG, and PDF files are allowed.");
+    
+    try {
+      validateFile(file);
+      selectedDelivery = file;
+      error = ""; // Clear any previous errors
+    } catch (err) {
+      alert(err.message);
       event.target.value = "";
       selectedDelivery = null;
-      return;
     }
-    selectedDelivery = file;
   }
 
-  // Helper function to format file size (copied from your working file)
   function formatFileSize(bytes) {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
@@ -138,6 +173,9 @@
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   }
+
+  // Get overall progress percentage
+  $: overallProgress = Math.round((uploadProgress.receipt + uploadProgress.delivery) / 2);
 </script>
 
 <svelte:head>
@@ -153,7 +191,10 @@
     <h3 class="mt-4">{item.description}</h3>
 
     {#if success}
-      <div class="mt-4 notification is-success">Submitted!</div>
+      <div class="mt-4 notification is-success">
+        <strong>✅ Claim Submitted Successfully!</strong>
+        <br />Your claim has been sent for approval. You'll receive an email confirmation shortly.
+      </div>
     {:else if error}
       <div class="mt-4 notification is-danger">
         {error}
@@ -176,27 +217,38 @@
               bind:value={cost}
               required
               disabled
-              pattern="^\d+(\.\d{(1, 2)})?$"
+              pattern="^\d+(\.\d{1,2})?$"
               title="Please enter a valid amount (e.g. 123.45)"
             />
           </div>
         </div>
 
         <div class="field">
-          <label for="receipt" class="label"
-            >Upload Redacted Receipt (PNG, JPG, PDF)</label
-          >
-          <p>
-            Please ensure all personal identifiable information is redacted out.
-            This will be published on the website.
-          </p>
+          <label for="receipt" class="label">
+            📄 Upload Redacted Receipt (PNG, JPG, PDF - Max 10MB)
+          </label>
+          <div class="content is-small">
+            <p class="has-text-danger">
+              <strong>⚠️ Important:</strong> Please ensure all personal information is redacted:
+            </p>
+            <ul>
+              <li>Names (except business names)</li>
+              <li>Phone numbers</li>
+              <li>Addresses</li>
+              <li>NRIC/ID numbers</li>
+              <li>Credit card numbers</li>
+            </ul>
+            <p class="has-text-black">
+              This document will be published publicly on our website.
+            </p>
+          </div>
+          
           {#if selectedReceipt}
             <p class="is-size-7 has-text-grey mb-2">
-              Selected: {selectedReceipt.name} ({formatFileSize(
-                selectedReceipt.size
-              )})
+              ✅ Selected: {selectedReceipt.name} ({formatFileSize(selectedReceipt.size)})
             </p>
           {/if}
+          
           <div class="control">
             <input
               id="receipt"
@@ -211,20 +263,24 @@
         </div>
 
         <div class="field">
-          <label for="delivery" class="label"
-            >Proof of Delivery (PNG, JPG, PDF)</label
-          >
-          <p>
-            Please ensure all personal identifiable information is redacted out.
-            This will be published on the website.
-          </p>
+          <label for="delivery" class="label">
+            🚚 Proof of Delivery (PNG, JPG, PDF - Max 10MB)
+          </label>
+          <div class="content is-small">
+            <p class="has-text-danger">
+              <strong>⚠️ Important:</strong> Please redact all personal information from delivery confirmations.
+            </p>
+            <p class="has-text-black">
+              This document will be published publicly on our website.
+            </p>
+          </div>
+          
           {#if selectedDelivery}
             <p class="is-size-7 has-text-grey mb-2">
-              Selected: {selectedDelivery.name} ({formatFileSize(
-                selectedDelivery.size
-              )})
+              ✅ Selected: {selectedDelivery.name} ({formatFileSize(selectedDelivery.size)})
             </p>
           {/if}
+          
           <div class="control">
             <input
               id="delivery"
@@ -238,25 +294,56 @@
           </div>
         </div>
 
+        <!-- Progress indicators -->
+        {#if isLoading}
+          <div class="box has-background-light">
+            <div class="mb-3">
+              <strong>Progress:</strong> {currentStep}
+            </div>
+            
+            {#if privacyCheckStatus}
+              <p class="is-size-7 has-text-black mb-2">🔍 {privacyCheckStatus}</p>
+            {/if}
+            
+            {#if uploadProgress.receipt > 0 || uploadProgress.delivery > 0}
+              <div class="mb-2">
+                <div class="level is-mobile">
+                  <div class="level-left">
+                    <span class="is-size-7">Receipt: {uploadProgress.receipt}%</span>
+                    <span class="is-size-7">Delivery: {uploadProgress.delivery}%</span>
+                  </div>
+                </div>
+                
+                <progress 
+                  class="progress is-primary" 
+                  value={overallProgress} 
+                  max="100"
+                >
+                  {overallProgress}%
+                </progress>
+              </div>
+            {/if}
+          </div>
+        {/if}
+
         <div class="field">
           <div class="control mt-4">
             <button
-              class="button is-primary"
+              class="button is-primary is-fullwidth"
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !selectedReceipt || !selectedDelivery}
             >
               {#if isLoading}
-                Processing... <i class="demo-icon icon-spin6 animate-spin"
-                  >&#xe839;</i
-                >
+                🔄 Processing... 
               {:else}
-                Send
+                📤 Submit Claim Request
               {/if}
             </button>
           </div>
         </div>
       </form>
-      <h3 class="is-size-7 mt-4">Item ID {itemId}</h3>
+      
+      <h3 class="is-size-7 mt-4 has-text-grey">Item ID: {itemId}</h3>
     {/if}
   </div>
 </div>
