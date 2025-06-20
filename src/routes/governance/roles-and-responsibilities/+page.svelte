@@ -13,7 +13,7 @@
                 <li><a href="/">🏠Home</a></li>
                 <li><a href="/governance">Governance</a></li>
                 <li class="is-active">
-                    <a href="./" aria-current="page">Roles & Responsibilities</a
+                    <a href="./" aria-current="page">R & Rs</a
                     >
                 </li>
             </ul>
