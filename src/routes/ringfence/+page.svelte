@@ -288,58 +288,5 @@
       </form>
       <h3 class="is-size-7 mt-4">Item ID {itemId}</h3>
     {/if}
-    {#if isLoading}
-      <div class="mt-4 notification is-info is-light">
-        <div class="mb-2">{currentStep}</div>
-
-        {#if currentStep === "Uploading files..."}
-          <div class="mb-2">
-            <div class="level is-mobile">
-              <div class="level-left">
-                <div class="level-item">
-                  <span class="is-size-7"
-                    >Social Worker Confirmation: {uploadProgress.sw}%</span
-                  >
-                </div>
-              </div>
-            </div>
-            <progress
-              class="progress is-small is-primary"
-              value={uploadProgress.sw}
-              max="100">{uploadProgress.sw}%</progress
-            >
-          </div>
-
-          <div class="mb-2">
-            <div class="level is-mobile">
-              <div class="level-left">
-                <div class="level-item">
-                  <span class="is-size-7"
-                    >Item Cost Screenshot: {uploadProgress.itemCost}%</span
-                  >
-                </div>
-              </div>
-            </div>
-            <progress
-              class="progress is-small is-primary"
-              value={uploadProgress.itemCost}
-              max="100">{uploadProgress.itemCost}%</progress
-            >
-          </div>
-        {:else}
-          <progress class="progress is-small is-primary"></progress>
-        {/if}
-      </div>
-    {/if}
   </div>
 </div>
-
-<style>
-  .progress {
-    height: 0.5rem;
-  }
-
-  .level.is-mobile {
-    margin-bottom: 0.25rem;
-  }
-</style>
