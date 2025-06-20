@@ -27,7 +27,7 @@
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {nInNeed}
                     </p>
-                    <p class="is-size-6 pb-4 tagtext">Items Requested</p>
+                    <p class="is-size-6 pb-4 tagtext">Items In Need</p>
                 </div>
             </div>
         </div>

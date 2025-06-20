@@ -23,7 +23,7 @@ export async function load({ locals, url }) {
     .eq('email', user.email)
     .single();
 
-  if (approverError || !approver) throw redirect(303, '/');
+  if (approverError || !approver) throw redirect(303, '/error/not-approver');
 
   // check if item is in wip and claim_requested
   const { data: wip, error: wipError } = await locals.supabase
@@ -32,10 +32,10 @@ export async function load({ locals, url }) {
     .eq('id', itemId)
     .single();
 
-  if (wipError || !wip) throw redirect(303, '/');
+  if (wipError || !wip) throw redirect(303, '/error/not-wip');
   
   if (wip.status !== "claim_requested") {
-    throw redirect(303, '/');
+    throw redirect(303, '/error/claim-requested');
   }
 
   // Return only validated data

@@ -5,10 +5,6 @@
 
     let requestsTable;
 
-    let isVoting = false;
-    let userVotesMap = {};
-    let voteCounts;
-
     export let isPartner;
     export let catData;
 
@@ -46,17 +42,6 @@
 
     onMount(async () => {
         initRequestsTable();
-
-        document.addEventListener("click", (e) => {
-            if (
-                e.target.closest(".vote-button") &&
-                !e.target.closest(".vote-button:disabled")
-            ) {
-                const button = e.target.closest(".vote-button");
-                const requestId = button.dataset.id;
-                handleVote(requestId);
-            }
-        });
     });
 
     async function initRequestsTable() {
@@ -131,39 +116,10 @@
         });
     }
 
-    async function handleVote(itemId) {
-        if (!isVoting) {
-            try {
-                isVoting = true;
-                const response = await fetch("/api/votes/handle", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ itemId }),
-                });
-
-                const result = await response.json();
-
-                if (!response.ok) {
-                    console.error("Vote failed:", result.error);
-                    return;
-                }
-
-                //await getVotes();
-                const table = globalThis.$(requestsTable).DataTable();
-                table.ajax.reload(null, false);
-            } catch (e) {
-                console.error("Request error:", e);
-            } finally {
-                isVoting = false;
-            }
-        }
-    }
 </script>
 
 <div class="container">
-    <h2 class="subtitle is-5 has-text-weight-semibold">📦 Items Requested</h2>
+    <h2 class="subtitle is-5 has-text-weight-semibold">📦 Items In Need</h2>
     <table
         bind:this={requestsTable}
         id="requestsTable"

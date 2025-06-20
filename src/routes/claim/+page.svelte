@@ -63,8 +63,8 @@
         updateProgress
       );
 
-      receiptUrl = uploadedUrls[0];
-      deliveryUrl = uploadedUrls[1];
+      receiptUrl = uploadedUrls[0].fileUrl;
+      deliveryUrl = uploadedUrls[1].fileUrl;
 
       // Step 2: Send API request
       currentStep = "Processing request...";

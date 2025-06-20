@@ -43,27 +43,43 @@
                     title: "Date",
                     className: "dt-left",
                     render: function (data, type, row, meta) {
-                        const d = typeof data === "string"
-                            ? data.substring(0, 10)
-                            : data;
-                        return '<span class="has-text-weight-normal has-text-black">' + d + '</span>'
+                        const d =
+                            typeof data === "string"
+                                ? data.substring(0, 10)
+                                : data;
+                        return (
+                            '<span class="has-text-weight-normal has-text-black">' +
+                            d +
+                            "</span>"
+                        );
                     },
                 },
                 {
                     data: "item",
                     title: "Item",
                     render: function (data, type, row, meta) {
-                        return (
-                            '<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
-                            row.delivery +
-                            '">' +
-                            data +
-                            "</a>"
-                        );
+                        return data;
                     },
                 },
                 { data: "contact", title: "VWO" },
-                { data: "id", title: "Reference" },
+                {
+                    data: "id",
+                    title: "Reference",
+                    render: function (data, type, row, meta) {
+                        return (
+                            data +
+                            '<i class="demo-icon icon-attach">&#xe801;</i>' +
+                            '<a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+                            row.delivery +
+                            '">Proof of Delivery</a>' +
+                            (row.receipt !== null
+                                ? '<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+                                  row.receipt +
+                                  '">Receipt</a>'
+                                : " (Donated item)")
+                        );
+                    },
+                },
             ],
         });
     });
@@ -87,4 +103,3 @@
         <tbody> </tbody>
     </table>
 </div>
-

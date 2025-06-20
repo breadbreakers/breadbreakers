@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseClient } from '$lib/server/supabase.server';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
+import { getSgTime } from '$lib/sgtime'
 
 export async function POST(event) {
     const { request } = event;
@@ -21,9 +22,11 @@ export async function POST(event) {
 
         const supabase = createServerSupabaseClient(event);
 
-        const { data: balance, error: balanceError } = await supabase.rpc('get_dashboard_stats');
+        const { data : db, error : dbError } = await supabase.rpc('get_dashboard_stats', {
+            email: null
+        });
 
-        let balanceN = balance.balanceData - balance.ringfenceN - balance.operatingIncoming;
+        let balanceN = db.balanceData - db.ringfenceN - db.operatingIncoming;
 
         if (balanceN - (cost * 100) < 0) {
             return json({ error: 'Insufficient funds!' }, { status: 409 });
@@ -52,29 +55,6 @@ export async function POST(event) {
             approverEmail = approverCheck.checker;
         }
 
-        const { data: ringfenceStatus } = await supabase
-            .from('wip')
-            .select('status')
-            .eq('id', itemId)
-            .single();
-
-        if (ringfenceStatus !== null) {
-
-            if (ringfenceStatus.status === "ringfence_requested") {
-                return json({ error: 'Item already ringfenced' }, { status: 409 });
-            }
-
-            if (ringfenceStatus.status === "ringfence_approved") {
-                return json({ error: 'Item is already approved.' }, { status: 409 });
-            }
-
-            if (ringfenceStatus.status === "claim_requested") {
-                return json({ error: 'Item is in processing for claims.' }, { status: 409 });
-            }
-        }
-
-        // don't need to check if it's a partner, because RLS already checks if logged in user is in the partners table before allowing  insert.
-
         // populate the item
         let itemData = {
             title: itemTitle,
@@ -84,7 +64,7 @@ export async function POST(event) {
         };
 
         // insert into wip table
-        const { data, error: insError } = await supabase
+        const { data : wipInsert, error: wipError } = await supabase
             .from('wip')
             .insert([
                 {
@@ -98,6 +78,19 @@ export async function POST(event) {
                     title: itemData.title,
                     description: itemData.description,
                     contact: itemData.contact_clean
+                }
+            ]);
+
+        // insert into requests_manual table
+        const { data : reqInsert, error: reqError } = await supabase
+            .from('requests_manual')
+            .insert([
+                {
+                    id: itemId,
+                    date: getSgTime().substring(0, 10),
+                    title: itemData.title,
+                    description: itemData.description,
+                    contact_clean : itemData.contact_clean                    
                 }
             ]);
 
@@ -127,7 +120,7 @@ export async function POST(event) {
             </p>
             <p><em>This is a system generated message. Do not reply.</em></p>
             `;
-        
+
         await sendEmail({
             to: approverEmail,
             subject: `Ringfence Request for ${itemData.title} (${itemId})`,

@@ -18,7 +18,7 @@ export async function load({ locals, url }) {
     .eq('email', user.email)
     .single();
 
-  if (partnerError || !partner) throw redirect(303, '/');
+  if (partnerError || !partner) throw redirect(303, '/error/not-partner');
 
   const partnerEmail = user.email;
 
@@ -33,7 +33,7 @@ export async function load({ locals, url }) {
     .single();
 
   if (wip === null) {
-    throw redirect(303, '/'); // no such wip
+    throw redirect(303, '/error/not-wip'); // no such wip
   }
 
   let approverEmail;

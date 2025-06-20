@@ -5,7 +5,9 @@
 <script>
   import { uploadFile } from '$lib/upload.js'; 
 
-  let itemId;
+  export let data;
+
+  let itemId = data.itemId;
   let itemTitle;
   let itemDesc;
   let itemContact
@@ -141,7 +143,7 @@
               type="text"
               bind:value={itemId}
               required
-              disabled={isLoading}
+              disabled
             />
           </div>
         </div>
@@ -173,7 +175,7 @@
         </div>
 
         <div class="field">
-          <label for="itemContact" class="label">Contact</label>
+          <label for="itemContact" class="label">Contact Info</label>
           <div class="control">
             <input
               class="input"
@@ -219,7 +221,7 @@
 
         <div class="field">
           <label for="itemCost" class="label"
-            >Screenshot showing total cost, inclusive of delivery (PNG, JPG, PDF). <strong>Redact all name, address and mobile numbers.</strong></label
+            >Screenshot showing total cost, inclusive of delivery (PNG, JPG, PDF). Redact all name, address and mobile numbers.</label
           >
           <div class="control">
             <input

@@ -125,22 +125,8 @@
 				{
 					data: "description",
 					title: "Description",
-					render: function (data, type, row, meta) {
-						if (row.receipt !== null) {
-							if (row.receipt.substring(0, 4) == "http") {
-								return (
-									'<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
-									row.receipt +
-									'">' +
-									data +
-									"</a>"
-								);
-							} else {
-								return data;
-							}
-						} else {
-							return data;
-						}
+					render: function (data, type, row, meta) {						
+						return data;						
 					},
 				},
 				{
@@ -179,8 +165,23 @@
 				{
 					data: "contact",
 					title: "Reference",
-					render: function (data) {
-						return data != null ? data : "NA";
+					render: function (data, type, row, meta) {
+						if (data !== null) {
+							return (
+								data +
+								'<br><i class="demo-icon icon-attach">&#xe801;</i>' +
+								'<a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+								row.link +
+								'">Proof of Delivery</a>' +
+								(row.receipt !== null
+									? '<br><i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+									row.receipt +
+									'">Receipt</a>'
+									: " (Donated item)")
+							);
+						} else {
+							return "NA"
+						}
 					},
 				},
 			],

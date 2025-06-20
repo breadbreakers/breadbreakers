@@ -21,9 +21,11 @@ export async function POST(event) {
 
         const supabase = createServerSupabaseClient(event);
 
-        const { data: balance, error: balanceError } = await supabase.rpc('get_dashboard_stats');
+        const { data : db, error : dbError } = await supabase.rpc('get_dashboard_stats', {
+            email: null
+        });
 
-        let balanceN = balance.balanceData - balance.ringfenceN - balance.operatingIncoming;
+        let balanceN = db.balanceData - db.ringfenceN - db.operatingIncoming;
 
         if (balanceN - (cost * 100) < 0) {
             return json({ error: 'Insufficient funds!' }, { status: 409 });

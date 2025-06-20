@@ -20,7 +20,7 @@ export async function load({ locals, url }) {
     .eq('email', user.email)
     .single();
 
-  if (partnerError || !partner) throw redirect(303, '/');
+  if (partnerError || !partner) throw redirect(303, '/error/not-partner');
 
   // get the item details based on the get param
   const itemId = url.searchParams.get('id');
@@ -35,15 +35,15 @@ export async function load({ locals, url }) {
   // at this stage there should be no wip row for this item
   if (wip !== null) {
     if (wip.status == "ringfence_requested") {
-      throw redirect(303, '/');
+      throw redirect(303, '/error/ringfence-requested');
     }
 
     if (wip.status == "ringfence_approved") {
-      throw redirect(303, '/');
+      throw redirect(303, '/error/ringfence-approved');
     }
 
     if (wip.status == "claim_requested") {
-      throw redirect(303, '/');
+      throw redirect(303, '/error/claim-requested');
     }
   } 
 
@@ -55,7 +55,7 @@ export async function load({ locals, url }) {
       .eq('id', itemId)
       .single();
 
-    if (!fetchedItem || itemError) throw redirect(303, '/'); //no such item in request table
+    if (!fetchedItem || itemError) throw redirect(303, '/error/not-request'); //no such item in request table
 
     itemData = fetchedItem;
   }

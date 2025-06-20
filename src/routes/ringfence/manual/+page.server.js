@@ -13,13 +13,23 @@ export async function load({ locals, url }) {
   const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
   if (userError || !user) throw redirect(303, '/profile');
 
-  // check if is approver, because this is a deviation of the process
-  const { data: approver, error: approverError } = await locals.supabase
-    .from('approvers')
+  // check if is partner
+  const { data: partner, error: partnerError } = await locals.supabase
+    .from('partners')
     .select('email')
     .eq('email', user.email)
     .single();
 
-  if (approverError || !approver) throw redirect(303, '/');
+  if (partnerError || !partner) throw redirect(303, '/error/not-partner');
+
+  // get number of rows in requests_manual
+  const { count, error } = await locals.supabase
+      .from('requests_manual')
+      .select('*', { count: 'exact', head: true });
+
+const itemId = `BB${String(count + 1).padStart(6, '0')}`;
+  console.log(itemId)
+
+  return { itemId }
 
 }

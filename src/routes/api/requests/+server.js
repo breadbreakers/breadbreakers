@@ -1,4 +1,4 @@
-const allowedColumns = ['date', 'title', 'contact_clean', 'description', 'id', 'votes'];
+const allowedColumns = ['date', 'title', 'contact_clean', 'description', 'id'];
 
 // Extract sort info from DataTables request
 function getSortInfo(reqData) {
@@ -35,7 +35,7 @@ export async function POST({ request, locals }) {
     const { sortColumn, sortDir } = getSortInfo(reqData);
 
     let query = locals.supabase
-        .from('requests')
+        .from('all_requests_excluding_wip')
         .select('*', { count: 'exact' });
 
     const searchValue = reqData.search?.value?.trim();

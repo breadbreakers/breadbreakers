@@ -22,7 +22,7 @@ export async function load({ locals, url }) {
     .eq('email', user.email)
     .single();
 
-  if (partnerError || !partner) throw redirect(303, '/');
+  if (partnerError || !partner) throw redirect(303, '/error/not-partner');
 
    // check if this user logged in is indeed already at ringfence_approved for this item
   const { data: wip, error: wipError } = await locals.supabase
@@ -31,14 +31,14 @@ export async function load({ locals, url }) {
     .eq('id', itemId)
     .single();
 
-  if (wipError || !wip) throw redirect(303, '/');
+  if (wipError || !wip) throw redirect(303, '/error/not-wip');
 
   if (wip.partner === user.email) {
     if (wip.status !== "ringfence_approved") {
-      throw redirect(303, '/');
+      throw redirect(303, '/error/not-ringfence-approved');
     }
   } else {
-    throw redirect(303, '/');
+    throw redirect(303, '/error/not-partner');
   }
 
   // Return only validated data

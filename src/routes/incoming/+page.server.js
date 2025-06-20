@@ -21,7 +21,7 @@ export async function load({ locals, url }) {
     .eq('email', user.email)
     .single();
 
-  if (approverError || !approver) throw redirect(303, '/');
+  if (approverError || !approver) throw redirect(303, '/error/not-approver');
 
   // Return only validated data
   return { user };

@@ -17,7 +17,7 @@ export async function load({ locals, url }) {
     .select('email')
     .eq('email', user.email)
     .single();
-  if (partnerError || !partner) throw redirect(303, '/');
+  if (partnerError || !partner) throw redirect(303, '/error/not-partner');
 
   const itemId = url.searchParams.get('id');
   const { data: requests, error: requestsError } = await locals.supabase
@@ -25,7 +25,7 @@ export async function load({ locals, url }) {
     .select('*')
     .eq('id', itemId)
     .single();
-  if (requestsError || !requests) throw redirect(303, '/');
+  if (requestsError || !requests) throw redirect(303, '/error/not-request');
 
   return { requests };
 }
