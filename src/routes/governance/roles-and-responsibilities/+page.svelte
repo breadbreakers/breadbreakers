@@ -35,9 +35,9 @@
                 bearers and our AGM governance process.
             </p>
 
-            <div class="table-container mt-4">
+            <div style="overflow-x: auto;">
                 <table
-                    class="table is-bordered is-fullwidth is-size-7-mobile"
+                    class="table is-bordered is-fullwidth is-size-6-mobile"
                 >
                     <thead>
                         <tr>
