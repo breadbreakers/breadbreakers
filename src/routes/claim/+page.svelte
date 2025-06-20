@@ -58,7 +58,7 @@
       currentStep = "Uploading files...";
       const uploadedUrls = await uploadFiles(
         [selectedReceipt, selectedDelivery],
-        ["receipt", "proof_of_delivery"],
+        ["claim_receipt", "claim_delivery"],
         itemId,
         updateProgress
       );

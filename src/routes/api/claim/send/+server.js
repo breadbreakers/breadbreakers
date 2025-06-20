@@ -128,7 +128,7 @@ export const POST = async (event) => {
         // === Upload file to Drive ===
         const driveResponse = await drive.files.create({
             requestBody: {
-                name: `${itemId}_paynow_${Date.now()}.png`,
+                name: `${itemId}_claim_paynow_${Date.now()}.png`,
                 mimeType: 'image/png',
                 parents: [monthFolderId],
             },

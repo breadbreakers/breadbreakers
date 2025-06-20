@@ -1,10 +1,3 @@
-<svelte:head>
-    <title
-        >Bread Breakers (SG) | We partner with social workers to
-        transparently provide material essentials to those in need</title
-    >
-</svelte:head>
-
 <script>
     import Infographic from "$lib/components/Infographic.svelte";
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
@@ -21,6 +14,13 @@
     }
 </script>
 
+<svelte:head>
+    <title
+        >Bread Breakers (SG) | We partner with social workers to transparently
+        provide material essentials to those in need</title
+    >
+</svelte:head>
+
 <section class="section">
     <Infographic
         beneficiaryCount={data.beneficiaryCount}
@@ -35,19 +35,22 @@
                 <div class="column">
                     <button
                         on:click={(event) => showTable(event, "requests")}
-                        class="is-fullwidth button is-primary is-light"
-                        >📦 Items In Need</button
+                        class="is-fullwidth button is-info"
+                        class:is-light={activeTable !== "requests"}
                     >
+                        📦 Items In Need
+                    </button>
                 </div>
 
                 <div class="column">
                     <button
                         on:click={(event) => showTable(event, "fulfilled")}
-                        class="is-fullwidth button is-info is-light"
-                        >🎁 Items Fulfilled</button
+                        class="is-fullwidth button is-info"
+                        class:is-light={activeTable !== "fulfilled"}
                     >
+                        🎁 Items Fulfilled
+                    </button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -60,7 +63,7 @@
 
     {#if activeTable === "requests"}
         <div class="content mt-6 mb-6">
-            <RequestsTable 
+            <RequestsTable
                 loggedIn={data.loggedIn}
                 isPartner={data.isPartner}
                 catData={data.catData}
@@ -72,9 +75,11 @@
         <div class="content mt-3">
             <div class="columns">
                 <div class="column">
-                    <a href="/get-involved"><button class="is-fullwidth button is-warning is-light"
-                        >🤝 Get Involved</button></a>
-                    
+                    <a href="/get-involved"
+                        ><button class="is-fullwidth button is-warning is-light"
+                            >🤝 Get Involved</button
+                        ></a
+                    >
                 </div>
             </div>
         </div>
@@ -82,5 +87,4 @@
 </section>
 
 <style>
-
 </style>

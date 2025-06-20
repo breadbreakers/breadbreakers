@@ -150,11 +150,14 @@
 					title: "ID",
 					render: function (data, type, row, meta) {
 						if (row.description === "Stripe Transaction Fee") {
-							return row.receipt;
-						}
-						if (row.id === null && row.flow_type === "inflow" ) {
 							return "NA";
 						}
+						if (row.id === null && row.flow_type === "inflow") { // direct bank transfer
+							return "NA";
+						}
+						if (String(row.id).substring(0, 4) === "http") { // donation from stripe
+							return "Donation"
+						}	
 						if (data == null) {
 							// regular expense submitted from the form;
 							return "Operating Fund Expense";
@@ -180,7 +183,17 @@
 									: " (Donated item)")
 							);
 						} else {
-							return "NA"
+							if (row.receipt !== null){
+								return ('<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+									row.receipt +
+									'">Receipt</a>')
+							} 
+							if (String(row.id).substring(0, 4) === "http") { // donation from stripe
+								return '<i class="demo-icon icon-attach">&#xe801;</i><a target="_blank" class="has-text-weight-normal is-underlined has-text-black" href="' + row.id + '">Receipt</a>'
+							}	
+							
+								return "NA"
+							
 						}
 					},
 				},

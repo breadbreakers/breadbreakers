@@ -36,8 +36,8 @@ export const POST = async ({ request }) => {
   try {
     const formData = await request.formData();
     const file = formData.get('file');
-    const itemId = formData.get('itemId');
-    const label = formData.get('label');
+    const itemId = formData.get('id');
+    const label = formData.get('type');
 
     if (!file) {
       return new Response(JSON.stringify({ error: 'No file uploaded' }), { status: 400 });

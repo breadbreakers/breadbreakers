@@ -55,6 +55,9 @@ export async function POST(event) {
         const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
         const chargeId = paymentIntent.latest_charge;
 
+        const charge = await stripe.charges.retrieve(chargeId);
+        const receiptUrl = charge.receipt_url;
+
         // 🔁 Wait for balance_transaction to be available
         const balanceTxId = await getBalanceTransactionWithRetry(chargeId, stripe);
         const balanceTx = await stripe.balanceTransactions.retrieve(balanceTxId);
@@ -72,7 +75,7 @@ export async function POST(event) {
               description: `Stripe Transaction Fee`,
               amount: stripeFee,
               approveremail: donor,
-              link: chargeId,
+              link: receiptUrl,
               timestamp: sgTime
             }
           ]);
@@ -83,7 +86,7 @@ export async function POST(event) {
           .insert([
             {
               source: (fund == 'operating' ? 'Donation (Operating Fund)' : 'Donation (Beneficary Fund)'),
-              id: chargeId,
+              id: receiptUrl,
               amount,
               approveremail: donor,
               timestamp: sgTime,
@@ -96,7 +99,7 @@ export async function POST(event) {
         await sendEmail({
           to: donor,
           subject: `Thank you for your support! 🙂`,
-          body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${chargeId}</p><p>Please note that a processing fee of $${(stripeFee / 100).toFixed(2)} is deducted by our payment provider to facilitate secure payments.</p>`,
+          body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${receiptUrl}</p><p>Please note that a processing fee of $${(stripeFee / 100).toFixed(2)} is deducted by our payment provider to facilitate secure payments.</p>`,
           bcc: BREADBREAKERS_EMAIL
         });
 

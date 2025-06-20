@@ -60,7 +60,7 @@
       currentStep = "Uploading files...";
       const uploadedUrls = await uploadFiles(
         [selectedFile, itemCostFile],
-        ["sw_confirm", "itemcost"], // These types match the expected types in your upload.js
+        ["ringfence_sw", "ringfence_cost"], // These types match the expected types in your upload.js
         itemId,
         updateProgress // Pass the updateProgress callback for UI updates
       );

@@ -36,6 +36,9 @@
                 <li>
                     <a href="/governance/terms-of-service">Terms of Service</a>
                 </li>
+                <li>
+                    <a href="/governance/roles-and-responsibilities">Roles and Responsibilities</a>
+                </li>
             </ul>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">

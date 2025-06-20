@@ -5,7 +5,7 @@ import * as sgqr from 'sgqr';
 import sharp from 'sharp';
 
 // === CONFIGURATION ===
-const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID; // base folder (e.g., "PayNow_QRCodes")
+/*const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID; // base folder (e.g., "PayNow_QRCodes")
 
 // === GENERATE PAYNOW QR ===
 const payload = await sgqr.generate_code({
@@ -106,4 +106,4 @@ await drive.permissions.create({
 
 // === PUBLIC URL ===
 const publicUrl = `https://drive.google.com/uc?id=${fileId}`;
-console.log('✅ Public QR Code URL:', publicUrl);
+console.log('✅ Public QR Code URL:', publicUrl);*/

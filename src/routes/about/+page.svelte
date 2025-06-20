@@ -35,7 +35,7 @@
                 To transparently procure and deliver essential items to
                 vulnerable individuals and families, in partnership with social
                 service professionals, offering not just goods, but care,
-                dignity, and hope.
+                encouragement, and hope.
             </p>
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
@@ -189,6 +189,9 @@
                 delivered relief, lightening the load of social workers and
                 bringing practical faith, hope, and love to those most in need.
             </p>
+
+           
+
         </div>
         <BackToTop />
     </div>

@@ -106,7 +106,7 @@
                     className: "dt-left",
                     render: function (data, type, row, meta) {
                         if (isPartner) {
-                            return `<i class="demo-icon icon-mail">&#xe804;</i><a target="_blank" href="/offer?id=${row.id}" class="pr-2 has-text-weight-normal is-underlined has-text-black">Offer</a><i class="demo-icon icon-shop">&#xe805;</i><a class="has-text-weight-normal has-text-black" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>`;
+                            return `<i class="demo-icon icon-mail">&#xe804;</i><a target="_blank" href="/offer?id=${row.id}" class="pr-2 has-text-weight-normal is-underlined has-text-black">Offer</a><i class="demo-icon icon-shop">&#xe805;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>`;
                         } else {
                             return "";
                         }
