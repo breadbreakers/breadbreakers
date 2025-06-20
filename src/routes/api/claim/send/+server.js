@@ -255,17 +255,17 @@ export const POST = async (event) => {
             : `Claim Request for ${wip.title} (${wip.id})`;
 
         const approverBody = `
-            <p><strong>Requester:</strong> ${partnerEmail}</p>
-            <p><strong>Description:</strong> ${wip.description}</p>
-            <p><strong>Contact:</strong> ${wip.contact}</p>
-            <p><a href="${receiptUrl}"><strong>Redacted Receipt</strong></a></p>
-            <p><a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a></p>
-            <p><strong>Requested claim:</strong> $${cost}</p>
-            <p><strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}</p>
+            <strong>Requester:</strong> ${partnerEmail}<br>
+            <strong>Description:</strong> ${wip.description}<br>
+            <strong>Contact:</strong> ${wip.contact}<br>
+            <a href="${receiptUrl}"><strong>Redacted Receipt</strong></a><br>
+            <a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a><br>
+            <strong>Requested claim:</strong> $${cost}<br>
+            <strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}<br>
             
             ${privacyWarningsHtml}
             
-            <p><img src="${paynowQRImage}" alt="PayNow QR Code" style="width:200px;height:200px;" /></p>
+            <img src="${paynowQRImage}" alt="PayNow QR Code" style="width:200px;height:200px;" /><br>
             
             <p><a href="https://breadbreakers.sg/claim/approve?id=${wip.id}" style="color: white; background: green; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin-right: 10px; display: inline-block;">✅ Approve Claim</a></p>
             <p><a href="https://breadbreakers.sg/claim/reject?id=${wip.id}" style="color: white; background: red; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">❌ Reject Claim</a></p>

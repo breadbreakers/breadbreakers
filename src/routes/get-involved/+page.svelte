@@ -54,8 +54,8 @@
             </ul>
 
             <Zoom>
-                <img
-                    src="/flowchart-simple.jpg"
+                <enhanced:img
+                    src="$lib/images/flowchart.png"
                     alt="Flowchart"
                     class="flowchart-image"
                 />
