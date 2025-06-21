@@ -225,7 +225,7 @@
 
         <div class="field pt-5">
           <label for="receipt" class="label">
-            📄 Upload Redacted Receipt (PNG, JPG, PDF - Max 10MB)
+            📄 Upload Receipt (PNG, JPG, PDF)
           </label>
           <div class="content">
             <p class="has-text-danger">
@@ -235,7 +235,7 @@
               <li>Names (except business names)</li>
               <li>Phone numbers</li>
               <li>Addresses</li>
-              <li>NRIC/ID numbers</li>
+              <li>Bank account numbers</li>
               <li>Credit card numbers</li>
             </ul>
             <p class="has-text-black">
@@ -244,7 +244,7 @@
           </div>
           
           {#if selectedReceipt}
-            <p class="is-size-7 has-text-grey mb-2">
+            <p class="has-text-grey mb-2">
               ✅ Selected: {selectedReceipt.name} ({formatFileSize(selectedReceipt.size)})
             </p>
           {/if}
@@ -264,7 +264,7 @@
 
         <div class="field pt-5">
           <label for="delivery" class="label">
-            🚚 Proof of Delivery (PNG, JPG, PDF - Max 10MB)
+            🚚 Proof of Delivery from Social Worker (PNG, JPG, PDF)
           </label>
           <div class="content">
             <p class="has-text-danger">
@@ -276,7 +276,7 @@
           </div>
           
           {#if selectedDelivery}
-            <p class="is-size-7 has-text-grey mb-2">
+            <p class="has-text-grey mb-2">
               ✅ Selected: {selectedDelivery.name} ({formatFileSize(selectedDelivery.size)})
             </p>
           {/if}

@@ -40,8 +40,7 @@ export async function POST({ request, cookies }) {
       to: BREADBREAKERS_EMAIL,
       subject: `Contact Form Submission from ${name}`,
       replyto: email,
-      body: message,
-      bcc: 'jaredyeo@gmail.com'
+      body: message
     });
 
     return json({ success: true });

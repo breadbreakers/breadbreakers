@@ -203,7 +203,9 @@ export const POST = async (event) => {
             <strong>Description:</strong> ${wip.description}<br>
             <strong>Contact:</strong> ${wip.contact}<br>
             <a href="${receiptUrl}"><strong>Redacted Receipt</strong></a><br>
+            - Is the item the same as the description above?<br>
             <a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a><br>
+            - Did the social worker verify the item is received?<br>
             <strong>Requested claim:</strong> $${cost}<br>
             <strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}<br>
             
