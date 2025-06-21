@@ -23,12 +23,9 @@ export async function load({ locals, url }) {
   if (partnerError || !partner) throw redirect(303, '/error/not-partner');
 
   // get number of rows in requests_manual
-  const { count, error } = await locals.supabase
-      .from('requests_manual')
-      .select('*', { count: 'exact', head: true });
+  const { data: res, error } =  await locals.supabase.rpc('predict_next_request_id');
 
-const itemId = `BB${String(count + 1).padStart(6, '0')}`;
-  console.log(itemId)
+  const itemId = res[0].id
 
   return { itemId }
 

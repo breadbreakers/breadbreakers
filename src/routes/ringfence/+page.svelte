@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { uploadFiles } from "$lib/upload.js"; // Import uploadFiles for batch processing
+  import { uploadFilesWithPrivacyCheck } from "$lib/upload.js"; 
 
   let itemId;
   let linkUrl;
@@ -13,6 +13,7 @@
   let itemCostUrl;
   let selectedFile = null; // Corresponds to social worker confirmation
   let itemCostFile = null; // Corresponds to item cost screenshot
+  let privacyCheckStatus = "";
 
   // Progress tracking
   let uploadProgress = { sw: 0, itemCost: 0 };
@@ -28,12 +29,16 @@
 
   // Helper function to update individual file progress for the UI
   function updateProgress(type, percent) {
-    if (type === "sw_confirm") {
+    if (type === "ringfence_sw") {
       uploadProgress.sw = percent;
-    } else if (type === "itemcost") {
+    } else if (type === "ringfence_cost") {
       uploadProgress.itemCost = percent;
     }
     uploadProgress = { ...uploadProgress }; // Trigger reactivity
+  }
+
+  function updatePrivacyCheck(status) {
+    privacyCheckStatus = status;
   }
 
   async function handleSubmit(event) {
@@ -58,15 +63,17 @@
     try {
       // Step 1: Upload files in parallel with progress tracking using uploadFiles from $lib/upload.js
       currentStep = "Uploading files...";
-      const uploadedUrls = await uploadFiles(
+
+      const uploadResult = await uploadFilesWithPrivacyCheck(
         [selectedFile, itemCostFile],
-        ["ringfence_sw", "ringfence_cost"], // These types match the expected types in your upload.js
+        ["ringfence_sw", "ringfence_cost"],
         itemId,
-        updateProgress // Pass the updateProgress callback for UI updates
+        updateProgress,
+        updatePrivacyCheck
       );
 
-      swConfirmUrl = uploadedUrls[0];
-      itemCostUrl = uploadedUrls[1];
+      swConfirmUrl = uploadResult.uploadResults[0].fileUrl;
+      itemCostUrl = uploadResult.uploadResults[1].fileUrl;
 
       // Step 2: Send API request
       currentStep = "Processing request...";
@@ -82,6 +89,7 @@
           swConfirmUrl,
           itemCostUrl,
           remarks,
+          privacyAnalysis: uploadResult.privacyAnalysis,
         }),
       });
 

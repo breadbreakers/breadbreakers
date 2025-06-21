@@ -7,6 +7,7 @@ import { createServerSupabaseClient } from '$lib/server/supabase.server';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 import * as sgqr from 'sgqr';
 import sharp from 'sharp';
+import { PUBLIC_SITE_URL } from "$env/static/public";
 
 // Helper to create or get folder
 async function getOrCreateFolder(name, parentId, drive) {
@@ -29,61 +30,18 @@ async function getOrCreateFolder(name, parentId, drive) {
 
 // Helper to generate privacy warnings HTML for email
 function generatePrivacyWarningsHtml(privacyAnalysis) {
-    if (!privacyAnalysis || privacyAnalysis.length === 0) {
-        return '<p style="color: green;">✅ <strong>Privacy scan completed - No issues detected</strong></p>';
-    }
-
     let warningsHtml = '';
-    let hasViolations = false;
 
     privacyAnalysis.forEach((analysis, index) => {
         const fileType = analysis.type === 'claim_receipt' ? 'Receipt' : 'Proof of Delivery';
         const fileName = analysis.file;
         const result = analysis.result;
-
-        if (!result.isCompliant && result.violations && result.violations.length > 0) {
-            hasViolations = true;
-            warningsHtml += `
-                <p><strong>${fileType} (${fileName}):</strong></p>
-                <ul style="color: #d63031; margin: 8px 0;">
-                ${result.violations.map(violation => `<li>• ${violation}</li>`).join('')}
-                </ul>
-                <p style="color: #d63031; font-size: 12px;"><em>Confidence: ${Math.round((result.confidence || 0) * 100)}%</em></p>
-            `;
-        } else if (result.warnings && result.warnings.length > 0) {
-            warningsHtml += `
-                <p><strong>${fileType} (${fileName}):</strong></p>
-                <ul style="color: #e17000; margin: 8px 0;">
-                ${result.warnings.map(warning => `<li>• ${warning}</li>`).join('')}
-                </ul>
-                <p style="color: #e17000; font-size: 12px;"><em>Please review manually</em></p>
-
-            `;
-        } else {
-            warningsHtml += `              
-                <p style="color: #00b894;">✅ <strong>${fileType}:</strong> No privacy issues detected</p>
-            `;
-        }
+   
+        warningsHtml += `
+            <strong>${fileType} (${fileName}):</strong><br>                
+            ${result.warnings}
+        `;        
     });
-
-    if (hasViolations) {
-        warningsHtml = `
-                <p style="color: #d63031; font-weight: bold;">
-                    This claim contains documents with potential PDPA violations. Please review carefully before approval.
-                    You may need to contact the submitter to provide properly redacted documents.
-                </p>
-                ${warningsHtml}
-                <p style="color: #d63031; font-size: 14px; margin-bottom: 0;">
-                    <strong>Action Required:</strong> Verify that sensitive information is properly redacted before approving this claim.
-            </p>
-
-        `;
-    } else {
-        warningsHtml = `
-                <h4 style="color: #00b894; margin-top: 0;">🛡️ Privacy Scan Results</h4>
-                ${warningsHtml}
-        `;
-    }
 
     return warningsHtml;
 }
@@ -225,22 +183,10 @@ export const POST = async (event) => {
         // === Generate privacy warnings HTML ===
         const privacyWarningsHtml = generatePrivacyWarningsHtml(privacyAnalysis);
 
-        // === Check if there are serious privacy violations ===
-        const hasViolations = privacyAnalysis && privacyAnalysis.some(analysis =>
-            analysis.result && !analysis.result.isCompliant &&
-            analysis.result.violations && analysis.result.violations.length > 0
-        );
-
         // === Notify partner ===
-        const partnerSubject = hasViolations
-            ? `Claim Submitted for ${wip.title}`
-            : `Claim Submitted for ${wip.title}`;
+        const partnerSubject = `Claim Submitted for ${wip.title}`
 
-        const partnerBody = hasViolations
-            ? `Your Claim Request has been sent to ${approverEmail} for approval. 
-               <br><br><strong>Note:</strong> Our automated privacy scan detected potential sensitive information in your uploaded documents. 
-               The approver will review these before processing your claim.`
-            : `Your Claim Request has been sent to ${approverEmail} for approval.`;
+        const partnerBody = `Your Claim Request has been sent to ${approverEmail} for approval.`;
 
         await sendEmail({
             to: partnerEmail,
@@ -250,9 +196,7 @@ export const POST = async (event) => {
         });
 
         // === Notify approver with privacy analysis ===
-        const approverSubject = hasViolations
-            ? `🚨 Claim Request for ${wip.title} (${wip.id})`
-            : `Claim Request for ${wip.title} (${wip.id})`;
+        const approverSubject = `Claim Request for ${wip.title} (${wip.id})`;
 
         const approverBody = `
             <strong>Requester:</strong> ${partnerEmail}<br>
@@ -267,8 +211,8 @@ export const POST = async (event) => {
             
             <img src="${paynowQRImage}" alt="PayNow QR Code" style="width:200px;height:200px;" /><br>
             
-            <p><a href="https://breadbreakers.sg/claim/approve?id=${wip.id}" style="color: white; background: green; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin-right: 10px; display: inline-block;">✅ Approve Claim</a></p>
-            <p><a href="https://breadbreakers.sg/claim/reject?id=${wip.id}" style="color: white; background: red; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">❌ Reject Claim</a></p>
+            <p><a href="${PUBLIC_SITE_URL}/claim/approve?id=${wip.id}" style="color: white; background: green; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin-right: 10px; display: inline-block;">Approve Claim</a></p>
+            <p><a href="${PUBLIC_SITE_URL}/claim/reject?id=${wip.id}" style="color: white; background: red; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">Reject Claim</a></p>
         `;
 
         await sendEmail({
@@ -279,7 +223,7 @@ export const POST = async (event) => {
 
         return json({
             success: true,
-            privacyWarnings: hasViolations ? 'Privacy concerns flagged to approver' : null
+            privacyWarnings: null
         });
 
     } catch (err) {

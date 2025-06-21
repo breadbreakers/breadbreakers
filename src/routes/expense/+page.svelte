@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-  import { uploadFile } from '$lib/upload'; 
+  import { uploadFilesWithPrivacyCheck } from '$lib/upload'; 
 
   let itemDescription;
   let amount;
@@ -12,6 +12,8 @@
   let error;
   let selectedReceipt;
   let receiptUrl;
+  let uploadProgress = { receipt: 0 };
+  let privacyCheckStatus = "";
 
   export let data;
 
@@ -30,8 +32,17 @@
     }
 
     try {
-      // Upload receipt
-      receiptUrl = await uploadFile(selectedReceipt, "expense", "");
+      // Upload files with privacy check
+      const uploadResult = await uploadFilesWithPrivacyCheck(
+        [selectedReceipt],
+        ["receipt"],
+        "expense",
+        updateProgress,
+        updatePrivacyCheck
+      );
+
+      receiptUrl = uploadResult.uploadResults[0].fileUrl || uploadResult.uploadResults[0];
+
     } catch (err) {
       error = "File upload failed: " + err.message;
       isLoading = false;
@@ -64,6 +75,18 @@
     } finally {
       isLoading = false;
     }
+  }
+
+  // Helper function to update individual file progress for the UI
+  function updateProgress(type, percent) {
+    if (type === "receipt") {
+      uploadProgress.receipt = percent;
+    } 
+    uploadProgress = { ...uploadProgress }; // Trigger reactivity
+  }
+
+  function updatePrivacyCheck(status) {
+    privacyCheckStatus = status;
   }
 
   function handleReceiptChange(event) {

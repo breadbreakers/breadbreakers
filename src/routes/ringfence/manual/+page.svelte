@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-  import { uploadFile } from '$lib/upload.js'; 
+  import { uploadFilesWithPrivacyCheck } from '$lib/upload.js'; 
 
   export let data;
 
@@ -20,6 +20,7 @@
   let itemCostUrl;
   let selectedFile = null;
   let itemCostFile = null;
+  let privacyCheckStatus = "";
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -40,24 +41,18 @@
     }
 
     try {
-      // Upload confirmation
-      swConfirmUrl = await uploadFile(selectedFile, "sw_confirm", itemId);
-    } catch (err) {
-      error = "File upload failed: " + err.message;
-      isLoading = false;
-      return;
-    }
 
-    try {
-      // Upload itemcost
-      itemCostUrl = await uploadFile(itemCostFile, "itemcost", itemId);
-    } catch (err) {
-      error = "File upload failed: " + err.message;
-      isLoading = false;
-      return;
-    }
+      const uploadResult = await uploadFilesWithPrivacyCheck(
+        [selectedFile, itemCostFile],
+        ["ringfence_sw", "ringfence_cost"],
+        itemId,
+        updateProgress,
+        updatePrivacyCheck
+      );
 
-    try {
+      swConfirmUrl = uploadResult.uploadResults[0].fileUrl;
+      itemCostUrl = uploadResult.uploadResults[1].fileUrl;
+
       const response = await fetch("/api/ringfence/send/manual", {
         method: "POST",
         headers: {
@@ -71,10 +66,10 @@
           itemCostUrl,
           itemTitle,
           itemDesc,
-          itemContact
+          itemContact,
+          privacyAnalysis: uploadResult.privacyAnalysis,
         }),
       });
-
       const result = await response.json();
 
       if (!response.ok) {
@@ -82,11 +77,26 @@
       }
 
       success = true;
+
     } catch (err) {
       error = err.message;
     } finally {
       isLoading = false;
     }
+  }
+
+  function updatePrivacyCheck(status) {
+    privacyCheckStatus = status;
+  }
+
+  // Helper function to update individual file progress for the UI
+  function updateProgress(type, percent) {
+    if (type === "sw_confirm") {
+      uploadProgress.sw = percent;
+    } else if (type === "itemcost") {
+      uploadProgress.itemCost = percent;
+    }
+    uploadProgress = { ...uploadProgress }; // Trigger reactivity
   }
 
   function handleConfirmSW(event) {

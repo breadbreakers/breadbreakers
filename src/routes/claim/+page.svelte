@@ -223,11 +223,11 @@
           </div>
         </div>
 
-        <div class="field">
+        <div class="field pt-5">
           <label for="receipt" class="label">
             📄 Upload Redacted Receipt (PNG, JPG, PDF - Max 10MB)
           </label>
-          <div class="content is-small">
+          <div class="content">
             <p class="has-text-danger">
               <strong>⚠️ Important:</strong> Please ensure all personal information is redacted:
             </p>
@@ -262,11 +262,11 @@
           </div>
         </div>
 
-        <div class="field">
+        <div class="field pt-5">
           <label for="delivery" class="label">
             🚚 Proof of Delivery (PNG, JPG, PDF - Max 10MB)
           </label>
-          <div class="content is-small">
+          <div class="content">
             <p class="has-text-danger">
               <strong>⚠️ Important:</strong> Please redact all personal information from delivery confirmations.
             </p>
@@ -294,6 +294,22 @@
           </div>
         </div>
 
+        <div class="field">
+          <div class="control mt-4">
+            <button
+              class="button is-primary is-fullwidth"
+              type="submit"
+              disabled={isLoading || !selectedReceipt || !selectedDelivery}
+            >
+              {#if isLoading}
+                Processing... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+              {:else}
+                Submit Claim Request
+              {/if}
+            </button>
+          </div>
+        </div>
+
         <!-- Progress indicators -->
         {#if isLoading}
           <div class="box has-background-light">
@@ -313,34 +329,11 @@
                     <span class="is-size-7">Delivery: {uploadProgress.delivery}%</span>
                   </div>
                 </div>
-                
-                <progress 
-                  class="progress is-primary" 
-                  value={overallProgress} 
-                  max="100"
-                >
-                  {overallProgress}%
-                </progress>
+              
               </div>
             {/if}
           </div>
         {/if}
-
-        <div class="field">
-          <div class="control mt-4">
-            <button
-              class="button is-primary is-fullwidth"
-              type="submit"
-              disabled={isLoading || !selectedReceipt || !selectedDelivery}
-            >
-              {#if isLoading}
-                🔄 Processing... 
-              {:else}
-                📤 Submit Claim Request
-              {/if}
-            </button>
-          </div>
-        </div>
       </form>
       
       <h3 class="is-size-7 mt-4 has-text-grey">Item ID: {itemId}</h3>

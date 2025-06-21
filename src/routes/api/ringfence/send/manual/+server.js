@@ -10,7 +10,7 @@ export async function POST(event) {
     let approverEmail;
 
     try {
-        const { itemId, linkUrl, cost, swConfirmUrl, itemCostUrl, itemTitle, itemDesc, itemContact } = await request.json();
+        const { itemId, linkUrl, cost, swConfirmUrl, itemCostUrl, itemTitle, itemDesc, itemContact, privacyAnalysis } = await request.json();
 
         if (!itemId || !linkUrl || !cost || !swConfirmUrl || !itemCostUrl || !itemTitle || !itemDesc || !itemContact) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
@@ -54,6 +54,9 @@ export async function POST(event) {
         if (approverCheck) {
             approverEmail = approverCheck.checker;
         }
+
+        // === Generate privacy warnings HTML ===
+        const privacyWarningsHtml = generatePrivacyWarningsHtml(privacyAnalysis);
 
         // populate the item
         let itemData = {
@@ -106,19 +109,19 @@ export async function POST(event) {
 
         // send email to approver
         const approverBody = `
-            <p><strong>Description:</strong> ${itemData.description}</p>
-            <p><strong>Contact:</strong> ${itemData.contact_clean}</p>
-            <p><strong>Amount to ringfence inclusive of cost delivery:</strong> $${cost}</p>
-            <p><strong>To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>Is the purchase from an <a href="https://breadbreakers.sg/governance/procurement">authorised retailer</a>? If not, is it explicitly requested from the Social Worker?</p>
-            <p><a href="${itemCostUrl}"><strong>Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?<br>Is the delivery fee reasonable?</p>
-            <p><a href="${swConfirmUrl}"><strong>Social worker confirmation</strong></a><br>Did the social worker provide the necessary contact information?<br>Did the screenshot specify the item?</p>
+            <strong>Description:</strong> ${itemData.description}<br>
+            <strong>Contact:</strong> ${itemData.contact_clean}<br>
+            <strong>Amount to ringfence inclusive of cost delivery:</strong> $${cost}<br>
+            <strong>To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>Is the purchase from an <a href="https://breadbreakers.sg/governance/procurement">authorised retailer</a>? If not, is it explicitly requested from the Social Worker?<br>
+            <a href="${itemCostUrl}"><strong>Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?<br>Is the delivery fee reasonable?<br>
+            <a href="${swConfirmUrl}"><strong>Social worker confirmation</strong></a><br>Did the social worker provide the necessary contact information?<br>Did the screenshot specify the item?<br>
+            ${privacyWarningsHtml}
             <p>
                 <a href="https://breadbreakers.sg/ringfence/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve Ringfence</a>
             </p>
             <p>
                 <a href="https://breadbreakers.sg/ringfence/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject Ringfence</a>
             </p>
-            <p><em>This is a system generated message. Do not reply.</em></p>
             `;
 
         await sendEmail({
@@ -133,4 +136,22 @@ export async function POST(event) {
         console.error('Error sending email:', error);
         return json({ error: error.message }, { status: 500 });
     }
+}
+
+// Helper to generate privacy warnings HTML for email
+function generatePrivacyWarningsHtml(privacyAnalysis) {
+    let warningsHtml = '';
+
+    privacyAnalysis.forEach((analysis, index) => {
+        const fileType = analysis.type === 'ringfence_sw' ? 'Social Worker Confirmation' : 'Cost and Delivery';
+        const fileName = analysis.file;
+        const result = analysis.result;
+   
+        warningsHtml += `
+            <strong>${fileType} (${fileName}):</strong><br>                
+            ${result.warnings}
+        `;        
+    });
+
+    return warningsHtml;
 }

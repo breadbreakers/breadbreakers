@@ -2,6 +2,8 @@ import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseClient } from '$lib/server/supabase.server';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
+import { google } from 'googleapis';
+import { env } from '$env/dynamic/private';
 
 export async function POST(event) {
     const { request } = event;
@@ -39,6 +41,30 @@ export async function POST(event) {
         // send email to partner that ringfence is rejected
         const partnerBody = `<p>Your Ringfence Request has been rejected for ${wip.title}.</p><p>Remarks: ${rejectMessage}</p><p>Please submit your Ringfence Request again.</p>`
 
+        // Set up Google Drive API and delete the offending files
+        const auth = new google.auth.GoogleAuth({
+            credentials: {
+                client_email: env.GOOGLE_CLIENT_EMAIL,
+                private_key: env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+            },
+            scopes: ['https://www.googleapis.com/auth/drive.file'],
+        });
+
+        const drive = google.drive({ version: 'v3', auth });
+
+        let urlObj;
+        let fileId;
+
+        const swconfirm_url = wip.swconfirm;
+        urlObj = new URL(swconfirm_url);
+        fileId = urlObj.searchParams.get('id');
+        await drive.files.delete({ fileId });
+
+        const itemSupport_url = wip.itemSupport;
+        urlObj = new URL(itemSupport_url);
+        fileId = urlObj.searchParams.get('id');
+        await drive.files.delete({ fileId });
+
         await sendEmail({
             to: partnerEmail,
             subject: `Ringfence Rejected for ${wip.title} (${itemId})`,
@@ -51,7 +77,7 @@ export async function POST(event) {
         const { data, error } = await supabase
             .from('wip')
             .delete()
-            .eq('id', itemId);    
+            .eq('id', itemId);
 
         return json({ message: 'Ringfence Rejected' }, { status: 200 });
     } catch (error) {

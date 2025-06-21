@@ -27,7 +27,7 @@ async function checkPrivacyCompliance(file) {
   } catch (error) {
     console.warn('Privacy check failed:', error);
     // Fail-safe: allow upload if privacy check service is down
-    return { isCompliant: true, warnings: [] };
+    return { warnings: 'Privacy check failed. Please review manually.' };
   }
 }
 
@@ -160,66 +160,6 @@ async function processFile(file, maxWidth = 1200, quality = 0.8, maxSize = 2 * 1
   });
 }
 
-// Optimized upload with privacy check and parallel processing
-export async function uploadFileWithPrivacyCheck(file, type, id, onProgress = null) {
-  // Step 1: Process file and check privacy in parallel
-  const [processedFile, privacyResult] = await Promise.all([
-    processFile(file),
-    checkPrivacyCompliance(file)
-  ]);
-
-  // Step 2: Check privacy compliance
-  if (!privacyResult.isCompliant) {
-    throw new Error(`Privacy check failed: ${privacyResult.violations.join(', ')}`);
-  }
-
-  // Step 3: Upload the processed file
-  return retryUpload(async () => {
-    return new Promise((resolve, reject) => {
-      const formData = new FormData();
-      formData.append('file', processedFile);
-      formData.append('type', type);
-      formData.append('id', id);
-
-      const xhr = new XMLHttpRequest();
-      
-      if (onProgress) {
-        xhr.upload.addEventListener('progress', (e) => {
-          if (e.lengthComputable) {
-            const percentComplete = Math.round((e.loaded / e.total) * 100);
-            onProgress(type, percentComplete);
-          }
-        });
-      }
-
-      xhr.addEventListener('load', () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          try {
-            const response = JSON.parse(xhr.responseText);
-            resolve(response.url || response.path || response);
-          } catch (e) {
-            resolve(xhr.responseText);
-          }
-        } else {
-          reject(new Error(`HTTP ${xhr.status}: ${xhr.responseText}`));
-        }
-      });
-
-      xhr.addEventListener('error', () => {
-        reject(new Error('Network error during upload'));
-      });
-
-      xhr.addEventListener('timeout', () => {
-        reject(new Error('Upload timeout'));
-      });
-      
-      xhr.timeout = 60000;
-      xhr.open('POST', '/api/upload');
-      xhr.send(formData);
-    });
-  });
-}
-
 // Batch upload with privacy checks and parallel processing
 export async function uploadFilesWithPrivacyCheck(files, types, id, onProgress = null, onPrivacyCheck = null) {
   // Step 1: Check all files for privacy compliance first
@@ -305,5 +245,4 @@ function formatBytes(bytes, decimals = 2) {
 }
 
 // Backwards compatibility exports
-export const uploadFile = uploadFileWithPrivacyCheck;
 export const uploadFiles = uploadFilesWithPrivacyCheck;

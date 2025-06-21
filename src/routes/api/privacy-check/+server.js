@@ -20,15 +20,6 @@ Analyze the provided image/document and identify if it contains any of the follo
 7. Bank account numbers
 8. Any other personally identifiable information
 
-Respond in JSON format only:
-{
-  "isCompliant": boolean,
-  "violations": [array of specific violations found],
-  "warnings": [array of potential issues to review],
-  "confidence": number between 0-1
-}
-
-If compliant, violations array should be empty.
 If non-compliant, list specific violations found (e.g., "Phone number visible: 91234567").
 `;
 
@@ -39,10 +30,7 @@ export const POST = async ({ request }) => {
     if (!GEMINI_API_KEY) {
       console.warn('GEMINI_API_KEY not configured, skipping privacy check');
       return json({
-        isCompliant: true,
-        violations: [],
-        warnings: ['Privacy check disabled - API key not configured'],
-        confidence: 0
+        warnings: 'Privacy check disabled - API key not configured'
       });
     }
 
@@ -85,10 +73,7 @@ export const POST = async ({ request }) => {
       
       // Fail-safe: if API is down, allow upload but warn
       return json({
-        isCompliant: true,
-        violations: [],
-        warnings: [`Privacy check service unavailable: ${response.status}`],
-        confidence: 0
+        warnings: `Privacy check service unavailable: ${response.status}`
       });
     }
 
@@ -97,52 +82,23 @@ export const POST = async ({ request }) => {
     if (!result.candidates || result.candidates.length === 0) {
       console.warn('No candidates returned from Gemini API');
       return json({
-        isCompliant: true,
-        violations: [],
-        warnings: ['Unable to analyze file for privacy compliance'],
-        confidence: 0
+        warnings: 'Unable to analyze file for privacy compliance'
       });
     }
 
     const text = result.candidates[0].content.parts[0].text;
     
     try {
-      // Try to parse JSON response
-      const cleanText = text.replace(/```json\n?|\n?```/g, '').trim();
-      const analysisResult = JSON.parse(cleanText);
-      
-      // Validate the response structure
-      if (typeof analysisResult.isCompliant !== 'boolean') {
-        throw new Error('Invalid response format');
-      }
-
       // Log for monitoring
-      if (!analysisResult.isCompliant) {
-        console.log(`Privacy violations detected in ${fileName}:`, analysisResult.violations);
-      }
-
-      return json(analysisResult);
+      // console.log(`Privacy violations detected in ${fileName}:`, text);
+      return json({
+        warnings: text
+      });
       
     } catch (parseError) {
-      console.error('Failed to parse Gemini response:', parseError, 'Raw text:', text);
-      
-      // Simple fallback analysis based on text content
-      const violations = [];
-      const warnings = [];
-      
-      // Basic pattern matching as fallback
-      if (text.toLowerCase().includes('phone') || text.toLowerCase().includes('number')) {
-        warnings.push('Possible phone number detected - please review');
-      }
-      if (text.toLowerCase().includes('name') || text.toLowerCase().includes('address')) {
-        warnings.push('Possible personal information detected - please review');
-      }
-      
+     
       return json({
-        isCompliant: violations.length === 0,
-        violations,
-        warnings: [...warnings, 'AI analysis failed - manual review recommended'],
-        confidence: 0.3
+        warnings: 'AI analysis failed - manual review recommended'
       });
     }
 
@@ -151,10 +107,7 @@ export const POST = async ({ request }) => {
     
     // Fail-safe: allow upload but warn about privacy check failure
     return json({
-      isCompliant: true,
-      violations: [],
-      warnings: ['Privacy check failed - please manually verify no sensitive data is visible'],
-      confidence: 0
+      warnings: 'Privacy check failed - please manually verify no sensitive data is visible'
     });
   }
 };
