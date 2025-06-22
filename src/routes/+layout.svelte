@@ -13,6 +13,7 @@
       if (badge) {
         badge.remove();
       }
+      isMenuActive = false;
     });
 
     onDestroy(() => {
@@ -31,8 +32,7 @@
     isMenuActive = !isMenuActive;
   }
 
-  function closeMenu(path) {
-    isMenuActive = false;
+  function closeMenu(path) {    
     clickedPath = path; // Track which link was clicked
     goto(env.PUBLIC_SITE_URL + path);
   }

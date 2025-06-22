@@ -1,7 +1,7 @@
 // Enhanced upload.js with privacy checking and optimizations
 
 // Privacy check using Google Gemini API
-async function checkPrivacyCompliance(file) {
+async function checkPrivacyCompliance(file, description) {
   try {
     // Convert file to base64 for API
     const base64Data = await fileToBase64(file);
@@ -14,7 +14,8 @@ async function checkPrivacyCompliance(file) {
       body: JSON.stringify({
         fileData: base64Data,
         fileName: file.name,
-        mimeType: file.type
+        mimeType: file.type,
+        description
       })
     });
 
@@ -161,12 +162,12 @@ async function processFile(file, maxWidth = 1200, quality = 0.8, maxSize = 2 * 1
 }
 
 // Batch upload with privacy checks and parallel processing
-export async function uploadFilesWithPrivacyCheck(files, types, id, onProgress = null, onPrivacyCheck = null) {
+export async function uploadFilesWithPrivacyCheck(files, types, id, onProgress = null, onPrivacyCheck = null, description) {
   // Step 1: Check all files for privacy compliance first
   if (onPrivacyCheck) onPrivacyCheck('Checking files for sensitive data...');
   
   const privacyChecks = files.map(async (file, index) => {
-    const result = await checkPrivacyCompliance(file);
+    const result = await checkPrivacyCompliance(file, description);
     return { index, file: file.name, result, type: types[index] };
   });
 

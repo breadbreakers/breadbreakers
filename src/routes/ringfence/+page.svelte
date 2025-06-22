@@ -69,7 +69,8 @@
         ["ringfence_sw", "ringfence_cost"],
         itemId,
         updateProgress,
-        updatePrivacyCheck
+        updatePrivacyCheck,
+        `${item.title} - ${item.description}` 
       );
 
       swConfirmUrl = uploadResult.uploadResults[0].fileUrl;

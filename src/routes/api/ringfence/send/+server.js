@@ -162,7 +162,7 @@ function generatePrivacyWarningsHtml(privacyAnalysis) {
         const result = analysis.result;
    
         warningsHtml += `
-            <strong>${fileType} (${fileName}):</strong><br>                
+            <strong>✨ ${fileType} (${fileName}):</strong><br>                
             ${result.warnings}
         `;        
     });
