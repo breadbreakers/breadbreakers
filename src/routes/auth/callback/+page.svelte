@@ -10,10 +10,12 @@
 
     // Clean URL by removing all query parameters (including code and redirectTo)
     const cleanUrl = window.location.pathname;
+    window.location.href = "/";
     window.history.replaceState({}, '', cleanUrl);
 
     // Navigate to the target route
-    goto(target, { replaceState: true });
+    //goto(target, { replaceState: true });
+    window.location.href = target;
   });
 </script>
 

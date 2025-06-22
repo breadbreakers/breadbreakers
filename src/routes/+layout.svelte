@@ -7,6 +7,10 @@
   import { env } from "$env/dynamic/public";
   import { browser } from "$app/environment";
 
+  export let data;
+
+  $:userName = data.userName;
+
   if (browser) {
     afterNavigate(() => {
       const badge = document.querySelector(".grecaptcha-badge");
@@ -69,6 +73,7 @@
           {#if isNavigating}
             <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
           {:else}
+          
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -151,7 +156,7 @@
             on:click|preventDefault={() => closeMenu("/profile")}
           >
             <i class="demo-icon icon-user">&#xe800;</i>
-            <span class="account-label">Account</span>
+            <span class="account-label">{userName !== "" ? userName : "Login"}</span>
           </a>
         </div>
       </div>
@@ -193,8 +198,8 @@
   }
 
   .navbar-item {
-    font-size: 0.9em;
     font-weight: 400;
+    padding-left: 2em;
   }
 
   /* Loading animation only for desktop */
@@ -258,7 +263,12 @@
 
   /* Hide the label by default */
   .account-label {
-    display: none;
+    
+  }
+
+  .navbar-menu {
+    box-shadow: none;
+    padding-bottom: 2em;
   }
 
   /* Show the label only on mobile when the menu is active */
@@ -272,6 +282,7 @@
     background-color: white;
     font-weight: 600;
     text-decoration: underline;
+    
   }
 
   .navbar-item.is-active .account-label {

@@ -1,7 +1,8 @@
 export async function load({ locals }) {
     const session = await locals.getUser();
     const loggedIn = !!session;
-
+    
+    let userName = "";
     let userEmail = null;
 
     if (loggedIn) {
@@ -21,6 +22,7 @@ export async function load({ locals }) {
         nWip: data.wipCount,
         loggedIn,
         isPartner: data.isPartner,
-        catData: data.categorySummary
+        catData: data.categorySummary,
+        userName
     };
 }
