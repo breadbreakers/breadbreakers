@@ -4,7 +4,7 @@ import { json } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
 const GEMINI_API_KEY = env.GEMINI_API_KEY;
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 const PRIVACY_PROMPT = `
 Do not use markdown. If need be, provide your response in html as it will be sent to email.
