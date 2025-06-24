@@ -237,26 +237,10 @@
 {#if data.loggedIn}
     <section class="section">
         <div class="container">
-            <p>Logged in as {loggedInEmail}</p>
             {#if data.isPartner}
                 <h2 class="subtitle is-6 mt-6 has-text-weight-semibold">
                     🎁 Your Assignments
                 </h2>
-                <p>
-                    <i class="demo-icon icon-attach">&#xe801;</i><a
-                        target="_blank"
-                        class="link"
-                        href="/Partner Guide.pdf">Guide for Partners</a
-                    >
-                </p>
-                <p>
-                    <i class="demo-icon icon-attach">&#xe801;</i><a
-                        target="_blank"
-                        class="link"
-                        href="/CSA_SGCyberSafe_Employees-Toolkit_2022.pdf"
-                        >Cybersecurity Toolkit</a
-                    >
-                </p>
 
                 <table
                     bind:this={workTable}
@@ -276,6 +260,22 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+
+                <p>
+                    <i class="demo-icon icon-attach">&#xe801;</i><a
+                        target="_blank"
+                        class="link"
+                        href="/Partner Guide.pdf">Guide for Partners</a
+                    >
+                </p>
+                <p>
+                    <i class="demo-icon icon-attach">&#xe801;</i><a
+                        target="_blank"
+                        class="link"
+                        href="/CSA_SGCyberSafe_Employees-Toolkit_2022.pdf"
+                        >Cybersecurity Toolkit</a
+                    >
+                </p>
             {/if}
 
             {#if data.isApprover}
