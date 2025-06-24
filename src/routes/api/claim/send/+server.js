@@ -36,11 +36,11 @@ function generatePrivacyWarningsHtml(privacyAnalysis) {
         const fileType = analysis.type === 'claim_receipt' ? 'Receipt' : 'Proof of Delivery';
         const fileName = analysis.file;
         const result = analysis.result;
-   
+
         warningsHtml += `
             <strong>✨ ${fileType} (${fileName}):</strong><br>                
             ${result.warnings}
-        `;        
+        `;
     });
 
     return warningsHtml;
@@ -49,6 +49,9 @@ function generatePrivacyWarningsHtml(privacyAnalysis) {
 export const POST = async (event) => {
     const { request } = event;
     const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID;
+    let approverEmail;
+    let paynow;
+    let wip;
 
     try {
         const { itemId, receiptUrl, deliveryUrl, cost, privacyAnalysis } = await request.json();
@@ -61,29 +64,19 @@ export const POST = async (event) => {
         const { data: { user } } = await supabase.auth.getUser();
         const partnerEmail = user.email;
 
-        const { data: getApprover } = await supabase
-            .from('approvers')
-            .select('*')
-            .eq('role', 'president')
-            .single();
+        const { data : processClaim, error : processClaimError } = await supabase
+            .rpc('process_claim', {
+                partner_email: partnerEmail,
+                item_id: itemId,
+            });
 
-        let approverEmail = getApprover.email;
-
-        const { data: approverCheck } = await supabase
-            .from('approvers')
-            .select('*')
-            .eq('email', partnerEmail)
-            .single();
-
-        if (approverCheck) {
-            approverEmail = approverCheck.checker;
+        if (processClaimError) {
+            console.error(processClaimError);
+        } else {
+            approverEmail = processClaim.approverEmail;
+            paynow = processClaim.paynow;
+            wip = processClaim.wip;
         }
-
-        const { data: wip } = await supabase
-            .from('wip')
-            .select('*')
-            .eq('id', itemId)
-            .single();
 
         if (wip.status !== "ringfence_approved") {
             return json({ error: 'Item cannot be claimed as there is no ringfence approval.' }, { status: 409 });
@@ -97,15 +90,9 @@ export const POST = async (event) => {
             return json({ error: 'You are not the approved partner who ringfenced this item.' }, { status: 409 });
         }
 
-        const { data: partnerPaynow } = await supabase
-            .from('partners')
-            .select('paynow')
-            .eq('email', partnerEmail)
-            .single();
-
         // === Generate and Resize PayNow QR ===
         const payload = await sgqr.generate_code({
-            number: `+65${partnerPaynow.paynow}`,
+            number: `+65${paynow}`,
             amount: cost.toString(),
             type: 'image/png',
             comments: itemId,
@@ -207,7 +194,7 @@ export const POST = async (event) => {
             <a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a><br>
             - Did the social worker verify the item is received?<br>
             <strong>Requested claim:</strong> $${cost}<br>
-            <strong>Paynow mobile number:</strong> ${partnerPaynow.paynow}<br>
+            <strong>Paynow mobile number:</strong> ${paynow}<br>
             
             ${privacyWarningsHtml}
             

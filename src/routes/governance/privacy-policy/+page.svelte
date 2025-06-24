@@ -36,7 +36,7 @@
             <p>
                 Any data breach, whether suspected or confirmed, will be
                 immediately reported to the DPO. If there is significant risk,
-                we will <a
+                we will <a class="link" 
                     href="https://www.pdpc.gov.sg/report-data-breach/self-assessment"
                     >notify the PDPC</a
                 > and affected individuals as required.

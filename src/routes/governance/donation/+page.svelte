@@ -88,7 +88,7 @@
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Contact Us</h3>
             <p>
                 If you have questions about your donation or would like to learn
-                more about our financial policies, please feel free to <a href="/contact">reach out to us</a>.
+                more about our financial policies, please feel free to <a class="link" href="/contact">reach out to us</a>.
             </p>
         </div>
 

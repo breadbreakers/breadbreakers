@@ -201,12 +201,12 @@
             <p><em>Operating Expenses</em></p>
             <ul>
                 <li>
-                    Office rental: <CurrencyFormatter
+                    Rental: <CurrencyFormatter
                         value="0"
                         currency="SGD"
                         locale="en-SG"
-                    /> (Sponsored by
-                    <a target="_blank" href="https://mystorytreasury.com"
+                    /> (Made possible through
+                    <a class="link" target="_blank" href="https://mystorytreasury.com"
                         >My Story Treasury</a
                     >)
                 </li>
@@ -244,7 +244,7 @@
                 Processing Fees
             </h3>
             <p>
-                We use <a href="https://stripe.com/en-sg">Stripe</a> as our payment
+                We use <a class="link" href="https://stripe.com/en-sg">Stripe</a> as our payment
                 processor to ensure your donation is handled securely and efficiently.
             </p>
             <ul>
@@ -262,7 +262,7 @@
                 </li>
             </ul>
             <p>
-                Please note that processing fees are <a
+                Please note that processing fees are <a class="link" 
                     href="https://stripe.com/en-sg/pricing"
                     >deducted by Stripe</a
                 > and help cover the cost of secure payment handling. Your support

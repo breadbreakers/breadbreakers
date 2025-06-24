@@ -67,7 +67,7 @@
     <h2 class="subtitle is-5 has-text-weight-semibold">Contact Us</h2>
     <div class="content">
       <p>
-        If you have a question, please <a href="/faq">read our FAQ</a> first! If you can't find
+        If you have a question, please <a class="link" href="/faq">read our FAQ</a> first! If you can't find
         answers there, we are happy to assist.
       </p>
       <p>
@@ -126,7 +126,7 @@
             </button>
           </div>
         </div>
-              <p><a class="has-text-weight-normal" href="/governance/privacy-policy">Privacy policy</a></p>
+              <p><a class="link" href="/governance/privacy-policy">Privacy policy</a></p>
       {/if}
     </form>
 

@@ -22,7 +22,7 @@
                 🪙 Fund the Mission (Donors)
             </h3>
             <p>
-                If you're in a season where you can give financially, <a
+                If you're in a season where you can give financially, <a class="link" 
                     href="/donate">we invite you to sow into our mission</a
                 >. Your donation goes directly into meeting specific, verified
                 needs, real people, real items, real impact.
@@ -33,7 +33,7 @@
             </h3>
             <p>
                 If you may not be able to give financially but have time,
-                energy, or skills, <a href="https://forms.gle/w5ptTEM3UvxESy5M7"
+                energy, or skills, <a class="link" href="https://forms.gle/w5ptTEM3UvxESy5M7"
                     >come join us as an active procurement partner</a
                 >. We provide the funds. You help us turn compassion into
                 action.

@@ -9,7 +9,7 @@
 
   export let data;
 
-  $:userName = data.userName;
+  $: userName = data.userName;
 
   if (browser) {
     afterNavigate(() => {
@@ -36,7 +36,7 @@
     isMenuActive = !isMenuActive;
   }
 
-  function closeMenu(path) {    
+  function closeMenu(path) {
     clickedPath = path; // Track which link was clicked
     goto(env.PUBLIC_SITE_URL + path);
   }
@@ -73,7 +73,6 @@
           {#if isNavigating}
             <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
           {:else}
-          
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -156,7 +155,9 @@
             on:click|preventDefault={() => closeMenu("/profile")}
           >
             <i class="demo-icon icon-user">&#xe800;</i>
-            <span class="account-label">{userName !== "" ? userName : "Login"}</span>
+            <span class="account-label"
+              >{userName !== "" ? userName : "Login"}</span
+            >
           </a>
         </div>
       </div>
@@ -168,7 +169,14 @@
   <div class="has-text-centered">
     <!-- svelte-ignore a11y_consider_explicit_label -->
     <a href="/"
-      ><enhanced:img src="$lib/images/logo.png" class="logo" sizes="(min-width: 768px) 50vw, 100vw" alt="Bread Breakers (SG) Logo" fetchpriority="high" loading="eager" /></a
+      ><enhanced:img
+        src="$lib/images/logo.png"
+        class="logo"
+        sizes="(min-width: 768px) 50vw, 100vw"
+        alt="Bread Breakers (SG) Logo"
+        fetchpriority="high"
+        loading="eager"
+      /></a
     >
   </div>
   <h2
@@ -199,7 +207,6 @@
 
   .navbar-item {
     font-weight: 400;
-    padding-left: 2em;
   }
 
   /* Loading animation only for desktop */
@@ -259,11 +266,16 @@
     .nav-section {
       padding: 3rem 1.5rem; /* typical Bulma .section padding */
     }
-  }
 
-  /* Hide the label by default */
-  .account-label {
-    
+    .navbar-item.is-active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0.375em;
+      width: calc(100% - 0.75em);
+      height: 0.05em;
+      background-color: #b87333;
+    }
   }
 
   .navbar-menu {
@@ -276,13 +288,19 @@
     .navbar-menu.is-active .account-label {
       display: inline;
     }
+    .navbar-item {
+      padding-left: 2em;
+    }
+
+    .navbar-item.is-active {
+      text-decoration: underline;
+      text-decoration-color: #b87333;
+    }
   }
 
   .navbar-item.is-active {
     background-color: white;
     font-weight: 600;
-    text-decoration: underline;
-    
   }
 
   .navbar-item.is-active .account-label {

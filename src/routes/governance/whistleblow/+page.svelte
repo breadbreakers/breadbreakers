@@ -53,7 +53,7 @@
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Reporting Channels</h3>
             <p>
-                To assist us in effectively investigating your report, please <a href="/contact">contact us</a> and include as much of the following information as possible:
+                To assist us in effectively investigating your report, please <a class="link" href="/contact">contact us</a> and include as much of the following information as possible:
             </p>
             <ul>
                 <li>Your contact details</li>

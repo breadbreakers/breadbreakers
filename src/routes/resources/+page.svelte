@@ -19,8 +19,8 @@
             <div class="columns is-mobile">
                 <div class="column is-one-fifth">
                     <p class="image mt-2">
-                        <img
-                            src="/images/this-is-what-inequality.jpg"
+                        <enhanced:img
+                            src="$lib//images/this-is-what-inequality.jpg"
                             alt="This is what inequality looks like"
                         />
                     </p>
@@ -47,7 +47,7 @@
                         must not, unsee.
                     </p>
                     <p>
-                        <a
+                        <a class="link" 
                             href="https://www.ethosbooks.com.sg/products/this-is-what-inequality-looks-like"
                             >Available on Ethosbooks</a
                         >
@@ -58,8 +58,8 @@
             <div class="columns is-mobile">
                 <div class="column is-one-fifth">
                     <p class="image mt-2">
-                        <img
-                            src="/images/hole-in-our-gospel.jpg"
+                        <enhanced:img
+                            src="$lib/images/hole-in-our-gospel.jpg"
                             alt="This is what inequality looks like"
                         />
                     </p>
@@ -74,7 +74,7 @@ More than twenty years ago, Rich Stearns came face-to-face with that question as
                         Stearns’s compelling story demonstrates that the whole gospel was always meant to be a world-changing social revolution, a revolution that begins with each one of us.
                     </p>
                     <p>
-                        <a
+                        <a class="link" 
                             href="https://www.amazon.sg/Hole-Our-Gospel-10th-Anniversary/dp/0785228675/ref=pd_bxgy_thbs_d_sccl_1/355-2389344-2695926?pd_rd_w=LCnWy&content-id=amzn1.sym.c25e05d7-a960-432b-adc8-c7ea6948c06c&pf_rd_p=c25e05d7-a960-432b-adc8-c7ea6948c06c&pf_rd_r=PCH9PKJSYXKMRV9290ET&pd_rd_wg=zv12V&pd_rd_r=116a1d9f-4bc9-4580-9290-000e364df28b&pd_rd_i=0785228675&psc=1"
                             >Available on Amazon</a
                         >

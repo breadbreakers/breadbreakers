@@ -2,8 +2,8 @@ export const faqData = [
     {
         category: "Beneficiaries",
         question: "What challenges do vulnerable individuals and families in Singapore specifically face?",
-        answer: `Source: <a href="/resources">What Inequality Looks Like</a>
-            Low-income individuals and families face a myriad of challenges:
+        answer: `Source: <a class="link" href="/resources">What Inequality Looks Like</a>
+            <p>Low-income individuals and families face a myriad of challenges:</p>
             <ul>
                 <li>
                     <strong>Housing Conditions</strong> Many live in

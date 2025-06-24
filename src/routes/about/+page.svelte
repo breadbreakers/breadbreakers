@@ -146,7 +146,7 @@
                         Radical Transparency
                     </h4>
                     <p>
-                        We believe trust is built through openness. <a
+                        We believe trust is built through openness. <a class="link"
                             href="/ledger"
                             >Our finances and operations are shared in full</a
                         >, including monthly bank and debit statements,
@@ -203,23 +203,30 @@
                 </div>
             </div>
 
-            <p class="subtitle is-6 mb-6 mt-5 has-text-centered has-text-weight-medium">
+            <p
+                class="subtitle is-6 mb-6 mt-5 has-text-centered has-text-weight-medium"
+            >
                 Help transform wish lists into real relief. Lighten the load of
                 social workers and bring practical faith, hope, and love to
                 those most in need.
             </p>
             <div class="container has-text-centered">
-                <a
-                    href="https://forms.gle/w5ptTEM3UvxESy5M7"
-                    class="button"
-                >
-                    🤝 Partner With Us
-                </a>
-                
-                    <a href="/donate" class="ml-5 button">
-                        💝 Donate
-                    </a>
-                
+                <div class="columns is-mobile">
+                    <div class="column">
+                        <a href="/donate"
+                            ><button class="is-fullwidth button"
+                                >💝 Donate</button
+                            ></a
+                        >
+                    </div>
+                    <div class="column">
+                        <a href="https://forms.gle/w5ptTEM3UvxESy5M7"
+                            ><button class="is-fullwidth button"
+                                >🤝 Partner Sign Up</button
+                            ></a
+                        >
+                    </div>
+                </div>
             </div>
         </div>
         <BackToTop />

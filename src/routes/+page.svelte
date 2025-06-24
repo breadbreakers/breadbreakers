@@ -35,7 +35,7 @@
                 <div class="column">
                     <button
                         on:click={(event) => showTable(event, "requests")}
-                        class="is-fullwidth button is-info"
+                        class="is-fullwidth button is-primary"
                         class:is-light={activeTable !== "requests"}
                     >
                         📦 Items In Need
@@ -73,10 +73,17 @@
 
     <div class="container">
         <div class="content mt-3">
-            <div class="columns">
+            <div class="columns is-mobile">
+                <div class="column">
+                    <a href="/donate"
+                        ><button class="is-fullwidth button is-warning is-light"
+                            >💝 Donate</button
+                        ></a
+                    >
+                </div>
                 <div class="column">
                     <a href="/get-involved"
-                        ><button class="is-fullwidth button is-warning is-light"
+                        ><button class="is-fullwidth button is-success is-light"
                             >🤝 Get Involved</button
                         ></a
                     >

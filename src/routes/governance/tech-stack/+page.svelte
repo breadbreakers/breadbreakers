@@ -115,7 +115,7 @@
             </ul>
 
          
-  <strong>Disclaimer:</strong>In line with the principle of <a class="has-text-weight-normal" target="_blank" href="https://en.wikipedia.org/wiki/Security_through_obscurity">security through obscurity</a>,
+  In line with principles of <a class="link" target="_blank"  href="https://en.wikipedia.org/wiki/Security_through_obscurity">security through obscurity</a>,
   this overview focuses on high-level architecture and responsibility boundaries only.
 
 

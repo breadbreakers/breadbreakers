@@ -25,19 +25,19 @@
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Operations</h3>
             <ul>
                 <li>
-                    <a href="/governance/conflict-of-interest"
+                    <a class="link" href="/governance/conflict-of-interest"
                         >Conflict of Interest</a
                     >
                 </li>
-                <li><a href="/governance/whistleblow">Whistleblowing</a></li>
+                <li><a class="link" href="/governance/whistleblow">Whistleblowing</a></li>
                 <li>
-                    <a href="/governance/code-of-conduct">Code of Conduct</a>
+                    <a class="link" href="/governance/code-of-conduct">Code of Conduct</a>
                 </li>
                 <li>
-                    <a href="/governance/terms-of-service">Terms of Service</a>
+                    <a class="link" href="/governance/terms-of-service">Terms of Service</a>
                 </li>
                 <li>
-                    <a href="/governance/roles-and-responsibilities">Roles and Responsibilities</a>
+                    <a class="link" href="/governance/roles-and-responsibilities">Roles and Responsibilities</a>
                 </li>
             </ul>
 
@@ -46,17 +46,17 @@
             </h3>
             <ul>
                 <li>
-                    <a href="/governance/data-governance"
+                    <a class="link" href="/governance/data-governance"
                         >Data Management Policy</a
                     >
                 </li>
                 <li>
-                    <a href="/governance/privacy-policy"
+                    <a class="link" href="/governance/privacy-policy"
                         >Privacy Policy</a
                     >
                 </li>
                 <li>
-                    <a href="/governance/tech-stack"
+                    <a class="link" href="/governance/tech-stack"
                         >Technology Stack</a
                     >
                 </li>
@@ -64,8 +64,8 @@
 
             <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Finance</h3>
             <ul>
-                <li><a href="/governance/procurement">Procurement</a></li>
-                <li><a href="/governance/donation">Donations</a></li>
+                <li><a class="link" href="/governance/procurement">Procurement</a></li>
+                <li><a class="link" href="/governance/donation">Donations</a></li>
             </ul>
         </div>
     </div>

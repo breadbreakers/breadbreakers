@@ -142,7 +142,7 @@
                             </td>
                             <td>
                                 <a
-                                    href="/ledger"
+                                    href="/ledger" class="link" 
                                     >Live transactions published real time</a
                                 >
                             </td>

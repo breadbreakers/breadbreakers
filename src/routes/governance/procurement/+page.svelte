@@ -47,26 +47,26 @@
 
             <ul>
                 <li>
-                    <a href="https://www.fairprice.com.sg">FairPrice</a>
+                    <a class="link" href="https://www.fairprice.com.sg">FairPrice</a>
                 </li>
                 <li>
-                    <a href="https://shengsiong.com.sg">Sheng Siong</a>
+                    <a class="link" href="https://shengsiong.com.sg">Sheng Siong</a>
                 </li>
                 <li>
-                    <a href="https://coldstorage.com.sg">Cold Storage</a>
+                    <a class="link" href="https://coldstorage.com.sg">Cold Storage</a>
                 </li>
                 <li>
-                    <a href="https://www.courts.com.sg/">Courts Singapore</a>
+                    <a class="link" href="https://www.courts.com.sg/">Courts Singapore</a>
                 </li>
                 <li>
-                    <a href="https://www.harveynorman.com.sg/">Harvey Norman</a>
+                    <a class="link" href="https://www.harveynorman.com.sg/">Harvey Norman</a>
                 </li>
-                <li><a href="https://www.bestdenki.com.sg/">Best Denki</a></li>
-                <li><a href="https://www.challenger.sg">Challenger</a></li>
-                <li><a href="https://www.guardian.com.sg">Guardian</a></li>
-                <li><a href="https://www.watsons.com.sg/">Watsons</a></li>
-                <li><a href="https://www.fortytwo.sg/">FortyTwo</a></li>
-                <li><a href="https://www.bedandbasics.sg/">Bedandbasics.sg</a></li>
+                <li><a class="link" href="https://www.bestdenki.com.sg/">Best Denki</a></li>
+                <li><a class="link" href="https://www.challenger.sg">Challenger</a></li>
+                <li><a class="link" href="https://www.guardian.com.sg">Guardian</a></li>
+                <li><a class="link" href="https://www.watsons.com.sg/">Watsons</a></li>
+                <li><a class="link" href="https://www.fortytwo.sg/">FortyTwo</a></li>
+                <li><a class="link" href="https://www.bedandbasics.sg/">Bedandbasics.sg</a></li>
             </ul>
 
             <p>Exceptions will be permitted only upon documented request by the social worker or beneficiary, or in exceptional cases where the retailer offers a substantial discount, subject to the approval of the President.</p>
