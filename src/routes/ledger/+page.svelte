@@ -19,6 +19,34 @@
 	const currentYear = new Date().getFullYear();
 	const currentMonth = new Date().getMonth(); // 0-11
 
+	function formatBankStatementTitle(dateString) {
+		const date = new Date(dateString);
+
+		const monthNames = [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+		];
+
+		if (isNaN(date)) {
+			throw new Error("Invalid date format");
+		}
+
+		const month = monthNames[date.getMonth()];
+		const year = date.getFullYear();
+
+		return `Bank Statement (${month} ${year})`;
+	}
+
 	$: {
 		// Reset month selection when year changes
 		if (selectedYear && selectedMonth) {
@@ -125,8 +153,8 @@
 				{
 					data: "description",
 					title: "Description",
-					render: function (data, type, row, meta) {						
-						return data;						
+					render: function (data, type, row, meta) {
+						return data;
 					},
 				},
 				{
@@ -152,12 +180,14 @@
 						if (row.description === "Stripe Transaction Fee") {
 							return "NA";
 						}
-						if (row.id === null && row.flow_type === "inflow") { // direct bank transfer
+						if (row.id === null && row.flow_type === "inflow") {
+							// direct bank transfer
 							return "NA";
 						}
-						if (String(row.id).substring(0, 4) === "http") { // donation from stripe
-							return "Donation"
-						}	
+						if (String(row.id).substring(0, 4) === "http") {
+							// donation from stripe
+							return "Donation";
+						}
 						if (data == null) {
 							// regular expense submitted from the form;
 							return "Operating Fund Expense";
@@ -178,22 +208,34 @@
 								'">Proof of Delivery</a>' +
 								(row.receipt !== null
 									? '<br><i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
-									row.receipt +
-									'">Receipt</a>'
+										row.receipt +
+										'">Receipt</a>'
 									: " (Donated item)")
 							);
 						} else {
-							if (row.receipt !== null){
-								return ('<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+							if (row.receipt !== null) {
+								return (
+									'<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
 									row.receipt +
-									'">Receipt</a>')
-							} 
-							if (String(row.id).substring(0, 4) === "http") { // donation from stripe
-								return '<i class="demo-icon icon-attach">&#xe801;</i><a target="_blank" class="has-text-weight-normal is-underlined has-text-black" href="' + row.id + '">Receipt</a>'
-							}	
-							
-								return "NA"
-							
+									'">Receipt</a>'
+								);
+							}
+							if (
+								String(row.description).substring(0, 8) ===
+								"Donation"
+							) {
+								return formatBankStatementTitle(row.timestamp);
+							}
+							if (String(row.id).substring(0, 4) === "http") {
+								// donation from stripe
+								return (
+									'<i class="demo-icon icon-attach">&#xe801;</i><a target="_blank" class="has-text-weight-normal is-underlined has-text-black" href="' +
+									row.id +
+									'">Receipt</a>'
+								);
+							}
+
+							return "NA";
 						}
 					},
 				},
@@ -265,7 +307,7 @@
 						<div class="is-size-7 pt-4">(A - B - C)</div>
 						<p class="title is-3 pb-2 nowrap dashboard">
 							<CurrencyFormatter
-								value={balanceN - ringfenceN -operatingN}
+								value={balanceN - ringfenceN - operatingN}
 								currency="SGD"
 								locale="en-SG"
 							/>
@@ -274,7 +316,6 @@
 					</div>
 				</div>
 			</div>
-			
 		</div>
 
 		<h2 class="subtitle has-text-weight-semibold pt-4">
@@ -365,5 +406,4 @@
 		color: black;
 		margin-bottom: 0;
 	}
-
 </style>

@@ -1,11 +1,8 @@
-<svelte:head>
-    <title>Bread Breakers (SG) | Submit Incoming Cashflow</title>
-</svelte:head>
-
 <script>
   let itemDescription;
   let amount;
   let isLoading = false;
+  let fundType;
   let success = false;
   let error;
 
@@ -17,7 +14,7 @@
     event.preventDefault();
     isLoading = true;
     error = "";
-    success = false;   
+    success = false;
 
     try {
       const response = await fetch("/api/incoming/send", {
@@ -27,8 +24,9 @@
         },
         body: JSON.stringify({
           itemDescription,
+          fundType,
           amount,
-          approverEmail
+          approverEmail,
         }),
       });
 
@@ -45,14 +43,19 @@
       isLoading = false;
     }
   }
-
 </script>
+
+<svelte:head>
+  <title>Bread Breakers (SG) | Submit Incoming Cashflow</title>
+</svelte:head>
 
 <div class="section">
   <div class="container">
     <h2 class="subtitle is-4">Submit Incoming Cashflow</h2>
     {#if success}
-      <div class="mt-4 notification is-success">Incoming Cashflow Submitted</div>
+      <div class="mt-4 notification is-success">
+        Incoming Cashflow Submitted
+      </div>
     {:else if error}
       <div class="mt-4 notification is-danger">
         {error}
@@ -61,9 +64,30 @@
     {#if !success}
       <form class="box mt-4" on:submit={handleSubmit}>
         <div class="field">
-          <label for="description" class="label">Source</label>
+          <label for="description" class="label">Source/Bank Statement Reference</label>
           <div class="control">
-            <input class="input" disabled={isLoading} type="text" bind:value={itemDescription} required />
+            <input
+              class="input"
+              disabled={isLoading}
+              type="text"
+              bind:value={itemDescription}
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="fund" class="label">Fund</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select name="fund" id="type" bind:value={fundType} required>
+
+                  <option value="mission" selected>Beneficary Fund</option>
+
+                  <option value="operating">Operating Fund</option>
+        
+              </select>
+            </div>
           </div>
         </div>
 
@@ -83,7 +107,7 @@
             />
           </div>
         </div>
-        
+
         <div class="field">
           <div class="control mt-6">
             <button

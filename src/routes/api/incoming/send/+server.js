@@ -7,9 +7,9 @@ export async function POST(event) {
 
     try {
 
-        const { itemDescription, amount, approverEmail } = await request.json();
+        const { itemDescription, amount, approverEmail, fundType } = await request.json();
 
-        if (!itemDescription || !amount || !approverEmail)
+        if (!itemDescription || !amount || !approverEmail || !fundType)
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
 
         const supabase = createServerSupabaseClient(event);
@@ -19,7 +19,8 @@ export async function POST(event) {
             .from('incoming')
             .insert([
                 {
-                    source: itemDescription,
+                    id: itemDescription,
+                    source: (fundType == 'mission' ? 'Donation (Beneficiary Fund)' : 'Donation (Operating Fund)'),
                     amount: Math.round(amount * 100),
                     approveremail: approverEmail,
                     timestamp: getSgTime()
