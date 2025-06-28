@@ -46,7 +46,7 @@
                         ourselves. And it is about how once we see, we cannot,
                         must not, unsee.
                     </p>
-                    <p>
+                    <p><a class="link" href="https://eresources.nlb.gov.sg/ereads/overdrive/details?uuid=045E966A-27E2-424A-9CA4-83D28F0F983F&utm_source=ebookdetail&utm_campaign=share&utm_medium=url">Borrow from NLB</a> or
                         <a class="link" 
                             href="https://www.ethosbooks.com.sg/products/this-is-what-inequality-looks-like"
                             >Available on Ethosbooks</a
@@ -73,7 +73,7 @@ More than twenty years ago, Rich Stearns came face-to-face with that question as
                     <p>
                         Stearns’s compelling story demonstrates that the whole gospel was always meant to be a world-changing social revolution, a revolution that begins with each one of us.
                     </p>
-                    <p>
+                    <p><a class="link" href="https://eresources.nlb.gov.sg/ereads/overdrive/details?uuid=F3842983-7A08-4DAC-8029-E0FCA4F4F917&utm_source=ebookdetail&utm_campaign=share&utm_medium=url">Borrow from NLB</a> or
                         <a class="link" 
                             href="https://www.amazon.sg/Hole-Our-Gospel-10th-Anniversary/dp/0785228675/ref=pd_bxgy_thbs_d_sccl_1/355-2389344-2695926?pd_rd_w=LCnWy&content-id=amzn1.sym.c25e05d7-a960-432b-adc8-c7ea6948c06c&pf_rd_p=c25e05d7-a960-432b-adc8-c7ea6948c06c&pf_rd_r=PCH9PKJSYXKMRV9290ET&pd_rd_wg=zv12V&pd_rd_r=116a1d9f-4bc9-4580-9290-000e364df28b&pd_rd_i=0785228675&psc=1"
                             >Available on Amazon</a

@@ -107,27 +107,6 @@ export async function POST(event) {
         console.error(err);
       }
       break;
-    /*case 'balance.available':
-      try {
-        console.log("###")
-        const stripeBalance = await stripe.balance.retrieve();
-        console.log(stripeBalance)
-        const sgdAvailable = stripeBalance.available.find((entry) => entry.currency === 'sgd');
-        console.log(sgdAvailable)
-        if (sgdAvailable && sgdAvailable.amount > 0) {
-          const payout = await stripe.payouts.create({
-            amount: sgdAvailable.amount,
-            currency: 'sgd'
-          });
-
-          console.log('✅ Payout created:', payout.id);
-        } else {
-          console.warn('ℹ️ No available SGD balance to payout.');
-        }
-      } catch (err) {
-        console.error('❌ Error creating Stripe payout:', err.message);
-      }
-      break;*/
     default:
       console.log(`Unhandled event type ${stripeEvent.type}`);
       break;

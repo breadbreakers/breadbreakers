@@ -8,6 +8,7 @@
     let paymentType = "card"; // Default to card
     let totalAmount = 0;
     let operatingFundTarget = 1;
+    let singaporeConfirmed = false;
 
     export let data;
 
@@ -133,22 +134,37 @@
 
                 <input type="hidden" name="recurring" value={recurring} />
                 <input type="hidden" name="amount" value={totalAmount} />
-
-                <button class="button is-fullwidth is-info mt-4" type="submit"
+                <div class="field mt-4">
+                    <label class="checkbox">
+                        <input
+                            type="checkbox"
+                            bind:checked={singaporeConfirmed}
+                            required
+                        />
+                        My billing address is in Singapore and I am a resident or
+                        PR.
+                    </label>
+                </div>
+                <button
+                    class="button is-fullwidth is-info mt-4"
+                    type="submit"
+                    disabled={!singaporeConfirmed}
                     >Donate (Under Development)</button
                 >
             </form>
         {:else}
-        <div class="notification is-success is-light">
-        <p>Thank you for your incredible support!<p>
-<p>Our current funding goals have been met.</p>
-<p>We’re committed to collecting only what’s necessary. Nothing more.</p>
-</div>
+            <div class="notification is-success is-light">
+                <p>Thank you for your incredible support!</p>
+                <p></p>
+                <p>Our current funding goals have been met.</p>
+                <p>
+                    We’re committed to collecting only what’s necessary. Nothing
+                    more.
+                </p>
+            </div>
         {/if}
         <div class="content mt-4 is-size-6">
-            <p class="mb-4">
-                These are the current fundraising goals:
-            </p>
+            <p class="mb-4">These are the current fundraising goals:</p>
 
             <strong>Beneficiary Fund</strong>
             <div class="is-flex is-justify-content-space-between">
@@ -206,8 +222,10 @@
                         currency="SGD"
                         locale="en-SG"
                     /> (Made possible through
-                    <a class="link" target="_blank" href="https://mystorytreasury.com"
-                        >My Story Treasury</a
+                    <a
+                        class="link"
+                        target="_blank"
+                        href="https://mystorytreasury.com">My Story Treasury</a
                     >)
                 </li>
                 <li>Domain name: $50.00/year</li>
@@ -244,8 +262,9 @@
                 Processing Fees
             </h3>
             <p>
-                We use <a class="link" href="https://stripe.com/en-sg">Stripe</a> as our payment
-                processor to ensure your donation is handled securely and efficiently.
+                We use <a class="link" href="https://stripe.com/en-sg">Stripe</a
+                > as our payment processor to ensure your donation is handled securely
+                and efficiently.
             </p>
             <ul>
                 <li>
@@ -262,7 +281,8 @@
                 </li>
             </ul>
             <p>
-                Please note that processing fees are <a class="link" 
+                Please note that processing fees are <a
+                    class="link"
                     href="https://stripe.com/en-sg/pricing"
                     >deducted by Stripe</a
                 > and help cover the cost of secure payment handling. Your support

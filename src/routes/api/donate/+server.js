@@ -11,6 +11,7 @@ export async function POST({ request }) {
 
 	let sessionParams = {
 		payment_method_types: (recurring? ['card'] : ['paynow', 'card']),
+		...(recurring ? { billing_address_collection: 'required' } : {}),
 		line_items: [{
 			price_data: {
 				currency: 'sgd',
