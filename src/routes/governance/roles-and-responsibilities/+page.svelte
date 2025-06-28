@@ -51,7 +51,7 @@
                         <tr>
                             <td><strong>President</strong></td>
                             <td
-                                >Chair AGM (within 3 months of financial year
+                                >Chair AGM (within 6 months after financial year
                                 close) or EGM as required</td
                             >
                             <td>
