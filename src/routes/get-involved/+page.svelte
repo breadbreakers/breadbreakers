@@ -38,13 +38,12 @@
                 >. We provide the funds. You help us turn compassion into
                 action.
             </p>
-            <p>Partners may support in one of two ways:</p>
             <div class="columns">
                 <div class="column">
                     <strong>1. Procurement & Delivery</strong>
                     <p class="mt-4">Take charge of fulfilling
                     item requests by purchasing and delivering them to beneficiaries
-                    on our behalf.</p>
+                    on our behalf. Lend a hand whenever you have time.</p>
                     <Zoom>
                 <enhanced:img
                     src="$lib/images/flowchart.png"
@@ -57,7 +56,7 @@
                 <div class="column">
                     <strong>2. Adopt a Family</strong>
                     <p class="mt-4">Commit to supporting a family’s
-                    recurring needs (e.g. groceries) over a defined period of time.
+                    recurring needs (e.g. diapers) over an fixed period of time.
                     This arrangement is coordinated in agreement with a supporting
                     social worker to ensure appropriateness and alignment.</p>
                     <Zoom>
