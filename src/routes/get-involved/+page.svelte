@@ -10,7 +10,7 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle has-text-weight-semibold pt-4">Partner With Us</h2>
+        <h2 class="subtitle has-text-weight-semibold pt-4 is-4">Partner With Us</h2>
         <div class="content">
             <p>
                 We believe that everyone has a role to play in this work of
@@ -18,7 +18,7 @@
                 showing care.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 🪙 Fund the Mission (Donors)
             </h3>
             <p>
@@ -28,7 +28,7 @@
                 needs, real people, real items, real impact.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 💪🏻 Execute the Mission (Partners)
             </h3>
             <p>
@@ -39,21 +39,13 @@
                 action.
             </p>
             <p>Partners may support in one of two ways:</p>
-            <ul>
-                <li>
-                    <strong>Procurement & Delivery:</strong> Take charge of fulfilling
+            <div class="columns">
+                <div class="column">
+                    <strong>1. Procurement & Delivery</strong>
+                    <p class="mt-4">Take charge of fulfilling
                     item requests by purchasing and delivering them to beneficiaries
-                    on our behalf.
-                </li>
-                <li>
-                    <strong>Adopt a Family:</strong> Commit to supporting a family’s
-                    recurring needs (e.g. groceries) over a defined period of time.
-                    This arrangement is coordinated in agreement with a supporting
-                    social worker to ensure appropriateness and alignment.
-                </li>
-            </ul>
-
-            <Zoom>
+                    on our behalf.</p>
+                    <Zoom>
                 <enhanced:img
                     src="$lib/images/flowchart.png"
                     alt="Flowchart"
@@ -61,6 +53,23 @@
                 />
             </Zoom>
             <p class="flowchart-info">🔎 Enlarge</p>
+                </div>
+                <div class="column">
+                    <strong>2. Adopt a Family</strong>
+                    <p class="mt-4">Commit to supporting a family’s
+                    recurring needs (e.g. groceries) over a defined period of time.
+                    This arrangement is coordinated in agreement with a supporting
+                    social worker to ensure appropriateness and alignment.</p>
+                    <Zoom>
+                <enhanced:img
+                    src="$lib/images/flowchart-adopt.png"
+                    alt="Flowchart"
+                    class="flowchart-image"
+                />
+            </Zoom>
+            <p class="flowchart-info">🔎 Enlarge</p>
+                </div>
+            </div>
 
             <p>
                 Due to our lean, volunteer-led model, individuals serving on the
@@ -71,7 +80,7 @@
                 designated member from the Working Group.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 🙏🏻 Minister the Mission (Encouragers)
             </h3>
             <p>
@@ -84,7 +93,7 @@
                 are not alone, and they are deeply valued and loved by God.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-medium">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Accountability Matters
             </h3>
             <p>

@@ -17,7 +17,7 @@
             </ul>
         </nav>
 
-        <h2 class="subtitle is-5 has-text-weight-semibold pt-4">About Us</h2>
+        <h2 class="subtitle is-4 has-text-weight-semibold pt-4">About Us</h2>
 
         <div class="content">
             <div class="columns">
