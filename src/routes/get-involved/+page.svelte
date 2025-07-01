@@ -54,9 +54,9 @@
             <p class="flowchart-info">🔎 Enlarge</p>
                 </div>
                 <div class="column">
-                    <strong>2. Adopt a Family</strong>
-                    <p class="mt-4">Commit to supporting a family’s
-                    recurring needs (e.g. diapers) over an fixed period of time.
+                    <strong>2. Adopt a Household</strong>
+                    <p class="mt-4">Commit to supporting
+                    recurring needs for a household (e.g. diapers) over an fixed period of time.
                     This arrangement is coordinated in agreement with a supporting
                     social worker to ensure appropriateness and alignment.</p>
                     <Zoom>

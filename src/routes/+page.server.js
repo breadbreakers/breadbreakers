@@ -23,6 +23,8 @@ export async function load({ locals }) {
         loggedIn,
         isPartner: data.isPartner,
         catData: data.categorySummary,
-        userName
+        userName,
+        householdsWaiting: data.householdsWaiting,
+        householdsPaired: data.householdsPaired
     };
 }

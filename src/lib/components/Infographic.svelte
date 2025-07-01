@@ -4,23 +4,15 @@
     export let beneficiaryCount;
     export let nInNeed;
     export let balanceN;
+    export let householdsWaiting;
+    export let householdsPaired;
     // export let ringfenceN;
-    export let nWip;
+    //export let nWip;
 
 </script>
 
 <div class="container">
     <div class="columns is-multiline is-mobile">
-        <div class="column is-half-mobile">
-            <div class="box">
-                <div class="box-content has-text-centered">
-                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
-                        {beneficiaryCount}
-                    </p>
-                    <p class="is-size-6 pb-4 tagtext">Requests Fulfilled</p>
-                </div>
-            </div>
-        </div>
         <div class="column is-half-mobile">
             <div class="box">
                 <div class="box-content has-text-centered">
@@ -31,7 +23,19 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-half-mobile">
+            <div class="box">
+                <div class="box-content has-text-centered">
+                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
+                        {beneficiaryCount}
+                    </p>
+                    <p class="is-size-6 pb-4 tagtext">Requests Fulfilled</p>
+                </div>
+            </div>
+        </div>
+        
+        <!--<div class="column is-half-mobile">
             <div class="box">
                 <div class="box-content has-text-centered">
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
@@ -42,8 +46,35 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div>-->
+
         <div class="column is-half-mobile">
+            <div class="box">
+                <div class="box-content has-text-centered">
+                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
+                        {householdsWaiting}
+                    </p>
+                    <p class="is-size-6 pb-4 tagtext">
+                        {householdsWaiting === 1 ? "Recurring Help Needed" : "Recurring Help Needed"}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-half-mobile">
+            <div class="box">
+                <div class="box-content has-text-centered">
+                    <p class="title is-3 pt-4 pb-2 nowrap dashboard">
+                        {householdsPaired}
+                    </p>
+                    <p class="is-size-6 pb-4 tagtext">
+                        {householdsPaired === 1 ? "Household Adopted" : "Households Adopted"}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
             <div class="box">
                 <div class="box-content has-text-centered">
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">

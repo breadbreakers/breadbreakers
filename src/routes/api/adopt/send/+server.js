@@ -29,7 +29,7 @@ export async function POST(event) {
                     swname,
                     link,
                     remarks,
-                    status: "open"
+                    status: "submitted"
                 }
             ])
             .select('id')
@@ -38,8 +38,7 @@ export async function POST(event) {
         // send email to sw
         const swSubject = `Recurring Request Submitted (${householdInsert.id})`
 
-        const swBody = `Thank you!
-We've received your Recurring Request and will let you know as soon as we find a volunteer who is able to fulfill the request.<br>
+        const swBody = `We've received your Recurring Request and will let you know as soon as we find a volunteer who is able to fulfill the request.<br>
 <br>
 <strong>Request Type</strong> ${type}<br>
 <strong>Quantity</strong> ${qty}<br>
@@ -47,6 +46,7 @@ We've received your Recurring Request and will let you know as soon as we find a
 <strong>Over a period of</strong> ${period}<br>
 <strong>Link to purchase</strong> ${link}<br>
 <strong>Remarks</strong> ${remarks}<br>
+Thank you!
 `;
         await sendEmail({
             to: swemail,
@@ -64,7 +64,6 @@ We've received your Recurring Request and will let you know as soon as we find a
             .single();
 
         let approverEmail = getApprover.email;
-        console.log(approverEmail)
 
         const approverSubject = `Recurring Request Submitted (${householdInsert.id})`;
 

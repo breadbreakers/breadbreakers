@@ -218,7 +218,7 @@
     .navbar-item.is-loading::after {
       content: "";
       position: absolute;
-      width: 100%;
+      width: calc(100% - 0.75em);
       height: 0.05em;
       bottom: 0;
       left: 0;

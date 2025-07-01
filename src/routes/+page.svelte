@@ -28,6 +28,8 @@
         balanceN={data.balanceN / 100}
         ringfenceN={data.ringfenceN / 100}
         nWip={data.nWip}
+        householdsWaiting={data.householdsWaiting}
+        householdsPaired={data.householdsPaired}
     />
     <div class="container">
         <div class="content mt-6">

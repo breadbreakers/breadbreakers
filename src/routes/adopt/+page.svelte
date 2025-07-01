@@ -62,7 +62,7 @@
     <h2 class="subtitle is-4">Recurring Request</h2>
 
     {#if success}
-      <div class="mt-4 notification is-success">Submitted! Check your email for updates.</div>
+      <div class="mt-4 notification is-success">Submitted! We will keep you updated by email.</div>
     {:else if error}
       <div class="mt-4 notification is-danger">
         {error}
@@ -197,7 +197,7 @@
               <input
                 type="radio"
                 name="period"
-                value="Across 3 months"
+                value="Over 3 months"
                 bind:group={period}
                 disabled={isLoading}
                 required
@@ -209,7 +209,7 @@
               <input
                 type="radio"
                 name="period"
-                value="Across 6 months"
+                value="Over 6 months"
                 bind:group={period}
                 disabled={isLoading}
                 required
@@ -221,7 +221,7 @@
               <input
                 type="radio"
                 name="period"
-                value="Across 9 months"
+                value="Over 9 months"
                 bind:group={period}
                 disabled={isLoading}
                 required
@@ -233,7 +233,7 @@
               <input
                 type="radio"
                 name="period"
-                value="Across 12 months"
+                value="Over 12 months"
                 bind:group={period}
                 disabled={isLoading}
                 required

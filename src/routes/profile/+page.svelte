@@ -13,6 +13,7 @@
 
     let workTable;
     let approverTable;
+    let householdsTable;
     let isLoading = false;
 
     function signInWithGoogle() {
@@ -155,6 +156,91 @@
                     },
                 ],
             });
+
+            globalThis.$(householdsTable).DataTable({
+                serverSide: true,
+                processing: true,
+                lengthChange: false,
+                responsive: true,
+                order: [[0, "desc"]],
+                language: {
+                    searchPlaceholder: "Search",
+                },
+                ajax: function (data, callback, settings) {
+                    fetch(`/api/households`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: (() => {
+                            return JSON.stringify(data);
+                        })(),
+                    })
+                        .then((response) => response.json())
+                        .then((result) => {
+                            callback({
+                                draw: data.draw,
+                                recordsTotal: result.recordsTotal,
+                                recordsFiltered: result.recordsFiltered,
+                                data: result.data,
+                            });
+                        });
+                },
+                columns: [
+                    { data: "type", title: "Type", className: "dt-left" },                    
+                    { data: "frequency", title: "Frequency", className: "dt-left" },
+                    { data: "region", title: "Region", className: "dt-left" },
+                    { data: "id", title: "ID", className: "dt-left" },
+                    {
+                        data: "qty",
+                        title: "Quantity",
+                        className: "dt-left",
+                        render: function (data, type, row, meta) {
+                            return row.qty + " " + row.frequency                            
+                        },
+                    },
+                    { data: "period", title: "Period", className: "dt-left" },
+                    { data: "remarks", title: "Remarks", className: "dt-left" },
+                    {
+                        data: "link",
+                        title: "Link",
+                        className: "dt-left",
+                        render: function (data, type, row, meta) {
+                            if (row.link) {
+                                return `<a class="link" target="_blank" href="${row.link}">${row.link}</a> `;
+                            } else {
+                                return "NA"
+                            }
+                        },
+                    },
+                    {
+                        data: "id",
+                        title: "Actions",
+                        className: "dt-left",
+                        render: function (data, type, row, meta) {
+
+                            setTimeout(() => {
+                                document
+                                    .querySelectorAll(".confirm-button")
+                                    .forEach((button) => {
+                                        button.addEventListener(
+                                            "click",
+                                            function (event) {
+                                                const id = this.dataset.id;
+                                                if (
+                                                    confirm(
+                                                        "Confirm adoption of this household? Once confirmed, we’ll connect you with the social worker via email.",
+                                                    )
+                                                ) {
+                                                    window.location.href = `${env.PUBLIC_SITE_URL}/adopt/pair?id=${id}`;
+                                                }
+                                            },
+                                        );
+                                    });
+                            }, 0);
+                            return `<i class="demo-icon icon-shop">&#xe805;</i><button class="pr-2 has-text-weight-normal is-underlined has-text-black confirm-button" data-id="${row.id}">Adopt Household</button>`;
+                        },
+                    },
+                ],
+            });
         }
 
         if (data.isApprover) {
@@ -238,8 +324,8 @@
     <section class="section">
         <div class="container">
             {#if data.isPartner}
-                <h2 class="subtitle is-6 mt-6 has-text-weight-semibold">
-                    🎁 Your Assignments
+                <h2 class="subtitle is-5 mt-6 has-text-weight-semibold">
+                    🎁 Ringfenced Items
                 </h2>
 
                 <table
@@ -256,6 +342,31 @@
                             <th class="none">Actions</th>
                             <th class="none">Cost</th>
                             <th class="none">Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <h2 class="subtitle is-5 mt-6 has-text-weight-semibold">
+                    🏠 Households With Recurring Needs
+                </h2>
+
+                <table
+                    bind:this={householdsTable}
+                    id="householdsTable"
+                    class="compact row-border responsive"
+                >
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Frequency</th>
+                            <th>Region</th>
+                            <th class="none">ID</th>
+                            <th class="none">Qty</th>
+                            <th class="none">Period</th>
+                            <th class="none">Link</th>                          
+                            <th class="none">Remarks</th>
+                            <th class="none">Actions</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -279,8 +390,8 @@
             {/if}
 
             {#if data.isApprover}
-                <h2 class="subtitle is-6 mt-6 has-text-weight-semibold">
-                    🎁 To Approve
+                <h2 class="subtitle is-5 mt-6 has-text-weight-semibold">
+                    ✅ To Approve
                 </h2>
                 <table
                     bind:this={approverTable}
