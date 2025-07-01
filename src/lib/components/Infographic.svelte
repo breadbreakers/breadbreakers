@@ -55,7 +55,7 @@
                         {householdsWaiting}
                     </p>
                     <p class="is-size-6 pb-4 tagtext">
-                        {householdsWaiting === 1 ? "Recurring Help Needed" : "Recurring Help Needed"}
+                        {householdsWaiting === 1 ? "Recurring Request" : "Recurring Requests"}
                     </p>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                         {householdsPaired}
                     </p>
                     <p class="is-size-6 pb-4 tagtext">
-                        {householdsPaired === 1 ? "Household Adopted" : "Households Adopted"}
+                        {householdsPaired === 1 ? "Recurring Request Adopted" : "Recurring Requests Adopted"}
                     </p>
                 </div>
             </div>
