@@ -85,7 +85,7 @@
             <p>
                 Not all help needs to be physical or financial. If you have a
                 heart to encourage, you can serve as someone who sends messages
-                of hope, encouragement, and dignity after a delivery is made.
+                of hope and encouragement after a delivery is made.
             </p>
             <p>
                 These simple acts of kindness remind our beneficiaries that they

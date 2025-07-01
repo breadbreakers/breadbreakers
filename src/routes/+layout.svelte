@@ -221,7 +221,7 @@
       width: calc(100% - 0.75em);
       height: 0.05em;
       bottom: 0;
-      left: 0;
+      left: 0.375em;
       border-radius: 5px;
       background: currentColor;
       transform-origin: left;
