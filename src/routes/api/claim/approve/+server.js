@@ -69,16 +69,15 @@ export async function POST(event) {
             bcc: BREADBREAKERS_EMAIL // for audit trail 
         });
 
-        // delete the personal data
-        const { data: deleteResult, error: deleteError } = await supabase
-            .from('pd')
-            .delete()
-            .eq('itemId', itemId);
-
         // delete entry in wip table
         // rls only allows approvers to delete
-        const { data, error } = await supabase
+        const { data: wipDelete, error: errWipDelete } = await supabase
             .from('wip')
+            .delete()
+            .eq('id', itemId);
+
+        const { data: reqDelete, error: errReqDelete } = await supabase
+            .from('requests_manual')
             .delete()
             .eq('id', itemId);
 

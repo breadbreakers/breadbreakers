@@ -12,7 +12,7 @@
 	const operatingN = data.operatingN;
 
 	const MIN_YEAR = 2025;
-	const MIN_MONTH = "May"; // Must match one of the month names below
+	const MIN_MONTH = 4; // from May 2025 onwards
 
 	let selectedYear = MIN_YEAR;
 	let selectedMonth = "";
@@ -74,8 +74,7 @@
 		];
 
 		if (selectedYear === currentYear) {
-			let result = months.slice(currentMonth - 1, currentMonth);
-			return result;
+			return months.slice(MIN_MONTH, currentMonth); // May to June
 		}
 
 		return months;
@@ -92,7 +91,7 @@
 			.then((response) => {
 				if (response.status === 404) {
 					notification =
-						"Statement not available for the selected month.";
+						"Statement not available for the selected month. It may take up to 5 working days before the statement is available. ";
 				} else {
 					window.open(url, "_blank");
 					notification = null;

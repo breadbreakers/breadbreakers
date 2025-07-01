@@ -155,6 +155,7 @@
 
 <svelte:head>
   <title>Bread Breakers (SG) | Ringfence Request</title>
+  <meta name="robots" content="noindex">
 </svelte:head>
 
 <div class="section">

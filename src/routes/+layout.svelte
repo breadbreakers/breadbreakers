@@ -262,7 +262,7 @@
     padding: 0;
   }
 
-  @media screen and (min-width: 769px) {
+  @media screen and (min-width: 1023px) {
     .nav-section {
       padding: 3rem 1.5rem; /* typical Bulma .section padding */
     }

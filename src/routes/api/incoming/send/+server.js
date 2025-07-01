@@ -15,17 +15,33 @@ export async function POST(event) {
         const supabase = createServerSupabaseClient(event);
 
         // create entry in incoming table
-        const { data: expense } = await supabase
+        if (fundType == 'interest') {
+            const { data: expense } = await supabase
             .from('incoming')
             .insert([
                 {
                     id: itemDescription,
-                    source: (fundType == 'mission' ? 'Donation (Beneficiary Fund)' : 'Donation (Operating Fund)'),
+                    source: 'Interest (Beneficiary Fund)',
                     amount: Math.round(amount * 100),
                     approveremail: approverEmail,
                     timestamp: getSgTime()
                 }
             ]);
+        } else {        
+
+            const { data: expense } = await supabase
+                .from('incoming')
+                .insert([
+                    {
+                        id: itemDescription,
+                        source: (fundType == 'mission' ? 'Donation (Beneficiary Fund)' : 'Donation (Operating Fund)'),
+                        amount: Math.round(amount * 100),
+                        approveremail: approverEmail,
+                        timestamp: getSgTime()
+                    }
+                ]);
+
+        }
 
         return json({ message: 'Expense Submitted' }, { status: 200 });
     } catch (error) {

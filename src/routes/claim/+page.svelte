@@ -180,6 +180,7 @@
 
 <svelte:head>
   <title>Bread Breakers (SG) | Submit Claim</title>
+  <meta name="robots" content="noindex">
 </svelte:head>
 
 <div class="section">

@@ -47,6 +47,7 @@
 
 <svelte:head>
   <title>Bread Breakers (SG) | Submit Incoming Cashflow</title>
+  <meta name="robots" content="noindex">
 </svelte:head>
 
 <div class="section">
@@ -81,11 +82,9 @@
           <div class="control">
             <div class="select is-fullwidth">
               <select name="fund" id="type" bind:value={fundType} required>
-
                   <option value="mission" selected>Beneficary Fund</option>
-
                   <option value="operating">Operating Fund</option>
-        
+                  <option value="interest">Interest</option>
               </select>
             </div>
           </div>

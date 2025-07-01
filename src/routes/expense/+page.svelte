@@ -1,5 +1,6 @@
 <svelte:head>
     <title>Bread Breakers (SG) | Submit Expense</title>
+    <meta name="robots" content="noindex">
 </svelte:head>
 
 <script>
