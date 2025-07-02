@@ -66,6 +66,9 @@
             <ul>
                 <li><a class="link" href="/governance/procurement">Procurement</a></li>
                 <li><a class="link" href="/governance/donation">Donations</a></li>
+                <li><a class="link" href="/governance/risk-disclosure">Risk Disclosure</a></li>
+                <li><a class="link" href="/governance/aml-cft">Anti-Money Laundering & Counter-Terrorist Financing</a></li>
+                
             </ul>
         </div>
     </div>

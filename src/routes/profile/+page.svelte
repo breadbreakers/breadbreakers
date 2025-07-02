@@ -185,8 +185,12 @@
                         });
                 },
                 columns: [
-                    { data: "type", title: "Type", className: "dt-left" },                    
-                    { data: "frequency", title: "Frequency", className: "dt-left" },
+                    { data: "type", title: "Type", className: "dt-left" },
+                    {
+                        data: "frequency",
+                        title: "Frequency",
+                        className: "dt-left",
+                    },
                     { data: "region", title: "Region", className: "dt-left" },
                     { data: "id", title: "ID", className: "dt-left" },
                     {
@@ -194,7 +198,7 @@
                         title: "Quantity",
                         className: "dt-left",
                         render: function (data, type, row, meta) {
-                            return row.qty + " " + row.frequency                            
+                            return row.qty + " " + row.frequency;
                         },
                     },
                     { data: "period", title: "Period", className: "dt-left" },
@@ -207,7 +211,7 @@
                             if (row.link) {
                                 return `<a class="link" target="_blank" href="${row.link}">${row.link}</a> `;
                             } else {
-                                return "NA"
+                                return "NA";
                             }
                         },
                     },
@@ -216,7 +220,6 @@
                         title: "Actions",
                         className: "dt-left",
                         render: function (data, type, row, meta) {
-
                             setTimeout(() => {
                                 document
                                     .querySelectorAll(".confirm-button")
@@ -347,6 +350,14 @@
                     <tbody></tbody>
                 </table>
 
+                <p class="pb-5">
+                            <i class="demo-icon icon-shop">&#xe805;</i><a
+                                target="_blank"
+                                class="link"
+                                href="/ringfence/manual">Manual Ringfence</a
+                            >
+                        </p>
+
                 <h2 class="subtitle is-5 mt-6 has-text-weight-semibold">
                     🏠 Households With Recurring Needs
                 </h2>
@@ -364,7 +375,7 @@
                             <th class="none">ID</th>
                             <th class="none">Qty</th>
                             <th class="none">Period</th>
-                            <th class="none">Link</th>                          
+                            <th class="none">Link</th>
                             <th class="none">Remarks</th>
                             <th class="none">Actions</th>
                         </tr>
@@ -372,21 +383,7 @@
                     <tbody></tbody>
                 </table>
 
-                <p>
-                    <i class="demo-icon icon-attach">&#xe801;</i><a
-                        target="_blank"
-                        class="link"
-                        href="/Partner Guide.pdf">Guide for Partners</a
-                    >
-                </p>
-                <p>
-                    <i class="demo-icon icon-attach">&#xe801;</i><a
-                        target="_blank"
-                        class="link"
-                        href="/CSA_SGCyberSafe_Employees-Toolkit_2022.pdf"
-                        >Cybersecurity Toolkit</a
-                    >
-                </p>
+                
             {/if}
 
             {#if data.isApprover}
@@ -408,6 +405,28 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+
+                <div class="columns">
+                    <div class="column">
+                        
+                        <p>
+                            <i class="demo-icon icon-attach">&#xe801;</i><a
+                                target="_blank"
+                                class="link"
+                                href="/Partner Guide.pdf">Guide for Partners</a
+                            >
+                        </p>
+                        <p>
+                            <i class="demo-icon icon-attach">&#xe801;</i><a
+                                target="_blank"
+                                class="link"
+                                href="/CSA_SGCyberSafe_Employees-Toolkit_2022.pdf"
+                                >Cybersecurity Toolkit</a
+                            >
+                        </p>
+                        
+                    </div>
+                </div>
             {/if}
             <div class="has-text-centered">
                 <button
