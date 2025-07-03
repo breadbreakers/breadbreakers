@@ -4,10 +4,10 @@
     export let beneficiaryCount;
     export let nInNeed;
     export let balanceN;
-    export let householdsWaiting;
-    export let householdsPaired;
+    //export let householdsWaiting;
+    //export let householdsPaired;
     // export let ringfenceN;
-    //export let nWip;
+    export let nWip;
 
 </script>
 
@@ -30,12 +30,12 @@
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {beneficiaryCount}
                     </p>
-                    <p class="is-size-6 pb-4 tagtext">Requests Fulfilled</p>
+                    <p class="is-size-6 pb-4 tagtext">Items Fulfilled</p>
                 </div>
             </div>
         </div>
         
-        <!--<div class="column is-half-mobile">
+        <div class="column is-half-mobile">
             <div class="box">
                 <div class="box-content has-text-centered">
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
@@ -46,9 +46,9 @@
                     </p>
                 </div>
             </div>
-        </div>-->
+        </div>
 
-        <div class="column is-half-mobile">
+        <!--<div class="column is-half-mobile">
             <div class="box">
                 <div class="box-content has-text-centered">
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
@@ -72,7 +72,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="column">
             <div class="box">

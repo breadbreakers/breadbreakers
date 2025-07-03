@@ -21,9 +21,16 @@
         <h2 class="subtitle has-text-weight-semibold pt-4">Technology Stack</h2>
 
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Purpose</h3>
+            
             <p>
-                Bread Breakers (SG) uses a secure, cost-efficient architecture with modern cloud tooling: static site hosting, self-managed database, cloud-based email and storage APIs.
+                Bread Breakers (SG) uses a secure, cost-efficient architecture
+                with modern cloud tooling. Static site hosting on Netlify,
+                self-managed PostgreSQL database, AWS email services, and
+                cloud-based storage APIs.
+            </p>
+
+            <p>
+                This overview provides transparency into our technology choices and security measures, demonstrating our commitment to robust, multi-layered security architecture while maintaining operational security for sensitive implementation details.
             </p>
 
             <div style="overflow-x: auto;">
@@ -40,31 +47,64 @@
                     <tbody>
                         <tr>
                             <td>Physical Infra</td>
-                            <td><span class="tag is-success">CSP</span></td>
-                            <td><span class="tag is-success">CSP</span></td>
-                            <td><span class="tag is-success">CSP</span></td>
-                            <td><span class="tag is-success">CSP</span></td>
+                            <td><span class="tag is-success">Netlify</span></td>
+                            <td
+                                ><span class="tag is-success">Oracle Cloud</span
+                                ></td
+                            >
+                            <td><span class="tag is-success">AWS</span></td>
+                            <td
+                                ><span class="tag is-success">Google Cloud</span
+                                ></td
+                            >
                         </tr>
                         <tr>
                             <td>VM / OS</td>
-                            <td><span class="tag is-success">CSP</span></td>
-                            <td><span class="tag is-link">Self</span></td>
-                            <td><span class="tag is-success">CSP</span></td>
-                            <td><span class="tag is-success">CSP</span></td>
+                            <td><span class="tag is-success">Netlify</span></td>
+                            <td
+                                ><span class="tag is-link">CIS Hardened</span
+                                ></td
+                            >
+                            <td
+                                ><span class="tag is-success">AWS Lambda</span
+                                ></td
+                            >
+                            <td
+                                ><span class="tag is-success">Google Drive</span
+                                ></td
+                            >
                         </tr>
                         <tr>
                             <td>Managed Platform</td>
-                            <td><span class="tag is-success">CSP</span></td>
-                            <td><span class="tag is-link">Self-Managed</span></td>
-                            <td><span class="tag is-success">CSP</span></td>
-                            <td><span class="tag is-success">CSP</span></td>
+                            <td><span class="tag is-success">Netlify</span></td>
+                            <td
+                                ><span class="tag is-link">Docker Compose</span
+                                ></td
+                            >
+                            <td><span class="tag is-success">AWS SES</span></td>
+                            <td
+                                ><span class="tag is-success"
+                                    >Google Drive API</span
+                                ></td
+                            >
                         </tr>
                         <tr>
                             <td>Application / Code</td>
-                            <td><span class="tag is-link">Self</span></td>
-                            <td><span class="tag is-link">Self</span></td>
-                            <td><span class="tag is-link">Self</span></td>
-                            <td><span class="tag is-link">Self</span></td>
+                            <td><span class="tag is-link">SvelteKit</span></td>
+                            <td
+                                ><span class="tag is-link"
+                                    >Supabase/PostgreSQL</span
+                                ></td
+                            >
+                            <td
+                                ><span class="tag is-link">Custom Logic</span
+                                ></td
+                            >
+                            <td
+                                ><span class="tag is-link"
+                                    >Custom Integration</span
+                                ></td
+                            >
                         </tr>
                         <tr>
                             <td>Data / Config</td>
@@ -75,21 +115,41 @@
                         </tr>
                         <tr>
                             <td>Access & Identity</td>
-                            <td><span class="tag is-warning">Shared</span></td>
-                            <td><span class="tag is-link">Self</span></td>
-                            <td><span class="tag is-warning">Shared</span></td>
-                            <td><span class="tag is-warning">Shared</span></td>
+                            <td
+                                ><span class="tag is-warning">GitHub SSO</span
+                                ></td
+                            >
+                            <td
+                                ><span class="tag is-link">OAuth2 Proxy</span
+                                ></td
+                            >
+                            <td><span class="tag is-warning">AWS IAM</span></td>
+                            <td
+                                ><span class="tag is-warning">Google SSO</span
+                                ></td
+                            >
                         </tr>
                         <tr>
                             <td>Security / Compliance</td>
-                            <td><span class="tag is-warning">Shared</span></td>
-                            <td><span class="tag is-link">Self</span></td>
-                            <td><span class="tag is-success">CSP</span></td>
-                            <td><span class="tag is-success">CSP</span></td>
+                            <td
+                                ><span class="tag is-warning"
+                                    >Cloudflare WAF</span
+                                ></td
+                            >
+                            <td
+                                ><span class="tag is-link">RLS + Logging</span
+                                ></td
+                            >
+                            <td><span class="tag is-success">AWS</span></td>
+                            <td><span class="tag is-success">Google</span></td>
                         </tr>
                         <tr>
                             <td>CI / CD</td>
-                            <td><span class="tag is-link">Self</span></td>
+                            <td
+                                ><span class="tag is-link"
+                                    >GitHub → Netlify</span
+                                ></td
+                            >
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>
@@ -99,25 +159,97 @@
             </div>
 
             <div class="content mt-5">
-                <p><span class="legend-box legend-csp"></span> Cloud Service Provider Managed (CSP)</p>
+                <p>
+                    <span class="legend-box legend-csp"></span> Cloud Service Provider
+                    Managed
+                </p>
                 <p><span class="legend-box legend-self"></span> Self-Managed</p>
-                <p><span class="legend-box legend-shared"></span> Shared Responsibility</p>
+                <p>
+                    <span class="legend-box legend-shared"></span> Shared Responsibility
+                    / Third-Party
+                </p>
             </div>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Operating Considerations</h3>
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                Operating Considerations
+            </h3>
             <ul>
-                <li><strong>Web Hosting</strong> – Free-tier deployment platform</li>
-                <li><strong>Source Control</strong> – Versioned using free private repositories</li>
-                <li><strong>Database</strong> – Self-managed instance hosted on private cloud VM</li>
-                <li><strong>Email</strong> – Cloud-based email service (pay-as-you-go)</li>
-                <li><strong>Cloud Functions</strong> – Cost-efficient event-driven logic</li>
-                <li><strong>Object Storage</strong> – Usage-billed API-based file storage</li>
+                <li>
+                    <strong>Web Hosting</strong> – Netlify free-tier deployment with
+                    GitHub integration
+                </li>
+                <li>
+                    <strong>DNS & CDN</strong> – Cloudflare DNS with DDoS protection
+                    and WAF rules
+                </li>
+                <li>
+                    <strong>Source Control</strong> – GitHub repository with automated
+                    builds
+                </li>
+                <li>
+                    <strong>Database</strong> – Self-managed Supabase (PostgreSQL)
+                    on Oracle Cloud
+                </li>
+                <li>
+                    <strong>Database Security</strong> – Row-level security, audit
+                    logging, OAuth2 proxy for admin access
+                </li>
+                <li>
+                    <strong>Email Services</strong> – AWS SES for outbound, Lambda
+                    functions for inbound processing
+                </li>
+                <li>
+                    <strong>File Storage</strong> – Google Drive API integration
+                    for document storage
+                </li>
+                <li>
+                    <strong>Infrastructure Security</strong> – CIS-hardened VM, regular
+                    patching, MFA on all cloud accounts
+                </li>
+                <li>
+                    <strong>SSL/TLS</strong> – Automated certificate management via
+                    Caddy reverse proxy
+                </li>
             </ul>
 
-         
-  In line with principles of <a class="link" target="_blank"  href="https://en.wikipedia.org/wiki/Security_through_obscurity">security through obscurity</a>,
-  this overview focuses on high-level architecture and responsibility boundaries only.
+            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                Architecture Overview
+            </h3>
+            <div class="content">
+                <p>
+                    <strong>Frontend</strong> SvelteKit static site deployed on Netlify,
+                    with domain managed through Cloudflare DNS. Cloudflare provides DDoS protection and WAF security
+                    rules.
+                </p>
 
+                <p>
+                    <strong>Backend</strong> Self-managed Supabase instance running
+                    PostgreSQL in Docker on Oracle Cloud. Database
+                    endpoints secured with reverse proxy for automatic HTTPS,
+                    OAuth2 proxy for admin access, and row-level security for data
+                    protection. Automated backups are performed daily and stored in S3.
+                </p>
+
+                <p>
+                    <strong>Email</strong> AWS SES handles outbound emails, with
+                    inbound processing via Lambda functions. Messages temporarily
+                    stored in S3 with daily lifecycle cleanup, routed through SNS
+                    topics.
+                </p>
+
+                <p>
+                    <strong>Storage</strong> Document uploads stored via Google Drive
+                    API integration. All transactional emails BCC'd to Bread Breakers (SG) for audit trail (except approval emails for
+                    proper segregation of duties).
+                </p>
+
+                <p>
+                    <strong>Security</strong> Multi-factor authentication required
+                    for all cloud provider access. VM regularly patched and CIS-hardened.
+                    Database logging enabled for all changes. Access controls implemented
+                    at multiple layers.
+                </p>
+            </div>
 
             <BackToTop />
         </div>
@@ -132,7 +264,13 @@
         border-radius: 3px;
         margin-right: 0.5em;
     }
-    .legend-csp { background-color: #48c774; }     /* Green */
-    .legend-self { background-color: #3273dc; }    /* Blue */
-    .legend-shared { background-color: #ffdd57; }  /* Yellow */
+    .legend-csp {
+        background-color: #48c774;
+    } /* Green */
+    .legend-self {
+        background-color: #3273dc;
+    } /* Blue */
+    .legend-shared {
+        background-color: #ffdd57;
+    } /* Yellow */
 </style>
