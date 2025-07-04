@@ -8,27 +8,18 @@
 
 <section class="section">
     <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠Home</a></li>
-                <li><a href="/governance">Governance</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">Risk Disclosure</a>
-                </li>
-            </ul>
-        </nav>
 
-        <h2 class="subtitle has-text-weight-semibold pt-4">General Risk Disclosure</h2>
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">General Risk Disclosure</h2>
 
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Important Notice</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Important Notice</h3>
             <p>
                 While Bread Breakers (SG) implements robust security measures and transparency 
                 protocols, donors should be aware of potential risks associated with online donations 
                 and charitable giving. Please read this disclosure carefully before making any contribution.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Online Platform Risks</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Online Platform Risks</h3>
             <h4 class="subtitle is-6 mt-4 has-text-weight-semibold">Website Security</h4>
             <ul>
                 <li>
@@ -57,7 +48,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Organizational Risks</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Organizational Risks</h3>
             <h4 class="subtitle is-6 mt-4 has-text-weight-semibold">Operational Continuity</h4>
             <ul>
                 <li>
@@ -88,7 +79,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Legal and Regulatory Risks</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Legal and Regulatory Risks</h3>
             <ul>
                 <li>
                     <strong>Tax Implications</strong> Donations to Bread Breakers (SG) are currently 
@@ -104,7 +95,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Data Protection Risks</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Data Protection Risks</h3>
             <ul>
                 <li>
                     <strong>Personal Data Handling</strong> We will endeavour to comply with Singapore's 
@@ -116,7 +107,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">How We Mitigate These Risks</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">How We Mitigate These Risks</h3>
             <ul>
                 <li>
                     <strong>Transparency</strong> All financial transactions are published in real-time 
@@ -140,7 +131,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Donor Responsibilities</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Donor Responsibilities</h3>
             <p>To minimize risks, donors should:</p>
             <ul>
                 <li>Verify they are on the official Bread Breakers (SG) website before donating</li>
@@ -151,7 +142,7 @@
                 <li>Contact us directly if they have concerns about their donation</li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Contact and Reporting</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Contact and Reporting</h3>
             <p>
                 If you encounter any issues, suspicious activity, or have concerns about your donation, 
                 please <a class="link" href="/contact">contact us</a> immediately. We are committed to 
@@ -164,7 +155,15 @@
                 We will never request sensitive information outside of our secure donation process.
             </p>
         </div>
-
+        <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li><a href="/governance">Governance</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">Risk Disclosure</a>
+                </li>
+            </ul>
+        </nav>
         <BackToTop />
     </div>
 </section>

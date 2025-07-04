@@ -38,7 +38,7 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle is-5 has-text-weight-semibold">🎁 Donate</h2>
+        <h2 class="subtitle is-4 has-text-weight-bold">🎁 Donate</h2>
         <div class="notification is-warning is-light">
             Bread Breakers (SG) will never solicit or accept donations through
             any channels other than this official donate webpage. We do not
@@ -163,6 +163,7 @@
                 </p>
             </div>
         {/if}
+        <hr>
         <div class="content mt-4 is-size-6">
             <p class="mb-4">These are the current fundraising goals:</p>
 
@@ -233,8 +234,8 @@
                     IT infrastructure: $0.00 (Currently within free-tier limits)
                 </li>
             </ul>
-
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <hr>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Tax Exemptions
             </h3>
             <p>
@@ -245,7 +246,7 @@
                 towards. Your generosity, even without tax exemption, makes an
                 immediate and tangible difference.
             </p>
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Our Funds</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Our Funds</h3>
             <p>
                 We operate with two distinct funds to ensure clarity and
                 accountability. The Beneficiary Fund is used solely to procure
@@ -258,7 +259,7 @@
                 transparently, whether for direct aid or sustaining the means to
                 deliver it.
             </p>
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Processing Fees
             </h3>
             <p>

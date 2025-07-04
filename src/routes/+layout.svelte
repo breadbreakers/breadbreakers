@@ -156,7 +156,7 @@
           >
             <i class="demo-icon icon-user">&#xe800;</i>
             <span class="account-label"
-              >{userName !== "" ? userName : "Login"}</span
+              >{userName !== "" ? userName : "Partners"}</span
             >
           </a>
         </div>
@@ -195,6 +195,8 @@
 
 <style>
   .highlight {
+    color: black;
+    font-size: 1em;
     border-radius: 1em 0 1em 0;
     text-shadow: 1px 1px 1px #fff;
     background-image: linear-gradient(

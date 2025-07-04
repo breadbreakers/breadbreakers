@@ -11,9 +11,9 @@
 	<link rel="manifest" href="%sveltekit.assets%/site.webmanifest" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
-	<!-- Preconnect to external domains -->
+	<!-- Preconnect to external domains 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
 	
 	<!-- Critical CSS - Load synchronously -->
 	<link rel="stylesheet" href="%sveltekit.assets%/css/bulma.min.css">
@@ -30,25 +30,22 @@
 		<link rel="stylesheet" href="%sveltekit.assets%/css/animation.css">
 	</noscript>
 	
-	<!-- Google Fonts - Load asynchronously  -->
-	<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+	<!-- Google Fonts - Load asynchronously  
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">-->
 	
 	<meta name="description"
-		content="Bread Breakers Singapore delivers essential items like diapers, milk, and essential items directly to needy families in SG. Support our mission with low overhead and high impact.">
+		content="Bread Breakers Singapore delivers essential items directly to needy families in SG. Support our mission with low overhead and high impact.">
 	<meta name="keywords"
-		content="Bread Breakers Singapore, charity, non-profit, Singapore, needy families, direct aid, essential items, diapers, milk powder, fridges, laptops, social workers, community support, transparency, radical transparency, low overhead, tax-deductible donations, Christian charity, poverty alleviation, social awareness, empathy">
+		content="Bread Breakers Singapore, charity, non-profit, Singapore, needy families, direct aid, essential items, diapers, fridges, laptops, social workers, community support, transparency, radical transparency, low overhead, Christian charity, poverty alleviation, social awareness, empathy">
 	%sveltekit.head%
 	
-	<!-- Inline critical CSS -->
 	<style>
 		html {
-			letter-spacing: -0.35px;
-			font-size: 0.93em;
-  			
+			letter-spacing: -0.25px;
+			font-size: 0.935em;  		
 		}
 
 		* {
-    		font-family: "Funnel Sans", sans-serif;
 			-webkit-font-smoothing: antialiased;
         	-moz-osx-font-smoothing: grayscale;
         	text-rendering: optimizeLegibility;
@@ -85,6 +82,12 @@
 
 		.is-underlined {
 			text-decoration-color: #ddd !important;
+		}
+
+		.button {
+			box-shadow: 0 2.5px 0 #ddd; /* subtle shadow under button */
+      		transition: all 0.1s ease-in-out;
+      		position: relative;
 		}
 
 		@font-face {

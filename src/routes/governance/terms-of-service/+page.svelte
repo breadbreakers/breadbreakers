@@ -8,20 +8,11 @@
 
 <section class="section">
     <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠Home</a></li>
-                <li><a href="/governance">Governance</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">Terms of Service</a>
-                </li>
-            </ul>
-        </nav>
 
-        <h2 class="subtitle has-text-weight-semibold pt-4">Terms of Service</h2>
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">Terms of Service</h2>
 
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Purpose</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Purpose</h3>
             <p>
                 These Terms of Service ("Terms") govern your use of our website,
                 platform, and participation in our initiatives as a beneficiary,
@@ -29,7 +20,7 @@
                 services, you agree to comply with and be bound by these Terms.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Our Mission</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Our Mission</h3>
             <p>
                 Bread Breakers (SG) is dedicated to facilitating direct,
                 verified, and transparent aid to individuals and families in
@@ -38,7 +29,7 @@
                 essential items.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Definitions</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Definitions</h3>
             <p>"We," "Us," "Our": Refers to "Bread Breakers (SG)."</p>
             <p>
                 "Services": Refers to our website, online platform, aid
@@ -66,7 +57,7 @@
                 agency who identifies and verifies beneficiary needs.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 User Responsibilities and Conduct
             </h3>
             <p>By using our Services, you agree to:</p>
@@ -97,7 +88,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Social Workers
             </h3>
             <ul>
@@ -114,7 +105,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Donors</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Donors</h3>
             <ul>
                 <li>All donations are made voluntarily.</li>
                 <li>
@@ -133,7 +124,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Partners</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Partners</h3>
             <ul>
                 <li>
                     You agree to abide by our procurement guidelines, including
@@ -164,7 +155,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Limitation of Liability
             </h3>
             <p>
@@ -175,7 +166,7 @@
                 use, our Services, except where prohibited by law.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Indemnification
             </h3>
             <p>
@@ -186,7 +177,7 @@
                 of these Terms.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Termination</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Termination</h3>
             <p>
                 We reserve the right to suspend or terminate your access to our
                 Services at our sole discretion, without prior notice, for any
@@ -194,7 +185,7 @@
                 misconduct, or legal/regulatory non-compliance.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Governing Law
             </h3>
             <p>
@@ -204,7 +195,7 @@
                 courts of Singapore.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Changes to These Terms
             </h3>
 
@@ -215,7 +206,15 @@
                 changes constitutes your acceptance of the revised Terms.
             </p>
         </div>
-
+        <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li><a href="/governance">Governance</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">Terms of Service</a>
+                </li>
+            </ul>
+        </nav>
         <BackToTop />
     </div>
 </section>

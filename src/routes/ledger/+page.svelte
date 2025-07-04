@@ -317,7 +317,7 @@
 			</div>
 		</div>
 
-		<h2 class="subtitle has-text-weight-semibold pt-4">
+		<h2 class="subtitle is-4 has-text-weight-bold pt-4">
 			💰 Statement of Accounts
 		</h2>
 		<table
@@ -339,7 +339,7 @@
 	</div>
 
 	<div class="container">
-		<h2 class="subtitle has-text-weight-semibold pt-4">
+		<h2 class="subtitle is-4 has-text-weight-bold pt-4">
 			🏛️ Bank Statements
 		</h2>
 
@@ -381,6 +381,15 @@
 				{notification}
 			</div>
 		{/if}
+
+		<nav class="breadcrumb has-arrow-separator is-centered pt-6" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠 Home</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">Financials</a>
+                </li>
+            </ul>
+        </nav>
 	</div>
 </section>
 

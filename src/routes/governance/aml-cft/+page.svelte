@@ -7,23 +7,14 @@
 </svelte:head>
 
 <section class="section">
-    <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠Home</a></li>
-                <li><a href="/governance">Governance</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">AML/CFT Policy</a>
-                </li>
-            </ul>
-        </nav>
+    <div class="container">      
 
-        <h2 class="subtitle has-text-weight-semibold pt-4">
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">
             Anti-Money Laundering & Counter-Terrorist Financing Policy
         </h2>
 
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Policy Statement</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Policy Statement</h3>
             <p>
                 Bread Breakers (SG) is committed to preventing our organization from being 
                 used as a vehicle for money laundering or terrorist financing activities. 
@@ -33,14 +24,14 @@
                 Financing</a>.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Scope and Application</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Scope and Application</h3>
             <p>
                 This policy applies to all donations received by Bread Breakers (SG), 
                 all committee members and volunteers acting on our behalf. 
                 It covers all donation channels, procurement activities, and fund disbursements.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Risk Assessment</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Risk Assessment</h3>
             <p>
                 We have assessed our risk exposure considering:
             </p>
@@ -63,7 +54,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Prevention Measures</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Prevention Measures</h3>
             
             <h4 class="subtitle is-6 mt-4 has-text-weight-semibold">Donation Monitoring</h4>
             <ul>
@@ -125,7 +116,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Red Flag Indicators</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Red Flag Indicators</h3>
             <p>
                 We monitor for the following suspicious activity indicators:
             </p>
@@ -138,7 +129,7 @@
                 <li>Attempts to influence procurement processes toward specific vendors</li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Reporting Procedures</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Reporting Procedures</h3>
             <ul>
                 <li>
                     <strong>Internal Reporting</strong> Any volunteer or committee member who 
@@ -158,7 +149,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Training and Awareness</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Training and Awareness</h3>
             <ul>
                 <li>
                     Committee members and key volunteers receive orientation and are required to acknowledge AML/CFT risks 
@@ -169,20 +160,28 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Policy Review and Updates</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Policy Review and Updates</h3>
             <p>
                 This policy is reviewed annually or more frequently if required by regulatory 
                 changes or emerging risks. Updates are approved by the management committee 
                 and communicated to all relevant parties.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Contact Information</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Contact Information</h3>
             <p>
                 Questions regarding this policy or reports of suspicious activity should be 
                 directed to the President through our <a class="link" href="/contact">contact page</a>.
             </p>
         </div>
-
+        <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li><a href="/governance">Governance</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">AML/CFT Policy</a>
+                </li>
+            </ul>
+        </nav>
         <BackToTop />
     </div>
 </section>

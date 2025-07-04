@@ -8,17 +8,8 @@
 
 <section class="section">
     <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠Home</a></li>
-                <li><a href="/governance">Governance</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">Tech Stack</a>
-                </li>
-            </ul>
-        </nav>
 
-        <h2 class="subtitle has-text-weight-semibold pt-4">Technology Stack</h2>
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">Technology Stack</h2>
 
         <div class="content">
             
@@ -170,7 +161,7 @@
                 </p>
             </div>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Operating Considerations
             </h3>
             <ul>
@@ -212,7 +203,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Architecture Overview
             </h3>
             <div class="content">
@@ -250,7 +241,15 @@
                     at multiple layers.
                 </p>
             </div>
-
+            <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li><a href="/governance">Governance</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">Tech Stack</a>
+                </li>
+            </ul>
+        </nav>
             <BackToTop />
         </div>
     </div>

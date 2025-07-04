@@ -8,19 +8,10 @@
 
 <section class="section">
     <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠Home</a></li>
-                <li><a href="/governance">Governance</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">Donation Policy</a>
-                </li>
-            </ul>
-        </nav>
 
-        <h2 class="subtitle has-text-weight-semibold pt-4">Donation Policy</h2>
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">Donation Policy</h2>
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">How the Donation Process Works</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">How the Donation Process Works</h3>
             
             <h4 class="subtitle is-6 mt-5 has-text-weight-semibold">Secure Online Donation</h4>
             <ul>
@@ -64,7 +55,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Duties, Responsibilities & Governance</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Duties, Responsibilities & Governance</h3>
             
             <h4 class="subtitle is-6 mt-5 has-text-weight-semibold">Our Responsibilities</h4>
             <ul>
@@ -82,7 +73,7 @@
                  <li><strong>Published Expenses</strong> All fees from Stripe and any operational costs are published as line items in our public financial ledger for full transparency.</li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Compliance & Cooperation</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Compliance & Cooperation</h3>
             
             <h4 class="subtitle is-6 mt-5 has-text-weight-semibold">Regulatory Cooperation</h4>
             <p>
@@ -99,7 +90,7 @@
                 While we take extensive measures to secure our platform, all online activities carry inherent or residual risks. We encourage donors to be vigilant. Please read our <a class="link" target="_blank" href="/governance/risk-disclosure">General Risk Disclosure Policy</a> for more information.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Donation Terms</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Donation Terms</h3>
 
             <h4 class="subtitle is-6 mt-5 has-text-weight-semibold">Refund & Tax Policy</h4>
             <p>
@@ -114,7 +105,15 @@
                 If you have any questions about our policies or your donation, please do not hesitate to <a class="link" href="/contact">contact us</a>.
             </p>
         </div>
-
+        <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li><a href="/governance">Governance</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">Donation Policy</a>
+                </li>
+            </ul>
+        </nav>
         <BackToTop />
     </div>
 </section>

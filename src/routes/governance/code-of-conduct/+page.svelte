@@ -8,20 +8,11 @@
 
 <section class="section">
     <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠Home</a></li>
-                <li><a href="/governance">Governance</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">Code of Conduct</a>
-                </li>
-            </ul>
-        </nav>
 
-        <h2 class="subtitle has-text-weight-semibold pt-4">Code of Conduct</h2>
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">Code of Conduct</h2>
 
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Purpose</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Purpose</h3>
             <p>
                 This Code of Conduct outlines the expected standards of behavior
                 for all volunteers engaged with Bread Breakers (SG). It ensures a
@@ -36,7 +27,7 @@
                 Bread Breakers (SG) mission.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Scope</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Scope</h3>
             <p>
                 This Code applies to all individuals who voluntarily offer their
                 time and services to Bread Breakers (SG) without payment or material
@@ -54,7 +45,7 @@
                 obtain consent before capturing any such data.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Responsibilities</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Responsibilities</h3>
             <p>Volunteers are expected to:</p>
             <ul>
                 <li>
@@ -80,7 +71,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Prohibited Conduct</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Prohibited Conduct</h3>
             <p>Volunteers are not to:</p>
             <ul>
                 <li>
@@ -105,7 +96,7 @@
                 </li>
             </ul>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">Confidentiality and Data Protection</h3>
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Confidentiality and Data Protection</h3>
             <ul>
                 <li>
                     Confidential Information must be used only for purposes
@@ -124,7 +115,15 @@
                 </li>
             </ul>
         </div>
-
+        <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li><a href="/governance">Governance</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">Code of Conduct</a>
+                </li>
+            </ul>
+        </nav>
         <BackToTop />
     </div>
 </section>

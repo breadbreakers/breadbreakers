@@ -8,22 +8,13 @@
 
 <section class="section">
     <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠Home</a></li>
-                <li><a href="/governance">Governance</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">Conflict of Interest</a>
-                </li>
-            </ul>
-        </nav>
 
-        <h2 class="subtitle has-text-weight-semibold pt-4">
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">
             Conflict of Interest Declaration
         </h2>
 
         <div class="content">
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Why Declarations Matter
             </h3>
             <p>
@@ -46,7 +37,7 @@
                 confidence.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Who Should Declare
             </h3>
             <p>
@@ -55,7 +46,7 @@
                 nature or duration of their involvement.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 When and How to Declare
             </h3>
             <p>
@@ -67,7 +58,7 @@
                 Declarations should be submitted to the President in writing.
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 What to Declare
             </h3>
             <p>
@@ -94,7 +85,7 @@
                 are encouraged to seek guidance from the President,
             </p>
 
-            <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Non-Compliance
             </h3>
             <p>
@@ -102,7 +93,15 @@
                 due to oversight, may result in the termination of partnership, as determined by the management committee.
             </p>
         </div>
-
+        <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li><a href="/governance">Governance</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">Conflict of Interest</a>
+                </li>
+            </ul>
+        </nav>
         <BackToTop />
     </div>
 </section>

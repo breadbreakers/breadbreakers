@@ -17,21 +17,12 @@
 
 <section class="section">
     <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠 Home</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">FAQ</a>
-                </li>
-            </ul>
-        </nav>
-
-        <h2 class="subtitle has-text-weight-semibold pt-4">FAQ</h2>
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">FAQ</h2>
 
         <div class="accordion">
             <div class="content">
                 {#each categories as category}
-                    <h3 class="subtitle is-6 mt-5 has-text-weight-bold">
+                    <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                         {category}
                     </h3>
                     {#each faqData.filter(item => item.category === category) as faq, index}
@@ -53,6 +44,14 @@
                 {/each}
             </div>
         </div>
+        <nav class="breadcrumb has-arrow-separator is-centered pt-6" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠 Home</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">FAQ</a>
+                </li>
+            </ul>
+        </nav>
         <BackToTop />
     </div>
 </section>

@@ -8,16 +8,7 @@
 
 <section class="section">
     <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠Home</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">About Us</a>
-                </li>
-            </ul>
-        </nav>
-
-        <h2 class="subtitle is-4 has-text-weight-semibold pt-4">About Us</h2>
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">About Us</h2>
 
         <div class="content">
             <div class="columns">
@@ -229,6 +220,14 @@
                 </div>
             </div>
         </div>
+        <nav class="breadcrumb has-arrow-separator pt-6 is-centered" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">About Us</a>
+                </li>
+            </ul>
+        </nav>
         <BackToTop />
     </div>
 </section>

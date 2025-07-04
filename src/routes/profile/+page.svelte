@@ -432,7 +432,7 @@
                 <button
                     class="button"
                     disabled={isLoading}
-                    on:click|preventDefault={logout}>Logout</button
+                    on:click|preventDefault={logout}>Sign Out</button
                 >
             </div>
         </div>

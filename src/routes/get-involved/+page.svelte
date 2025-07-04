@@ -10,7 +10,7 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="subtitle has-text-weight-semibold pt-4 is-4">Partner With Us</h2>
+        <h2 class="subtitle has-text-weight-bold pt-4 is-4">Partner With Us</h2>
         <div class="content">
             <p>
                 We believe that everyone has a role to play in this work of
@@ -103,6 +103,14 @@
                 committed to.
             </p>
         </div>
+         <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">Partner With Us</a>
+                </li>
+            </ul>
+        </nav>
         <BackToTop />
     </div>
 </section>

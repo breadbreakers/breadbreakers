@@ -64,7 +64,7 @@
 
 <section class="section">
   <div class="container">
-    <h2 class="subtitle is-5 has-text-weight-semibold">Contact Us</h2>
+    <h2 class="subtitle is-4 has-text-weight-bold">Contact Us</h2>
     <div class="content">
       <p>
         If you have a question, please <a class="link" href="/faq">read our FAQ</a> first! If you can't find

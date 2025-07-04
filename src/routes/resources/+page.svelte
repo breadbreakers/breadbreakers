@@ -4,15 +4,8 @@
 
 <section class="section">
     <div class="container">
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-            <ul>
-                <li><a href="/">🏠Home</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">Resources</a>
-                </li>
-            </ul>
-        </nav>
-        <h2 class="subtitle has-text-weight-semibold pt-4">
+
+        <h2 class="subtitle is-4 has-text-weight-bold pt-4">
             Recommended Reads
         </h2>
         <div class="content">
@@ -81,8 +74,15 @@ More than twenty years ago, Rich Stearns came face-to-face with that question as
                     </p>
                 </div>
             </div>
-
         </div>
+        <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/">🏠Home</a></li>
+                <li class="is-active">
+                    <a href="./" aria-current="page">Resources</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </section>
 
