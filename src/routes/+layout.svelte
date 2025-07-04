@@ -202,7 +202,7 @@
     background-image: linear-gradient(
       -100deg,
       rgba(255, 250, 150, 0.15),
-      rgba(255, 250, 150, 0.5) 100%,
+      rgba(255, 245, 57, 0.5) 100%,
       rgba(255, 250, 150, 0.25)
     );
   }
