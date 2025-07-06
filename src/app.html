@@ -135,6 +135,58 @@
 			height: 100%;
 			object-fit: contain;
 		}
+
+		.dt-search {
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+
+		/* Hide the label and any label text */
+		.dt-search label,
+		.dt-search-label,
+		.dt-search label span,
+		.dt-search-label span {
+			display: none !important;
+		}
+
+		/* Make the search input full width and style it */
+		.dt-search input[type="search"] {
+			width: 100% !important;
+			box-sizing: border-box;
+			border: none !important;
+			border-bottom: 1px solid #dddddd !important;
+			border-radius: 0 !important;
+			padding: 0.5em 0;
+			background: transparent;
+			outline: none;
+			font-size: 1em;
+			margin: 0;
+			line-height: 1.2;
+			display: block;
+		}
+
+		table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
+		table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+			margin-right: 0.5em;
+			display: inline-block;
+			box-sizing: border-box;
+			content: "👉🏻";
+			font-size: 1em;
+			/* Adjust as needed */
+			color: rgba(0, 0, 0, 0.7);
+			/* Optional color tweak */
+			border: none;
+			/* Remove triangle borders */
+		}
+
+		table.dataTable.dtr-inline.collapsed>tbody>tr.dtr-expanded>td.dtr-control:before,
+		table.dataTable.dtr-inline.collapsed>tbody>tr.dtr-expanded>th.dtr-control:before {
+			content: "👇🏻";
+			/* Down finger when expanded */
+			border: none;
+			/* Just in case borders are still being applied */
+		}
 	</style>
 </head>
 

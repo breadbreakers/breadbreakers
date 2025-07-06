@@ -56,10 +56,18 @@
                             "</span>"
                         );
                     },
-                },
+                },                
                 {
                     data: "item",
                     title: "Item",
+                    render: function (data, type, row, meta) {
+                        return data;
+                    },
+                },
+                {
+                    data: "id",
+                    title: "ID",
+                    className: "dt-right",
                     render: function (data, type, row, meta) {
                         return data;
                     },
@@ -78,10 +86,10 @@
                                 ? '<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
                                   row.receipt +
                                   '">Receipt</a>'
-                                : " (Donated)") + " (" + data + ")"
+                                : " (Donated)")
                         );
                     },
-                },
+                }                
             ],
         });
     });
@@ -96,9 +104,10 @@
     >
         <thead>
             <tr>
-                <th>Date</th>
+                <th>Date</th>                
                 <th>Item</th>
-                <th>VWO</th>
+                <th>ID</th>
+                <th class="none">VWO</th>
                 <th class="none">Reference</th>
             </tr>
         </thead>
