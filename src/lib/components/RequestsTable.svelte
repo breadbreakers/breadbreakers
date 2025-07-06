@@ -108,9 +108,9 @@
                         return data;
                     },
                 },
-                { data: "id", title: "ID" },
                 { data: "contact_clean", title: "VWO" },
                 { data: "description", title: "Description", className: "tablet-l tablet-p desktop" },
+                { data: "id", title: "ID" },
                 {
                     data: "id",
                     title: "Actions",
@@ -140,10 +140,10 @@
         <thead>
             <tr>
                 <th>Date</th>
-                <th>Item</th>
-                <th class="none">ID</th>
+                <th>Item</th>                
                 <th class="none">VWO</th>
                 <th>Description</th>
+                <th class="none">ID</th>
                 {#if isPartner}
                     <th class="none">Actions</th>
                 {/if}

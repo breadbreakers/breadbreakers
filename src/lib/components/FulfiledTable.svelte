@@ -81,7 +81,8 @@
                                 : " (Donated)")
                         );
                     },
-                }                
+                },
+                { data: "id", title: "ID", className: "tablet-l tablet-p desktop" },                
             ],
         });
     });
@@ -100,6 +101,7 @@
                 <th>Item</th>
                 <th>VWO</th>
                 <th class="none">Reference</th>
+                <th>ID</th>
             </tr>
         </thead>
         <tbody> </tbody>
