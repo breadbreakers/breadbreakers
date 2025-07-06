@@ -110,7 +110,7 @@
                 },
                 { data: "id", title: "ID" },
                 { data: "contact_clean", title: "VWO" },
-                { data: "description", title: "Description" },
+                { data: "description", title: "Description", className: "tablet-l tablet-p desktop" },
                 {
                     data: "id",
                     title: "Actions",
@@ -142,8 +142,8 @@
                 <th>Date</th>
                 <th>Item</th>
                 <th class="none">ID</th>
-                <th>VWO</th>
-                <th class="none">Description</th>
+                <th class="none">VWO</th>
+                <th>Description</th>
                 {#if isPartner}
                     <th class="none">Actions</th>
                 {/if}

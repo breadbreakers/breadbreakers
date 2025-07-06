@@ -64,15 +64,7 @@
                         return data;
                     },
                 },
-                {
-                    data: "id",
-                    title: "ID",
-                    className: "dt-right",
-                    render: function (data, type, row, meta) {
-                        return data;
-                    },
-                },
-                { data: "contact", title: "VWO" },
+                { data: "contact", title: "VWO", className: "tablet-l tablet-p desktop" },
                 {
                     data: "id",
                     title: "Reference",
@@ -106,8 +98,7 @@
             <tr>
                 <th>Date</th>                
                 <th>Item</th>
-                <th>ID</th>
-                <th class="none">VWO</th>
+                <th>VWO</th>
                 <th class="none">Reference</th>
             </tr>
         </thead>
