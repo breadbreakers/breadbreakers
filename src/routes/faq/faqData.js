@@ -259,5 +259,10 @@ export const faqData = [
             All purchases are made by our trusted partners.
             Proof of delivery is documented and reflected on our
             website to ensure full accountability.`
+    },
+    {
+        category: "Operating Model",
+        question: "Is Bread Breakers (SG) affiliated with any local churches in Singapore?",
+        answer: `No, Bread Breakers (SG) operates independently and is not affiliated with or committed to any local churches in Singapore.`
     }
 ];

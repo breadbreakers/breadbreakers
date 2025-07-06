@@ -144,7 +144,7 @@
       </div>
     {/if}
     {#if !success}
-      <form class="box mt-4" on:submit={handleSubmit}>
+      <form class="mt-4" on:submit={handleSubmit}>
         <div class="field">
           <label for="itemId" class="label">ID</label>
           <div class="control">
@@ -174,13 +174,13 @@
         <div class="field">
           <label for="itemDesc" class="label">Description</label>
           <div class="control">
-            <input
-              class="input"
+            <textarea
+              class="textarea"
               type="text"
               bind:value={itemDesc}
               required
               disabled={isLoading}
-            />
+            ></textarea>
           </div>
         </div>
 
@@ -265,16 +265,16 @@
         </div>
 
         <div class="field">
-          <div class="control mt-4">
+          <div class="control mt-6">
             <button
-              class="button is-primary"
+              class="button is-primary is-fullwidth"
               type="submit"
               disabled={isLoading}
             >
               {#if isLoading}
-              Sending... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+              Processing... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
               {:else}
-              Send
+              Submit
               {/if}
             </button>
           </div>

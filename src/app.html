@@ -10,46 +10,49 @@
 	<meta name="apple-mobile-web-app-title" content="Bread Breakers" />
 	<link rel="manifest" href="%sveltekit.assets%/site.webmanifest" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
+
 	<!-- Preconnect to external domains 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
-	
+
 	<!-- Critical CSS - Load synchronously -->
 	<link rel="stylesheet" href="%sveltekit.assets%/css/bulma.min.css">
-	
+
 	<!-- Non-critical CSS - Load asynchronously -->
-	<link rel="preload" href="%sveltekit.assets%/css/dataTables.dataTables.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	<link rel="preload" href="%sveltekit.assets%/css/responsive.dataTables.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	<link rel="preload" href="%sveltekit.assets%/css/animation.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	
+	<link rel="preload" href="%sveltekit.assets%/css/dataTables.dataTables.min.css" as="style"
+		onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="%sveltekit.assets%/css/responsive.dataTables.css" as="style"
+		onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="%sveltekit.assets%/css/animation.css" as="style"
+		onload="this.onload=null;this.rel='stylesheet'">
+
 	<!-- Fallback for browsers that don't support preload -->
 	<noscript>
 		<link rel="stylesheet" href="%sveltekit.assets%/css/dataTables.dataTables.min.css">
 		<link rel="stylesheet" href="%sveltekit.assets%/css/responsive.dataTables.css">
 		<link rel="stylesheet" href="%sveltekit.assets%/css/animation.css">
 	</noscript>
-	
+
 	<!-- Google Fonts - Load asynchronously  
 	<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">-->
-	
+
 	<meta name="description"
 		content="Bread Breakers Singapore delivers essential items directly to needy families in SG. Support our mission with low overhead and high impact.">
 	<meta name="keywords"
 		content="Bread Breakers Singapore, charity, non-profit, Singapore, needy families, direct aid, essential items, diapers, fridges, laptops, social workers, community support, transparency, radical transparency, low overhead, Christian charity, poverty alleviation, social awareness, empathy">
 	%sveltekit.head%
-	
+
 	<style>
 		html {
 			letter-spacing: -0.25px;
-			font-size: 0.935em;  		
+			font-size: 0.935em;
 		}
 
 		* {
 			-webkit-font-smoothing: antialiased;
-        	-moz-osx-font-smoothing: grayscale;
-        	text-rendering: optimizeLegibility;
-  		}
+			-moz-osx-font-smoothing: grayscale;
+			text-rendering: optimizeLegibility;
+		}
 
 		a.link {
 			color: #8a5a44;
@@ -85,9 +88,10 @@
 		}
 
 		.button {
-			box-shadow: 0 2.5px 0 #ddd; /* subtle shadow under button */
-      		transition: all 0.1s ease-in-out;
-      		position: relative;
+			box-shadow:
+				0 3px 0 #ddd,
+				0 5px 10px rgba(0, 0, 0, 0.1);
+			position: relative;
 		}
 
 		@font-face {
@@ -118,14 +122,14 @@
 			-webkit-font-smoothing: antialiased;
 			-moz-osx-font-smoothing: grayscale;
 		}
-		
+
 		/* Prevent layout shift for logo */
 		.logo-container {
 			width: 405px;
 			height: 73px;
 			display: block;
 		}
-		
+
 		.logo-container img {
 			width: 100%;
 			height: 100%;
@@ -136,7 +140,7 @@
 
 <body data-sveltekit-preload-data="hover">
 	<div style="display: contents">%sveltekit.body%</div>
-	
+
 	<!-- Load JavaScript after page content -->
 	<script src="%sveltekit.assets%/js/jquery-3.7.1.min.js" defer></script>
 	<script src="%sveltekit.assets%/js/dataTables.min.js" defer></script>

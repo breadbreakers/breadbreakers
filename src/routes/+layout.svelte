@@ -346,4 +346,57 @@
     width: 500px;
     height: auto; /* keeps aspect ratio */
   }
+
+  .navbar-burger:hover {
+    background-color: transparent !important;
+  }
+
+  /* Add this to your existing <style> section - replace your existing .navbar-burger rule */
+
+  .navbar-burger {
+    color: black !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    /* Disable all user interaction visual feedback */
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+  }
+
+  /* Override ALL possible button states */
+  .navbar-burger:focus,
+  .navbar-burger:active,
+  .navbar-burger:hover,
+  .navbar-burger:visited,
+  .navbar-burger.is-active,
+  .navbar-burger:focus-visible,
+  .navbar-burger:focus-within {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: black !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  /* Target Bulma's specific button classes */
+  button.navbar-burger,
+  button.navbar-burger:focus,
+  button.navbar-burger:active,
+  button.navbar-burger:hover,
+  button.navbar-burger.is-active {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: black !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
 </style>
