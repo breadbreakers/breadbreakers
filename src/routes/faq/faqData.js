@@ -2,7 +2,7 @@ export const faqData = [
     {
         category: "Beneficiaries",
         question: "What challenges do vulnerable individuals and families in Singapore specifically face?",
-        answer: `Source: <a class="link" href="/resources">What Inequality Looks Like</a>
+        answer: `<p>Source: <a class="link" href="/resources">What Inequality Looks Like</a></p>
             <p>Low-income individuals and families face a myriad of challenges:</p>
             <ul>
                 <li>

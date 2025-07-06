@@ -21,7 +21,7 @@ export async function POST(event) {
             .insert([
                 {
                     id: itemDescription,
-                    source: 'Interest (Beneficiary Fund)',
+                    source: 'Beneficiary Fund',
                     amount: Math.round(amount * 100),
                     approveremail: approverEmail,
                     timestamp: getSgTime()
@@ -34,7 +34,7 @@ export async function POST(event) {
                 .insert([
                     {
                         id: itemDescription,
-                        source: (fundType == 'mission' ? 'Donation (Beneficiary Fund)' : 'Donation (Operating Fund)'),
+                        source: (fundType == 'mission' ? 'Beneficiary Fund' : 'Operating Fund'),
                         amount: Math.round(amount * 100),
                         approveremail: approverEmail,
                         timestamp: getSgTime()

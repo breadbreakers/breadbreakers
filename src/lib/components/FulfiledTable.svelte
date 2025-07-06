@@ -34,6 +34,9 @@
                     targets: 0, // date column
                     createdCell: function (td) {
                         globalThis.$(td).css("white-space", "nowrap");
+                        const $span = globalThis.$(td).find("span");
+                        $span.css("color", "#8a5a44");
+                        $span.css("border-bottom", "#b87333 0.05em solid");
                     },
                 },
             ],
@@ -48,7 +51,7 @@
                                 ? data.substring(0, 10)
                                 : data;
                         return (
-                            '<span class="has-text-weight-normal has-text-black">' +
+                            '<span class="has-text-weight-normal">' +
                             d +
                             "</span>"
                         );
@@ -66,8 +69,7 @@
                     data: "id",
                     title: "Reference",
                     render: function (data, type, row, meta) {
-                        return (
-                            data +
+                        return (                            
                             '<i class="demo-icon icon-attach">&#xe801;</i>' +
                             '<a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
                             row.delivery +
@@ -76,7 +78,7 @@
                                 ? '<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
                                   row.receipt +
                                   '">Receipt</a>'
-                                : " (Donated item)")
+                                : " (Donated)") + " (" + data + ")"
                         );
                     },
                 },
@@ -90,13 +92,13 @@
     <table
         bind:this={latestTable}
         id="latestTable"
-        class="compact row-border responsive"
+        class="row-border responsive"
     >
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Item</th>
-                <th class="none">VWO</th>
+                <th>VWO</th>
                 <th class="none">Reference</th>
             </tr>
         </thead>

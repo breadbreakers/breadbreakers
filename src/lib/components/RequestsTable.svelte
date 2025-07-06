@@ -84,11 +84,22 @@
                     targets: 0, // date column
                     createdCell: function (td) {
                         globalThis.$(td).css("white-space", "nowrap");
+                        
+                        const $span = globalThis.$(td).find("span");
+                        $span.css("color", "#8a5a44");
+                        $span.css("border-bottom", "#b87333 0.05em solid");
                     },
                 },
             ],
             columns: [
-                { data: "date", title: "Date", className: "dt-left" },
+                {
+                    data: "date",
+                    title: "Date",
+                    className: "dt-left",
+                    render: function (data, type, row, meta) {
+                        return `<span>${data}</span>`;
+                    },
+                },
                 {
                     data: "title",
                     title: "Item",
@@ -124,14 +135,14 @@
         bind:this={requestsTable}
         id="requestsTable"
         style="width:100%"
-        class="compact row-border responsive"
+        class="row-border responsive"
     >
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Item</th>
                 <th class="none">ID</th>
-                <th class="none">VWO</th>
+                <th>VWO</th>
                 <th class="none">Description</th>
                 {#if isPartner}
                     <th class="none">Actions</th>

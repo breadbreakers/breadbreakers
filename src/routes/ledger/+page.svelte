@@ -135,6 +135,9 @@
 					targets: 0, // date column
 					createdCell: function (td) {
 						globalThis.$(td).css("white-space", "nowrap");
+						const $span = globalThis.$(td).find("span");
+                        $span.css("color", "#8a5a44");
+                        $span.css("border-bottom", "#b87333 0.05em solid");
 					},
 				},
 			],
@@ -145,8 +148,8 @@
 					className: "dt-left",
 					render: function (data, type, row, meta) {
 						return typeof data === "string"
-							? data.substring(0, 10)
-							: data;
+							? `<span>${data.substring(0, 10)}</span>`
+							: `<span>${data}</span>`;
 					},
 				},
 				{
@@ -323,7 +326,7 @@
 		<table
 			bind:this={ledgerTable}
 			id="ledgerTable"
-			class="compact row-border responsive"
+			class="row-border responsive"
 		>
 			<thead>
 				<tr>

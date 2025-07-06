@@ -16,20 +16,20 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
 
 	<!-- Critical CSS - Load synchronously -->
-	<link rel="stylesheet" href="%sveltekit.assets%/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
 
 	<!-- Non-critical CSS - Load asynchronously -->
-	<link rel="preload" href="%sveltekit.assets%/css/dataTables.dataTables.min.css" as="style"
+	<link rel="preload" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css" as="style"
 		onload="this.onload=null;this.rel='stylesheet'">
-	<link rel="preload" href="%sveltekit.assets%/css/responsive.dataTables.css" as="style"
+	<link rel="preload" href="https://cdn.datatables.net/responsive/3.0.5/css/responsive.dataTables.min.css" as="style"
 		onload="this.onload=null;this.rel='stylesheet'">
 	<link rel="preload" href="%sveltekit.assets%/css/animation.css" as="style"
 		onload="this.onload=null;this.rel='stylesheet'">
 
 	<!-- Fallback for browsers that don't support preload -->
 	<noscript>
-		<link rel="stylesheet" href="%sveltekit.assets%/css/dataTables.dataTables.min.css">
-		<link rel="stylesheet" href="%sveltekit.assets%/css/responsive.dataTables.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.5/css/responsive.dataTables.min.css">
 		<link rel="stylesheet" href="%sveltekit.assets%/css/animation.css">
 	</noscript>
 
@@ -142,9 +142,9 @@
 	<div style="display: contents">%sveltekit.body%</div>
 
 	<!-- Load JavaScript after page content -->
-	<script src="%sveltekit.assets%/js/jquery-3.7.1.min.js" defer></script>
-	<script src="%sveltekit.assets%/js/dataTables.min.js" defer></script>
-	<script src="%sveltekit.assets%/js/dataTables.responsive.js" defer></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+	<script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js" defer></script>
+	<script src="https://cdn.datatables.net/responsive/3.0.5/js/dataTables.responsive.min.js" defer></script>
 	<script src="%sveltekit.assets%/js/responsive.dataTables.js" defer></script>
 </body>
 
