@@ -52,7 +52,49 @@
         if (globalThis.$.fn.dataTable.isDataTable(requestsTable)) {
             globalThis.$(requestsTable).DataTable().clear().destroy();
         }
-        
+
+        const columns = [
+            {
+                data: "date",
+                title: "Date",
+                className: "dt-left",
+                render: function (data) {
+                    return `<span>${data}</span>`;
+                },
+            },
+            {
+                data: "title",
+                title: "Item",
+                className: "dt-left",
+                render: function (data) {
+                    return data;
+                },
+            },
+            { data: "contact_clean", title: "VWO" },
+            {
+                data: "description",
+                title: "Description",
+                className: "tablet-l tablet-p desktop",
+            },
+            { data: "id", title: "ID" },
+        ];
+
+        if (isPartner) {
+            columns.push({
+                data: "id",
+                title: "Actions",
+                className: "dt-left",
+                render: function (data, type, row) {
+                    return `
+                <i class="demo-icon icon-mail">&#xe804;</i>
+                <a target="_blank" href="/offer?id=${row.id}" class="pr-2 has-text-weight-normal is-underlined has-text-black">Offer</a>
+                <i class="demo-icon icon-shop">&#xe805;</i>
+                <a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>
+            `;
+                },
+            });
+        }
+
         globalThis.$(requestsTable).DataTable({
             serverSide: true,
             processing: true,
@@ -84,56 +126,23 @@
                     });
             },
             initComplete: function (settings, json) {
-                isLoading = false; 
+                isLoading = false;
             },
             columnDefs: [
                 {
                     targets: 0, // date column
                     createdCell: function (td) {
                         globalThis.$(td).css("white-space", "nowrap");
-                        
+
                         const $span = globalThis.$(td).find("span");
                         $span.css("color", "#8a5a44");
                         $span.css("border-bottom", "#b87333 0.05em solid");
                     },
                 },
             ],
-            columns: [
-                {
-                    data: "date",
-                    title: "Date",
-                    className: "dt-left",
-                    render: function (data, type, row, meta) {
-                        return `<span>${data}</span>`;
-                    },
-                },
-                {
-                    data: "title",
-                    title: "Item",
-                    className: "dt-left",
-                    render: function (data, type, row, meta) {
-                        return data;
-                    },
-                },
-                { data: "contact_clean", title: "VWO" },
-                { data: "description", title: "Description", className: "tablet-l tablet-p desktop" },
-                { data: "id", title: "ID" },
-                {
-                    data: "id",
-                    title: "Actions",
-                    className: "dt-left",
-                    render: function (data, type, row, meta) {
-                        if (isPartner) {
-                            return `<i class="demo-icon icon-mail">&#xe804;</i><a target="_blank" href="/offer?id=${row.id}" class="pr-2 has-text-weight-normal is-underlined has-text-black">Offer</a><i class="demo-icon icon-shop">&#xe805;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>`;
-                        } else {
-                            return "";
-                        }
-                    },
-                },
-            ],
+            columns,
         });
     }
-
 </script>
 
 <div class="container">
@@ -143,12 +152,12 @@
         id="requestsTable"
         style="width:100%"
         class="row-border responsive"
-        class:is-hidden={isLoading}
+        style:visibility={isLoading ? "hidden" : "visible"}
     >
         <thead>
             <tr>
                 <th>Date</th>
-                <th>Item</th>                
+                <th>Item</th>
                 <th class="none">VWO</th>
                 <th>Description</th>
                 <th class="none">ID</th>

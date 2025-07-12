@@ -10,6 +10,8 @@
     let isLoading = data.isLoading || false;
     let dashboardData = data;
 
+    
+
     // Fetch data immediately on mount if needed
     onMount(async () => {
         if (data.isLoading) {

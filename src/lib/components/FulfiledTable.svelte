@@ -33,7 +33,7 @@
                     });
             },
             initComplete: function (settings, json) {
-                isLoading = false; 
+                isLoading = false;
             },
             columnDefs: [
                 {
@@ -109,7 +109,7 @@
         bind:this={latestTable}
         id="latestTable"
         class="row-border responsive"
-        class:is-hidden={isLoading}
+        style:visibility={isLoading ? "hidden" : "visible"}
     >
         <thead>
             <tr>
@@ -122,5 +122,4 @@
         </thead>
         <tbody> </tbody>
     </table>
-
 </div>

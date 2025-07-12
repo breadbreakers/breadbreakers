@@ -60,7 +60,7 @@
                             <img
                                 alt="Loading aninmation"
                                 style="vertical-align:middle; width:20px; height:15px"
-                                srcset="/3.svg"
+                                srcset="/4.svg"
                             />
                         {:else}
                             {nWip}
@@ -107,7 +107,7 @@
                             <img
                                 alt="Loading aninmation"
                                 style="vertical-align:middle; width:20px; height:15px"
-                                srcset="/4.svg"
+                                srcset="/3.svg"
                             />
                         {:else}
                             <CurrencyFormatter
@@ -151,9 +151,5 @@
         font-weight: 700;
         color: black;
         margin-bottom: 0;
-    }
-
-    .demo-icon {
-        font-size: 0.5em;
     }
 </style>
