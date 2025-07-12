@@ -2,8 +2,11 @@
     import { onMount } from "svelte";
 
     let latestTable;
+    let isLoading = true;
 
     onMount(async () => {
+        isLoading = true;
+
         globalThis.$(latestTable).DataTable({
             serverSide: true,
             processing: true,
@@ -28,6 +31,9 @@
                             data: result.data,
                         });
                     });
+            },
+            initComplete: function (settings, json) {
+                isLoading = false; 
             },
             columnDefs: [
                 {
@@ -56,7 +62,7 @@
                             "</span>"
                         );
                     },
-                },                
+                },
                 {
                     data: "item",
                     title: "Item",
@@ -64,12 +70,16 @@
                         return data;
                     },
                 },
-                { data: "contact", title: "VWO", className: "tablet-l tablet-p desktop" },
+                {
+                    data: "contact",
+                    title: "VWO",
+                    className: "tablet-l tablet-p desktop",
+                },
                 {
                     data: "id",
                     title: "Reference",
                     render: function (data, type, row, meta) {
-                        return (                            
+                        return (
                             '<i class="demo-icon icon-attach">&#xe801;</i>' +
                             '<a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
                             row.delivery +
@@ -82,7 +92,11 @@
                         );
                     },
                 },
-                { data: "id", title: "ID", className: "tablet-l tablet-p desktop" },                
+                {
+                    data: "id",
+                    title: "ID",
+                    className: "tablet-l tablet-p desktop",
+                },
             ],
         });
     });
@@ -90,14 +104,16 @@
 
 <div class="container">
     <h2 class="subtitle is-5 has-text-weight-semibold">🎁 Items Fulfiled</h2>
+
     <table
         bind:this={latestTable}
         id="latestTable"
         class="row-border responsive"
+        class:is-hidden={isLoading}
     >
         <thead>
             <tr>
-                <th>Date</th>                
+                <th>Date</th>
                 <th>Item</th>
                 <th>VWO</th>
                 <th class="none">Reference</th>
@@ -106,4 +122,5 @@
         </thead>
         <tbody> </tbody>
     </table>
+
 </div>

@@ -3,9 +3,11 @@
 	import CurrencyFormatter from "$lib/components/CurrencyFormat.svelte";
 
 	let ledgerTable;
+	
 	export let data;
 
 	let notification = null;
+	let isLoading = true;
 
 	const balanceN = data.balanceN;
 	const ringfenceN = data.ringfenceN;
@@ -105,6 +107,7 @@
 	};
 
 	onMount(async () => {
+		isLoading = true;
 		globalThis.$(ledgerTable).DataTable({
 			serverSide: true,
 			processing: true,
@@ -246,6 +249,7 @@
 				if (json && json.error) {
 					alert("Error: " + json.error);
 				}
+				isLoading = false;
 			},
 		});
 	});
@@ -327,6 +331,7 @@
 			bind:this={ledgerTable}
 			id="ledgerTable"
 			class="row-border responsive"
+			class:is-hidden={isLoading}
 		>
 			<thead>
 				<tr>

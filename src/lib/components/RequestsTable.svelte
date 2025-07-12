@@ -8,6 +8,8 @@
     export let isPartner;
     export let catData;
 
+    let isLoading = true;
+
     // Sort descending
     $: sorted = [...catData].sort((a, b) => b.percentage - a.percentage);
 
@@ -45,10 +47,12 @@
     });
 
     async function initRequestsTable() {
+        isLoading = true;
+
         if (globalThis.$.fn.dataTable.isDataTable(requestsTable)) {
             globalThis.$(requestsTable).DataTable().clear().destroy();
         }
-
+        
         globalThis.$(requestsTable).DataTable({
             serverSide: true,
             processing: true,
@@ -78,6 +82,9 @@
                             data: result.data,
                         });
                     });
+            },
+            initComplete: function (settings, json) {
+                isLoading = false; 
             },
             columnDefs: [
                 {
@@ -136,6 +143,7 @@
         id="requestsTable"
         style="width:100%"
         class="row-border responsive"
+        class:is-hidden={isLoading}
     >
         <thead>
             <tr>
