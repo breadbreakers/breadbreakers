@@ -191,8 +191,8 @@
                         });
                 },
                 initComplete: function (settings, json) {
-                householdTableLoading = false;
-            },
+                    householdTableLoading = false;
+                },
                 columns: [
                     { data: "type", title: "Type", className: "dt-left" },
                     {
@@ -284,8 +284,8 @@
                         });
                 },
                 initComplete: function (settings, json) {
-                approverTableLoading = false;
-            },
+                    approverTableLoading = false;
+                },
                 columnDefs: [
                     {
                         targets: 0, // date column
@@ -364,12 +364,12 @@
                 </table>
 
                 <p class="pb-5">
-                            <i class="demo-icon icon-shop">&#xe805;</i><a
-                                target="_blank"
-                                class="link"
-                                href="/ringfence/manual">Manual Ringfence</a
-                            >
-                        </p>
+                    <i class="demo-icon icon-shop">&#xe805;</i><a
+                        target="_blank"
+                        class="link"
+                        href="/ringfence/manual">Manual Ringfence</a
+                    >
+                </p>
 
                 <h2 class="subtitle is-5 mt-6 has-text-weight-semibold">
                     🏠 Households With Recurring Needs
@@ -379,7 +379,9 @@
                     bind:this={householdsTable}
                     id="householdsTable"
                     class="compact row-border responsive"
-                    style:visibility={householdTableLoading ? "hidden" : "visible"}
+                    style:visibility={householdTableLoading
+                        ? "hidden"
+                        : "visible"}
                 >
                     <thead>
                         <tr>
@@ -396,8 +398,6 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-
-                
             {/if}
 
             {#if data.isApprover}
@@ -408,7 +408,9 @@
                     bind:this={approverTable}
                     id="approverTable"
                     class="compact row-border responsive"
-                    style:visibility={approverTableLoading ? "hidden" : "visible"}
+                    style:visibility={approverTableLoading
+                        ? "hidden"
+                        : "visible"}
                 >
                     <thead>
                         <tr>
@@ -423,7 +425,6 @@
 
                 <div class="columns">
                     <div class="column">
-                        
                         <p>
                             <i class="demo-icon icon-attach">&#xe801;</i><a
                                 target="_blank"
@@ -439,7 +440,6 @@
                                 >Cybersecurity Toolkit</a
                             >
                         </p>
-                        
                     </div>
                 </div>
             {/if}
@@ -462,30 +462,32 @@
                 disabled={isLoading}
                 class="button-logo button-sso"
             >
-                <svg
-                    width="17"
-                    height="16"
-                    viewBox="0 0 17 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                <span
+                    style="display: inline-block; position: relative; top: 4px;"
                 >
-                    <path
-                        d="M17 8.18371C17 7.63989 16.9551 7.09314 16.8591 6.55814H9.16046V9.63879H13.5691C13.3862 10.6324 12.7983 11.5113 11.9376 12.0698V14.0687H14.5678C16.1123 12.6754 17 10.6177 17 8.18371Z"
-                        fill="#4285F4"
-                    />
-                    <path
-                        d="M9.16042 16C11.3617 16 13.2182 15.2916 14.5707 14.0687L11.9406 12.0698C11.2088 12.5578 10.2641 12.8341 9.16342 12.8341C7.03409 12.8341 5.22865 11.4261 4.58085 9.53299H1.8667V11.5936C3.25227 14.2951 6.07438 16 9.16042 16V16Z"
-                        fill="#34A853"
-                    />
-                    <path
-                        d="M4.57786 9.53298C4.23596 8.53941 4.23596 7.46353 4.57786 6.46996V4.40933H1.8667C0.709065 6.66985 0.709065 9.33309 1.8667 11.5936L4.57786 9.53298V9.53298Z"
-                        fill="#FBBC04"
-                    />
-                    <path
-                        d="M9.16042 3.16589C10.3241 3.14825 11.4487 3.57743 12.2914 4.36523L14.6217 2.0812C13.1462 0.72312 11.1878 -0.0235267 9.16042 -1.02057e-05C6.07438 -1.02057e-05 3.25227 1.70493 1.8667 4.40932L4.57785 6.46995C5.22265 4.57394 7.03109 3.16589 9.16042 3.16589V3.16589Z"
-                        fill="#EA4335"
-                    />
-                </svg>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0px"
+                        y="0px"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 48 48"
+                    >
+                        <path
+                            fill="#fbc02d"
+                            d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                        ></path><path
+                            fill="#e53935"
+                            d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                        ></path><path
+                            fill="#4caf50"
+                            d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                        ></path><path
+                            fill="#1565c0"
+                            d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                        ></path>
+                    </svg>
+                </span>
 
                 Sign in with Google
                 {#if isLoading}
