@@ -68,7 +68,7 @@
                 <div class="column">
                     <button
                         on:click={(event) => showTable(event, "requests")}
-                        class="is-fullwidth button is-primary"
+                        class="is-fullwidth button is-info"
                         class:is-light={activeTable !== "requests"}
                     >
                         📦 Items In Need

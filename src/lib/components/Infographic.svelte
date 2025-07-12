@@ -10,7 +10,6 @@
     export let nWip;
 
     export let isLoading = false;
-
 </script>
 
 <div class="container">
@@ -20,7 +19,11 @@
                 <div class="box-content has-text-centered">
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {#if isLoading}
-                            <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+                            <img
+                                alt="Loading aninmation"
+                                style="vertical-align:middle; width:20px; height:15px"
+                                srcset="/1.svg"
+                            />
                         {:else}
                             {nInNeed}
                         {/if}
@@ -35,7 +38,11 @@
                 <div class="box-content has-text-centered">
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {#if isLoading}
-                            <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+                            <img
+                                alt="Loading aninmation"
+                                style="vertical-align:middle; width:20px; height:15px"
+                                srcset="/2.svg"
+                            />
                         {:else}
                             {beneficiaryCount}
                         {/if}
@@ -44,13 +51,17 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="column is-half-mobile">
             <div class="box">
                 <div class="box-content has-text-centered">
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {#if isLoading}
-                            <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+                            <img
+                                alt="Loading aninmation"
+                                style="vertical-align:middle; width:20px; height:15px"
+                                srcset="/3.svg"
+                            />
                         {:else}
                             {nWip}
                         {/if}
@@ -93,7 +104,11 @@
                 <div class="box-content has-text-centered">
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {#if isLoading}
-                            <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+                            <img
+                                alt="Loading aninmation"
+                                style="vertical-align:middle; width:20px; height:15px"
+                                srcset="/4.svg"
+                            />
                         {:else}
                             <CurrencyFormatter
                                 value={balanceN}
