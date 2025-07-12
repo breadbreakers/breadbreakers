@@ -15,6 +15,9 @@
     let approverTable;
     let householdsTable;
     let isLoading = false;
+    let workTableLoading = true;
+    let householdTableLoading = true;
+    let approverTableLoading = true;
 
     function signInWithGoogle() {
         isLoading = true;
@@ -59,6 +62,9 @@
                                 data: result.data,
                             });
                         });
+                },
+                initComplete: function (settings, json) {
+                    workTableLoading = false;
                 },
                 columnDefs: [
                     {
@@ -184,6 +190,9 @@
                             });
                         });
                 },
+                initComplete: function (settings, json) {
+                householdTableLoading = false;
+            },
                 columns: [
                     { data: "type", title: "Type", className: "dt-left" },
                     {
@@ -274,6 +283,9 @@
                             });
                         });
                 },
+                initComplete: function (settings, json) {
+                approverTableLoading = false;
+            },
                 columnDefs: [
                     {
                         targets: 0, // date column
@@ -327,7 +339,7 @@
     <section class="section">
         <div class="container">
             {#if data.isPartner}
-                <h2 class="subtitle is-5 mt-6 has-text-weight-semibold">
+                <h2 class="subtitle is-5 has-text-weight-semibold">
                     🎁 Ringfenced Items
                 </h2>
 
@@ -335,6 +347,7 @@
                     bind:this={workTable}
                     id="workTable"
                     class="compact row-border responsive"
+                    style:visibility={workTableLoading ? "hidden" : "visible"}
                 >
                     <thead>
                         <tr>
@@ -366,6 +379,7 @@
                     bind:this={householdsTable}
                     id="householdsTable"
                     class="compact row-border responsive"
+                    style:visibility={householdTableLoading ? "hidden" : "visible"}
                 >
                     <thead>
                         <tr>
@@ -394,6 +408,7 @@
                     bind:this={approverTable}
                     id="approverTable"
                     class="compact row-border responsive"
+                    style:visibility={approverTableLoading ? "hidden" : "visible"}
                 >
                     <thead>
                         <tr>
