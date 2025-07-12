@@ -331,7 +331,7 @@
 			bind:this={ledgerTable}
 			id="ledgerTable"
 			class="row-border responsive"
-			class:is-hidden={isLoading}
+			style:visibility={isLoading? "hidden" : "visible"}
 		>
 			<thead>
 				<tr>

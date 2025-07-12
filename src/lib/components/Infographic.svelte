@@ -20,7 +20,7 @@
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {#if isLoading}
                             <img
-                                alt="Loading aninmation"
+                                alt="Loading animation"
                                 style="vertical-align:middle; width:20px; height:15px"
                                 srcset="/1.svg"
                             />
@@ -39,7 +39,7 @@
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {#if isLoading}
                             <img
-                                alt="Loading aninmation"
+                                alt="Loading animation"
                                 style="vertical-align:middle; width:20px; height:15px"
                                 srcset="/2.svg"
                             />
@@ -58,7 +58,7 @@
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {#if isLoading}
                             <img
-                                alt="Loading aninmation"
+                                alt="Loading animation"
                                 style="vertical-align:middle; width:20px; height:15px"
                                 srcset="/4.svg"
                             />
@@ -105,8 +105,8 @@
                     <p class="title is-3 pt-4 pb-2 nowrap dashboard">
                         {#if isLoading}
                             <img
-                                alt="Loading aninmation"
-                                style="vertical-align:middle; width:20px; height:15px"
+                                alt="Loading animation"
+                                style="vertical-align:middle; width:20px; height:12px"
                                 srcset="/3.svg"
                             />
                         {:else}
