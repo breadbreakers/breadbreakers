@@ -1,8 +1,6 @@
 <script>
-    import { browser } from '$app/environment';
     import { onMount } from 'svelte';
     import Infographic from "$lib/components/Infographic.svelte";
-    import LoadingSkeleton from "$lib/components/LoadingSkeleton.svelte";
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
     import RequestsTable from "$lib/components/RequestsTable.svelte";
 
