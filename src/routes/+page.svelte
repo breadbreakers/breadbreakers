@@ -1,5 +1,6 @@
 <script>
     import { browser } from '$app/environment';
+    import { onMount } from 'svelte';
     import Infographic from "$lib/components/Infographic.svelte";
     import LoadingSkeleton from "$lib/components/LoadingSkeleton.svelte";
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
@@ -8,24 +9,33 @@
     export let data;
 
     let activeTable = null;
-    let isLoading = false;
+    let isLoading = data.isLoading || false;
     let dashboardData = data;
 
-    // If data is still loading on client side
-    $: if (browser && !dashboardData?.beneficiaryCount && dashboardData?.beneficiaryCount !== 0) {
-        isLoading = true;
-        fetchDashboardData();
-    }
+    // Fetch data immediately on mount if needed
+    onMount(async () => {
+        if (data.isLoading) {
+            await fetchDashboardData();
+        }
+    });
 
     async function fetchDashboardData() {
         try {
             const response = await fetch('/api/dashboard-stats');
             if (response.ok) {
-                dashboardData = await response.json();
+                const freshData = await response.json();
+                dashboardData = {
+                    ...dashboardData,
+                    ...freshData,
+                    isLoading: false
+                };
+                isLoading = false;
+            } else {
+                console.error('Failed to fetch dashboard data');
+                isLoading = false;
             }
         } catch (error) {
             console.error('Failed to fetch dashboard data:', error);
-        } finally {
             isLoading = false;
         }
     }
@@ -42,19 +52,17 @@
 </svelte:head>
 
 <section class="section">
-    {#if isLoading}
-        <LoadingSkeleton />
-    {:else}
-        <Infographic
-            beneficiaryCount={dashboardData.beneficiaryCount}
-            nInNeed={dashboardData.nInNeed}
-            balanceN={dashboardData.balanceN / 100}
-            ringfenceN={dashboardData.ringfenceN / 100}
-            nWip={dashboardData.nWip}
-            householdsWaiting={dashboardData.householdsWaiting}
-            householdsPaired={dashboardData.householdsPaired}
-        />
-    {/if}
+    <!-- Always render the infographic, but show loading state if needed -->
+    <Infographic
+        beneficiaryCount={dashboardData.beneficiaryCount}
+        nInNeed={dashboardData.nInNeed}
+        balanceN={dashboardData.balanceN ? dashboardData.balanceN / 100 : null}
+        ringfenceN={dashboardData.ringfenceN ? dashboardData.ringfenceN / 100 : null}
+        nWip={dashboardData.nWip}
+        householdsWaiting={dashboardData.householdsWaiting}
+        householdsPaired={dashboardData.householdsPaired}
+        {isLoading}
+    />
 
     <div class="container">
         <div class="content mt-6">
@@ -71,6 +79,7 @@
 
                 <div class="column">
                     <button
+                        
                         on:click={(event) => showTable(event, "fulfilled")}
                         class="is-fullwidth button is-info"
                         class:is-light={activeTable !== "fulfilled"}
