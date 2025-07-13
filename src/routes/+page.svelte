@@ -24,10 +24,6 @@
         await fetchDashboardData();        
     });
 
-    afterNavigate(async () => {
-		await fetchDashboardData();
-	});
-
     async function fetchDashboardData() {
         try {
             const response = await fetch('/api/dashboard-stats');
