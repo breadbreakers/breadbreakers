@@ -4,19 +4,24 @@
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
     import RequestsTable from "$lib/components/RequestsTable.svelte";
 
-    export let data;
-
     let activeTable = null;
-    let isLoading = data.isLoading || false;
-    let dashboardData = data;
-
-    
+    let isLoading = true;
+    let dashboardData = {
+        beneficiaryCount: null,
+        nInNeed: null,
+        balanceN: null,
+        ringfenceN: null,
+        nWip: null,
+        isPartner: false,
+        catData: [],
+        userName: null,
+        householdsWaiting: null,
+        householdsPaired: null
+    };
 
     // Fetch data immediately on mount if needed
-    onMount(async () => {
-        if (data.isLoading) {
-            await fetchDashboardData();
-        }
+    onMount(async () => {        
+        await fetchDashboardData();        
     });
 
     async function fetchDashboardData() {
@@ -100,7 +105,6 @@
     {#if activeTable === "requests"}
         <div class="content mt-6 mb-6">
             <RequestsTable
-                loggedIn={dashboardData.loggedIn}
                 isPartner={dashboardData.isPartner}
                 catData={dashboardData.catData}
             />

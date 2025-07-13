@@ -1,7 +1,6 @@
 <script>
     import { onMount } from "svelte";
     import { env } from "$env/dynamic/public";
-    import { OFFER_SUBJECT, OFFER_EMAIL } from "$lib/strings";
 
     let requestsTable;
 

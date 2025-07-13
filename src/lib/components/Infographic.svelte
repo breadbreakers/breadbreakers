@@ -21,7 +21,7 @@
                         {#if isLoading}
                             <img
                                 alt="Loading animation"
-                                style="vertical-align:middle; width:20px; height:10px"
+                                style="vertical-align:middle; width:25px; height:10px"
                                 srcset="/1.svg"
                             />
                         {:else}
@@ -40,7 +40,7 @@
                         {#if isLoading}
                             <img
                                 alt="Loading animation"
-                                style="vertical-align:middle; width:20px; height:10px"
+                                style="vertical-align:middle; width:25px; height:10px"
                                 srcset="/2.svg"
                             />
                         {:else}
@@ -59,7 +59,7 @@
                         {#if isLoading}
                             <img
                                 alt="Loading animation"
-                                style="vertical-align:middle; width:20px; height:10px"
+                                style="vertical-align:middle; width:25px; height:10px"
                                 srcset="/4.svg"
                             />
                         {:else}
@@ -106,7 +106,7 @@
                         {#if isLoading}
                             <img
                                 alt="Loading animation"
-                                style="vertical-align:middle; width:20px; height:10px"
+                                style="vertical-align:middle; width:25px; height:10px"
                                 srcset="/3.svg"
                             />
                         {:else}
