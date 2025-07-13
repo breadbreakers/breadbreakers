@@ -27,7 +27,9 @@
     async function fetchDashboardData() {
         // Check if we have valid cached data
         if (isCacheValid()) {
+            console.log("Cache exists")
             dashboardData = getCachedDashboardData();
+            isLoading = false;
         }
 
         // Fetch fresh data
