@@ -1,9 +1,6 @@
 // src/routes/api/dashboard-stats/+server.js
 import { json } from '@sveltejs/kit';
 
-let cache = new Map();
-const CACHE_TTL = 30000; // 30 seconds
-
 export async function GET({ locals, setHeaders }) {
     const session = await locals.getUser();
     const loggedIn = !!session;
@@ -13,21 +10,6 @@ export async function GET({ locals, setHeaders }) {
     if (loggedIn) {
         const { data: { user }, error } = await locals.supabase.auth.getUser();
         userEmail = user.email;
-    }
-
-    // Create cache key
-    const cacheKey = `dashboard_${userEmail || 'anonymous'}`;
-    const now = Date.now();
-    
-    // Check cache first
-    if (cache.has(cacheKey)) {
-        const cached = cache.get(cacheKey);
-        if (now - cached.timestamp < CACHE_TTL) {
-            setHeaders({
-                'cache-control': 'public, max-age=30'
-            });
-            return json(cached.data);
-        }
     }
 
     // Fetch fresh data
@@ -62,22 +44,6 @@ export async function GET({ locals, setHeaders }) {
         householdsWaiting: data.householdsWaiting,
         householdsPaired: data.householdsPaired
     };
-
-    // Cache the result
-    cache.set(cacheKey, {
-        data: result,
-        timestamp: now
-    });
-
-    // Clean up old cache entries
-    if (cache.size > 100) {
-        const oldestKey = cache.keys().next().value;
-        cache.delete(oldestKey);
-    }
-
-    setHeaders({
-        'cache-control': 'public, max-age=30'
-    });
 
     return json(result);
 }
