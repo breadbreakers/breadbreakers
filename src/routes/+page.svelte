@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { afterNavigate } from '$app/navigation';
     import Infographic from "$lib/components/Infographic.svelte";
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
     import RequestsTable from "$lib/components/RequestsTable.svelte";
@@ -19,10 +20,13 @@
         householdsPaired: null
     };
 
-    // Fetch data immediately on mount if needed
     onMount(async () => {        
         await fetchDashboardData();        
     });
+
+    afterNavigate(async () => {
+		await fetchDashboardData();
+	});
 
     async function fetchDashboardData() {
         try {
