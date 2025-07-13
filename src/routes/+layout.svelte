@@ -7,9 +7,7 @@
   import { env } from "$env/dynamic/public";
   import { browser } from "$app/environment";
 
-  export let data;
-
-  $: userName = data.userName;
+  let userName;
 
   if (browser) {
     afterNavigate(() => {
@@ -18,12 +16,21 @@
         badge.remove();
       }
       isMenuActive = false;
+      fetchUsername();
     });
 
     onDestroy(() => {
       const badge = document.querySelector(".grecaptcha-badge");
       if (badge) badge.remove();
     });
+  }
+
+  async function fetchUsername() {
+    const response = await fetch("/api/username");
+    if (response.ok) {
+      const res = await response.json();
+      userName = res.userName;
+    }
   }
 
   const hideMenuOn = ["/logout"];

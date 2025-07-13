@@ -1,4 +1,7 @@
-export async function load({ locals }) {
+// src/routes/api/dashboard-stats/+server.js
+import { json } from '@sveltejs/kit';
+
+export async function GET({ locals }) {
     const session = await locals.getUser();
     const loggedIn = !!session;
     
@@ -9,9 +12,9 @@ export async function load({ locals }) {
         const { data: { user }, error } = await locals.supabase.auth.getUser();
         userEmail = user.email;
         userName = userEmail.split("@")[0];
+    } else {
+        userName = "Partners"
     }
 
-    return {
-        userName
-    };
+    return json({ userName });
 }

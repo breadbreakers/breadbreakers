@@ -4,6 +4,7 @@
 
 <script>
     import { onMount } from "svelte";
+    import { goto } from '$app/navigation';
 
     let countdown = 0;
     let timer;
@@ -13,7 +14,7 @@
             countdown -= 1;
             if (countdown <= 0) {
                 clearInterval(timer);
-                window.location.href = "/";
+                goto('/');
             }
         }, 1000);
 
