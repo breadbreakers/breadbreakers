@@ -4,11 +4,15 @@
 
 <script>
     import { onMount } from "svelte";
+    import { clearDashboardCache } from '$lib/dashboardCache.js';
 
-    let countdown = 0;
+    let countdown = 3;
     let timer;
 
     onMount(() => {
+        // Clear cache on logout
+        clearDashboardCache();
+        
         timer = setInterval(() => {
             countdown -= 1;
             if (countdown <= 0) {

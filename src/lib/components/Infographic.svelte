@@ -41,7 +41,7 @@
                             <img
                                 alt="Loading animation"
                                 style="vertical-align:middle; width:25px; height:10px"
-                                srcset="/2.svg"
+                                srcset="/1.svg"
                             />
                         {:else}
                             {beneficiaryCount}
@@ -60,7 +60,7 @@
                             <img
                                 alt="Loading animation"
                                 style="vertical-align:middle; width:25px; height:10px"
-                                srcset="/4.svg"
+                                srcset="/1.svg"
                             />
                         {:else}
                             {nWip}
@@ -107,7 +107,7 @@
                             <img
                                 alt="Loading animation"
                                 style="vertical-align:middle; width:25px; height:10px"
-                                srcset="/3.svg"
+                                srcset="/1.svg"
                             />
                         {:else}
                             <CurrencyFormatter

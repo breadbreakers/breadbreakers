@@ -1,9 +1,9 @@
 <script>
     import { onMount } from 'svelte';
-    import { afterNavigate } from '$app/navigation';
     import Infographic from "$lib/components/Infographic.svelte";
     import FulfiledTable from "$lib/components/FulfiledTable.svelte";
     import RequestsTable from "$lib/components/RequestsTable.svelte";
+    import { getCachedDashboardData, setCachedDashboardData, isCacheValid } from '$lib/dashboardCache.js';
 
     let activeTable = null;
     let isLoading = true;
@@ -20,20 +20,28 @@
         householdsPaired: null
     };
 
-    onMount(async () => {        
-        await fetchDashboardData();        
+    onMount(async () => {
+        await fetchDashboardData();
     });
 
     async function fetchDashboardData() {
+        // Check if we have valid cached data
+        if (isCacheValid()) {
+            dashboardData = getCachedDashboardData();
+        }
+
+        // Fetch fresh data
         try {
             const response = await fetch('/api/dashboard-stats');
             if (response.ok) {
                 const freshData = await response.json();
                 dashboardData = {
                     ...dashboardData,
-                    ...freshData,
-                    isLoading: false
+                    ...freshData
                 };
+                
+                // Cache the fresh data
+                setCachedDashboardData(dashboardData);
                 isLoading = false;
             } else {
                 console.error('Failed to fetch dashboard data');
@@ -84,7 +92,6 @@
 
                 <div class="column">
                     <button
-                        
                         on:click={(event) => showTable(event, "fulfilled")}
                         class="is-fullwidth button is-info"
                         class:is-light={activeTable !== "fulfilled"}
