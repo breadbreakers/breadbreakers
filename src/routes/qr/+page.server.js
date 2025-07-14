@@ -5,7 +5,7 @@ import * as sgqr from 'sgqr';
 import sharp from 'sharp';
 
 // === CONFIGURATION ===
-/*const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID; // base folder (e.g., "PayNow_QRCodes")
+const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID; // base folder (e.g., "PayNow_QRCodes")
 
 // === GENERATE PAYNOW QR ===
 const payload = await sgqr.generate_code({
@@ -29,16 +29,19 @@ const resizedBuffer = await sharp(inputBuffer)
 
 const stream = Readable.from(resizedBuffer);
 
-// === GOOGLE DRIVE AUTH ===
-const auth = new google.auth.GoogleAuth({
-  credentials: {
-    client_email: env.GOOGLE_CLIENT_EMAIL,
-    private_key: env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-  },
-  scopes: ['https://www.googleapis.com/auth/drive.file'],
+// === GOOGLE DRIVE AUTH WITH OAUTH ===
+const oauth2Client = new google.auth.OAuth2(
+  env.GOOGLE_CLIENT_ID,
+  env.GOOGLE_CLIENT_SECRET,
+  env.GOOGLE_REDIRECT
+);
+
+// Set the refresh token
+oauth2Client.setCredentials({
+  refresh_token: env.GOOGLE_REFRESH_TOKEN,
 });
 
-const drive = google.drive({ version: 'v3', auth });
+const drive = google.drive({ version: 'v3', auth: oauth2Client });
 
 // === DATE-BASED FOLDER STRUCTURE ===
 const now = new Date();
@@ -106,4 +109,4 @@ await drive.permissions.create({
 
 // === PUBLIC URL ===
 const publicUrl = `https://drive.google.com/uc?id=${fileId}`;
-console.log('✅ Public QR Code URL:', publicUrl);*/
+console.log('✅ Public QR Code URL:', publicUrl);

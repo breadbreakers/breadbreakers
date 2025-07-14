@@ -48,16 +48,19 @@ export const POST = async ({ request }) => {
     const buffer = Buffer.from(arrayBuffer);
     const stream = Readable.from(buffer);
 
-    // Set up Google Drive API
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: env.GOOGLE_CLIENT_EMAIL,
-        private_key: env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-      },
-      scopes: ['https://www.googleapis.com/auth/drive.file'],
+    // === GOOGLE DRIVE AUTH WITH OAUTH ===
+    const oauth2Client = new google.auth.OAuth2(
+      env.GOOGLE_CLIENT_ID,
+      env.GOOGLE_CLIENT_SECRET,
+      env.GOOGLE_REDIRECT
+    );
+
+    // Set the refresh token
+    oauth2Client.setCredentials({
+      refresh_token: env.GOOGLE_REFRESH_TOKEN,
     });
 
-    const drive = google.drive({ version: 'v3', auth });
+    const drive = google.drive({ version: 'v3', auth: oauth2Client });
 
     // Generate folder structure: yyyy/MM Month
     const now = new Date();
