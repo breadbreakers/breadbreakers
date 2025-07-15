@@ -1,6 +1,17 @@
 import { redirect } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
+import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { env } from '$env/dynamic/private';
+
+const s3 = new S3Client({
+  endpoint: env.R2_ENDPOINT,
+  region: env.R2_REGION,
+  credentials: {
+    accessKeyId: env.R2_ACCESS_ID,
+    secretAccessKey: env.R2_SECRET,
+  },
+});
 
 export async function load({ locals, url }) {
   // check if logged in
@@ -80,6 +91,25 @@ export async function load({ locals, url }) {
     body: approverBody,
     replyTo: partnerEmail
   });
+
+  // === DELETE FILES FROM S3 ===
+  const deleteS3File = async (fileUrl) => {
+    if (!fileUrl) return;
+    try {
+      const url = new URL(fileUrl);
+      const key = decodeURIComponent(url.pathname.substring(1)); // remove leading slash
+      await s3.send(new DeleteObjectCommand({
+        Bucket: env.R2_BUCKET,
+        Key: key,
+      }));
+    } catch (err) {
+      console.error('Failed to delete from S3:', fileUrl, err);
+    }
+  };
+
+  await deleteS3File(wip.swconfirm);
+  await deleteS3File(wip.itemSupport);
+
 
   const { data: deleteResult, error: deleteError } = await locals.supabase
     .from('wip')

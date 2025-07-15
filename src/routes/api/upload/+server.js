@@ -1,36 +1,20 @@
-import { google } from 'googleapis';
 import { env } from '$env/dynamic/private';
-import { Readable } from 'stream';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
-const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID; // root folder
+// === CONFIGURATION ===
+const BUCKET_NAME = env.R2_BUCKET;
+const REGION = env.R2_REGION;
+const ENDPOINT = env.R2_ENDPOINT;
 
-// Helper to get or create nested folders in Google Drive
-async function getOrCreateFolder(name, parentId = null, drive) {
-  const query = `'${parentId || 'root'}' in parents and name='${name}' and mimeType='application/vnd.google-apps.folder' and trashed=false`;
-
-  const res = await drive.files.list({
-    q: query,
-    fields: 'files(id, name)',
-    spaces: 'drive',
-  });
-
-  if (res.data.files.length > 0) {
-    return res.data.files[0].id;
-  }
-
-  const folderMetadata = {
-    name,
-    mimeType: 'application/vnd.google-apps.folder',
-    parents: parentId ? [parentId] : [],
-  };
-
-  const folder = await drive.files.create({
-    requestBody: folderMetadata,
-    fields: 'id',
-  });
-
-  return folder.data.id;
-}
+// === INIT AWS S3 CLIENT ===
+const s3 = new S3Client({
+  endpoint: ENDPOINT,
+  region: REGION,
+  credentials: {
+    accessKeyId: env.R2_ACCESS_ID,
+    secretAccessKey: env.R2_SECRET,
+  },
+});
 
 export const POST = async ({ request }) => {
   try {
@@ -43,64 +27,36 @@ export const POST = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'No file uploaded' }), { status: 400 });
     }
 
-    // Convert File to Buffer and Stream
+    // Convert File to Buffer
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    const stream = Readable.from(buffer);
 
-    // === GOOGLE DRIVE AUTH WITH OAUTH ===
-    const oauth2Client = new google.auth.OAuth2(
-      env.GOOGLE_CLIENT_ID,
-      env.GOOGLE_CLIENT_SECRET,
-      env.GOOGLE_REDIRECT
-    );
-
-    // Set the refresh token
-    oauth2Client.setCredentials({
-      refresh_token: env.GOOGLE_REFRESH_TOKEN,
-    });
-
-    const drive = google.drive({ version: 'v3', auth: oauth2Client });
-
-    // Generate folder structure: yyyy/MM Month
+    // === DATE-BASED PATH ===
     const now = new Date();
     const year = now.getFullYear().toString();
     const monthNum = String(now.getMonth() + 1).padStart(2, '0');
-    const monthName = now.toLocaleString('default', { month: 'long' });
-    const monthFolderName = `${monthNum} ${monthName}`;
+    const monthFolderName = `${monthNum}`;
 
-    // Get or create year/month nested folders
-    const yearFolderId = await getOrCreateFolder(year, FOLDER_ID, drive);
-    const monthFolderId = await getOrCreateFolder(monthFolderName, yearFolderId, drive);
+    // File key (path) inside bucket
+    const fileKey = `${year}/${monthFolderName}/${itemId}/${label}_${Date.now()}`;
 
-    // Upload file
-    const driveResponse = await drive.files.create({
-      requestBody: {
-        name: `${itemId}_${label}_${Date.now()}`,
-        mimeType: file.type,
-        parents: [monthFolderId],
-      },
-      media: {
-        mimeType: file.type,
-        body: stream,
-      },
-      fields: 'id',
-    });
+    // === UPLOAD TO R2 ===
+    const uploadParams = {
+      Bucket: BUCKET_NAME,
+      Key: fileKey,
+      Body: buffer,
+      ContentType: file.type
+    };
 
-    const fileId = driveResponse.data.id;
+    await s3.send(new PutObjectCommand(uploadParams));
 
-    // Set file to be publicly readable
-    await drive.permissions.create({
-      fileId,
-      requestBody: {
-        role: 'reader',
-        type: 'anyone',
-      },
-    });
+    // === PUBLIC URL ===
+    const publicUrl = `https://cloud.breadbreakers.sg/${fileKey}`;
 
-    const fileUrl = `https://drive.google.com/uc?id=${fileId}&export=download`;
-
-    return new Response(JSON.stringify({ fileId, fileUrl }), { status: 200 });
+    return new Response(JSON.stringify({ 
+      fileId: fileKey, 
+      fileUrl: publicUrl 
+    }), { status: 200 });
 
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), { status: 500 });

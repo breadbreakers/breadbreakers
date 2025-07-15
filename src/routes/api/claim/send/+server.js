@@ -1,32 +1,22 @@
 import { json } from '@sveltejs/kit';
-import { google } from 'googleapis';
 import { sendEmail } from '$lib/email.js';
 import { env } from '$env/dynamic/private';
 import { Readable } from 'stream';
 import { createServerSupabaseClient } from '$lib/server/supabase.server';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
-import * as sgqr from 'sgqr';
-import sharp from 'sharp';
 import { PUBLIC_SITE_URL } from "$env/static/public";
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import sharp from 'sharp';
+import * as sgqr from 'sgqr';
 
-// Helper to create or get folder
-async function getOrCreateFolder(name, parentId, drive) {
-    const query = `'${parentId}' in parents and name='${name}' and mimeType='application/vnd.google-apps.folder' and trashed=false`;
-    const res = await drive.files.list({ q: query, fields: 'files(id)' });
-
-    if (res.data.files.length > 0) return res.data.files[0].id;
-
-    const folder = await drive.files.create({
-        requestBody: {
-            name,
-            mimeType: 'application/vnd.google-apps.folder',
-            parents: [parentId],
-        },
-        fields: 'id',
-    });
-
-    return folder.data.id;
-}
+const r2 = new S3Client({
+  region: env.R2_REGION,
+  endpoint: env.R2_ENDPOINT,
+  credentials: {
+    accessKeyId: env.R2_ACCESS_ID,
+    secretAccessKey: env.R2_SECRET,
+  },
+});
 
 // Helper to generate privacy warnings HTML for email
 function generatePrivacyWarningsHtml(privacyAnalysis) {
@@ -48,7 +38,6 @@ function generatePrivacyWarningsHtml(privacyAnalysis) {
 
 export const POST = async (event) => {
     const { request } = event;
-    const FOLDER_ID = env.GOOGLE_DRIVE_FOLDER_ID;
     let approverEmail;
     let paynow;
     let wip;
@@ -110,55 +99,22 @@ export const POST = async (event) => {
 
         const stream = Readable.from(resizedBuffer);
 
-        // === GOOGLE DRIVE AUTH WITH OAUTH ===
-        const oauth2Client = new google.auth.OAuth2(
-            env.GOOGLE_CLIENT_ID,
-            env.GOOGLE_CLIENT_SECRET,
-            env.GOOGLE_REDIRECT
-        );
-
-        // Set the refresh token
-        oauth2Client.setCredentials({
-            refresh_token: env.GOOGLE_REFRESH_TOKEN,
-        });
-
-        const drive = google.drive({ version: 'v3', auth: oauth2Client });
-
-        // === Get folder structure yyyy/MM Month ===
+        // === UPLOAD TO CLOUDFLARE R2 ===
         const now = new Date();
         const year = now.getFullYear().toString();
         const monthNum = String(now.getMonth() + 1).padStart(2, '0');
         const monthName = now.toLocaleString('default', { month: 'long' });
-        const monthFolderName = `${monthNum} ${monthName}`;
+        const monthFolderName = `${monthNum}`;
+        const fileKey = `${year}/${monthFolderName}/${itemId}/paynow_${Date.now()}.png`;
 
-        const yearFolderId = await getOrCreateFolder(year, FOLDER_ID, drive);
-        const monthFolderId = await getOrCreateFolder(monthFolderName, yearFolderId, drive);
+        await r2.send(new PutObjectCommand({
+            Bucket: env.R2_BUCKET,
+            Key: fileKey,
+            Body: resizedBuffer,
+            ContentType: 'image/png',
+        }));
 
-        // === Upload file to Drive ===
-        const driveResponse = await drive.files.create({
-            requestBody: {
-                name: `${itemId}_claim_paynow_${Date.now()}.png`,
-                mimeType: 'image/png',
-                parents: [monthFolderId],
-            },
-            media: {
-                mimeType: 'image/png',
-                body: stream,
-            },
-            fields: 'id',
-        });
-
-        const fileId = driveResponse.data.id;
-
-        await drive.permissions.create({
-            fileId,
-            requestBody: {
-                role: 'reader',
-                type: 'anyone',
-            },
-        });
-
-        const paynowQRImage = `https://drive.google.com/uc?id=${fileId}`;
+        const paynowQRImage = `https://cloud.breadbreakers.sg/${fileKey}`;
 
         // === Update WIP ===
         await supabase
@@ -167,6 +123,7 @@ export const POST = async (event) => {
                 status: "claim_requested",
                 delivery: deliveryUrl,
                 receipt: receiptUrl,
+                paynow: paynowQRImage
             })
             .eq('id', itemId);
 

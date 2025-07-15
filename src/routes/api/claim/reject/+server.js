@@ -2,14 +2,22 @@ import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseClient } from '$lib/server/supabase.server';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
-import { google } from 'googleapis';
 import { env } from '$env/dynamic/private';
+import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
+
+const r2 = new S3Client({
+    region: env.R2_REGION,
+    endpoint: env.R2_ENDPOINT,
+    credentials: {
+        accessKeyId: env.R2_ACCESS_ID,
+        secretAccessKey: env.R2_SECRET,
+    },
+});
 
 export async function POST(event) {
     const { request } = event;
 
     try {
-
         const { itemId, rejectMessage } = await request.json();
 
         if (!itemId || !rejectMessage)
@@ -38,32 +46,24 @@ export async function POST(event) {
 
         const partnerEmail = wip.partner;
 
-        // === GOOGLE DRIVE AUTH WITH OAUTH ===
-        const oauth2Client = new google.auth.OAuth2(
-            env.GOOGLE_CLIENT_ID,
-            env.GOOGLE_CLIENT_SECRET,
-            env.GOOGLE_REDIRECT
-        );
+        // === DELETE FILES FROM S3 ===
+        const deleteS3File = async (fileUrl) => {
+            if (!fileUrl) return;
+            try {
+                const url = new URL(fileUrl);
+                const key = decodeURIComponent(url.pathname.substring(1)); // remove leading slash
+                await r2.send(new DeleteObjectCommand({
+                    Bucket: env.R2_BUCKET,
+                    Key: key,
+                }));
+            } catch (err) {
+                console.error('Failed to delete from S3:', fileUrl, err);
+            }
+        };
 
-        // Set the refresh token
-        oauth2Client.setCredentials({
-            refresh_token: env.GOOGLE_REFRESH_TOKEN,
-        });
-
-        const drive = google.drive({ version: 'v3', auth: oauth2Client });
-
-        let urlObj;
-        let fileId;
-
-        const swconfirm_url = wip.delivery;
-        urlObj = new URL(swconfirm_url);
-        fileId = urlObj.searchParams.get('id');
-        await drive.files.delete({ fileId });
-
-        const itemSupport_url = wip.receipt;
-        urlObj = new URL(itemSupport_url);
-        fileId = urlObj.searchParams.get('id');
-        await drive.files.delete({ fileId });
+        await deleteS3File(wip.receipt);
+        await deleteS3File(wip.delivery);
+        await deleteS3File(wip.paynow);
 
         // update entry in wip table back to ringfence_approved
         // rls only allows approvers to delete
@@ -72,7 +72,8 @@ export async function POST(event) {
             .update({
                 status: 'ringfence_approved',
                 receipt: '',
-                delivery: ''
+                delivery: '',
+                paynow: ''
             })
             .eq('id', itemId);
 

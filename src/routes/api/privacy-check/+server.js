@@ -7,7 +7,7 @@ const GEMINI_API_KEY = env.GEMINI_API_KEY;
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 const PRIVACY_PROMPT = `
-Do not use markdown. If need be, provide your response in html as it will be sent to email.
+Do not use respond in markdown because your output will be sent to email.
 You are an assistant to assist the Approving Authority of a charity to review submissions from volunteers who are procuring items for the needy.
 
 First, analyze the provided image/document and identify if it contains any of the following sensitive information that should be redacted to comply with Singapore PDPA:
