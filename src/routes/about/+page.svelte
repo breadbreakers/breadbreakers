@@ -35,7 +35,7 @@
             </div>
 
             <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
-                The Landscape of Need and the Ecosystem Challenge
+                The Landscape of Need
             </h3>
             <p>
                 While Singapore is a nation of remarkable progress and
