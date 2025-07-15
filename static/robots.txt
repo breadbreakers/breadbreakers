@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://breadbreakers.sg/sitemap.xml
