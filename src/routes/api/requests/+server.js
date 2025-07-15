@@ -46,7 +46,7 @@ export async function POST({ request, locals }) {
 
     query = query
         .order(sortColumn, { ascending: sortDir === 'asc' })
-        .order('id', { ascending: true }) 
+        .order('id', { ascending: false }) 
         .range(start, start + length - 1);
 
     const { data, count, error } = await query;

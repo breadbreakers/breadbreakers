@@ -154,7 +154,7 @@
                             let mobileN = false;
                             mobileN = String(data).match(pattern);
                             if (mobileN) {
-                                return `<a target="_blank" href="https://wa.me/65${mobileN}"><i class="demo-icon icon-whatsapp">&#xF232;</i>WhatsApp</a> ${data}`;
+                                return `<a class="link" target="_blank" href="https://wa.me/65${mobileN}"><i class="demo-icon icon-whatsapp">&#xF232;</i>WhatsApp</a> ${data}`;
                             } else {
                                 return data;
                             }
