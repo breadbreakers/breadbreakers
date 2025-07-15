@@ -46,7 +46,7 @@
         </div>
         <nav class="breadcrumb has-arrow-separator is-centered pt-6" aria-label="breadcrumbs">
             <ul>
-                <li><a href="/">🏠 Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li class="is-active">
                     <a href="./" aria-current="page">FAQ</a>
                 </li>
