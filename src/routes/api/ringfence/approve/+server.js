@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
-import { createServerSupabaseClient } from '$lib/server/supabase.server';
+import { createServerSupabaseClient } from '$lib/supabase';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
 export async function POST(event) {

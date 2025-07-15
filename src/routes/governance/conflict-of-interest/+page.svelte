@@ -95,7 +95,7 @@
         </div>
         <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
             <ul>
-                <li><a href="/">🏠Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/governance">Governance</a></li>
                 <li class="is-active">
                     <a href="./" aria-current="page">Conflict of Interest</a>

@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { env } from '$env/dynamic/private';
 import { Readable } from 'stream';
-import { createServerSupabaseClient } from '$lib/server/supabase.server';
+import { createServerSupabaseClient } from '$lib/supabase';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 import { PUBLIC_SITE_URL } from "$env/static/public";
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';

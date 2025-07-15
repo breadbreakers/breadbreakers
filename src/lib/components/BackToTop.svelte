@@ -18,8 +18,13 @@
 
 <svelte:window on:scroll={handleOnScroll} />
 
-<!-- Button is hidden until scrolled past showOnPx -->
-<button class="back-to-top" on:click={goTop} class:hidden> 🔝 </button>
+<button
+  class="back-to-top"
+  on:click={goTop}
+  class:hidden
+  aria-label="Back to top"
+  ><img src="/back-to-top.svg" alt="Back to top" /></button
+>
 
 <style>
   .back-to-top {
@@ -32,7 +37,7 @@
     right: 20px;
     bottom: 20px;
     color: white;
-
+    width: 3em;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;

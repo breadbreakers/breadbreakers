@@ -175,7 +175,7 @@
     {/if}
 
     {#if !success}
-      <form class="box mt-4" on:submit={handleSubmit}>
+      <form class="mt-4" on:submit={handleSubmit}>
         <div class="field">
           <div class="control">
             <input class="input" type="hidden" bind:value={itemId} required />

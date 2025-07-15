@@ -203,7 +203,7 @@
     {/if}
 
     {#if !success}
-      <form class="box mt-4" on:submit={handleSubmit}>
+      <form class="mt-4" on:submit={handleSubmit}>
         <input type="hidden" bind:value={itemId} />
 
         <div class="field">

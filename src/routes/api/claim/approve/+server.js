@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
-import { createServerSupabaseClient } from '$lib/server/supabase.server';
+import { createServerSupabaseClient } from '$lib/supabase';
 import { getSgTime } from '$lib/sgtime'
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
@@ -22,10 +22,6 @@ export async function POST(event) {
 
         const supabase = createServerSupabaseClient(event);
 
-        // no need to check if it's approver, because rls only allows approvers to update from wip
-
-        // check if item is in ringfence_requested state
-        // rls only allows logged in user to view their own rows
         const { data: wip } = await supabase
             .from('wip')
             .select('*')

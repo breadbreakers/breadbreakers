@@ -5,7 +5,7 @@ import sharp from 'sharp';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 // === CONFIGURATION ===
-const BUCKET_NAME = env.R2_BUCKET;
+/*const BUCKET_NAME = env.R2_BUCKET;
 const REGION = env.R2_REGION;
 const ENDPOINT = env.R2_ENDPOINT;
 
@@ -63,4 +63,4 @@ await s3.send(new PutObjectCommand(uploadParams));
 // Format depends on your bucket region and name
 const publicUrl = `https://cloud.breadbreakers.sg/${fileKey}`;
 
-console.log('✅ Public QR Code URL:', publicUrl);
+console.log('✅ Public QR Code URL:', publicUrl);*/

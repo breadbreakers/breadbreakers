@@ -222,7 +222,7 @@
         </div>
         <nav class="breadcrumb has-arrow-separator pt-6 is-centered" aria-label="breadcrumbs">
             <ul>
-                <li><a href="/">🏠Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li class="is-active">
                     <a href="./" aria-current="page">About Us</a>
                 </li>

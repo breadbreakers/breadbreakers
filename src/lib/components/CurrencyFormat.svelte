@@ -1,7 +1,7 @@
 <script>
-  export let value = 0; // The number to format
-  export let currency = 'SGD'; // Currency code, e.g., 'USD', 'SGD'
-  export let locale = 'en-US'; // Locale, e.g., 'en-US', 'en-SG'
+  export let value = 0;
+  export let currency = 'SGD';
+  export let locale = 'en-US';
 
   $: formatted = new Intl.NumberFormat(locale, {
     style: 'currency',

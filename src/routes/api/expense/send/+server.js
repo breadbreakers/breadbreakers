@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { createServerSupabaseClient } from '$lib/server/supabase.server';
+import { createServerSupabaseClient } from '$lib/supabase';
 import { getSgTime } from '$lib/sgtime'
 
 export async function POST(event) {

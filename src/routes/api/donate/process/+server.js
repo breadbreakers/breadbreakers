@@ -2,7 +2,7 @@ import Stripe from 'stripe';
 import { env } from '$env/dynamic/private';
 import { error, json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
-import { createServerSupabaseService } from '$lib/server/supabase.server';
+import { createServerSupabaseService } from '$lib/supabase';
 import { encrypt } from '$lib/crypto';
 import { getSgTime } from '$lib/sgtime';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';

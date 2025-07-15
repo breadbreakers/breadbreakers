@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
-import { createServerSupabaseClient } from '$lib/server/supabase.server';
+import { createServerSupabaseClient } from '$lib/supabase';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
 export async function POST(event) {
@@ -21,10 +21,6 @@ export async function POST(event) {
 
         const supabase = createServerSupabaseClient(event);
 
-        // no need to check if it's approver, because rls only allows approvers to delete from wip
-
-        // check if item is in ringfence_requested state
-        // rls only allows logged in user to view their own rows
         const { data: households } = await supabase
             .from('households')
             .select('*')
@@ -41,7 +37,7 @@ export async function POST(event) {
         const swBody = `
             Dear ${households.swname}<br>
             Your request has been rejected:<br>
-            <strong>Reason</strong> ${rejectMessage}<br>
+            <strong>Reason</strong> ${message}<br>
         `;
 
         await sendEmail({

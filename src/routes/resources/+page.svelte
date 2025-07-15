@@ -77,7 +77,7 @@ More than twenty years ago, Rich Stearns came face-to-face with that question as
         </div>
         <nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
             <ul>
-                <li><a href="/">🏠Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li class="is-active">
                     <a href="./" aria-current="page">Resources</a>
                 </li>

@@ -149,7 +149,7 @@
                     class="button is-fullwidth is-info mt-4"
                     type="submit"
                     disabled={!singaporeConfirmed}
-                    >Donate (Under Development)</button
+                    >Coming Soon</button
                 >
             </form>
         {:else}

@@ -1,5 +1,3 @@
-// Enhanced upload.js with privacy checking and optimizations
-
 // Privacy check using Google Gemini API
 async function checkPrivacyCompliance(file, description) {
   try {

@@ -266,7 +266,7 @@
                     searchPlaceholder: "Search",
                 },
                 ajax: function (data, callback, settings) {
-                    fetch(`/api/toapprove`, {
+                    fetch(`/api/to-approve`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: (() => {
