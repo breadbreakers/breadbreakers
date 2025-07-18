@@ -23,7 +23,7 @@ export async function load({ locals, url }) {
   if (partnerError || !partner) throw redirect(303, '/error/not-partner');
 
   // get number of rows in requests_manual
-  const { data: res, error } =  await locals.supabase.rpc('predict_next_request_id');
+  const { data: res } =  await locals.supabase.rpc('predict_next_request_id');
 
   const itemId = res[0].id
 

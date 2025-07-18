@@ -12,7 +12,7 @@ export const ses = new SESClient({
     },
 });
 
-export async function sendEmail({ to, from, subject, body, replyto, bcc, cc }) {
+export async function sendEmail({ to, subject, body, replyto, bcc, cc }) {
 
     const htmlBody = body.replace(/\n/g, '<br>');
 
@@ -43,8 +43,7 @@ export async function sendEmail({ to, from, subject, body, replyto, bcc, cc }) {
     const command = new SendEmailCommand(params);
     //console.log("Sending email with params:", params);
     try {
-      const result = await ses.send(command);
-      //console.log("Email sent successfully:", result);
+      await ses.send(command);
     } catch (error) {
       console.error("Error sending email:", error);
       throw error;

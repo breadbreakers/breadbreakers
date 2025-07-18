@@ -28,7 +28,7 @@ export const handle = async ({ event, resolve }) => {
   );
 
   event.locals.getUser = async () => {
-    const { data: { user }, error } = await event.locals.supabase.auth.getUser();
+    const { data: { user } } = await event.locals.supabase.auth.getUser();
     return user;
   };  
 
@@ -42,7 +42,7 @@ export const handle = async ({ event, resolve }) => {
       "script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://code.jquery.com https://cdn.datatables.net https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdn.datatables.net",
       "font-src 'self' data: https://fonts.gstatic.com",
-      "img-src 'self' data: https://cdn.shopify.com",
+      "img-src 'self'",
       "object-src 'self'",
       "frame-src 'self' https://www.google.com"
     ].join('; ')
