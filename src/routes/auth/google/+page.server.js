@@ -12,7 +12,7 @@ export async function load({ request, url, locals }) {
     callbackUrl.searchParams.set('redirectTo', redirectToParam); 
   }
 
-  const { data, error } = await supabase.auth.signInWithOAuth({
+  const { data } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
       redirectTo: callbackUrl.toString()

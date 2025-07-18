@@ -33,6 +33,7 @@
 		"@aws-sdk/client-ses": "^3.817.0",
 		"@supabase/ssr": "^0.6.1",
 		"@sveltejs/adapter-cloudflare": "^7.0.4",
+		"dompurify": "^3.2.6",
 		"qrcode": "^1.5.4",
 		"sgqr": "^0.8.2",
 		"stripe": "^18.2.1",

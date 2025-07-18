@@ -67,7 +67,7 @@ export async function POST(event) {
 
         // update entry in wip table back to ringfence_approved
         // rls only allows approvers to delete
-        const { data, error } = await supabase
+        await supabase
             .from('wip')
             .update({
                 status: 'ringfence_approved',

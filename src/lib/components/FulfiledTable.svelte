@@ -81,11 +81,11 @@
                     render: function (data, type, row, meta) {
                         return (
                             '<i class="demo-icon icon-attach">&#xe801;</i>' +
-                            '<a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+                            '<a class="link" rel="noopener" target="_blank" href="' +
                             row.delivery +
                             '">Proof of Delivery</a>' +
                             (row.receipt !== null
-                                ? '<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+                                ? '<i class="demo-icon icon-attach">&#xe801;</i><a class="link" rel="noopener" target="_blank" href="' +
                                   row.receipt +
                                   '">Receipt</a>'
                                 : " (Donated)")

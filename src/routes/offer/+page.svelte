@@ -60,7 +60,8 @@ Ref: ${data.requests.id}
       <i class="demo-icon icon-whatsapp">&#xF232;</i><a
         href={whatsApp}
         target="_blank"
-        class="pr-2 has-text-weight-normal has-text-black has-text-weight-bold"
+        rel="noopener"
+        class="link"
         >WhatsApp</a
       >
     </h2>

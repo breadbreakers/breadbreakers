@@ -14,7 +14,6 @@
   let selectedReceipt;
   let receiptUrl;
   let uploadProgress = { receipt: 0 };
-  let privacyCheckStatus = "";
 
   export let data;
 
@@ -38,8 +37,7 @@
         [selectedReceipt],
         ["receipt"],
         "expense",
-        updateProgress,
-        updatePrivacyCheck
+        updateProgress
       );
 
       receiptUrl = uploadResult.uploadResults[0].fileUrl || uploadResult.uploadResults[0];
@@ -84,10 +82,6 @@
       uploadProgress.receipt = percent;
     } 
     uploadProgress = { ...uploadProgress }; // Trigger reactivity
-  }
-
-  function updatePrivacyCheck(status) {
-    privacyCheckStatus = status;
   }
 
   function handleReceiptChange(event) {

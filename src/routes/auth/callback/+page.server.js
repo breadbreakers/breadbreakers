@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 
-export const load = async ({ url, parent, locals }) => {
+export const load = async ({ url, locals }) => {
   const code = url.searchParams.get('code');
   const rawRedirectTo = url.searchParams.get('redirectTo');
   let finalRedirect = '/'; // default redirect

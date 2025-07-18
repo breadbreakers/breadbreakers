@@ -15,7 +15,7 @@ export async function POST(event) {
         const supabase = createServerSupabaseClient(event);
 
         // create entry in expenses
-        const { data: expense } = await supabase
+        await supabase
             .from('expenses')
             .insert([
                 {

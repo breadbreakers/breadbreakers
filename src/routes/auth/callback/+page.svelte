@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
   import { clearDashboardCache } from '$lib/dashboardCache.js';
 
   export let data;

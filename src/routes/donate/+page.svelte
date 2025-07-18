@@ -4,7 +4,6 @@
     let amount = "";
     let recurring = false;
     let presetAmounts = [10, 25, 50, 100, 200];
-    let selectedAmount = null;
     let paymentType = "card"; // Default to card
     let totalAmount = 0;
     let operatingFundTarget = 1;
@@ -13,11 +12,10 @@
     export let data;
 
     function handlePreset(amountValue) {
-        selectedAmount = amountValue;
         amount = amountValue;
     }
 
-    function calculateTotal(amount, paymentType) {
+    function calculateTotal(amount) {
         amount = parseFloat(amount);
         if (isNaN(amount)) {
             totalAmount = 0;
@@ -77,7 +75,7 @@
                 </div>
 
                 <div class="field is-grouped">
-                    {#each presetAmounts as preset}
+                    {#each presetAmounts as preset (preset)}
                         <button
                             class="button is-info is-light is-fullwidth"
                             type="button"
@@ -226,6 +224,7 @@
                     <a
                         class="link"
                         target="_blank"
+                        rel="noopener"
                         href="https://mystorytreasury.com">My Story Treasury</a
                     >)
                 </li>

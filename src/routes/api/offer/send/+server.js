@@ -12,7 +12,7 @@ export async function POST(event) {
 
         const supabase = createServerSupabaseClient(event);
 
-        const { data: { user }, error } = await supabase.auth.getUser();
+        const { data: { user } } = await supabase.auth.getUser();
         const partnerEmail = user.email;
 
         const { data: existing } = await supabase

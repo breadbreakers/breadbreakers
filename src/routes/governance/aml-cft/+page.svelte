@@ -20,7 +20,7 @@
                 used as a vehicle for money laundering or terrorist financing activities. 
                 This policy is developed in accordance with Singapore's legal and regulatory 
                 requirements and follows guidance from the Commissioner of Charities' 
-                publication <a target="_blank" class="link" href="https://www.charities.gov.sg/PublishingImages/Resource-and-Training/Guides-Templates-Awards/Guides/Documents/Protecting%20your%20Charity%20against%20Money%20Laundering%20and%20Terrorist%20Financing%20-May%202015.pdf">Protecting Your Charity Against Money Laundering and Terrorist 
+                publication <a target="_blank" rel="noopener" class="link" href="https://www.charities.gov.sg/PublishingImages/Resource-and-Training/Guides-Templates-Awards/Guides/Documents/Protecting%20your%20Charity%20against%20Money%20Laundering%20and%20Terrorist%20Financing%20-May%202015.pdf">Protecting Your Charity Against Money Laundering and Terrorist 
                 Financing</a>.
             </p>
 
@@ -137,7 +137,7 @@
                 </li>
                 <li>
                     <strong>External Reporting</strong> Suspicious transaction reports will be 
-                    filed with the <a target="_blank" class="link" href="https://eservices1.police.gov.sg/phub/eservices/landingpage/stro-business">Suspicious Transaction Reporting Office</a> (STRO) as required by law.
+                    filed with the <a target="_blank" rel="noopener" class="link" href="https://eservices1.police.gov.sg/phub/eservices/landingpage/stro-business">Suspicious Transaction Reporting Office</a> (STRO) as required by law.
                 </li>
                 <li>
                     <strong>Documentation</strong> All reports and investigations are documented 

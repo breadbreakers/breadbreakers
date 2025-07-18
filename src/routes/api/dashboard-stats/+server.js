@@ -1,14 +1,13 @@
-// src/routes/api/dashboard-stats/+server.js
 import { json } from '@sveltejs/kit';
 
-export async function GET({ locals, setHeaders }) {
+export async function GET({ locals }) {
     const session = await locals.getUser();
     const loggedIn = !!session;
     
     let userEmail = null;
 
     if (loggedIn) {
-        const { data: { user }, error } = await locals.supabase.auth.getUser();
+        const { data: { user } } = await locals.supabase.auth.getUser();
         userEmail = user.email;
     }
 

@@ -38,7 +38,7 @@ export async function POST(event) {
         const partnerEmail = wip.partner;
 
         // update wip table that is approved
-        const { data, error } = await supabase
+        await supabase
             .from('wip')
             .update({ status: 'ringfence_approved' })
             .eq('id', itemId);

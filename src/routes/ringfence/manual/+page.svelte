@@ -20,7 +20,7 @@
   let itemCostUrl;
   let selectedFile = null;
   let itemCostFile = null;
-  let privacyCheckStatus = "";
+  let uploadProgress = {};
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -41,13 +41,12 @@
     }
 
     try {
-
       const uploadResult = await uploadFilesWithPrivacyCheck(
         [selectedFile, itemCostFile],
         ["ringfence_sw", "ringfence_cost"],
         itemId,
         updateProgress,
-        updatePrivacyCheck
+        `${itemTitle} - ${itemDesc}` 
       );
 
       swConfirmUrl = uploadResult.uploadResults[0].fileUrl;
@@ -83,10 +82,6 @@
     } finally {
       isLoading = false;
     }
-  }
-
-  function updatePrivacyCheck(status) {
-    privacyCheckStatus = status;
   }
 
   // Helper function to update individual file progress for the UI
@@ -125,7 +120,7 @@
     if (!allowedTypes.includes(file.type)) {
       alert("Only PNG, JPG, and PDF files are allowed.");
       event.target.value = "";
-      selecteitemCostFiledFile = null;
+      itemCostFile = null;
       return;
     }
     itemCostFile = file;

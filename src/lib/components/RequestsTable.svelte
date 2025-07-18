@@ -86,9 +86,9 @@
                 render: function (data, type, row) {
                     return `
                 <i class="demo-icon icon-mail">&#xe804;</i>
-                <a target="_blank" href="/offer?id=${row.id}" class="pr-2 has-text-weight-normal is-underlined has-text-black">Offer</a>
+                <a target="_blank" rel="noopener" href="/offer?id=${row.id}" class="link">Offer</a>
                 <i class="demo-icon icon-shop">&#xe805;</i>
-                <a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>
+                <a class="link" rel="noopener" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>
             `;
                 },
             });
@@ -169,7 +169,7 @@
     </table>
 
     <div class="stacked-bar">
-        {#each displayData as item, i}
+        {#each displayData as item, i (item.category)}
             <div
                 class="segment"
                 style="width: {item.percentage}%; background-color: {colors[
@@ -181,7 +181,7 @@
     </div>
 
     <div class="legend mt-4">
-        {#each displayData as item, i}
+        {#each displayData as item, i (item.category)}
             <div class="legend-item">
                 <div
                     class="legend-color"

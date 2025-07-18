@@ -1,17 +1,19 @@
 export async function load({ locals }) {
-    const session = await locals.getUser();
-    const loggedIn = !!session;
-    
-    let userName = "";
-    let userEmail = null;
+	const session = await locals.getUser();
+	const loggedIn = !!session;
 
-    if (loggedIn) {
-        const { data: { user }, error } = await locals.supabase.auth.getUser();
-        userEmail = user.email;
-        userName = userEmail.split("@")[0];
-    }
+	let userName = "";
+	let userEmail = null;
 
-    return {
-        userName
-    };
+	if (loggedIn) {
+		const {
+			data: { user }
+		} = await locals.supabase.auth.getUser();
+		userEmail = user.email;
+		userName = userEmail.split("@")[0];
+	}
+
+	return {
+		userName
+	};
 }

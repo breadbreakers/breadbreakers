@@ -23,7 +23,7 @@ export async function POST(event) {
 
         const supabase = createServerSupabaseClient(event);
 
-        const { data : db, error : dbError } = await supabase.rpc('get_dashboard_stats', {
+        const { data : db } = await supabase.rpc('get_dashboard_stats', {
             email: null
         });
 
@@ -68,7 +68,7 @@ export async function POST(event) {
         };
 
         // insert into wip table
-        const { data : wipInsert, error: wipError } = await supabase
+        await supabase
             .from('wip')
             .insert([
                 {
@@ -86,7 +86,7 @@ export async function POST(event) {
             ]);
 
         // insert into requests_manual table
-        const { data : reqInsert, error: reqError } = await supabase
+        await supabase
             .from('requests_manual')
             .insert([
                 {
@@ -143,7 +143,7 @@ export async function POST(event) {
 function generatePrivacyWarningsHtml(privacyAnalysis) {
     let warningsHtml = '';
 
-    privacyAnalysis.forEach((analysis, index) => {
+    privacyAnalysis.forEach((analysis) => {
         const fileType = analysis.type === 'ringfence_sw' ? 'Social Worker Confirmation' : 'Cost and Delivery';
         const fileName = analysis.file;
         const result = analysis.result;

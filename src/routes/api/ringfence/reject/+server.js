@@ -70,7 +70,7 @@ export async function POST(event) {
         });
 
         // === DELETE ENTRY FROM SUPABASE ===
-        const { data, error } = await supabase
+        await supabase
             .from('wip')
             .delete()
             .eq('id', itemId);

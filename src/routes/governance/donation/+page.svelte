@@ -16,7 +16,7 @@
             <h4 class="subtitle is-6 mt-5 has-text-weight-semibold">Secure Online Donation</h4>
             <ul>
                 <li>
-                    <strong>Payment Processing</strong> All online donations are processed exclusively through <a href="https://stripe.com/en-sg" class="link" target="_blank">Stripe</a>, a PCI DSS compliant payment gateway that ensures industry-standard security for all transactions.
+                    <strong>Payment Processing</strong> All online donations are processed exclusively through <a href="https://stripe.com/en-sg" class="link" target="_blank" rel="noopener">Stripe</a>, a PCI DSS compliant payment gateway that ensures industry-standard security for all transactions.
                 </li>
                 <li>
                     <strong>Accepted Methods</strong> We accept PayNow, major credit and debit cards via Stripe. To ensure traceability and comply with AML/CFT guidelines, we do not accept anonymous cash donations, cryptocurrency, or unverified third-party transfers.
@@ -82,12 +82,12 @@
 
             <h4 class="subtitle is-6 mt-5 has-text-weight-semibold">AML/CFT Policy</h4>
             <p>
-                We have implemented an Anti-Money Laundering and Countering the Financing of Terrorism (AML/CFT) policy. Our measures include donor verification, transaction monitoring, and a strict policy against anonymous donations. For more details, please see our <a target="_blank" class="link" href="/governance/aml-cft">full AML/CFT Policy</a>.
+                We have implemented an Anti-Money Laundering and Countering the Financing of Terrorism (AML/CFT) policy. Our measures include donor verification, transaction monitoring, and a strict policy against anonymous donations. For more details, please see our <a rel="noopener" target="_blank" class="link" href="/governance/aml-cft">full AML/CFT Policy</a>.
             </p>
 
             <h4 class="subtitle is-6 mt-5 has-text-weight-semibold">General Risk Disclosure</h4>
             <p>
-                While we take extensive measures to secure our platform, all online activities carry inherent or residual risks. We encourage donors to be vigilant. Please read our <a class="link" target="_blank" href="/governance/risk-disclosure">General Risk Disclosure Policy</a> for more information.
+                While we take extensive measures to secure our platform, all online activities carry inherent or residual risks. We encourage donors to be vigilant. Please read our <a class="link" target="_blank" rel="noopener" href="/governance/risk-disclosure">General Risk Disclosure Policy</a> for more information.
             </p>
 
             <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Donation Terms</h3>

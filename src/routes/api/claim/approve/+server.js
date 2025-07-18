@@ -40,7 +40,7 @@ export async function POST(event) {
         const partnerEmail = wip.partner;
 
         // create entry in items
-        const { data: moveItem } = await supabase
+        await supabase
             .from('items')
             .insert([
                 {
@@ -67,12 +67,12 @@ export async function POST(event) {
 
         // delete entry in wip table
         // rls only allows approvers to delete
-        const { data: wipDelete, error: errWipDelete } = await supabase
+        await supabase
             .from('wip')
             .delete()
             .eq('id', itemId);
 
-        const { data: reqDelete, error: errReqDelete } = await supabase
+        await supabase
             .from('requests_manual')
             .delete()
             .eq('id', itemId);

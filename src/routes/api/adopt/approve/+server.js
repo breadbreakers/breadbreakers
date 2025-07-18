@@ -3,16 +3,9 @@ import { createServerSupabaseClient } from '$lib/supabase';
 
 export async function POST(event) {
     const { request } = event;
-    let message = "Nil";
     
     try {
-        const { itemId, approveMessage } = await request.json();
-
-        if (!approveMessage) {
-            message = "Nil";
-        } else {
-            message = approveMessage;
-        }
+        const { itemId } = await request.json();
 
         if (!itemId)
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
@@ -30,7 +23,7 @@ export async function POST(event) {
         }
 
         // update households table that is approved
-        const { data, error } = await supabase
+        await supabase
             .from('households')
             .update({ status: 'open' })
             .eq('id', itemId);

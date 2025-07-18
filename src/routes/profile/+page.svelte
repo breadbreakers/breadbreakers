@@ -132,7 +132,7 @@
                                     });
                             }, 0);
                             if (row.status === "ringfence_approved") {
-                                buttons += `<i class="demo-icon icon-basket-1">&#xe803;</i><a target="_blank" class="has-text-weight-normal has-text-black" href="${env.PUBLIC_SITE_URL}/claim?id=${row.id}">Claim</a>`;
+                                buttons += `<i class="demo-icon icon-basket-1">&#xe803;</i><a target="_blank" rel="noopener" class="link" href="${env.PUBLIC_SITE_URL}/claim?id=${row.id}">Claim</a>`;
                             }
                             return buttons;
                         },
@@ -154,7 +154,7 @@
                             let mobileN = false;
                             mobileN = String(data).match(pattern);
                             if (mobileN) {
-                                return `<a class="link" target="_blank" href="https://wa.me/65${mobileN}"><i class="demo-icon icon-whatsapp">&#xF232;</i>WhatsApp</a> ${data}`;
+                                return `<a class="link" target="_blank" rel="noopener" href="https://wa.me/65${mobileN}"><i class="demo-icon icon-whatsapp">&#xF232;</i>WhatsApp</a> ${data}`;
                             } else {
                                 return data;
                             }
@@ -218,7 +218,7 @@
                         className: "dt-left",
                         render: function (data, type, row, meta) {
                             if (row.link) {
-                                return `<a class="link" target="_blank" href="${row.link}">${row.link}</a> `;
+                                return `<a class="link" rel="noopener" target="_blank" href="${row.link}">${row.link}</a> `;
                             } else {
                                 return "NA";
                             }
@@ -367,6 +367,7 @@
                     <i class="demo-icon icon-shop">&#xe805;</i><a
                         target="_blank"
                         class="link"
+                        rel="noopener"
                         href="/ringfence/manual">Manual Ringfence</a
                     >
                 </p>
@@ -429,6 +430,7 @@
                             <i class="demo-icon icon-attach">&#xe801;</i><a
                                 target="_blank"
                                 class="link"
+                                rel="noopener"
                                 href="/Partner Guide.pdf">Guide for Partners</a
                             >
                         </p>
@@ -436,6 +438,7 @@
                             <i class="demo-icon icon-attach">&#xe801;</i><a
                                 target="_blank"
                                 class="link"
+                                rel="noopener"
                                 href="/CSA_SGCyberSafe_Employees-Toolkit_2022.pdf"
                                 >Cybersecurity Toolkit</a
                             >

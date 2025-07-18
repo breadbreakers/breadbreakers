@@ -33,7 +33,7 @@ Here is the description of the requested item:
 
 export const POST = async ({ request }) => {
   try {
-    const { fileData, fileName, mimeType, description } = await request.json();
+    const { fileData, mimeType, description } = await request.json();
 
     if (!GEMINI_API_KEY) {
       console.warn('GEMINI_API_KEY not configured, skipping privacy check');
@@ -103,7 +103,7 @@ export const POST = async ({ request }) => {
         warnings: text
       });
       
-    } catch (parseError) {
+    } catch {
      
       return json({
         warnings: 'AI analysis failed - manual review recommended'

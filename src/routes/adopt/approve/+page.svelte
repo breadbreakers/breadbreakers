@@ -5,7 +5,6 @@
   let isLoading = false;
   let success = false;
   let error;
-  let approveMessage;
 
   export let data;
   const item = data.item;
@@ -28,8 +27,7 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          itemId,
-          approveMessage,
+          itemId
         }),
       });
 
@@ -77,18 +75,6 @@
         <div class="field">
           <div class="control">
             <input class="input" type="hidden" bind:value={itemId} required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="approveMessage" class="label">Remarks</label>
-          <div class="control">
-            <textarea
-              class="textarea"
-              id="approveMessage"
-              disabled={isLoading}
-              bind:value={approveMessage}
-            ></textarea>
           </div>
         </div>
 

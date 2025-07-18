@@ -11,7 +11,6 @@ async function checkPrivacyCompliance(file, description) {
       },
       body: JSON.stringify({
         fileData: base64Data,
-        fileName: file.name,
         mimeType: file.type,
         description
       })
@@ -46,13 +45,11 @@ function fileToBase64(file) {
 
 // Optimized retry mechanism with better error handling
 async function retryUpload(uploadFn, maxRetries = 3, baseDelay = 1000) {
-  let lastError;
   
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       return await uploadFn();
     } catch (error) {
-      lastError = error;
       
       // Don't retry on client errors (4xx)
       if (error.message.includes('HTTP 4')) {
@@ -160,9 +157,8 @@ async function processFile(file, maxWidth = 1200, quality = 0.8, maxSize = 2 * 1
 }
 
 // Batch upload with privacy checks and parallel processing
-export async function uploadFilesWithPrivacyCheck(files, types, id, onProgress = null, onPrivacyCheck = null, description) {
+export async function uploadFilesWithPrivacyCheck(files, types, id, onProgress = null, description) {
   // Step 1: Check all files for privacy compliance first
-  if (onPrivacyCheck) onPrivacyCheck('Checking files for sensitive data...');
   
   const privacyChecks = files.map(async (file, index) => {
     const result = await checkPrivacyCompliance(file, description);
@@ -172,7 +168,6 @@ export async function uploadFilesWithPrivacyCheck(files, types, id, onProgress =
   const privacyResults = await Promise.all(privacyChecks);
   
   // Step 2: Process and upload files in parallel (don't block on privacy violations)
-  if (onPrivacyCheck) onPrivacyCheck('Uploading files...');
   
   const uploads = files.map(async (file, index) => {
     const type = types[index];
@@ -201,7 +196,7 @@ export async function uploadFilesWithPrivacyCheck(files, types, id, onProgress =
             try {
               const response = JSON.parse(xhr.responseText);
               resolve(response.url || response.path || response);
-            } catch (e) {
+            } catch {
               resolve(xhr.responseText);
             }
           } else {

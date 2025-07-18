@@ -42,11 +42,8 @@ export async function load({ locals, url }) {
     throw redirect(303, '/error/not-recurring');
   }
 
-  // get sw
-  let swEmail = households.swemail;
-
   // set to 'paired'
-  const { data, error } = await locals.supabase
+  await locals.supabase
     .from('households')
     .update({ status: 'paired' })
     .eq('id', itemId);

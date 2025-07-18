@@ -48,7 +48,7 @@ export async function POST(event) {
         });
 
         // delete from households table
-        const { data: householdDelete, error: errHouseholdDelete } = await supabase
+        await supabase
             .from('households')
             .delete()
             .eq('id', itemId);

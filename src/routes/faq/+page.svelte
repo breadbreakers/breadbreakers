@@ -1,14 +1,30 @@
 <script>
     import BackToTop from "$lib/components/BackToTop.svelte";
     import { faqData } from "./faqData.js";
+    import { onMount } from 'svelte';
 
+    let sanitizedFaqData = [];
     let activeIndex = null;
+
+    async function sanitizeClientOnly() {
+        const DOMPurify = (await import('dompurify')).default;
+
+        sanitizedFaqData = faqData.map(item => ({
+            ...item,
+            question: DOMPurify.sanitize(item.question),
+            answer: DOMPurify.sanitize(item.answer)
+        }));
+    }
+
+    onMount(() => {
+        sanitizeClientOnly();
+    });
 
     function toggleAccordion(index) {
         activeIndex = activeIndex === index ? null : index;
     }
 
-    const categories = [...new Set(faqData.map(item => item.category))];
+    $: categories = [...new Set(sanitizedFaqData.map(item => item.category))];
 </script>
 
 <svelte:head>
@@ -21,19 +37,21 @@
 
         <div class="accordion">
             <div class="content">
-                {#each categories as category}
+                {#each categories as category (category)}
                     <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                         {category}
                     </h3>
-                    {#each faqData.filter(item => item.category === category) as faq, index}
-                        <div class="accordion-item" class:is-active={activeIndex === faqData.indexOf(faq)}>
+                    {#each sanitizedFaqData.filter(item => item.category === category) as faq (faq)}
+                        <div class="accordion-item" class:is-active={activeIndex === sanitizedFaqData.indexOf(faq)}>
                             <button
                                 type="button"
                                 class="accordion-header"
-                                on:click={() => toggleAccordion(faqData.indexOf(faq))}
+                                on:click={() => toggleAccordion(sanitizedFaqData.indexOf(faq))}
                             >
                                 <h3 class="is-size-6 has-text-weight-normal">
-                                    {#if activeIndex === faqData.indexOf(faq)}👇🏻{/if}{activeIndex !== faqData.indexOf(faq) ? '👉🏻' : ''} {@html faq.question}
+                                    {#if activeIndex === sanitizedFaqData.indexOf(faq)}👇🏻{/if}
+                                    {#if activeIndex !== sanitizedFaqData.indexOf(faq)}👉🏻{/if}
+                                    {@html faq.question}
                                 </h3>
                             </button>
                             <div class="accordion-content">
@@ -44,14 +62,14 @@
                 {/each}
             </div>
         </div>
+
         <nav class="breadcrumb has-arrow-separator is-centered pt-6" aria-label="breadcrumbs">
             <ul>
                 <li><a href="/">Home</a></li>
-                <li class="is-active">
-                    <a href="./" aria-current="page">FAQ</a>
-                </li>
+                <li class="is-active"><a href="./" aria-current="page">FAQ</a></li>
             </ul>
         </nav>
+
         <BackToTop />
     </div>
 </section>

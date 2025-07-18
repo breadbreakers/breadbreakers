@@ -26,7 +26,7 @@ export async function load({ locals, url }) {
   const itemId = url.searchParams.get('id');
 
   // check if item is in wip not ringfence_requested, ringfence_approved, or claim_requested
-  const { data: wip, error: wipError } = await locals.supabase
+  const { data: wip } = await locals.supabase
     .from('wip')
     .select('*')
     .eq('id', itemId)

@@ -3,7 +3,6 @@ import { env } from '$env/dynamic/private';
 import { error, json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseService } from '$lib/supabase';
-import { encrypt } from '$lib/crypto';
 import { getSgTime } from '$lib/sgtime';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
@@ -68,7 +67,7 @@ export async function POST(event) {
         console.log('💸 Stripe fee:', stripeFee);
 
         // insert expense for fees
-        const { data: feeExpense, error: feeError } = await supabase
+        await supabase
           .from('expenses')
           .insert([
             {
@@ -81,7 +80,7 @@ export async function POST(event) {
           ]);
 
         // Insert donation record
-        const { data: expense, error: insertError } = await supabase
+        await supabase
           .from('incoming')
           .insert([
             {

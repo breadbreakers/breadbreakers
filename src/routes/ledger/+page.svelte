@@ -84,9 +84,6 @@
 
 	const downloadStatement = () => {
 		if (!selectedYear || !selectedMonth) return;
-		const monthIndex =
-			getAvailableMonths(selectedYear).indexOf(selectedMonth) + 1;
-		const monthPadded = String(monthIndex).padStart(2, "0");
 		const url = `/${selectedYear}/${selectedMonth}.pdf`;
 
 		fetch(url)
@@ -208,11 +205,11 @@
 							return (
 								data +
 								'<br><i class="demo-icon icon-attach">&#xe801;</i>' +
-								'<a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+								'<a class="link" rel="noopener" target="_blank" href="' +
 								row.link +
 								'">Proof of Delivery</a>' +
 								(row.receipt !== null
-									? '<br><i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+									? '<i class="demo-icon icon-attach">&#xe801;</i><a class="link" rel="noopener" target="_blank" href="' +
 										row.receipt +
 										'">Receipt</a>'
 									: " (Donated item)")
@@ -220,7 +217,7 @@
 						} else {
 							if (row.receipt !== null) {
 								return (
-									'<i class="demo-icon icon-attach">&#xe801;</i><a class="has-text-weight-normal is-underlined has-text-black" target="_blank" href="' +
+									'<i class="demo-icon icon-attach">&#xe801;</i><a class="link" rel="noopener" target="_blank" href="' +
 									row.receipt +
 									'">Receipt</a>'
 								);
@@ -234,7 +231,7 @@
 							if (String(row.id).substring(0, 4) === "http") {
 								// donation from stripe
 								return (
-									'<i class="demo-icon icon-attach">&#xe801;</i><a target="_blank" class="has-text-weight-normal is-underlined has-text-black" href="' +
+									'<i class="demo-icon icon-attach">&#xe801;</i><a target="_blank" rel="noopener" class="link" href="' +
 									row.id +
 									'">Receipt</a>'
 								);
@@ -357,7 +354,7 @@
 					<select bind:value={selectedYear}>
 						{#each Array(currentYear - MIN_YEAR + 1)
 							.fill()
-							.map((_, i) => MIN_YEAR + i) as year}
+							.map((_, i) => MIN_YEAR + i) as year (year)}
 							<option value={year}>{year}</option>
 						{/each}
 					</select>
@@ -368,7 +365,7 @@
 					<select bind:value={selectedMonth} disabled={!selectedYear}>
 						<option value="">Select Month</option>
 						{#if selectedYear}
-							{#each getAvailableMonths(selectedYear) as month}
+							{#each getAvailableMonths(selectedYear) as month (month)}
 								<option value={month}>{month}</option>
 							{/each}
 						{/if}

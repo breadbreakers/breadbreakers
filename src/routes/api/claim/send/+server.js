@@ -1,7 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
 import { env } from '$env/dynamic/private';
-import { Readable } from 'stream';
 import { createServerSupabaseClient } from '$lib/supabase';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 import { PUBLIC_SITE_URL } from "$env/static/public";
@@ -22,7 +21,7 @@ const r2 = new S3Client({
 function generatePrivacyWarningsHtml(privacyAnalysis) {
     let warningsHtml = '';
 
-    privacyAnalysis.forEach((analysis, index) => {
+    privacyAnalysis.forEach((analysis) => {
         const fileType = analysis.type === 'claim_receipt' ? 'Receipt' : 'Proof of Delivery';
         const fileName = analysis.file;
         const result = analysis.result;
@@ -97,13 +96,10 @@ export const POST = async (event) => {
             .png()
             .toBuffer();
 
-        const stream = Readable.from(resizedBuffer);
-
         // === UPLOAD TO CLOUDFLARE R2 ===
         const now = new Date();
         const year = now.getFullYear().toString();
         const monthNum = String(now.getMonth() + 1).padStart(2, '0');
-        const monthName = now.toLocaleString('default', { month: 'long' });
         const monthFolderName = `${monthNum}`;
         const fileKey = `${year}/${monthFolderName}/${itemId}/paynow_${Date.now()}.png`;
 

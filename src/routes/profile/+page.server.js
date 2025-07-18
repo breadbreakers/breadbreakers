@@ -1,8 +1,8 @@
-export async function load({ locals, url }) {
+export async function load({ locals }) {
 
     const session = await locals.getUser();
 
-    const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
+    const { data: { user } } = await locals.supabase.auth.getUser();
 
     const loggedIn = session ? true : false;
 
@@ -11,9 +11,9 @@ export async function load({ locals, url }) {
 
     // check if is partner
     if (loggedIn) {
-        const { data: { user }, error: userError } = await locals.supabase.auth.getUser();
+        const { data: { user } } = await locals.supabase.auth.getUser();
 
-        const { data: partner, error: partnerError } = await locals.supabase
+        const { data: partner } = await locals.supabase
             .from('partners')
             .select('email')
             .eq('email', user.email)
@@ -23,7 +23,7 @@ export async function load({ locals, url }) {
             isPartner = true
         }
 
-        const { data: approver, error: approverError } = await locals.supabase
+        const { data: approver } = await locals.supabase
             .from('approvers')
             .select('email')
             .eq('email', user.email)

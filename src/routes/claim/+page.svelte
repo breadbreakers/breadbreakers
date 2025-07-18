@@ -16,8 +16,6 @@
   let uploadProgress = { receipt: 0, delivery: 0 };
   let currentStep = "";
   let privacyCheckStatus = "";
-  let showPrivacyWarnings = false;
-  let privacyWarnings = [];
 
   export let data;
   const item = data.item;
@@ -61,8 +59,6 @@
     isLoading = true;
     error = "";
     success = false;
-    privacyWarnings = [];
-    showPrivacyWarnings = false;
     uploadProgress = { receipt: 0, delivery: 0 };
     privacyCheckStatus = "";
 
@@ -173,9 +169,6 @@
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   }
-
-  // Get overall progress percentage
-  $: overallProgress = Math.round((uploadProgress.receipt + uploadProgress.delivery) / 2);
 </script>
 
 <svelte:head>
