@@ -4,6 +4,7 @@
 
 <div class="content">
     <p class="is-size-7 has-text-centered">
+
         Bread Breakers (SG)
         <span class="pl-1">
             <img
@@ -12,9 +13,9 @@
                 loading="lazy"
                 srcset="/sg.svg"
             />
-        </span>
-        <br />
-        Copyright © {year}
+        </span><br>
+        Copyright © {year}<br>
+        <a class="link" href="/governance/privacy-policy">Privacy Policy</a><br>
         <!--<br />UEN-->
     </p>
 </div>
