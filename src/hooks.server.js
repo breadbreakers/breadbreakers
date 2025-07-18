@@ -39,7 +39,7 @@ export const handle = async ({ event, resolve }) => {
     'Content-Security-Policy',
     [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://code.jquery.com https://cdn.datatables.net",
+      "script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://code.jquery.com https://cdn.datatables.net https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdn.datatables.net",
       "font-src 'self' data: https://fonts.gstatic.com",
       "img-src 'self' data: https://cdn.shopify.com",
