@@ -1,61 +1,54 @@
-import { json } from '@sveltejs/kit';
-import { sendEmail } from '$lib/email.js';
-import { createServerSupabaseClient } from '$lib/supabase';
-import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
+import { json } from "@sveltejs/kit";
+import { sendEmail } from "$lib/email.js";
+import { createServerSupabaseClient } from "$lib/supabase";
+import { BREADBREAKERS_EMAIL } from "$lib/strings.js";
 
 export async function POST(event) {
-    const { request } = event;
-    let message = "Nil";
-    
-    try {
-        const { itemId, approveMessage } = await request.json();
+	const { request } = event;
+	let message = "Nil";
 
-        if (!approveMessage) {
-            message = "Nil";
-        } else {
-            message = approveMessage;
-        }
+	try {
+		const { itemId, approveMessage } = await request.json();
 
-        if (!itemId)
-            return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
+		if (!approveMessage) {
+			message = "Nil";
+		} else {
+			message = approveMessage;
+		}
 
-        const supabase = createServerSupabaseClient(event);
+		if (!itemId)
+			return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
 
-        // no need to check if it's approver, because rls only allows approvers to delete from wip
+		const supabase = createServerSupabaseClient(event);
 
-        // check if item is in ringfence_requested state
-        // rls only allows logged in user to view their own rows
-        const { data: wip } = await supabase
-            .from('wip')
-            .select('*')
-            .eq('id', itemId)
-            .single();
+		// no need to check if it's approver, because rls only allows approvers to delete from wip
 
-        if (wip.status !== "ringfence_requested") {
-            return json({ message: 'Item has not requested for ringfence.' }, { status: 200 });
-        }
+		// check if item is in ringfence_requested state
+		// rls only allows logged in user to view their own rows
+		const { data: wip } = await supabase.from("wip").select("*").eq("id", itemId).single();
 
-        const partnerEmail = wip.partner;
+		if (wip.status !== "ringfence_requested") {
+			return json({ message: "Item has not requested for ringfence." }, { status: 200 });
+		}
 
-        // update wip table that is approved
-        await supabase
-            .from('wip')
-            .update({ status: 'ringfence_approved' })
-            .eq('id', itemId);
+		const partnerEmail = wip.partner;
 
-        // send email to partner that ringfence is approved
-        const partnerBody = `<p>Your Ringfence Request has been approved for ${wip.title}.</p><p>Remarks: ${message}</p><p>Next steps:<br>- Purchase and arrange for delivery from any of the <a href="https://breadbreakers.sg/governance/procurement">authorised retailers</a>.<br>- Retain the receipt and ensure it is billed to your name.<br>- Once the item is delievered, obtain proof of delivery from the social worker through email or WhatsApp.<br>- Request for reimbursement using the receipt and proof of delivery <a href="https://breadbreakers.sg/claim?id=${wip.id}">using this link</a>.`
+		// update wip table that is approved
+		await supabase.from("wip").update({ status: "ringfence_approved" }).eq("id", itemId);
 
-        await sendEmail({
-            to: partnerEmail, 
-            subject: `Ringfence Approved for ${wip.title} (${itemId})`,
-            body: partnerBody,
-            bcc: BREADBREAKERS_EMAIL // for audit trail 
-        });
+		// send email to partner that ringfence is approved
+		const partnerBody = `<p>Your Ringfence Request has been approved for ${wip.title}.</p><p>Remarks: ${message}</p><p>Next steps:<br>- Purchase and arrange for delivery of the requested item.</a>.<br>- Retain the receipt/invoice and ensure the beneficiaries delivery address is stated.<br>- Once the item is delievered, obtain proof of delivery from the social worker through email or WhatsApp.<br>- Request for reimbursement using the receipt and proof of delivery <a href="https://breadbreakers.sg/claim?id=${wip.id}">using this link</a>.`;
 
-        return json({ message: 'Ringfence Approved' }, { status: 200 });
-    } catch (error) {
-        console.error('Error sending email:', error);
-        return json({ error: error.message }, { status: 500 });
-    }
+		await sendEmail({
+			to: partnerEmail,
+			subject: `Ringfence Approved for ${wip.title} (${itemId})`,
+			body: partnerBody,
+			bcc: BREADBREAKERS_EMAIL // for audit trail
+		});
+
+		return json({ message: "Ringfence Approved" }, { status: 200 });
+	} catch (error) {
+		console.error("Error sending email:", error);
+		return json({ error: error.message }, { status: 500 });
+	}
 }

@@ -113,7 +113,7 @@ export async function POST(event) {
             <strong>Description:</strong> ${itemData.description}<br>
             <strong>Contact:</strong> ${itemData.contact_clean}<br>
             <strong>Amount to ringfence inclusive of cost delivery:</strong> $${cost}<br>
-            <strong>To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>Is the purchase from an <a href="https://breadbreakers.sg/governance/procurement">authorised retailer</a>? If not, is it explicitly requested from the Social Worker?<br>
+            <strong>To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>
             <a href="${itemCostUrl}"><strong>Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?<br>Is the delivery fee reasonable?<br>
             <a href="${swConfirmUrl}"><strong>Social worker confirmation</strong></a><br>Did the social worker provide the necessary contact information?<br>Did the screenshot specify the item?<br>
             ${privacyWarningsHtml}

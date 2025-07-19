@@ -10,7 +10,7 @@ export async function POST({ request }) {
 	const fund = data.get('fund');
 
 	let sessionParams = {
-		payment_method_types: (recurring? ['card'] : ['paynow', 'card']),
+		payment_method_types: (recurring? ['card'] : ['paynow']),
 		...(recurring ? { billing_address_collection: 'required' } : {}),
 		line_items: [{
 			price_data: {
