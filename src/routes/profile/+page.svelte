@@ -110,7 +110,7 @@
                         title: "Actions",
                         className: "dt-left",
                         render: function (data, type, row, meta) {
-                            let buttons = `<i class="demo-icon icon-trash-empty">&#xe802;</i><button class="pr-2 has-text-weight-normal has-text-black cancel-button" data-id="${row.id}">Cancel</button>`;
+                            let buttons = `<i class="demo-icon icon-trash-empty">&#xe802;</i><a class="pr-2 link cancel-button" data-id="${row.id}">Cancel</a>`;
 
                             setTimeout(() => {
                                 document
