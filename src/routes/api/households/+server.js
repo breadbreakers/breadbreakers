@@ -9,7 +9,7 @@ function getSortInfo(reqData) {
         const orderObj = reqData.order[0];
         const colIndex = orderObj.column;
         sortDir = orderObj.dir === 'desc' ? 'desc' : 'asc';
-        if (reqData.columns && reqData.columns[colIndex]) {
+        if (reqData.columns?.[colIndex]) {
             const candidate = reqData.columns[colIndex].data;
             if (allowedColumns.includes(candidate)) {
                 sortColumn = candidate;

@@ -4,7 +4,7 @@ export async function load({ locals }) {
 
     const { data: { user } } = await locals.supabase.auth.getUser();
 
-    const loggedIn = session ? true : false;
+    const loggedIn = !!session;
 
     let isPartner = false;
     let isApprover = false;

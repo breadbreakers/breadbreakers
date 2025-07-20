@@ -6,6 +6,4 @@ export async function load({ locals }) {
   if (!session) throw redirect(303, '/');
   
   await locals.supabase.auth.signOut();
-
-  return;
 }

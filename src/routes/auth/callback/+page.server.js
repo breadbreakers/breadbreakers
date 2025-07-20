@@ -4,18 +4,18 @@ function getFinalRedirect(rawRedirectTo) {
 	if (!rawRedirectTo) return "/";
 
 	try {
-		let redirectTarget = rawRedirectTo;
+		let decoded;
 
 		if (rawRedirectTo.includes("/profile?redirectTo=")) {
-			redirectTarget = decodeURIComponent(
+			decoded = decodeURIComponent(
 				decodeURIComponent(rawRedirectTo.split("/profile?redirectTo=")[1])
 			);
 		} else {
-			redirectTarget = decodeURIComponent(rawRedirectTo);
+			decoded = decodeURIComponent(rawRedirectTo);
 		}
 
 		// Validate relative path
-		return /^\/(?!\/)/.test(redirectTarget) ? redirectTarget : "/";
+		return /^\/(?!\/)/.test(decoded) ? decoded : "/";
 	} catch (e) {
 		console.error("Error decoding redirectTo:", e);
 		return "/";
