@@ -129,7 +129,6 @@ div.dtr-modal div.dtr-modal-display {
   overflow: auto;
   margin: auto;
   z-index: 102;
-  overflow: auto;
   background-color: #f5f5f7;
   border: 1px solid black;
   border-radius: 0.5em;
@@ -194,8 +193,7 @@ html[data-bs-theme=dark] div.dtr-modal div.dtr-modal-display {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-table.dataTable.dtr-inline.collapsed > tbody > tr.dtr-expanded > td.dtr-control:before,
 table.dataTable.dtr-inline.collapsed > tbody > tr.dtr-expanded > th.dtr-control:before {
-  content: "👇🏻"; /* Down finger when expanded */
-  border: none; /* Just in case borders are still being applied */
+  content: "👇🏻";
+  border: none;
 }

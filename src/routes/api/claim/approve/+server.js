@@ -6,7 +6,7 @@ import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 
 export async function POST(event) {
     const { request } = event;
-    let message = "Nil";
+    const message = approveMessage || "Nil";
     try {
 
         const { itemId, approveMessage } = await request.json();

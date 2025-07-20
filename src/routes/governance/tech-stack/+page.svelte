@@ -45,7 +45,7 @@
                             >
                             <td><span class="tag is-success">AWS</span></td>
                             <td
-                                ><span class="tag is-success">Google Cloud</span
+                                ><span class="tag is-success">Cloudflare</span
                                 ></td
                             >
                         </tr>
@@ -61,7 +61,7 @@
                                 ></td
                             >
                             <td
-                                ><span class="tag is-success">Google Drive</span
+                                ><span class="tag is-success">Cloudflare</span
                                 ></td
                             >
                         </tr>
@@ -75,7 +75,7 @@
                             <td><span class="tag is-success">AWS SES</span></td>
                             <td
                                 ><span class="tag is-success"
-                                    >Google Drive API</span
+                                    >R2</span
                                 ></td
                             >
                         </tr>
@@ -107,7 +107,7 @@
                         <tr>
                             <td>Access & Identity</td>
                             <td
-                                ><span class="tag is-warning">GitHub SSO</span
+                                ><span class="tag is-success">GitHub SSO</span
                                 ></td
                             >
                             <td
@@ -116,7 +116,7 @@
                             >
                             <td><span class="tag is-warning">AWS IAM</span></td>
                             <td
-                                ><span class="tag is-warning">Google SSO</span
+                                ><span class="tag is-success">Google SSO</span
                                 ></td
                             >
                         </tr>
@@ -132,12 +132,12 @@
                                 ></td
                             >
                             <td><span class="tag is-success">AWS</span></td>
-                            <td><span class="tag is-success">Google</span></td>
+                            <td><span class="tag is-success">Cloudflare</span></td>
                         </tr>
                         <tr>
                             <td>CI / CD</td>
                             <td
-                                ><span class="tag is-link"
+                                ><span class="tag is-warning"
                                     >GitHub → Netlify</span
                                 ></td
                             >

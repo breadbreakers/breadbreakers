@@ -55,8 +55,6 @@ export async function POST({ request, locals }) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     }
 
-    //console.log('Pagination:', { start, length, draw: reqData.draw });
-
     return new Response(JSON.stringify({
         draw: reqData.draw,
         data,

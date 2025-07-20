@@ -6,11 +6,11 @@ const stripe = new Stripe(STRIPE_SECRET_KEY);
 export async function POST({ request }) {
 	const data = await request.formData();
 	const amount = Math.round(Number(data.get('amount')) * 100);
-	const recurring = data.get('recurring') === 'true';
+	const recurring = data.get('recurring') === 'false';
 	const fund = data.get('fund');
 
 	let sessionParams = {
-		payment_method_types: (recurring? ['card'] : ['paynow']),
+		payment_method_types: (recurring? ['card'] : ['paynow', 'card']),
 		...(recurring ? { billing_address_collection: 'required' } : {}),
 		line_items: [{
 			price_data: {

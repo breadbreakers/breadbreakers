@@ -22,7 +22,7 @@ export async function POST({ request, locals }) {
         const orderObj = reqData.order[0];
         const colIdx = orderObj.column;
         sortDir = orderObj.dir === 'desc' ? 'desc' : 'asc';
-        if (reqData.columns && reqData.columns[colIdx]) {
+        if (reqData.columns?.[colIdx]) {
             const candidate = reqData.columns[colIdx].data;
             if (allowedColumns.includes(candidate)) {
                 sortColumn = candidate;

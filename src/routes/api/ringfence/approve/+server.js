@@ -5,16 +5,11 @@ import { BREADBREAKERS_EMAIL } from "$lib/strings.js";
 
 export async function POST(event) {
 	const { request } = event;
-	let message = "Nil";
 
 	try {
 		const { itemId, approveMessage } = await request.json();
 
-		if (!approveMessage) {
-			message = "Nil";
-		} else {
-			message = approveMessage;
-		}
+		const message = approveMessage || "Nil";
 
 		if (!itemId)
 			return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
