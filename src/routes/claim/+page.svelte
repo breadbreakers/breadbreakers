@@ -186,7 +186,7 @@
 
     {#if success}
       <div class="mt-4 notification is-success">
-        <strong>✅ Claim Submitted Successfully!</strong>
+        <strong>Claim Submitted Successfully!</strong>
         <br />Your claim has been sent for approval. You'll receive an email confirmation shortly.
       </div>
     {:else if error}
@@ -223,7 +223,7 @@
           </label>
           <div class="content">
             <p class="has-text-danger">
-              <strong>⚠️ Important:</strong> Please ensure all personal information is redacted:
+              <strong>⚠️ Important:</strong> Please ensure your receipt shows PayNow as the payment mode, and all personal information is redacted:
             </p>
             <ul>
               <li>Names (except business names)</li>
