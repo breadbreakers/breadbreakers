@@ -38,6 +38,7 @@ export const handle = async ({ event, resolve }) => {
   response.headers.set(
     'Content-Security-Policy',
     [
+      "connect-src 'self' https://www.google.com",
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://code.jquery.com https://cdn.datatables.net https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdn.datatables.net",
