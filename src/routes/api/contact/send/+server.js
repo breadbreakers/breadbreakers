@@ -35,13 +35,17 @@ export async function POST({ request, cookies }) {
       return json({ success: false, error: 'reCAPTCHA verification failed' }, { status: 400 });
     }
 
-    // ✅ Send the email
-    await sendEmail({
-      to: BREADBREAKERS_EMAIL,
-      subject: `Contact Form Submission from ${name}`,
-      replyto: email,
-      body: message
-    });
+    try {
+  // ✅ Send the email
+  await sendEmail({
+    to: BREADBREAKERS_EMAIL,
+    subject: `Contact Form Submission from ${name}`,
+    replyto: email,
+    body: message
+  });
+} catch (error) {
+  console.error("Failed to send email:", error);
+}
 
     return json({ success: true });
 

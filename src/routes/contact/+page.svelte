@@ -24,8 +24,6 @@
       { action: "submit" },
     );
 
-    console.log("Generated reCAPTCHA token:", recaptchaToken);
-
     const response = await fetch("/api/contact/send", {
       method: "POST",
       headers: {
