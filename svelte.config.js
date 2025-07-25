@@ -1,7 +1,13 @@
-import adapter from '@sveltejs/adapter-netlify';
+import adapter from "@sveltejs/adapter-cloudflare";
 
-export default {
-  kit: {
-    adapter: adapter()
-  }
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+	kit: {
+		adapter: adapter(),
+		paths: {
+			base: ''
+		}
+	}
 };
+
+export default config;

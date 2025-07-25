@@ -5,7 +5,6 @@ import { createServerSupabaseClient } from '$lib/supabase';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 import { PUBLIC_SITE_URL } from "$env/static/public";
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import sharp from 'sharp';
 import * as sgqr from 'sgqr';
 
 const r2 = new S3Client({
@@ -78,25 +77,18 @@ export const POST = async (event) => {
             return json({ error: 'You are not the approved partner who ringfenced this item.' }, { status: 409 });
         }
 
-        // === Generate and Resize PayNow QR ===
+        // === Generate PayNow QR and Upload to R2 ===
         const payload = await sgqr.generate_code({
             number: `+65${paynow}`,
             amount: cost.toString(),
             type: 'image/png',
             comments: itemId,
+            scale: 20
         });
 
         const inputBuffer = Buffer.from(payload);
-        const metadata = await sharp(inputBuffer).metadata();
-        const resizedBuffer = await sharp(inputBuffer)
-            .resize({
-                width: Math.round(metadata.width * 0.05),
-                withoutEnlargement: true,
-            })
-            .png()
-            .toBuffer();
 
-        // === UPLOAD TO CLOUDFLARE R2 ===
+        // === Upload directly to Cloudflare R2 ===
         const now = new Date();
         const year = now.getFullYear().toString();
         const monthNum = String(now.getMonth() + 1).padStart(2, '0');
@@ -106,7 +98,7 @@ export const POST = async (event) => {
         await r2.send(new PutObjectCommand({
             Bucket: env.R2_BUCKET,
             Key: fileKey,
-            Body: resizedBuffer,
+            Body: inputBuffer,
             ContentType: 'image/png',
         }));
 

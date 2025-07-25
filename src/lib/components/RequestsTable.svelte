@@ -88,7 +88,7 @@
                 <i class="demo-icon icon-mail">&#xe804;</i>
                 <a target="_blank" rel="noopener" href="/offer?id=${row.id}" class="link">Offer</a>
                 <i class="demo-icon icon-shop">&#xe805;</i>
-                <a class="link" rel="noopener" target="_blank" href="${env.PUBLIC_SITE_URL}/ringfence?id=${row.id}">Ringfence</a>
+                <a class="link" rel="noopener" target="_blank" href="/ringfence?id=${row.id}">Ringfence</a>
             `;
                 },
             });
