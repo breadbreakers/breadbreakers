@@ -35,7 +35,7 @@ export async function load({ locals, url }) {
   if (wipError || !wip) throw redirect(303, '/error/not-wip');
   
   if (wip.status !== "ringfence_requested") {
-    throw redirect(303, '/error/ringfence-not-requested');
+    throw redirect(303, '/error/not-ringfence-requested');
   }
 
   // get the item details based on the get param
