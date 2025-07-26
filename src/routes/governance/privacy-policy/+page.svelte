@@ -19,11 +19,11 @@
 
 			<h3 class="subtitle is-5 mt-5 has-text-weight-bold">Breach Notification</h3>
 			<p>
-				Any data breach, whether suspected or confirmed, will be immediately reported to the DPO. If
+				Any data breach, whether suspected or confirmed, will be immediately reported to the President. If
 				there is significant risk, we will <a
 					class="link"
-					href="https://www.pdpc.gov.sg/report-data-breach/self-assessment">notify the PDPC</a
-				> and affected individuals as required.
+					href="https://www.pdpc.gov.sg/report-data-breach/self-assessment">perform a self-assessment</a
+				>, notify the PDPC and affected individuals as required.
 			</p>
 
 			<h3 class="subtitle is-5 mt-5 has-text-weight-bold">Disclosure of Personal Data</h3>
@@ -53,9 +53,11 @@
 				We use Google’s Gemini AI models solely to verify the accuracy of user submissions and to
 				detect any inclusion of personal data. All data is processed in accordance with Google’s
 				enterprise-level privacy and data protection policies. No information is shared with Google
-				for training or improving their AI models, and we do not store any personal data. All inputs
+				for training or improving their AI models. All inputs
 				are handled confidentially and used only for these limited, clearly defined purposes.
 			</p>
+
+			<p class="pt-5">Also see our <a href="https://breadbreakers.sg/governance/data-governance" class="link">Data Management Policy</a>.</p>
 		</div>
 		<nav class="breadcrumb has-arrow-separator is-centered pt-5" aria-label="breadcrumbs">
 			<ul>

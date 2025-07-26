@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import { createServerSupabaseClient } from '$lib/supabase';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 import { sendEmail } from '$lib/email.js';
-import { PUBLIC_SITE_URL } from "$env/static/public";
+import { env } from '$env/dynamic/private';
 
 export async function POST(event) {
     const { request } = event;
@@ -76,8 +76,8 @@ Thank you!
             <strong>Over a period of</strong> ${period}<br>
             <strong>Link to purchase</strong> ${link}<br>
             <strong>Remarks</strong> ${remarks}<br>
-            <p><a href="${PUBLIC_SITE_URL}/adopt/approve?id=${householdInsert.id}" style="color: white; background: green; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin-right: 10px; display: inline-block;">Approve Recurring Request</a></p>
-            <p><a href="${PUBLIC_SITE_URL}/adopt/reject?id=${householdInsert.id}" style="color: white; background: red; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">Reject Recurring Request</a></p>
+            <p><a href="${env.PUBLIC_SITE_URL}/adopt/approve?id=${householdInsert.id}" style="color: white; background: green; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin-right: 10px; display: inline-block;">Approve Recurring Request</a></p>
+            <p><a href="${env.PUBLIC_SITE_URL}/adopt/reject?id=${householdInsert.id}" style="color: white; background: red; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">Reject Recurring Request</a></p>
         `;
 
         await sendEmail({

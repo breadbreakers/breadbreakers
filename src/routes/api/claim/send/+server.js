@@ -3,7 +3,6 @@ import { sendEmail } from '$lib/email.js';
 import { env } from '$env/dynamic/private';
 import { createServerSupabaseClient } from '$lib/supabase';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
-import { PUBLIC_SITE_URL } from "$env/static/public";
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { Buffer } from "node:buffer";
 import * as sgqr from 'sgqr';
@@ -151,8 +150,8 @@ export const POST = async (event) => {
             
             <img src="${paynowQRImage}" alt="PayNow QR Code" style="width:200px;height:200px;" /><br>
             
-            <p><a href="${PUBLIC_SITE_URL}/claim/approve?id=${wip.id}" style="color: white; background: green; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin-right: 10px; display: inline-block;">Approve Claim</a></p>
-            <p><a href="${PUBLIC_SITE_URL}/claim/reject?id=${wip.id}" style="color: white; background: red; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">Reject Claim</a></p>
+            <p><a href="${env.SITE_URL}/claim/approve?id=${wip.id}" style="color: white; background: green; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin-right: 10px; display: inline-block;">Approve Claim</a></p>
+            <p><a href="${env.SITE_URL}/claim/reject?id=${wip.id}" style="color: white; background: red; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">Reject Claim</a></p>
         `;
 
         await sendEmail({

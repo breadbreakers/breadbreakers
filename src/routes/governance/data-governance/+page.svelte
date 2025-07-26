@@ -37,17 +37,6 @@
                 and internal policies.
             </p>
 
-            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Safeguards</h3>
-            <ul>
-                <li>Maintain data inventory</li>
-                <li>Define categories and data owners</li>
-                <li>Track purposes, sensitivity, location</li>
-                <li>Encrypt personal data at rest</li>
-                <li>Log access and changes where possible</li>
-                <li>Align data and asset inventories</li>
-                <li>Enforce data retention rules</li>
-            </ul>
-
             <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
                 Roles and Responsibilities
             </h3>
@@ -61,7 +50,7 @@
                     data in their duties
                 </li>
                 <li>
-                    <strong>IT Administrator:</strong> President or delegate — responsible
+                    <strong>Data Custodian:</strong> President / President appointed member  — responsible
                     for storage, access control
                 </li>
             </ul>
@@ -86,7 +75,7 @@
                     <tbody>
                         <tr>
                             <td>Beneficiary</td>
-                            <td>Delivery Address</td>
+                            <td>Delivery Address (other contact information is only requested on a need-to basis)</td>
                             <td>Logistics coordination and delivery</td>
                             <td>Until delivery completion</td>
                             <td>Assigned Partners only</td>
@@ -98,24 +87,24 @@
                             <td>Email</td>
                             <td>Receipts, donation follow-up</td>
                             <td>5 years</td>
-                            <td>President</td>
+                            <td>Data Custodian</td>
 
                             <td>Database</td>
                         </tr>
                         <tr>
-                            <td>Partner</td>
+                            <td>Partner/Volunteer</td>
                             <td>Name, Contact Number</td>
                             <td>Notifications, payment handling</td>
-                            <td>Until volunteer termination</td>
-                            <td>President</td>
-                            <td>Internal Admin Spreadsheet + Database</td>
+                            <td>Until notice of termination</td>
+                            <td>Data Custodian</td>
+                            <td>Database</td>
                         </tr>
                         <tr>
                             <td>Member</td>
                             <td>Name, Address, Contact Info</td>
                             <td>Regulatory compliance</td>
                             <td>Until membership ends</td>
-                            <td>President</td>
+                            <td>Data Custodian</td>
                             <td>Internal Admin Spreadsheet</td>
                         </tr>
                         <tr>
@@ -123,7 +112,7 @@
                             <td>Procurement, delivery data</td>
                             <td>Proof of aid</td>
                             <td>5 years</td>
-                            <td>President</td>
+                            <td>Data Custodian</td>
                             <td>Database</td>
                         </tr>
                     </tbody>

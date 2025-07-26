@@ -3,7 +3,7 @@ import { sendEmail } from '$lib/email.js';
 import { createServerSupabaseClient } from '$lib/supabase';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
 import { getSgTime } from '$lib/sgtime'
-import { PUBLIC_SITE_URL } from "$env/static/public";
+import { env } from '$env/dynamic/private';
 
 export async function POST(event) {
     const { request } = event;
@@ -118,10 +118,10 @@ export async function POST(event) {
             <a href="${swConfirmUrl}"><strong>Social worker confirmation</strong></a><br>Did the social worker provide the necessary contact information?<br>Did the screenshot specify the item?<br>
             ${privacyWarningsHtml}
             <p>
-                <a href="${PUBLIC_SITE_URL}/ringfence/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve Ringfence</a>
+                <a href="${env.SITE_URL}/ringfence/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve Ringfence</a>
             </p>
             <p>
-                <a href="${PUBLIC_SITE_URL}/ringfence/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject Ringfence</a>
+                <a href="${env.SITE_URL}/ringfence/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject Ringfence</a>
             </p>
             `;
 
