@@ -1,4 +1,7 @@
 import { env } from '$env/dynamic/private';
+import { Buffer } from "node:buffer";
+
+globalThis.Buffer = Buffer;
 
 function base64ToBytes(base64) {
 	const binary = atob(base64);

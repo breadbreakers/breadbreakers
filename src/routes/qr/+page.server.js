@@ -1,7 +1,10 @@
 /*import { env } from '$env/dynamic/private';
 import * as sgqr from 'sgqr';
 import sharp from 'sharp';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';*/
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { Buffer } from "node:buffer";
+globalThis.Buffer = Buffer;
+*/
 
 // === CONFIGURATION ===
 /*const BUCKET_NAME = env.R2_BUCKET;

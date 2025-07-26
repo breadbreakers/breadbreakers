@@ -1,5 +1,7 @@
 import { env } from '$env/dynamic/private';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { Buffer } from "node:buffer";
+globalThis.Buffer = Buffer;
 
 // === CONFIGURATION ===
 const BUCKET_NAME = env.R2_BUCKET;
