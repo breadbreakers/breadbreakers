@@ -2,7 +2,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import { page, navigating } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
-	import { onDestroy } from 'svelte';
+	import { onDestroy, onMount } from 'svelte'; // Import onMount
 	import { goto } from '$app/navigation';
 	import { env } from '$env/dynamic/public';
 	import { browser } from '$app/environment';
@@ -11,16 +11,30 @@
 
 	$: userName = data.userName;
 
+	let isMobile = false; // New reactive variable
+
 	if (browser) {
+		const mediaQuery = window.matchMedia('(max-width: 1023px)');
+
+		const handleMediaQueryChange = (event) => {
+			isMobile = event.matches;
+		};
+
+		onMount(() => {
+			isMobile = mediaQuery.matches; // Set initial value
+			mediaQuery.addEventListener('change', handleMediaQueryChange);
+		});
+
+		onDestroy(() => {
+			mediaQuery.removeEventListener('change', handleMediaQueryChange);
+			const badge = document.querySelector('.grecaptcha-badge');
+			if (badge) badge.remove();
+		});
+
 		afterNavigate(() => {
 			const badge = document.querySelector('.grecaptcha-badge');
 			if (badge) badge.remove();
 			isMenuActive = false;
-		});
-
-		onDestroy(() => {
-			const badge = document.querySelector('.grecaptcha-badge');
-			if (badge) badge.remove();
 		});
 	}
 
@@ -53,8 +67,7 @@
 	<div class="container">
 		<nav class="navbar" aria-label="main navigation">
 			<div class="navbar-end">
-				{#if isNavigating}
-					<i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+				{#if isNavigating && isMobile} <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
 				{:else}
 					<button
 						type="button"
@@ -120,7 +133,7 @@
 						class:is-loading={isNavigating && clickedPath === '/resources'}
 						on:click|preventDefault={() => closeMenu('/resources')}>Resources</a
 					>
-					<a
+						<a
 						class="navbar-item"
 						href="/donate"
 						class:is-active={isActive('/donate')}
@@ -372,6 +385,7 @@
 		justify-content: flex-end;
 		align-items: center; 
 	}
+	
 	.navbar-end i.demo-icon {
 		font-size: 15px; 
 		margin-left: auto;
@@ -381,6 +395,4 @@
 		vertical-align: middle;
 		color: #000; 
 	}
-
-	
 </style>
