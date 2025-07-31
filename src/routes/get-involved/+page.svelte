@@ -40,7 +40,7 @@
             </p>
             <div class="columns">
                 <div class="column">
-                    <strong>1. Procurement & Delivery</strong>
+                    <strong class="is-underlined">1. Procurement & Delivery</strong>
                     <p class="mt-4">Take charge of fulfilling
                     item requests by purchasing and delivering them to beneficiaries
                     on our behalf. Lend a hand whenever you have time.</p>
@@ -54,7 +54,7 @@
             <p class="flowchart-info">🔎 Enlarge</p>
                 </div>
                 <div class="column">
-                    <strong>2. Adopt a Household (Coming Soon)</strong>
+                    <strong class="is-underlined">2. Adopt a Household (Coming Soon)</strong>
                     <p class="mt-4">Commit to supporting
                     recurring needs for a household (e.g. diapers) over an fixed period of time.
                     This arrangement is coordinated in agreement with a supporting

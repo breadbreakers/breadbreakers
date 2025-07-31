@@ -66,14 +66,14 @@
       </div>
     {/if}
     {#if !success}
-      <h3 class="mt-4"><strong>Social Worker Name</strong> {item.swname}</h3>
-      <h3 class="mt-4"><strong>Social Worker Email</strong> {item.swemail}</h3>
-      <h3 class="mt-4"><strong>Type</strong> {item.type}</h3>
-      <h3 class="mt-4"><strong>Quantity</strong> {item.qty}</h3>
-      <h3 class="mt-4"><strong>Frequency</strong> {item.frequency}</h3>
-      <h3 class="mt-4"><strong>Over a period of</strong> {item.period}</h3>
-      <h3 class="mt-4"><strong>Link to purchase</strong> {item.link}</h3>
-      <h3 class="mt-4"><strong>Remarks</strong> {item.remarks}</h3>
+      <h3 class="mt-4"><strong class="is-underlined">Social Worker Name</strong> {item.swname}</h3>
+      <h3 class="mt-4"><strong class="is-underlined">Social Worker Email</strong> {item.swemail}</h3>
+      <h3 class="mt-4"><strong class="is-underlined">Type</strong> {item.type}</h3>
+      <h3 class="mt-4"><strong class="is-underlined">Quantity</strong> {item.qty}</h3>
+      <h3 class="mt-4"><strong class="is-underlined">Frequency</strong> {item.frequency}</h3>
+      <h3 class="mt-4"><strong class="is-underlined">Over a period of</strong> {item.period}</h3>
+      <h3 class="mt-4"><strong class="is-underlined">Link to purchase</strong> {item.link}</h3>
+      <h3 class="mt-4"><strong class="is-underlined">Remarks</strong> {item.remarks}</h3>
 
       <form class="box mt-4" on:submit={handleSubmit}>
         <div class="field">

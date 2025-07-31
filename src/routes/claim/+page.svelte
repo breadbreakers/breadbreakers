@@ -186,7 +186,7 @@
 
     {#if success}
       <div class="mt-4 notification is-success">
-        <strong>Claim Submitted Successfully!</strong>
+        <strong class="is-underlined">Claim Submitted Successfully!</strong>
         <br />Your claim has been sent for approval. You'll receive an email confirmation shortly.
       </div>
     {:else if error}
@@ -223,7 +223,7 @@
           </label>
           <div class="content">
             <p class="has-text-danger">
-              <strong>⚠️ Important:</strong> Please ensure your receipt shows PayNow as the payment mode, and all personal information is redacted:
+              <strong class="is-underlined">⚠️ Important:</strong> Please ensure your receipt shows PayNow as the payment mode, and all personal information is redacted:
             </p>
             <ul>
               <li>Names (except business names)</li>
@@ -262,7 +262,7 @@
           </label>
           <div class="content">
             <p class="has-text-danger">
-              <strong>⚠️ Important:</strong> Please redact all personal information from delivery confirmations.
+              <strong class="is-underlined">⚠️ Important:</strong> Please redact all personal information from delivery confirmations.
             </p>
             <p class="has-text-black">
               This document will be published publicly on our website.
@@ -308,7 +308,7 @@
         {#if isLoading}
           <div class="box has-background-light">
             <div class="mb-3">
-              <strong>Progress:</strong> {currentStep}
+              <strong class="is-underlined">Progress:</strong> {currentStep}
             </div>
             
             {#if privacyCheckStatus}

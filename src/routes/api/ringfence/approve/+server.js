@@ -32,7 +32,7 @@ export async function POST(event) {
 		await supabase.from("wip").update({ status: "ringfence_approved" }).eq("id", itemId);
 
 		// send email to partner that ringfence is approved
-		const partnerBody = `<p>Your Ringfence Request has been approved for ${wip.title}.</p><p>Remarks: ${message}</p><p>Next steps:<br>- Purchase and arrange for delivery of the requested item <strong>using PayNow</strong>. Non-PayNow purchases cannot be re-imbursed.</a>.<br>- Retain the receipt/invoice and ensure the beneficiaries delivery address is stated.<br>- Once the item is delievered, obtain proof of delivery from the social worker through email or WhatsApp.<br>- Request for reimbursement using the receipt and proof of delivery <a href="https://breadbreakers.sg/claim?id=${wip.id}">using this link</a>.`;
+		const partnerBody = `<p>Your Ringfence Request has been approved for ${wip.title}.</p><p>Remarks: ${message}</p><p>Next steps:<br>- Purchase and arrange for delivery of the requested item <strong class="is-underlined">using PayNow</strong>. Non-PayNow purchases cannot be re-imbursed.</a>.<br>- Retain the receipt/invoice and ensure the beneficiaries delivery address is stated.<br>- Once the item is delievered, obtain proof of delivery from the social worker through email or WhatsApp.<br>- Request for reimbursement using the receipt and proof of delivery <a href="https://breadbreakers.sg/claim?id=${wip.id}">using this link</a>.`;
 
 		await sendEmail({
 			to: partnerEmail,

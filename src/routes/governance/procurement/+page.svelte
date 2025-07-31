@@ -31,8 +31,7 @@
 			</p>
 
 			<p>
-				No physical (in-store) purchases are allowed. This restriction helps mitigate the submission
-				of fraudulent receipts and ensures traceability to individuals and beneficaries requesting
+				No physical (in-store) purchases are allowed. This restriction ensures traceability to individuals and beneficaries requesting
 				for claims.
 			</p>
 
@@ -62,9 +61,9 @@
 
 			<p>
 				Proof of purchase must be submitted in the form of a screenshot or PDF copy of the email
-				receipt and must contain the billed name and address.
+				receipt and must contain the billed name and address of the beneficiary.
 			</p>
-			<p>All receipts will be stored securely by Bread Breakers (SG) for audit purposes.</p>
+			<p>Partners are required to keep a copy of the original invoice/receipt.</p>
 
 			<h3 class="subtitle is-5 mt-5 has-text-weight-bold">Segregation of Duties</h3>
 

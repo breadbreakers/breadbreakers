@@ -132,7 +132,7 @@
 			},
 			columnDefs: [
 				{
-					targets: 0, // date column
+					targets: 0,
 					createdCell: function (td) {
 						globalThis.$(td).css("white-space", "nowrap");
 						const $span = globalThis.$(td).find("span");
@@ -156,23 +156,7 @@
 					data: "description",
 					title: "Description",
 					render: function (data, type, row, meta) {
-						return data;
-					},
-				},
-				{
-					data: "amount",
-					title: "Amount",
-					className: "dt-right",
-					render: function (data, type, row) {
-						let amount = parseFloat(data);
-						let formatted = "$" + (amount / 100).toFixed(2);
-						let colorClass =
-							amount < 0
-								? "has-text-danger"
-								: amount > 0
-									? "has-text-success"
-									: "has-text-black";
-						return `<span class="${colorClass}">${formatted}</span>`;
+						return `<span>${data}</span>`;
 					},
 				},
 				{
@@ -197,6 +181,22 @@
 						return data;
 					},
 				},
+				{
+					data: "amount",
+					title: "Amount",
+					className: "dt-right",
+					render: function (data, type, row) {
+						let amount = parseFloat(data);
+						let formatted = "$" + (amount / 100).toFixed(2);
+						let colorClass =
+							amount < 0
+								? "has-text-danger"
+								: amount > 0
+									? "has-text-success"
+									: "has-text-black";
+						return `<span class="${colorClass}">${formatted}</span>`;
+					},
+				},				
 				{
 					data: "contact",
 					title: "Reference",
@@ -334,8 +334,8 @@
 				<tr>
 					<th>Fulfilled</th>
 					<th>Description</th>
-					<th>Amount</th>
 					<th class="none">ID</th>
+					<th>Amount</th>					
 					<th class="none">Reference</th>
 				</tr>
 			</thead>

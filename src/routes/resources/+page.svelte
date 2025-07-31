@@ -19,7 +19,7 @@
                     </p>
                 </div>
                 <div class="column">
-                    <p><strong>This is What Inequality Looks Like</strong></p>
+                    <p><strong class="is-underlined">This is What Inequality Looks Like</strong></p>
                     <p>
                         What is poverty? What is inequality? How are they
                         connected? How are they reproduced? How might they be
@@ -58,7 +58,7 @@
                     </p>
                 </div>
                 <div class="column">
-                    <p><strong>The Hole in our Gospel</strong></p>
+                    <p><strong class="is-underlined">The Hole in our Gospel</strong></p>
                     <p>
                         Is our faith only about going to church, studying the Bible, and avoiding the most serious sins? Or does God expect more? Have we embraced the whole gospel or a gospel with a hole in it?
 More than twenty years ago, Rich Stearns came face-to-face with that question as he sat in a mud hut in Rakai, Uganda, listening to the heartbreaking story of an orphaned child. Stearns’s journey took much more than a long flight to Africa. It took answering God’s call on his life, a call that tore him out of his corner office at one of America’s most prestigious corporations, to walk with the poorest of the poor in our world.

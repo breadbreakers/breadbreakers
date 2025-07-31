@@ -68,10 +68,12 @@ export async function POST(event) {
             .delete()
             .eq('id', itemId);
 
-        await supabase
-            .from('requests_manual')
-            .delete()
-            .eq('id', itemId);
+        if (itemId.substring(0,2) === "BB") {
+            await supabase
+                .from('requests_manual')
+                .delete()
+                .eq('id', itemId);
+        }
 
         return json({ message: 'Claim Approved' }, { status: 200 });
     } catch (error) {

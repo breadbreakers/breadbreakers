@@ -39,7 +39,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>President</strong></td>
+                            <td><strong class="is-underlined">President</strong></td>
                             <td
                                 >Chair AGM (within 6 months after financial year
                                 close) or EGM as required</td
@@ -78,7 +78,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Secretary</strong></td>
+                            <td><strong class="is-underlined">Secretary</strong></td>
                             <td>Send AGM notice (at least 2 weeks prior)</td>
                             <td>
                                 <ul>
@@ -110,7 +110,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Treasurer</strong></td>
+                            <td><strong class="is-underlined">Treasurer</strong></td>
                             <td
                                 >Provide any necessary clarifications during the
                                 AGM</td
@@ -138,7 +138,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Honorary Auditors</strong></td>
+                            <td><strong class="is-underlined">Honorary Auditors</strong></td>
                             <td
                                 >Audit and present previous financial year's
                                 accounts at AGM</td

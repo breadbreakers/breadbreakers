@@ -205,7 +205,7 @@
 				<div class="field">
 					<label for="itemCost" class="label">
 						Screenshot showing total cost, inclusive of delivery (PNG, JPG, PDF).
-						<strong>Redact all name, address and mobile numbers.</strong>
+						<strong class="is-underlined">Redact all name, address and mobile numbers.</strong>
 					</label>
 					{#if itemCostFile}
 						<p class="is-size-7 has-text-grey mb-2">

@@ -17,7 +17,7 @@
                         Our Vision
                     </h3>
                     <p>
-                        To see faith transformed into compassionate action, such
+                        To see Christian faith transformed into compassionate action, such
                         that no one lacks essential material support.
                     </p>
                 </div>

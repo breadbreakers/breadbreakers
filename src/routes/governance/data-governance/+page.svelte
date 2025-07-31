@@ -42,15 +42,15 @@
             </h3>
             <ul>
                 <li>
-                    <strong>Data Protection Officer:</strong> President — ensures
+                    <strong class="is-underlined">Data Protection Officer:</strong> President — ensures
                     compliance and handles requests
                 </li>
                 <li>
-                    <strong>Data Stewards:</strong> Partners and volunteers — manage
+                    <strong class="is-underlined">Data Stewards:</strong> Partners and volunteers — manage
                     data in their duties
                 </li>
                 <li>
-                    <strong>Data Custodian:</strong> President / President appointed member  — responsible
+                    <strong class="is-underlined">Data Custodian:</strong> President / President appointed member  — responsible
                     for storage, access control
                 </li>
             </ul>

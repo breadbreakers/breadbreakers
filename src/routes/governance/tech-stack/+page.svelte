@@ -166,39 +166,39 @@
             </h3>
             <ul>
                 <li>
-                    <strong>Web Hosting</strong> – Netlify free-tier deployment with
+                    <strong class="is-underlined">Web Hosting</strong> – Netlify free-tier deployment with
                     GitHub integration
                 </li>
                 <li>
-                    <strong>DNS & CDN</strong> – Cloudflare DNS with DDoS protection
+                    <strong class="is-underlined">DNS & CDN</strong> – Cloudflare DNS with DDoS protection
                     and WAF rules
                 </li>
                 <li>
-                    <strong>Source Control</strong> – GitHub repository with automated
+                    <strong class="is-underlined">Source Control</strong> – GitHub repository with automated
                     builds
                 </li>
                 <li>
-                    <strong>Database</strong> – Self-managed Supabase (PostgreSQL)
+                    <strong class="is-underlined">Database</strong> – Self-managed Supabase (PostgreSQL)
                     on Oracle Cloud
                 </li>
                 <li>
-                    <strong>Database Security</strong> – Row-level security, audit
+                    <strong class="is-underlined">Database Security</strong> – Row-level security, audit
                     logging, OAuth2 proxy for admin access
                 </li>
                 <li>
-                    <strong>Email Services</strong> – AWS SES for outbound, Lambda
+                    <strong class="is-underlined">Email Services</strong> – AWS SES for outbound, Lambda
                     functions for inbound processing
                 </li>
                 <li>
-                    <strong>File Storage</strong> – Google Drive API integration
+                    <strong class="is-underlined">File Storage</strong> – Google Drive API integration
                     for document storage
                 </li>
                 <li>
-                    <strong>Infrastructure Security</strong> – CIS-hardened VM, regular
+                    <strong class="is-underlined">Infrastructure Security</strong> – CIS-hardened VM, regular
                     patching, MFA on all cloud accounts
                 </li>
                 <li>
-                    <strong>SSL/TLS</strong> – Automated certificate management via
+                    <strong class="is-underlined">SSL/TLS</strong> – Automated certificate management via
                     Caddy reverse proxy
                 </li>
             </ul>
@@ -208,13 +208,13 @@
             </h3>
             <div class="content">
                 <p>
-                    <strong>Frontend</strong> SvelteKit static site deployed on Netlify,
+                    <strong class="is-underlined">Frontend</strong> SvelteKit static site deployed on Netlify,
                     with domain managed through Cloudflare DNS. Cloudflare provides DDoS protection and WAF security
                     rules.
                 </p>
 
                 <p>
-                    <strong>Backend</strong> Self-managed Supabase instance running
+                    <strong class="is-underlined">Backend</strong> Self-managed Supabase instance running
                     PostgreSQL in Docker on Oracle Cloud. Database
                     endpoints secured with reverse proxy for automatic HTTPS,
                     OAuth2 proxy for admin access, and row-level security for data
@@ -222,20 +222,20 @@
                 </p>
 
                 <p>
-                    <strong>Email</strong> AWS SES handles outbound emails, with
+                    <strong class="is-underlined">Email</strong> AWS SES handles outbound emails, with
                     inbound processing via Lambda functions. Messages temporarily
                     stored in S3 with daily lifecycle cleanup, routed through SNS
                     topics.
                 </p>
 
                 <p>
-                    <strong>Storage</strong> Document uploads stored via Google Drive
+                    <strong class="is-underlined">Storage</strong> Document uploads stored via Google Drive
                     API integration. All transactional emails BCC'd to Bread Breakers (SG) for audit trail (except approval emails for
                     proper segregation of duties).
                 </p>
 
                 <p>
-                    <strong>Security</strong> Multi-factor authentication required
+                    <strong class="is-underlined">Security</strong> Multi-factor authentication required
                     for all cloud provider access. VM regularly patched and CIS-hardened.
                     Database logging enabled for all changes. Access controls implemented
                     at multiple layers.

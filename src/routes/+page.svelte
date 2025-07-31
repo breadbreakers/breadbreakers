@@ -60,6 +60,7 @@
 	}
 
 	function showTable(event, table) {
+		if (isLoading) return;
 		event.preventDefault();
 		event.stopPropagation();
 		activeTable = activeTable === table ? null : table;

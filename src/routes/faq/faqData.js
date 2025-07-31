@@ -6,7 +6,7 @@ export const faqData = [
             <p>Low-income individuals and families face a myriad of challenges:</p>
             <ul>
                 <li>
-                    <strong>Housing Conditions</strong> Many live in
+                    <strong class="is-underlined">Housing Conditions</strong> Many live in
                     small HDB rental flats, which are typically 1-room
                     (around 35 sq m) or 2-room (around 45 sq m). These
                     flats often suffer from high density, leading to
@@ -17,7 +17,7 @@ export const faqData = [
                     children, especially teenagers.
                 </li>
                 <li>
-                    <strong>Housing Insecurity</strong> Despite the HDB's
+                    <strong class="is-underlined">Housing Insecurity</strong> Despite the HDB's
                     intention not to evict, residents often feel a deep
                     sense of insecurity due to past experiences of homelessness
                     or constant renewals of tenancy and arrears letters,
@@ -25,7 +25,7 @@ export const faqData = [
                     homeless if something happens to them.
                 </li>
                 <li>
-                    <strong>Economic Strain and Consumerism</strong>
+                    <strong class="is-underlined">Economic Strain and Consumerism</strong>
                     Families often run out of money for food and make
                     choices to eat fewer meals so their children can
                     eat more. Living in a highly consumerist society,
@@ -34,7 +34,7 @@ export const faqData = [
                     desires, leading to frustration and guilt.
                 </li>
                 <li>
-                    <strong>Low-Wage Work Challenges</strong> Many work
+                    <strong class="is-underlined">Low-Wage Work Challenges</strong> Many work
                     in the service sector (cleaners, cashiers, delivery
                     personnel) where they may be ignored, invisible,
                     or treated with disrespect. Their jobs often involve
@@ -44,7 +44,7 @@ export const faqData = [
                     Fear and anxiety about asking for time off are common.
                 </li>
                 <li>
-                    <strong>Childcare and Education Gaps</strong> Parents
+                    <strong class="is-underlined">Childcare and Education Gaps</strong> Parents
                     struggle to secure stable employment due to childcare
                     challenges. While government-linked childcare is
                     accessible, conditions for full subsidies can be
@@ -56,7 +56,7 @@ export const faqData = [
                     lead to low self-esteem and resistance to school.
                 </li>
                 <li>
-                    <strong>Dignity and Stigma</strong> Low-income persons
+                    <strong class="is-underlined">Dignity and Stigma</strong> Low-income persons
                     frequently experience micro instances of rudeness
                     and disrespect in daily life. Seeking public assistance
                     is often stigmatizing, involving intrusive personal
@@ -66,7 +66,7 @@ export const faqData = [
                     help they need.
                 </li>
                 <li>
-                    <strong>Lack of Youth Protection</strong> Older children
+                    <strong class="is-underlined">Lack of Youth Protection</strong> Older children
                     often spend long hours away from home due to limited
                     private space and find it more pleasant to be out
                     with friends. Low-income parents have limited influence
@@ -165,13 +165,13 @@ export const faqData = [
             ensure our work is impactful and reliable:
             <ul>
                 <li>
-                    <strong>Faith-Driven</strong> Our work is rooted
+                    <strong class="is-underlined">Faith-Driven</strong> Our work is rooted
                     in the teachings of Jesus Christ, exemplifying love
                     in action and serving the poor and marginalized as
                     a spiritual calling centered on individual dignity.
                 </li>
                 <li>
-                    <strong>Radical Transparency</strong> We believe
+                    <strong class="is-underlined">Radical Transparency</strong> We believe
                     in building trust through openness. Our finances
                     and operations, including monthly bank statements,
                     procurement records, and delivery reports, are fully
@@ -180,7 +180,7 @@ export const faqData = [
                     to integrity.
                 </li>
                 <li>
-                    <strong>Robust Governance</strong> We combine compassion
+                    <strong class="is-underlined">Robust Governance</strong> We combine compassion
                     with sound governance. Our volunteer-led structure
                     has clear roles, policies, and automated oversight
                     mechanisms to ensure ethical and effective operations,
@@ -188,7 +188,7 @@ export const faqData = [
                     hand.
                 </li>
                 <li>
-                    <strong>Direct Impact</strong> Every contribution
+                    <strong class="is-underlined">Direct Impact</strong> Every contribution
                     goes towards verified, urgent needs, delivered quickly
                     and with minimal overhead. By focusing on direct
                     provision and leveraging existing relationships with
@@ -196,14 +196,14 @@ export const faqData = [
                     of each donation on the ground.
                 </li>
                 <li>
-                    <strong>Support for Frontline Workers</strong> We
+                    <strong class="is-underlined">Support for Frontline Workers</strong> We
                     aim to be a reliable and efficient channel for procuring
                     specific items, directly supporting social workers
                     and freeing up their time to focus on casework and
                     relationship-building with their clients.
                 </li>
                 <li>
-                    <strong>Cultivating Community Empathy</strong> We
+                    <strong class="is-underlined">Cultivating Community Empathy</strong> We
                     create opportunities for families, especially those
                     with young children, to connect meaningfully with
                     diverse realities in society. Through acts of giving,
