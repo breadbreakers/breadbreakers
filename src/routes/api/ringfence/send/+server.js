@@ -2,7 +2,7 @@ import { json } from "@sveltejs/kit";
 import { sendEmail } from "$lib/email.js";
 import { createServerSupabaseClient } from "$lib/supabase";
 import { BREADBREAKERS_EMAIL } from "$lib/strings.js";
-import { env } from '$env/dynamic/private';
+import { SITE_URL } from '$env/static/private';
 
 export async function POST(event) {
 	const { request } = event;
@@ -137,10 +137,10 @@ export async function POST(event) {
             <strong class="is-underlined">Remarks:</strong> ${remarks}<br>
             ${privacyWarningsHtml}
             <p>
-                <a href="${env.SITE_URL}/ringfence/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve Ringfence</a>
+                <a href="${SITE_URL}/ringfence/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve Ringfence</a>
             </p>
             <p>
-                <a href="${env.SITE_URL}/ringfence/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject Ringfence</a>
+                <a href="${SITE_URL}/ringfence/reject?id=${itemData.id}" style="color: white; background: red; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Reject Ringfence</a>
             </p>
             `;
 
