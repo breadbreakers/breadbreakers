@@ -32,7 +32,7 @@ export async function POST(event) {
         }        
 
         // send email to SW
-        const swSubject = `Recurring Request Rejected (${households.id})`;
+        const swSubject = `🔴 Recurring Request Rejected (${households.id})`;
 
         const swBody = `
             Dear ${households.swname}<br>

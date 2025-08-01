@@ -11,9 +11,9 @@ export async function POST(event) {
     let approverEmail;
 
     try {
-        const { itemId, linkUrl, cost, swConfirmUrl, itemCostUrl, itemTitle, itemDesc, itemContact, privacyAnalysis } = await request.json();
+        const { itemVWO, itemId, linkUrl, cost, swConfirmUrl, itemCostUrl, itemTitle, itemDesc, itemContact, privacyAnalysis } = await request.json();
 
-        if (!itemId || !linkUrl || !cost || !swConfirmUrl || !itemCostUrl || !itemTitle || !itemDesc || !itemContact) {
+        if (!itemId || !itemVWO || !linkUrl || !cost || !swConfirmUrl || !itemCostUrl || !itemTitle || !itemDesc || !itemContact) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
         }
 
@@ -60,10 +60,12 @@ export async function POST(event) {
         const privacyWarningsHtml = generatePrivacyWarningsHtml(privacyAnalysis);
 
         // populate the item
+        // lazy. actually not needed. can just directly reference the variables.
         let itemData = {
             title: itemTitle,
             description: itemDesc,
-            contact_clean: itemContact,
+            contact_clean: itemVWO,
+            contact_full: itemContact,
             id: itemId
         };
 
@@ -99,11 +101,21 @@ export async function POST(event) {
             ]);
 
         // send email to partner that ringfence is submitted
-        const partnerBody = `<p>Dear Partner</p><p>Your Ringfence Request has been sent to ${approverEmail} for approval.</p><p>Please <u>do not</u> proceed with the purchase until the request is approved.</p>`
+        const partnerBody = `
+        Dear Partner<br><br>
+        Your Ringfence Request has been sent to ${approverEmail} for approval.<br>
+        <strong class="is-underlined">Description:</strong> ${itemData.description}<br>
+        <strong class="is-underlined">VWO:</strong> ${itemData.contact_clean}<br>
+        <strong class="is-underlined">Contact:</strong> ${itemData.contact_full}<br>
+        <strong class="is-underlined">Amount to ringfence inclusive of cost delivery:</strong> $${cost}<br>
+        <strong class="is-underlined">To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>
+        <a href="${itemCostUrl}"><strong class="is-underlined">Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?<br>Is the delivery fee reasonable?<br>
+        <a href="${swConfirmUrl}"><strong class="is-underlined">Social worker confirmation</strong></a><br>Did the social worker provide the necessary contact information?<br>Did the screenshot specify the item?<br>
+        Please <u>do not</u> proceed with the purchase until the request is approved.`
 
         await sendEmail({
             to: partnerEmail, // to the partner
-            subject: `Ringfence Request for ${itemData.title} (${itemId})`,
+            subject: `🟠 Ringfence Request for ${itemData.title} (${itemId})`,
             body: partnerBody,
             bcc: BREADBREAKERS_EMAIL // for audit trail 
         });
@@ -111,7 +123,8 @@ export async function POST(event) {
         // send email to approver
         const approverBody = `
             <strong class="is-underlined">Description:</strong> ${itemData.description}<br>
-            <strong class="is-underlined">Contact:</strong> ${itemData.contact_clean}<br>
+            <strong class="is-underlined">VWO:</strong> ${itemData.contact_clean}<br>
+            <strong class="is-underlined">Contact:</strong> ${itemData.contact_full}<br>
             <strong class="is-underlined">Amount to ringfence inclusive of cost delivery:</strong> $${cost}<br>
             <strong class="is-underlined">To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>
             <a href="${itemCostUrl}"><strong class="is-underlined">Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?<br>Is the delivery fee reasonable?<br>
@@ -127,7 +140,7 @@ export async function POST(event) {
 
         await sendEmail({
             to: approverEmail,
-            subject: `Ringfence Request for ${itemData.title} (${itemId})`,
+            subject: `🟠 Ringfence Request for ${itemData.title} (${itemId})`,
             body: approverBody,
             replyTo: partnerEmail
         });

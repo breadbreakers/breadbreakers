@@ -11,6 +11,7 @@
   let itemTitle;
   let itemDesc;
   let itemContact
+  let itemVWO;
   let linkUrl;
   let cost;
   let isLoading = false;
@@ -66,6 +67,7 @@
           itemTitle,
           itemDesc,
           itemContact,
+          itemVWO,
           privacyAnalysis: uploadResult.privacyAnalysis,
         }),
       });
@@ -180,7 +182,20 @@
         </div>
 
         <div class="field">
-          <label for="itemContact" class="label">Contact Info</label>
+          <label for="itemContact" class="label">VWO</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              bind:value={itemVWO}
+              required
+              disabled={isLoading}
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="itemContact" class="label">Social Worker Email/Mobile</label>
           <div class="control">
             <input
               class="input"

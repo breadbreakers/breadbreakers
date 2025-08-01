@@ -64,7 +64,7 @@ export async function POST(event) {
         // === SEND EMAIL ===
         await sendEmail({
             to: partnerEmail,
-            subject: `Ringfence Rejected for ${wip.title} (${itemId})`,
+            subject: `🔴 Ringfence Rejected for ${wip.title} (${itemId})`,
             body: partnerBody,
             bcc: BREADBREAKERS_EMAIL,
         });

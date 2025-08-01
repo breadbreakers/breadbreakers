@@ -74,7 +74,7 @@ export async function load({ locals, url }) {
 
   await sendEmail({
     to: partnerEmail, // to the partner
-    subject: `Ringfence Request Removed for ${wip.title} (${itemId})`,
+    subject: `🗑️ Ringfence Request Removed for ${wip.title} (${itemId})`,
     body: partnerBody,
     bcc: BREADBREAKERS_EMAIL // for audit trail 
   });
@@ -87,7 +87,7 @@ export async function load({ locals, url }) {
 
   await sendEmail({
     to: approverEmail,
-    subject: `Ringfence Request Removed for ${wip.title} (${itemId})`,
+    subject: `🗑️ Ringfence Request Removed for ${wip.title} (${itemId})`,
     body: approverBody,
     replyTo: partnerEmail
   });

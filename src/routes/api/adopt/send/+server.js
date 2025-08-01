@@ -36,7 +36,7 @@ export async function POST(event) {
             .single();
 
         // send email to sw
-        const swSubject = `Recurring Request Submitted (${householdInsert.id})`
+        const swSubject = `🟠 Recurring Request Submitted (${householdInsert.id})`
 
         const swBody = `We've received your Recurring Request and will let you know as soon as we find a volunteer who is able to fulfill the request.<br>
 <br>
@@ -65,7 +65,7 @@ Thank you!
 
         let approverEmail = getApprover.email;
 
-        const approverSubject = `Recurring Request Submitted (${householdInsert.id})`;
+        const approverSubject = `🟠 Recurring Request Submitted (${householdInsert.id})`;
 
         const approverBody = `
             <strong class="is-underlined">Social Worker Name:</strong> ${swname}<br>

@@ -84,7 +84,6 @@
               <select name="fund" id="type" bind:value={fundType} required>
                   <option value="mission" selected>Beneficary Fund</option>
                   <option value="operating">Operating Fund</option>
-                  <option value="interest">Interest</option>
               </select>
             </div>
           </div>

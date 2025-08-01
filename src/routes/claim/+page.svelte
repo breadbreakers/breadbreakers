@@ -180,14 +180,13 @@
   <div class="container">
     <h2 class="subtitle is-4">Claim Request</h2>
 
-    <h3 class="mt-4 has-text-weight-medium">{item.contact_clean}</h3>
+    <h3 class="mt-4 has-text-weight-medium">{item.contact_full}</h3>
     <h3 class="mt-4">{item.title}</h3>
     <h3 class="mt-4">{item.description}</h3>
 
     {#if success}
       <div class="mt-4 notification is-success">
-        <strong class="is-underlined">Claim Submitted Successfully!</strong>
-        <br />Your claim has been sent for approval. You'll receive an email confirmation shortly.
+        <strong>Claim Submitted Successfully!</strong>
       </div>
     {:else if error}
       <div class="mt-4 notification is-danger">

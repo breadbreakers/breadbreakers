@@ -39,7 +39,7 @@ export async function POST({ request, cookies }) {
 			// ✅ Send the email
 			await sendEmail({
 				to: BREADBREAKERS_EMAIL,
-				subject: `Contact Form Submission from ${name}`,
+				subject: `📪 Contact Form Submission from ${name}`,
 				replyto: email,
 				body: message
 			});

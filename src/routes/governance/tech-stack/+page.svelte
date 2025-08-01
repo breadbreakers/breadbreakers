@@ -15,7 +15,7 @@
             
             <p>
                 Bread Breakers (SG) uses a secure, cost-efficient architecture
-                with modern cloud tooling. Static site hosting on Netlify,
+                with modern cloud tooling. Static site hosting on Cloudflare Workers,
                 self-managed PostgreSQL database, AWS email services, and
                 cloud-based storage APIs.
             </p>
@@ -38,7 +38,7 @@
                     <tbody>
                         <tr>
                             <td>Physical Infra</td>
-                            <td><span class="tag is-success">Netlify</span></td>
+                            <td><span class="tag is-success">Cloudflare</span></td>
                             <td
                                 ><span class="tag is-success">Oracle Cloud</span
                                 ></td
@@ -51,7 +51,7 @@
                         </tr>
                         <tr>
                             <td>VM / OS</td>
-                            <td><span class="tag is-success">Netlify</span></td>
+                            <td><span class="tag is-success">Cloudflare</span></td>
                             <td
                                 ><span class="tag is-link">CIS Hardened</span
                                 ></td
@@ -67,7 +67,7 @@
                         </tr>
                         <tr>
                             <td>Managed Platform</td>
-                            <td><span class="tag is-success">Netlify</span></td>
+                            <td><span class="tag is-success">Cloudflare</span></td>
                             <td
                                 ><span class="tag is-link">Docker Compose</span
                                 ></td
@@ -138,7 +138,7 @@
                             <td>CI / CD</td>
                             <td
                                 ><span class="tag is-warning"
-                                    >GitHub → Netlify</span
+                                    >Cloudflare Workers</span
                                 ></td
                             >
                             <td>-</td>
@@ -166,8 +166,7 @@
             </h3>
             <ul>
                 <li>
-                    <strong class="is-underlined">Web Hosting</strong> – Netlify free-tier deployment with
-                    GitHub integration
+                    <strong class="is-underlined">Web Hosting</strong> – Cloudflare Workers
                 </li>
                 <li>
                     <strong class="is-underlined">DNS & CDN</strong> – Cloudflare DNS with DDoS protection
@@ -190,7 +189,7 @@
                     functions for inbound processing
                 </li>
                 <li>
-                    <strong class="is-underlined">File Storage</strong> – Google Drive API integration
+                    <strong class="is-underlined">File Storage</strong> – Cloudflare R2
                     for document storage
                 </li>
                 <li>
@@ -199,7 +198,7 @@
                 </li>
                 <li>
                     <strong class="is-underlined">SSL/TLS</strong> – Automated certificate management via
-                    Caddy reverse proxy
+                    Cloudflare
                 </li>
             </ul>
 
@@ -208,7 +207,7 @@
             </h3>
             <div class="content">
                 <p>
-                    <strong class="is-underlined">Frontend</strong> SvelteKit static site deployed on Netlify,
+                    <strong class="is-underlined">Frontend</strong> SvelteKit static site deployed on Cloudflare Workers,
                     with domain managed through Cloudflare DNS. Cloudflare provides DDoS protection and WAF security
                     rules.
                 </p>
@@ -229,7 +228,7 @@
                 </p>
 
                 <p>
-                    <strong class="is-underlined">Storage</strong> Document uploads stored via Google Drive
+                    <strong class="is-underlined">Storage</strong> Document uploads stored via Cloudflare R2
                     API integration. All transactional emails BCC'd to Bread Breakers (SG) for audit trail (except approval emails for
                     proper segregation of duties).
                 </p>

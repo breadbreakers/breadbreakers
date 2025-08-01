@@ -97,7 +97,7 @@ export async function POST(event) {
         const dollarAmount = (amount / 100).toFixed(2);
         await sendEmail({
           to: donor,
-          subject: `Thank you for your support! 🙂`,
+          subject: `🙏🏻 Thank you for your support! 🙂`,
           body: `<p>Your donation of $${dollarAmount} has been received.</p><p>Reference: ${receiptUrl}</p><p>Please note that a processing fee of $${(stripeFee / 100).toFixed(2)} is deducted by our payment provider to facilitate secure payments.</p>`,
           bcc: BREADBREAKERS_EMAIL
         });

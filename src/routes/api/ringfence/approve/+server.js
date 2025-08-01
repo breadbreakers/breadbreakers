@@ -36,7 +36,7 @@ export async function POST(event) {
 
 		await sendEmail({
 			to: partnerEmail,
-			subject: `Ringfence Approved for ${wip.title} (${itemId})`,
+			subject: `🟢 Ringfence Approved for ${wip.title} (${itemId})`,
 			body: partnerBody,
 			bcc: BREADBREAKERS_EMAIL // for audit trail
 		});

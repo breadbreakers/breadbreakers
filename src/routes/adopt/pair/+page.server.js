@@ -66,7 +66,7 @@ Bread Breakers (SG)`
 
   await sendEmail({
     to: households.swemail, 
-    subject: `Volunteer Available to Fulfill Request (${households.id})`,
+    subject: `🤚🏻 Volunteer Available to Fulfill Request (${households.id})`,
     body: emailBody,
     cc: partnerEmail,
     bcc: BREADBREAKERS_EMAIL

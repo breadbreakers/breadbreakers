@@ -56,7 +56,7 @@ export async function POST(event) {
 
         await sendEmail({
             to: partnerEmail,
-            subject: `Claim Approved for ${wip.title} (${itemId})`,
+            subject: `🟢 Claim Approved for ${wip.title} (${itemId})`,
             body: partnerBody,
             bcc: BREADBREAKERS_EMAIL // for audit trail 
         });

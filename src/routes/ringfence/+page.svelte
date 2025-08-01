@@ -150,7 +150,7 @@
 	<div class="container">
 		<h2 class="subtitle is-4">Ringfence Request</h2>
 
-		<h3 class="mt-4 has-text-weight-medium">{item.contact_clean}</h3>
+		<h3 class="mt-4 has-text-weight-medium">{item.contact_full}</h3>
 		<h3 class="mt-4">{item.title}</h3>
 		<h3 class="mt-4">{item.description}</h3>
 
@@ -262,7 +262,7 @@
 
 				<div class="field">
 					<div class="control mt-4">
-						<button class="button is-primary" type="submit" disabled={isLoading}>
+						<button class="button is-primary is-fullwidth" type="submit" disabled={isLoading}>
 							{#if isLoading}
 								Processing... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
 							{:else}

@@ -121,7 +121,7 @@ export const POST = async (event) => {
         const privacyWarningsHtml = generatePrivacyWarningsHtml(privacyAnalysis);
 
         // === Notify partner ===
-        const partnerSubject = `Claim Submitted for ${wip.title}`
+        const partnerSubject = `🟠 Claim Submitted for ${wip.title}`
 
         const partnerBody = `Your Claim Request has been sent to ${approverEmail} for approval.`;
 
@@ -133,7 +133,7 @@ export const POST = async (event) => {
         });
 
         // === Notify approver with privacy analysis ===
-        const approverSubject = `Claim Request for ${wip.title} (${wip.id})`;
+        const approverSubject = `🟠 Claim Request for ${wip.title} (${wip.id})`;
 
         const approverBody = `
             <strong class="is-underlined">Requester:</strong> ${partnerEmail}<br>

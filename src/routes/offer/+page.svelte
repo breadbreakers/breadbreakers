@@ -17,7 +17,7 @@
 
 		const pattern = /\b[89]\d{7}\b/g;
 
-		mobileN = String(data.requests.contact_clean).match(pattern);
+		mobileN = String(data.requests.contact_full).match(pattern);
 
 		if (mobileN) {
 			let whatsAppMsg = `${OFFER_WA}
@@ -44,7 +44,7 @@ Ref: ${data.requests.id}
 			<strong class="is-underlined">Description:</strong>
 			{data.requests.description}
 		</p>
-		<p class="mb-2"><strong class="is-underlined">Contact:</strong> {data.requests.contact_clean}</p>
+		<p class="mb-2"><strong class="is-underlined">Contact:</strong> {data.requests.contact_full}</p>
 		<p class="mb-2"><strong class="is-underlined">Reference:</strong> {data.requests.id}</p>
 
 		<h2 class="subtitle is-5 has-text-centered mt-6">
