@@ -374,7 +374,7 @@
 			</div>
 		</div>
 		<button
-			class="button is-fullwidth is-link"
+			class="button is-fullwidth is-info is-light"
 			on:click={downloadStatement}
 			disabled={!selectedYear || !selectedMonth}
 		>

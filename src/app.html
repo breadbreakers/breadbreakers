@@ -98,27 +98,20 @@
 				text-decoration-color: #ddd !important;
 			}
 
-			.button {
-				box-shadow:
-					0 3px 0 #ddd,
-					0 5px 10px rgba(0, 0, 0, 0.1);
-				position: relative;
-			}
-
 			@font-face {
-				font-family: "fontello";
-				src: url("/font/fontello.eot?249361");
+				font-family: 'fontello';
+				src: url('/font/fontello.eot?249361');
 				src:
-					url("/font/fontello.eot?249361#iefix") format("embedded-opentype"),
-					url("/font/fontello.woff?249361") format("woff"),
-					url("/font/fontello.ttf?249361") format("truetype"),
-					url("/font/fontello.svg?249361#fontello") format("svg");
+					url('/font/fontello.eot?249361#iefix') format('embedded-opentype'),
+					url('/font/fontello.woff?249361') format('woff'),
+					url('/font/fontello.ttf?249361') format('truetype'),
+					url('/font/fontello.svg?249361#fontello') format('svg');
 				font-weight: normal;
 				font-style: normal;
 			}
 
 			.demo-icon {
-				font-family: "fontello";
+				font-family: 'fontello';
 				font-style: normal;
 				font-weight: normal;
 				display: inline-block;
@@ -159,7 +152,7 @@
 				display: none !important;
 			}
 
-			.dt-search input[type="search"] {
+			.dt-search input[type='search'] {
 				width: 100% !important;
 				box-sizing: border-box;
 				border: none !important;
@@ -179,7 +172,7 @@
 				margin-right: 0.5em;
 				display: inline-block;
 				box-sizing: border-box;
-				content: "👉🏻";
+				content: '👉🏻';
 				font-size: 1em;
 				color: rgba(0, 0, 0, 0.7);
 				border: none;
@@ -187,8 +180,40 @@
 
 			table.dataTable.dtr-inline.collapsed > tbody > tr.dtr-expanded > td.dtr-control:before,
 			table.dataTable.dtr-inline.collapsed > tbody > tr.dtr-expanded > th.dtr-control:before {
-				content: "👇🏻";
+				content: '👇🏻';
 				border: none;
+			}
+
+			/* Button gradient overrides - rich warm theme from logo */
+
+			.button.is-info.is-light {
+				background: linear-gradient(
+					135deg,
+					rgba(58, 123, 213, 0.18) 0%,
+					rgba(0, 210, 255, 0.15) 100%
+				);
+				color: #2b6cb0;
+				border: 1px solid rgba(58, 123, 213, 0.4);
+			}
+
+			.button.is-warning.is-light {
+				background: linear-gradient(
+					135deg,
+					rgba(255, 159, 28, 0.15) 0%,
+					rgba(255, 200, 87, 0.12) 100%
+				);
+				color: #f28e1c;
+				border: 1px solid rgba(255, 159, 28, 0.35);
+			}
+
+			.button.is-success.is-light {
+				background: linear-gradient(
+					135deg,
+					rgba(255, 79, 79, 0.15) 0%,
+					rgba(255, 159, 28, 0.12) 100%
+				);
+				color: #e64040;
+				border: 1px solid rgba(255, 79, 79, 0.35);
 			}
 		</style>
 	</head>

@@ -5,17 +5,11 @@ import { RECAPTCHA_SECRET_KEY } from "$env/static/private";
 
 export async function POST({ request, cookies }) {
 	try {
-		const { name, email, message, recaptchaToken, csrfToken } = await request.json();
+		const { name, email, message, recaptchaToken } = await request.json();
 
 		// Basic validation
-		if (!name || !email || !message || !recaptchaToken || !csrfToken) {
+		if (!name || !email || !message || !recaptchaToken) {
 			return json({ success: false, error: "Missing required fields" }, { status: 400 });
-		}
-
-		// ✅ CSRF Validation
-		const storedToken = cookies.get("csrf_token");
-		if (!storedToken || storedToken !== csrfToken) {
-			return json({ success: false, error: "Invalid CSRF token" }, { status: 403 });
 		}
 
 		// ✅ Verify reCAPTCHA v3 token
@@ -29,7 +23,7 @@ export async function POST({ request, cookies }) {
 		});
 
 		const verificationData = await verificationRes.json();
-		console.log("reCAPTCHA verification result:", verificationData);
+		//console.log("reCAPTCHA verification result:", verificationData);
 
 		if (!verificationData.success || verificationData.score < 0.5) {
 			return json({ success: false, error: "reCAPTCHA verification failed" }, { status: 400 });

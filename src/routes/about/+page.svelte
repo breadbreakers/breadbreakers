@@ -205,15 +205,15 @@
                 <div class="columns is-mobile">
                     <div class="column">
                         <a href="/donate"
-                            ><button class="is-fullwidth button"
+                            ><button class="is-fullwidth button is-warning is-light"
                                 >💝 Donate</button
                             ></a
                         >
                     </div>
                     <div class="column">
-                        <a href="https://forms.gle/w5ptTEM3UvxESy5M7"
-                            ><button class="is-fullwidth button"
-                                >🤝 Partner Sign Up</button
+                        <a href="/get-involved"
+                            ><button class="is-fullwidth button is-success is-light"
+                                >🤝 Get Involved</button
                             ></a
                         >
                     </div>

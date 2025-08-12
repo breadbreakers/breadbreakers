@@ -1,19 +1,10 @@
 <script>
   import { invalidateAll } from "$app/navigation";
-  import { onMount } from "svelte";
 
   let name = "";
   let email = "";
   let message = "";
   let status = "";
-  let csrfToken = "";
-
-  // Fetch CSRF token on mount
-  onMount(async () => {
-    const res = await fetch("/api/csrf");
-    const data = await res.json();
-    csrfToken = data.csrfToken;
-  });
 
   async function handleSubmit() {
     status = "submitting";
@@ -33,8 +24,7 @@
         name,
         email,
         message,
-        recaptchaToken,
-        csrfToken,
+        recaptchaToken
       }),
     });
 
@@ -111,7 +101,7 @@
         <div class="field">
           <div class="control">
             <button
-              class="button is-primary is-fullwidth is-info"
+              class="button is-fullwidth is-info is-light"
               type="submit"
               disabled={status === "submitting"}
             >
