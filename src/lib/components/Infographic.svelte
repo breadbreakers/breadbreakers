@@ -134,16 +134,6 @@
 	.nowrap {
 		white-space: nowrap;
 	}
-
-	.box {
-		height: 100%;
-		min-height: 100px;
-		display: flex;
-		flex-direction: column;
-		--bulma-box-padding: 0;
-		padding: 0;
-		border: 1px solid #ddd;
-	}
 	
     .dashboard {
 		font-weight: 700;
