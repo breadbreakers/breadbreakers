@@ -1,4 +1,27 @@
 /*import { env } from '$env/dynamic/private';
+
+const KEY = env.KEY;
+
+const netlifyResponse = await fetch('https://sgqr.breadbreakers.sg', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': KEY
+      },
+      body: JSON.stringify({
+        paynow: "93809025",
+        cost: "1",
+        itemId: "aaa"
+      }),
+    });
+
+    // Read Netlify response JSON
+    const data = await netlifyResponse.json();
+
+console.log(data)*/
+    
+
+/*import { env } from '$env/dynamic/private';
 import * as sgqr from 'sgqr';
 import sharp from 'sharp';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
