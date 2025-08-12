@@ -195,11 +195,11 @@
 		border-radius: 1em 0 1em 0;
 		text-shadow: 1px 1px 1px #fff;
 		background-image: linear-gradient(
-			-100deg,
-			rgba(255, 250, 150, 0.15),
-			rgba(255, 245, 57, 0.5) 100%,
-			rgba(255, 250, 150, 0.25)
-		);
+    to right, /* left to right */
+    rgba(204, 169, 0, 0.6), 0%,    /* darker gold */
+    rgba(255, 245, 57, 0.5), 70%, /* medium yellow */
+    rgba(255, 250, 150, 0.3) 100% /* lighter yellow */
+  );
 	}
 
 	.navbar-item {
