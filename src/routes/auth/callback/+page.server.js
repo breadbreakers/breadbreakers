@@ -56,6 +56,7 @@ export const load = async ({ url, locals }) => {
 	const supabase = locals.supabase;
 
 	const exchanged = await exchangeCode(supabase, code);
+
 	if (!exchanged) throw redirect(303, "/");
 
 	const {
