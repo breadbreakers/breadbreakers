@@ -45,7 +45,7 @@
                             >
                             <td><span class="tag is-success">AWS</span></td>
                             <td
-                                ><span class="tag is-success">Google Cloud</span
+                                ><span class="tag is-success">Cloudflare</span
                                 ></td
                             >
                         </tr>
@@ -61,7 +61,7 @@
                                 ></td
                             >
                             <td
-                                ><span class="tag is-success">Google Drive</span
+                                ><span class="tag is-success">R2</span
                                 ></td
                             >
                         </tr>
@@ -75,7 +75,7 @@
                             <td><span class="tag is-success">AWS SES</span></td>
                             <td
                                 ><span class="tag is-success"
-                                    >Google Drive API</span
+                                    >R2</span
                                 ></td
                             >
                         </tr>
@@ -132,7 +132,7 @@
                                 ></td
                             >
                             <td><span class="tag is-success">AWS</span></td>
-                            <td><span class="tag is-success">Google</span></td>
+                            <td><span class="tag is-success">Cloudflare</span></td>
                         </tr>
                         <tr>
                             <td>CI / CD</td>
@@ -190,7 +190,7 @@
                     functions for inbound processing
                 </li>
                 <li>
-                    <strong class="is-underlined">File Storage</strong> – Google Drive API integration
+                    <strong class="is-underlined">File Storage</strong> – Cloudflare R2 integration
                     for document storage
                 </li>
                 <li>
@@ -229,8 +229,7 @@
                 </p>
 
                 <p>
-                    <strong class="is-underlined">Storage</strong> Document uploads stored via Google Drive
-                    API integration. All transactional emails BCC'd to Bread Breakers (SG) for audit trail (except approval emails for
+                    <strong class="is-underlined">Storage</strong> Document uploads stored via Cloudflare R2. All transactional emails BCC'd to Bread Breakers (SG) for audit trail (except approval emails for
                     proper segregation of duties).
                 </p>
 
