@@ -11,9 +11,9 @@
         <h2 class="subtitle is-4 has-text-weight-bold pt-4">About Us</h2>
 
         <div class="content">
-            <div class="columns">
+            <div class="columns mt-5">
                 <div class="column">
-                    <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
+                    <h3 class="subtitle is-5 has-text-weight-bold">
                         Our Vision
                     </h3>
                     <p>
@@ -22,7 +22,7 @@
                     </p>
                 </div>
                 <div class="column">
-                    <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
+                    <h3 class="subtitle is-5 has-text-weight-bold">
                         Our Mission
                     </h3>
                     <p>
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 as-text-weight-bold">
                 The Landscape of Need
             </h3>
             <p>
@@ -51,7 +51,7 @@
                 logistical and administrative complexity.
             </p>
 
-            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 has-text-weight-bold">
                 Our Faith-Driven Mandate
             </h3>
             <p>
@@ -73,7 +73,7 @@
                 reminder that the recipient is seen, valued, and supported.
             </p>
 
-            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 has-text-weight-bold">
                 The Meaning Behind Our Name
             </h3>
 
@@ -114,7 +114,7 @@
                 </div>
             </div>
 
-            <h3 class="subtitle is-5 mt-5 has-text-weight-bold">
+            <h3 class="subtitle is-5 has-text-weight-bold">
                 Our Guiding Principles
             </h3>
 
@@ -195,7 +195,7 @@
             </div>
 
             <p
-                class="subtitle is-6 mb-6 mt-5 has-text-centered has-text-weight-medium"
+                class="subtitle is-6 mb-6 has-text-centered has-text-weight-medium"
             >
                 Help transform wish lists into real relief. Lighten the load of
                 social workers and bring practical faith, hope, and love to

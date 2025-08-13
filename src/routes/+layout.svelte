@@ -195,10 +195,10 @@
 		border-radius: 1em 0 1em 0;
 		text-shadow: 1px 1px 1px #fff;
 		background-image: linear-gradient(
-    to right, /* left to right */
-    rgba(204, 169, 0, 0.6), 0%,    /* darker gold */
-    rgba(255, 245, 57, 0.5), 70%, /* medium yellow */
-    rgba(255, 250, 150, 0.3) 100% /* lighter yellow */
+    to right, 
+    rgba(204, 169, 0, 0.4), 0%,    
+    rgba(255, 245, 57, 0.3), 70%, 
+    rgba(255, 250, 150, 0.2) 100% 
   );
 	}
 
@@ -328,7 +328,6 @@
 
 	.navbar-menu {
 		box-shadow: none;
-		padding-bottom: 2em;
 	}
 
 	@media (max-width: 1023px) {
@@ -376,7 +375,7 @@
 	}
 
 	.logo {
-		width: 555px;
+		width: 475px;
 		height: auto;
 	}
 
