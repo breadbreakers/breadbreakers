@@ -67,7 +67,8 @@
 	<div class="container">
 		<nav class="navbar" aria-label="main navigation">
 			<div class="navbar-end">
-				{#if isNavigating && isMobile} <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+				{#if isNavigating && isMobile}
+					<i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
 				{:else}
 					<button
 						type="button"
@@ -133,7 +134,7 @@
 						class:is-loading={isNavigating && clickedPath === '/resources'}
 						on:click|preventDefault={() => closeMenu('/resources')}>Resources</a
 					>
-						<a
+					<a
 						class="navbar-item"
 						href="/donate"
 						class:is-active={isActive('/donate')}
@@ -195,11 +196,13 @@
 		border-radius: 1em 0 1em 0;
 		text-shadow: 1px 1px 1px #fff;
 		background-image: linear-gradient(
-    to right, 
-    rgba(204, 169, 0, 0.4), 0%,    
-    rgba(255, 245, 57, 0.3), 70%, 
-    rgba(255, 250, 150, 0.2) 100% 
-  );
+			to right,
+			rgba(204, 169, 0, 0.4),
+			0%,
+			rgba(255, 245, 57, 0.3),
+			70%,
+			rgba(255, 250, 150, 0.2) 100%
+		);
 	}
 
 	.navbar-item {
@@ -382,16 +385,16 @@
 	.navbar-end {
 		display: flex;
 		justify-content: flex-end;
-		align-items: center; 
+		align-items: center;
 	}
-	
+
 	.navbar-end i.demo-icon {
-		font-size: 15px; 
+		font-size: 15px;
 		margin-left: auto;
 		margin-right: 1.5rem;
 		margin-top: 1rem;
 		display: inline-block;
 		vertical-align: middle;
-		color: #000; 
+		color: #000;
 	}
 </style>
