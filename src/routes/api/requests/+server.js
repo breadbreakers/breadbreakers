@@ -1,20 +1,5 @@
 const allowedColumns = ['date', 'title', 'contact_clean', 'description', 'id'];
 
-// GET handler for client-side table loading
-export async function GET({ locals }) {
-    const { data, error } = await locals.supabase
-        .from('all_requests_excluding_wip')
-        .select('*')
-        .order('date', { ascending: false });
-
-    if (error) {
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
-    }
-
-    return new Response(JSON.stringify({ data }));
-}
-
-
 // Extract sort info from DataTables request
 function getSortInfo(reqData) {
     let sortColumn = 'date';
@@ -42,7 +27,7 @@ function buildOrSearch(searchValue) {
     return filters;
 }
 
-// POST handler for server-side processing
+// POST handler
 export async function POST({ request, locals }) {
     const reqData = await request.json();
     const start = Number(reqData.start) || 0;

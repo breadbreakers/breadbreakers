@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { env } from "$env/dynamic/public";
 
     let requestsTable;
 
@@ -41,22 +42,12 @@
     ];
 
     onMount(async () => {
-        try {
-            isLoading = true;
-            const response = await fetch("/api/requests"); // GET request for all data
-            if (!response.ok) {
-                throw new Error(`Failed to fetch data: ${response.statusText}`);
-            }
-            const result = await response.json();
-            initRequestsTable(result.data);
-        } catch (err) {
-            console.error("Error loading requests:", err);
-        } finally {
-            isLoading = false;
-        }
+        initRequestsTable();
     });
 
-    function initRequestsTable(tableData) {
+    async function initRequestsTable() {
+        isLoading = true;
+
         if (globalThis.$.fn.dataTable.isDataTable(requestsTable)) {
             globalThis.$(requestsTable).DataTable().clear().destroy();
         }
@@ -104,7 +95,8 @@
         }
 
         globalThis.$(requestsTable).DataTable({
-            data: tableData,
+            serverSide: true,
+            processing: true,
             responsive: true,
             lengthChange: false,
             language: {
@@ -115,6 +107,25 @@
                 if (data.id) {
                     globalThis.$(row).attr("id", "row-" + data.id);
                 }
+            },
+            ajax: async function (data, callback, settings) {
+                fetch("/api/requests", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                })
+                    .then((response) => response.json())
+                    .then((result) => {
+                        callback({
+                            draw: data.draw,
+                            recordsTotal: result.recordsTotal,
+                            recordsFiltered: result.recordsFiltered,
+                            data: result.data,
+                        });
+                    });
+            },
+            initComplete: function (settings, json) {
+                isLoading = false;
             },
             columnDefs: [
                 {
