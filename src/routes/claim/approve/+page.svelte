@@ -92,7 +92,7 @@
         <div class="field">
           <div class="control mt-4">
             <button
-              class="button is-primary"
+              class="button is-primary is-fullwidth"
               type="submit"
               disabled={isLoading}
             >

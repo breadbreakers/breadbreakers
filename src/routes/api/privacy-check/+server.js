@@ -7,28 +7,23 @@ const GEMINI_API_KEY = env.GEMINI_API_KEY;
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 const PRIVACY_PROMPT = `
-Do not use respond in markdown because your output will be sent to email. Respond purely in plaintext, paragraph format.
-You are an assistant to assist the Approving Authority of a charity to review submissions from volunteers who are procuring items for the needy.
-
-First, analyze the provided image/document and identify if it contains any of the following sensitive information that should be redacted to comply with Singapore PDPA:
-
+Provide your response in 1 concise paragraph. Do not use respond in markdown because your output will be sent to email. Respond purely in plaintext, paragraph format.
+You are assisting the Approving Authority of a charity to review submissions from volunteers who are procuring items for the needy.
+An image/document has been provided.
+Analyze the provided image/document and identify if it contains any of the following sensitive information that should be redacted to comply with Singapore PDPA:
 1. Names of individuals (excluding business names)
 2. NRIC/FIN numbers (format: SXXXXXXXA/TXXXXXXXB/etc)
-3. Phone numbers (Singapore format: +65XXXXXXXX or 8/9XXXXXXX)
-4. Email addresses
+3. Phone numbers (Singapore format: +65XXXXXXXX or 8/9XXXXXXX) (Redacted mobile numbers only showing +65 is acceptable)
+4. Email addresses (if only the domain is shown, it is acceptable)
 5. Home addresses (street addresses, postal codes)
 6. Credit card numbers
 7. Bank account numbers
 8. Any other personally identifiable information
-
-If non-compliant, list specific violations found (e.g., "Phone number visible: 91234567").
-
-Next, also analyze the provided image/document to verify the following:
-- List the items described and conclude if it relates to the item described? 
-- What specific items/services are shown in this document? 
-- Should this document be approved as relevant? (Yes/No/Uncertain)
-Help the Approver conclude whether to approve the request or not and provide a brief explanation. 
-Here is the description of the requested item:
+If non-compliant, list specific violations found in a concise manner (e.g., "Phone number visible: 91234567").
+Also analyze the provided image/document to verify:
+- Is the item described in the image/document related to the description? 
+Based on the above criteria, help the Approver conclude whether to approve the request or not. (Yes/No). If you are uncertain, suggest the Approver to do a manual check.
+Here is the description of the requested item to verify with the image/document:
 `;
 
 export const POST = async ({ request }) => {

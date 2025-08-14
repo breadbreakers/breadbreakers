@@ -1,24 +1,42 @@
 import { json } from '@sveltejs/kit';
 import { sendEmail } from '$lib/email.js';
-import { env } from '$env/dynamic/private';
 import { createServerSupabaseClient } from '$lib/supabase';
 import { BREADBREAKERS_EMAIL } from '$lib/strings.js';
-import { SITE_URL } from '$env/static/private';
+import { SITE_URL, R2_ENDPOINT, R2_REGION, R2_ACCESS_ID, R2_SECRET, R2_BUCKET, R2_TEMP_BUCKET, KEY } from '$env/static/private';
+import { S3Client, CopyObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+
+// S3 Client
+const s3 = new S3Client({
+  endpoint: R2_ENDPOINT,
+  region: R2_REGION,
+  credentials: {
+    accessKeyId: R2_ACCESS_ID,
+    secretAccessKey: R2_SECRET,
+  },
+});
+
+const BUCKET_NAME = R2_BUCKET;
+const TEMP_BUCKET_NAME = R2_TEMP_BUCKET;
+const PUBLIC_URL_BASE = 'https://cloud.breadbreakers.sg';
 
 // Helper to generate privacy warnings HTML for email
 function generatePrivacyWarningsHtml(privacyAnalysis) {
 	let warningsHtml = '';
 
-	privacyAnalysis.forEach((analysis) => {
-		const fileType = analysis.type === 'claim_receipt' ? 'Receipt' : 'Proof of Delivery';
-		const fileName = analysis.file;
-		const result = analysis.result;
+	if (privacyAnalysis) {
+		privacyAnalysis.forEach((analysis) => {
+			if (analysis) {
+				const fileType = analysis.type === 'claim_receipt' ? 'Receipt' : 'Proof of Delivery';
+				const fileName = analysis.file;
+				const result = analysis.result;
 
-		warningsHtml += `
-            <strong class="is-underlined">✨ ${fileType} (${fileName}):</strong><br>                
-            ${result.warnings}
-        `;
-	});
+				warningsHtml += `
+					<strong class="is-underlined">✨ ${fileType} (${fileName}):</strong><br>                
+					${result.warnings}
+				`;
+			}
+		});
+	}
 
 	return warningsHtml;
 }
@@ -30,11 +48,32 @@ export const POST = async (event) => {
 	let wip;
 
 	try {
-		const { itemId, receiptUrl, deliveryUrl, cost, privacyAnalysis } = await request.json();
+		const { itemId, receiptTempPath, deliveryTempPath, cost, privacyAnalysis } = await request.json();
 
-		if (!itemId || !receiptUrl || !deliveryUrl || !cost) {
+		if (!itemId || !receiptTempPath || !deliveryTempPath || !cost) {
 			return json({ error: 'Missing required fields' }, { status: 400 });
 		}
+
+		// Move files from temp to permanent storage
+        const moveFile = async (tempPath) => {
+            if (!tempPath) return null;
+            const copyParams = { Bucket: BUCKET_NAME, CopySource: `${TEMP_BUCKET_NAME}/${tempPath}`, Key: tempPath };
+            await s3.send(new CopyObjectCommand(copyParams));
+            const deleteParams = { Bucket: TEMP_BUCKET_NAME, Key: tempPath };
+            await s3.send(new DeleteObjectCommand(deleteParams));
+            return `${PUBLIC_URL_BASE}/${tempPath}`;
+        };
+
+        let receiptUrl, deliveryUrl;
+        try {
+            [receiptUrl, deliveryUrl] = await Promise.all([
+                moveFile(receiptTempPath),
+                moveFile(deliveryTempPath)
+            ]);
+        } catch (s3Error) {
+            console.error("S3 file move failed:", s3Error);
+            return json({ error: "Failed to process uploaded files." }, { status: 500 });
+        }
 
 		const supabase = createServerSupabaseClient(event);
 		const {
@@ -74,8 +113,6 @@ export const POST = async (event) => {
 		}
 
 		// === Generate PayNow QR and Upload to R2 ===
-
-		const KEY = env.KEY;
 
 		const sgqrResponse = await fetch('https://sgqr.breadbreakers.sg', {
 			method: 'POST',

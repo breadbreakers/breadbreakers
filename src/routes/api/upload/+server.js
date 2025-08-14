@@ -5,6 +5,7 @@ globalThis.Buffer = Buffer;
 
 // === CONFIGURATION ===
 const BUCKET_NAME = env.R2_BUCKET;
+const TEMP_BUCKET_NAME = env.R2_TEMP_BUCKET; // For temporary uploads
 const REGION = env.R2_REGION;
 const ENDPOINT = env.R2_ENDPOINT;
 
@@ -24,6 +25,7 @@ export const POST = async ({ request }) => {
     const file = formData.get('file');
     const itemId = formData.get('id');
     const label = formData.get('type');
+    const isTemporary = formData.get('temporary') === 'true';
 
     if (!file) {
       return new Response(JSON.stringify({ error: 'No file uploaded' }), { status: 400 });
@@ -42,9 +44,15 @@ export const POST = async ({ request }) => {
     // File key (path) inside bucket
     const fileKey = `${year}/${monthFolderName}/${itemId}/${label}_${Date.now()}`;
 
+    const bucket = isTemporary ? TEMP_BUCKET_NAME : BUCKET_NAME;
+
+    if (!bucket) {
+      throw new Error(isTemporary ? 'Temporary bucket is not configured.' : 'Storage bucket is not configured.');
+    }
+
     // === UPLOAD TO R2 ===
     const uploadParams = {
-      Bucket: BUCKET_NAME,
+      Bucket: bucket,
       Key: fileKey,
       Body: buffer,
       ContentType: file.type
@@ -52,7 +60,12 @@ export const POST = async ({ request }) => {
 
     await s3.send(new PutObjectCommand(uploadParams));
 
-    // === PUBLIC URL ===
+    if (isTemporary) {
+      // For temporary uploads, just return the key. The file is not public.
+      return new Response(JSON.stringify({ fileKey }), { status: 200 });
+    }
+
+    // === PUBLIC URL for permanent uploads ===
     const publicUrl = `https://cloud.breadbreakers.sg/${fileKey}`;
 
     return new Response(JSON.stringify({ 

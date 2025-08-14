@@ -277,7 +277,7 @@
         <div class="field">
           <div class="control mt-6">
             <button
-              class="button is-primary is-fullwidth"
+              class="button is-info is-light is-fullwidth"
               type="submit"
               disabled={isLoading}
             >

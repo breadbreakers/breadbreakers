@@ -1,18 +1,27 @@
 <script>
 	import { onMount } from "svelte";
-	import { uploadFilesWithPrivacyCheck } from "$lib/upload.js";
+	import { uploadSingleFile, checkPrivacyCompliance } from "$lib/upload.js";
 
 	let itemId;
 	let linkUrl;
 	let cost;
-	let isLoading = false;
+	let isLoading = false; // For final submission state
 	let success = false;
 	let error;
 	let remarks = "";
-	let swConfirmUrl;
-	let itemCostUrl;
+
+	// File and upload state
 	let selectedFile = null;
 	let itemCostFile = null;
+	let swTempPath = null;
+	let itemCostTempPath = null;
+	let swPrivacyResult = null;
+	let itemCostPrivacyResult = null;
+
+	let isUploadingSW = false;
+	let isUploadingItemCost = false;
+	let uploadErrorSW = null;
+	let uploadErrorItemCost = null;
 
 	// Progress tracking
 	let uploadProgress = { sw: 0, itemCost: 0 };
@@ -35,38 +44,62 @@
 		uploadProgress = { ...uploadProgress }; // Trigger reactivity
 	}
 
+	async function handleFileUpload(file, type) {
+		const description = `${item.title} - ${item.description}`;
+		const onProgress = (t, p) => updateProgress(type, p);
+		
+		if (type === 'ringfence_sw') {
+			isUploadingSW = true;
+			uploadErrorSW = null;
+			uploadProgress.sw = 0;
+		} else {
+			isUploadingItemCost = true;
+			uploadErrorItemCost = null;
+			uploadProgress.itemCost = 0;
+		}
+
+		try {
+			const [uploadResult, privacyResult] = await Promise.all([
+				uploadSingleFile(file, type, itemId, onProgress, true), // isTemporary = true
+				checkPrivacyCompliance(file, description)
+			]);
+
+			if (type === 'ringfence_sw') {
+				swTempPath = uploadResult;
+				swPrivacyResult = { index: 0, file: file.name, result: privacyResult, type };
+			} else {
+				itemCostTempPath = uploadResult;
+				itemCostPrivacyResult = { index: 1, file: file.name, result: privacyResult, type };
+			}
+		} catch (err) {
+			console.error(`Upload error for ${type}:`, err);
+			if (type === 'ringfence_sw') {
+				uploadErrorSW = err.message;
+			} else {
+				uploadErrorItemCost = err.message;
+			}
+		} finally {
+			if (type === 'ringfence_sw') {
+				isUploadingSW = false;
+			} else {
+				isUploadingItemCost = false;
+			}
+		}
+	}
+
 	async function handleSubmit(event) {
 		event.preventDefault();
 		isLoading = true;
 		error = "";
 		success = false;
-		uploadProgress = { sw: 0, itemCost: 0 }; // Reset progress
 
-		if (!selectedFile) {
-			error = "Please upload confirmation from social worker.";
-			isLoading = false;
-			return;
-		}
-
-		if (!itemCostFile) {
-			error = "Please upload screenshot of item cost inclusive of delivery fee.";
+		if (!swTempPath || !itemCostTempPath) {
+			error = "Please ensure both files are uploaded successfully before submitting.";
 			isLoading = false;
 			return;
 		}
 
 		try {
-			const uploadResult = await uploadFilesWithPrivacyCheck(
-				[selectedFile, itemCostFile],
-				["ringfence_sw", "ringfence_cost"],
-				itemId,
-				updateProgress,
-				`${item.title} - ${item.description}`
-			);
-
-			swConfirmUrl = uploadResult.uploadResults[0].fileUrl;
-			itemCostUrl = uploadResult.uploadResults[1].fileUrl;
-
-			// Step 2: Send API request
 			const response = await fetch("/api/ringfence/send", {
 				method: "POST",
 				headers: {
@@ -76,10 +109,10 @@
 					itemId,
 					linkUrl,
 					cost,
-					swConfirmUrl,
-					itemCostUrl,
+					swTempPath,
+					itemCostTempPath,
 					remarks,
-					privacyAnalysis: uploadResult.privacyAnalysis
+					privacyAnalysis: [swPrivacyResult, itemCostPrivacyResult]
 				})
 			});
 
@@ -91,11 +124,10 @@
 
 			success = true;
 		} catch (err) {
-			error = "Upload failed: " + err.message;
-			console.error("Upload error:", err);
+			error = "Submission failed: " + err.message;
+			console.error("Submission error:", err);
 		} finally {
 			isLoading = false;
-			uploadProgress = { sw: 0, itemCost: 0 }; // Reset progress on completion/error
 		}
 	}
 
@@ -103,6 +135,7 @@
 		const file = event.target.files[0];
 		if (!file) {
 			selectedFile = null;
+			swTempPath = null;
 			return;
 		}
 		const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
@@ -113,12 +146,14 @@
 			return;
 		}
 		selectedFile = file;
+		handleFileUpload(selectedFile, "ringfence_sw");
 	}
 
 	function handleItemCost(event) {
 		const file = event.target.files[0];
 		if (!file) {
 			itemCostFile = null;
+			itemCostTempPath = null;
 			return;
 		}
 		const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
@@ -129,9 +164,9 @@
 			return;
 		}
 		itemCostFile = file;
+		handleFileUpload(itemCostFile, "ringfence_cost");
 	}
 
-	// Helper function to format file size
 	function formatFileSize(bytes) {
 		if (bytes === 0) return "0 Bytes";
 		const k = 1024;
@@ -179,7 +214,7 @@
 							type="url"
 							bind:value={linkUrl}
 							required
-							disabled={isLoading}
+							disabled={isLoading || isUploadingSW || isUploadingItemCost}
 							pattern="https?://.+"
 							title="Please enter a valid URL starting with http:// or https://"
 						/>
@@ -195,7 +230,7 @@
 							type="number"
 							min="0"
 							step="0.01"
-							disabled={isLoading}
+							disabled={isLoading || isUploadingSW || isUploadingItemCost}
 							bind:value={cost}
 							required
 						/>
@@ -211,6 +246,13 @@
 						<p class="is-size-7 has-text-grey mb-2">
 							Selected: {itemCostFile.name} ({formatFileSize(itemCostFile.size)})
 						</p>
+						{#if isUploadingItemCost}
+							<progress class="progress is-info" value={uploadProgress.itemCost} max="100">{uploadProgress.itemCost}%</progress>
+						{:else if itemCostTempPath}
+							<p class="is-size-7 has-text-success">✓ Uploaded</p>
+						{:else if uploadErrorItemCost}
+							<p class="is-size-7 has-text-danger">Upload failed: {uploadErrorItemCost}</p>
+						{/if}
 					{/if}
 					<div class="control">
 						<input
@@ -218,7 +260,7 @@
 							class="input"
 							type="file"
 							accept=".png,.jpg,.jpeg,.pdf"
-							disabled={isLoading}
+							disabled={isLoading || isUploadingItemCost}
 							on:change={handleItemCost}
 							required
 						/>
@@ -238,6 +280,13 @@
 						<p class="is-size-7 has-text-grey mb-2">
 							Selected: {selectedFile.name} ({formatFileSize(selectedFile.size)})
 						</p>
+						{#if isUploadingSW}
+							<progress class="progress is-info" value={uploadProgress.sw} max="100">{uploadProgress.sw}%</progress>
+						{:else if swTempPath}
+							<p class="is-size-7 has-text-success">✓ Uploaded</p>
+						{:else if uploadErrorSW}
+							<p class="is-size-7 has-text-danger">Upload failed: {uploadErrorSW}</p>
+						{/if}
 					{/if}
 					<div class="control">
 						<input
@@ -245,7 +294,7 @@
 							class="input"
 							type="file"
 							accept=".png,.jpg,.jpeg,.pdf"
-							disabled={isLoading}
+							disabled={isLoading || isUploadingSW}
 							on:change={handleConfirmSW}
 							required
 						/>
@@ -255,16 +304,18 @@
 				<div class="field">
 					<label class="label" for="remarks">Remarks</label>
 					<div class="control">
-						<textarea class="textarea" disabled={isLoading} id="remarks" bind:value={remarks}
+						<textarea class="textarea" disabled={isLoading || isUploadingSW || isUploadingItemCost} id="remarks" bind:value={remarks}
 						></textarea>
 					</div>
 				</div>
 
 				<div class="field">
 					<div class="control mt-4">
-						<button class="button is-primary is-fullwidth" type="submit" disabled={isLoading}>
-							{#if isLoading}
-								Processing... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+						<button class="button is-info is-light is-fullwidth" type="submit" disabled={isLoading || isUploadingSW || isUploadingItemCost || !swTempPath || !itemCostTempPath}>
+							{#if isUploadingSW || isUploadingItemCost}
+								Uploading files...
+							{:else if isLoading}
+								Submitting... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
 							{:else}
 								Send
 							{/if}

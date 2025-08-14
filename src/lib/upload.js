@@ -1,5 +1,5 @@
 // Privacy check using Google Gemini API
-async function checkPrivacyCompliance(file, description) {
+export async function checkPrivacyCompliance(file, description) {
   try {
     const base64Data = await fileToBase64(file);
     
@@ -124,7 +124,7 @@ function compressCanvasToBlob(canvas, file, quality, maxSize) {
 }
 
 // Refactored processFile function with reduced nesting
-async function processFile(file, maxWidth = 1200, quality = 0.8, maxSize = 2 * 1024 * 1024) {
+async function processFile(file, maxWidth = 1200, quality = 0.7, maxSize = 2 * 1024 * 1024) {
   // Reject files that are too large before processing
   if (file.size > 10 * 1024 * 1024) {
     throw new Error(`File ${file.name} is too large. Maximum size is 10MB.`);
@@ -149,12 +149,15 @@ async function processFile(file, maxWidth = 1200, quality = 0.8, maxSize = 2 * 1
 }
 
 // Extracted function to create XMLHttpRequest upload
-function createUploadRequest(processedFile, type, id, onProgress) {
+function createUploadRequest(processedFile, type, id, onProgress, isTemporary = false) {
   return new Promise((resolve, reject) => {
     const formData = new FormData();
     formData.append('file', processedFile);
     formData.append('type', type);
     formData.append('id', id);
+    if (isTemporary) {
+      formData.append('temporary', 'true');
+    }
 
     const xhr = new XMLHttpRequest();
     
@@ -171,7 +174,7 @@ function createUploadRequest(processedFile, type, id, onProgress) {
       if (xhr.status >= 200 && xhr.status < 300) {
         try {
           const response = JSON.parse(xhr.responseText);
-          resolve(response.url || response.path || response);
+          resolve(response.url || response.path || response.fileKey || response);
         } catch {
           resolve(xhr.responseText);
         }
@@ -217,11 +220,11 @@ async function retryUpload(uploadFn, maxRetries = 3, baseDelay = 1000) {
 }
 
 // Extracted function to handle single file upload
-async function uploadSingleFile(file, type, id, onProgress) {
+export async function uploadSingleFile(file, type, id, onProgress, isTemporary = false) {
   const processedFile = await processFile(file);
   
   return retryUpload(async () => {
-    return createUploadRequest(processedFile, type, id, onProgress);
+    return createUploadRequest(processedFile, type, id, onProgress, isTemporary);
   });
 }
 
@@ -239,7 +242,9 @@ async function performPrivacyChecks(files, types, description) {
 async function performFileUploads(files, types, id, onProgress) {
   const uploads = files.map(async (file, index) => {
     const type = types[index];
-    return uploadSingleFile(file, type, id, onProgress);
+    // Note: This function is part of the old flow and doesn't support temporary uploads.
+    // The new flow uses uploadSingleFile directly.
+    return uploadSingleFile(file, type, id, onProgress, false);
   });
 
   return Promise.all(uploads);

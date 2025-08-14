@@ -1,21 +1,28 @@
 <script>
   import { onMount } from "svelte";
-  import { uploadFilesWithPrivacyCheck } from "$lib/upload.js";
+  import { uploadSingleFile, checkPrivacyCompliance } from "$lib/upload.js";
 
   let itemId = "";
-  let receiptUrl = "";
-  let deliveryUrl = "";
   let cost;
-  let isLoading = false;
+  let isLoading = false; // For final submission state
   let success = false;
   let error = "";
+
+  // File and upload state
   let selectedReceipt = null;
   let selectedDelivery = null;
+  let receiptTempPath = null;
+  let deliveryTempPath = null;
+  let receiptPrivacyResult = null;
+  let deliveryPrivacyResult = null;
 
-  // Enhanced progress tracking
+  let isUploadingReceipt = false;
+  let isUploadingDelivery = false;
+  let uploadErrorReceipt = null;
+  let uploadErrorDelivery = null;
+
+  // Progress tracking
   let uploadProgress = { receipt: 0, delivery: 0 };
-  let currentStep = "";
-  let privacyCheckStatus = "";
 
   export let data;
   const item = data.item;
@@ -35,23 +42,47 @@
     uploadProgress = { ...uploadProgress };
   }
 
-  function updatePrivacyCheck(status) {
-    privacyCheckStatus = status;
-  }
+  async function handleFileUpload(file, type) {
+    const description = `${item.title} - ${item.description}`;
+    const onProgress = (t, p) => updateProgress(type, p);
 
-  // Enhanced file validation
-  function validateFile(file, maxSize = 10 * 1024 * 1024) {
-    const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
-    
-    if (!allowedTypes.includes(file.type)) {
-      throw new Error("Only PNG, JPG, and PDF files are allowed.");
+    if (type === 'claim_receipt') {
+      isUploadingReceipt = true;
+      uploadErrorReceipt = null;
+      uploadProgress.receipt = 0;
+    } else {
+      isUploadingDelivery = true;
+      uploadErrorDelivery = null;
+      uploadProgress.delivery = 0;
     }
-    
-    if (file.size > maxSize) {
-      throw new Error(`File too large. Maximum size is ${formatFileSize(maxSize)}.`);
+
+    try {
+      const [uploadResult, privacyResult] = await Promise.all([
+        uploadSingleFile(file, type, itemId, onProgress, true), // isTemporary = true
+        checkPrivacyCompliance(file, description)
+      ]);
+
+      if (type === 'claim_receipt') {
+        receiptTempPath = uploadResult;
+        receiptPrivacyResult = { index: 0, file: file.name, result: privacyResult, type };
+      } else {
+        deliveryTempPath = uploadResult;
+        deliveryPrivacyResult = { index: 1, file: file.name, result: privacyResult, type };
+      }
+    } catch (err) {
+      console.error(`Upload error for ${type}:`, err);
+      if (type === 'claim_receipt') {
+        uploadErrorReceipt = err.message;
+      } else {
+        uploadErrorDelivery = err.message;
+      }
+    } finally {
+      if (type === 'claim_receipt') {
+        isUploadingReceipt = false;
+      } else {
+        isUploadingDelivery = false;
+      }
     }
-    
-    return true;
   }
 
   async function handleSubmit(event) {
@@ -59,38 +90,14 @@
     isLoading = true;
     error = "";
     success = false;
-    uploadProgress = { receipt: 0, delivery: 0 };
-    privacyCheckStatus = "";
+
+    if (!receiptTempPath || !deliveryTempPath) {
+      error = "Please ensure both files are uploaded successfully before submitting.";
+      isLoading = false;
+      return;
+    }
 
     try {
-      // Validate files first
-      if (!selectedReceipt) {
-        throw new Error("Please upload a receipt file.");
-      }
-      if (!selectedDelivery) {
-        throw new Error("Please upload a proof of delivery file.");
-      }
-
-      validateFile(selectedReceipt);
-      validateFile(selectedDelivery);
-
-      currentStep = "Validating files...";
-
-      // Upload files with privacy check
-      const uploadResult = await uploadFilesWithPrivacyCheck(
-        [selectedReceipt, selectedDelivery],
-        ["claim_receipt", "claim_delivery"],
-        itemId,
-        updateProgress,
-        updatePrivacyCheck
-      );
-
-      receiptUrl = uploadResult.uploadResults[0].fileUrl || uploadResult.uploadResults[0];
-      deliveryUrl = uploadResult.uploadResults[1].fileUrl || uploadResult.uploadResults[1];
-
-      currentStep = "Submitting claim...";
-      
-      // Send API request with privacy analysis
       const response = await fetch("/api/claim/send", {
         method: "POST",
         headers: {
@@ -98,10 +105,10 @@
         },
         body: JSON.stringify({
           itemId,
-          receiptUrl,
-          deliveryUrl,
+          receiptTempPath,
+          deliveryTempPath,
           cost: parseFloat(cost),
-          privacyAnalysis: uploadResult.privacyAnalysis,
+          privacyAnalysis: [receiptPrivacyResult, deliveryPrivacyResult],
         }),
       });
 
@@ -112,53 +119,42 @@
       }
 
       success = true;
-      currentStep = "Claim submitted successfully!";
       
     } catch (err) {
       error = "Claim submission failed: " + err.message;
       console.error("Claim submission error:", err);
     } finally {
       isLoading = false;
-      if (!success) {
-        uploadProgress = { receipt: 0, delivery: 0 };
-        privacyCheckStatus = "";
+    }
+  }
+
+  function handleFileChange(event, type) {
+    const file = event.target.files[0];
+    const setter = type === 'receipt' ? (f) => selectedReceipt = f : (f) => selectedDelivery = f;
+    const tempPathSetter = type === 'receipt' ? (p) => receiptTempPath = p : (p) => deliveryTempPath = p;
+
+    if (!file) {
+      setter(null);
+      tempPathSetter(null);
+      return;
+    }
+
+    try {
+      const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error("Only PNG, JPG, and PDF files are allowed.");
       }
-    }
-  }
+      if (file.size > 10 * 1024 * 1024) { // 10MB
+        throw new Error(`File too large. Maximum size is 10MB.`);
+      }
 
-  function handleReceiptChange(event) {
-    const file = event.target.files[0];
-    if (!file) {
-      selectedReceipt = null;
-      return;
-    }
-    
-    try {
-      validateFile(file);
-      selectedReceipt = file;
+      setter(file);
       error = ""; // Clear any previous errors
+      handleFileUpload(file, `claim_${type}`);
     } catch (err) {
       alert(err.message);
       event.target.value = "";
-      selectedReceipt = null;
-    }
-  }
-
-  function handleDeliveryChange(event) {
-    const file = event.target.files[0];
-    if (!file) {
-      selectedDelivery = null;
-      return;
-    }
-    
-    try {
-      validateFile(file);
-      selectedDelivery = file;
-      error = ""; // Clear any previous errors
-    } catch (err) {
-      alert(err.message);
-      event.target.value = "";
-      selectedDelivery = null;
+      setter(null);
     }
   }
 
@@ -237,9 +233,16 @@
           </div>
           
           {#if selectedReceipt}
-            <p class="has-text-grey mb-2">
-              ✅ Selected: {selectedReceipt.name} ({formatFileSize(selectedReceipt.size)})
+            <p class="is-size-7 has-text-grey mb-2">
+              Selected: {selectedReceipt.name} ({formatFileSize(selectedReceipt.size)})
             </p>
+            {#if isUploadingReceipt}
+              <progress class="progress is-info" value={uploadProgress.receipt} max="100">{uploadProgress.receipt}%</progress>
+            {:else if receiptTempPath}
+              <p class="is-size-7 has-text-success">✓ Uploaded</p>
+            {:else if uploadErrorReceipt}
+              <p class="is-size-7 has-text-danger">Upload failed: {uploadErrorReceipt}</p>
+            {/if}
           {/if}
           
           <div class="control">
@@ -247,9 +250,9 @@
               id="receipt"
               class="input"
               type="file"
-              disabled={isLoading}
+              disabled={isLoading || isUploadingReceipt}
               accept=".png,.jpg,.jpeg,.pdf"
-              on:change={handleReceiptChange}
+              on:change={(e) => handleFileChange(e, 'receipt')}
               required
             />
           </div>
@@ -269,9 +272,16 @@
           </div>
           
           {#if selectedDelivery}
-            <p class="has-text-grey mb-2">
-              ✅ Selected: {selectedDelivery.name} ({formatFileSize(selectedDelivery.size)})
+            <p class="is-size-7 has-text-grey mb-2">
+              Selected: {selectedDelivery.name} ({formatFileSize(selectedDelivery.size)})
             </p>
+            {#if isUploadingDelivery}
+              <progress class="progress is-info" value={uploadProgress.delivery} max="100">{uploadProgress.delivery}%</progress>
+            {:else if deliveryTempPath}
+              <p class="is-size-7 has-text-success">✓ Uploaded</p>
+            {:else if uploadErrorDelivery}
+              <p class="is-size-7 has-text-danger">Upload failed: {uploadErrorDelivery}</p>
+            {/if}
           {/if}
           
           <div class="control">
@@ -279,9 +289,9 @@
               id="delivery"
               class="input"
               type="file"
-              disabled={isLoading}
+              disabled={isLoading || isUploadingDelivery}
               accept=".png,.jpg,.jpeg,.pdf"
-              on:change={handleDeliveryChange}
+              on:change={(e) => handleFileChange(e, 'delivery')}
               required
             />
           </div>
@@ -290,43 +300,20 @@
         <div class="field">
           <div class="control mt-4">
             <button
-              class="button is-primary is-fullwidth"
+              class="button is-info is-light is-fullwidth"
               type="submit"
-              disabled={isLoading || !selectedReceipt || !selectedDelivery}
+              disabled={isLoading || isUploadingReceipt || isUploadingDelivery || !receiptTempPath || !deliveryTempPath}
             >
-              {#if isLoading}
-                Processing... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
+              {#if isUploadingReceipt || isUploadingDelivery}
+                Uploading files...
+              {:else if isLoading}
+                Submitting... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
               {:else}
                 Submit Claim Request
               {/if}
             </button>
           </div>
         </div>
-
-        <!-- Progress indicators -->
-        {#if isLoading}
-          <div class="box has-background-light">
-            <div class="mb-3">
-              <strong class="is-underlined">Progress:</strong> {currentStep}
-            </div>
-            
-            {#if privacyCheckStatus}
-              <p class="is-size-7 has-text-black mb-2">🔍 {privacyCheckStatus}</p>
-            {/if}
-            
-            {#if uploadProgress.receipt > 0 || uploadProgress.delivery > 0}
-              <div class="mb-2">
-                <div class="level is-mobile">
-                  <div class="level-left">
-                    <span class="is-size-7">Receipt: {uploadProgress.receipt}%</span>
-                    <span class="is-size-7">Delivery: {uploadProgress.delivery}%</span>
-                  </div>
-                </div>
-              
-              </div>
-            {/if}
-          </div>
-        {/if}
       </form>
       
       <h3 class="is-size-7 mt-4 has-text-grey">Item ID: {itemId}</h3>

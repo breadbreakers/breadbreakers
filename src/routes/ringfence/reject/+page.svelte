@@ -91,7 +91,7 @@
         <div class="field">
           <div class="control mt-4">
             <button
-              class="button is-danger"
+              class="button is-danger is-fullwidth"
               type="submit"
               disabled={isLoading}
             >

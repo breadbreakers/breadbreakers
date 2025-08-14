@@ -2,7 +2,22 @@ import { json } from "@sveltejs/kit";
 import { sendEmail } from "$lib/email.js";
 import { createServerSupabaseClient } from "$lib/supabase";
 import { BREADBREAKERS_EMAIL } from "$lib/strings.js";
-import { SITE_URL } from '$env/static/private';
+import { SITE_URL, R2_ENDPOINT, R2_REGION, R2_ACCESS_ID, R2_SECRET, R2_BUCKET, R2_TEMP_BUCKET } from '$env/static/private';
+import { S3Client, CopyObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+
+// === INIT AWS S3 CLIENT ===
+const s3 = new S3Client({
+  endpoint: R2_ENDPOINT,
+  region: R2_REGION,
+  credentials: {
+    accessKeyId: R2_ACCESS_ID,
+    secretAccessKey: R2_SECRET,
+  },
+});
+
+const BUCKET_NAME = R2_BUCKET;
+const TEMP_BUCKET_NAME = R2_TEMP_BUCKET;
+const PUBLIC_URL_BASE = 'https://cloud.breadbreakers.sg';
 
 export async function POST(event) {
 	const { request } = event;
@@ -10,16 +25,41 @@ export async function POST(event) {
 	let approverEmail;
 
 	try {
-		const { itemId, linkUrl, cost, swConfirmUrl, itemCostUrl, remarks, privacyAnalysis } =
+		const { itemId, linkUrl, cost, swTempPath, itemCostTempPath, remarks, privacyAnalysis } =
 			await request.json();
 
-		if (!itemId || !linkUrl || !cost || !swConfirmUrl || !itemCostUrl) {
+		if (!itemId || !linkUrl || !cost || !swTempPath || !itemCostTempPath) {
 			return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
 		}
 
 		if (cost < 0) {
 			return json({ error: "Cost cannot be less than 0." }, { status: 409 });
 		}
+
+        // === Move files from temp to permanent bucket ===
+        const moveFile = async (tempPath) => {
+            if (!tempPath) return null;
+
+            const copyParams = {
+                Bucket: BUCKET_NAME,
+                CopySource: `${TEMP_BUCKET_NAME}/${tempPath}`,
+                Key: tempPath,
+            };
+            await s3.send(new CopyObjectCommand(copyParams));
+
+            return `${PUBLIC_URL_BASE}/${tempPath}`;
+        };
+
+        let swConfirmUrl, itemCostUrl;
+        try {
+            [swConfirmUrl, itemCostUrl] = await Promise.all([
+                moveFile(swTempPath),
+                moveFile(itemCostTempPath)
+            ]);
+        } catch (s3Error) {
+            console.error("S3 file move failed:", s3Error);
+            return json({ error: "Failed to process uploaded files." }, { status: 500 });
+        }
 
 		const supabase = createServerSupabaseClient(event);
 
@@ -162,17 +202,22 @@ export async function POST(event) {
 function generatePrivacyWarningsHtml(privacyAnalysis) {
 	let warningsHtml = "";
 
-	privacyAnalysis.forEach((analysis) => {
-		const fileType =
-			analysis.type === "ringfence_sw" ? "Social Worker Confirmation" : "Cost and Delivery";
-		const fileName = analysis.file;
-		const result = analysis.result;
+	if (privacyAnalysis) {
+		privacyAnalysis.forEach((analysis) => {
+			if(analysis) {
+				const fileType =
+				analysis.type === "ringfence_sw" ? "Social Worker Confirmation" : "Cost and Delivery";
+			const fileName = analysis.file;
+			const result = analysis.result;
 
-		warningsHtml += `
-            <strong class="is-underlined">✨ ${fileType} (${fileName}):</strong><br>                
-            ${result.warnings}
-        `;
-	});
+			warningsHtml += `
+				<strong class="is-underlined">✨ ${fileType} (${fileName}):</strong><br>                
+				${result.warnings}
+			`;
+			}
+		});
+	}
+
 
 	return warningsHtml;
 }
