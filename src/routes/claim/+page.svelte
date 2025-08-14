@@ -237,7 +237,7 @@
               Selected: {selectedReceipt.name} ({formatFileSize(selectedReceipt.size)})
             </p>
             {#if isUploadingReceipt}
-              <progress class="progress is-info" value={uploadProgress.receipt} max="100">{uploadProgress.receipt}%</progress>
+              <progress class="progress is-info" max="100">{uploadProgress.receipt}%</progress>
             {:else if receiptTempPath}
               <p class="is-size-7 has-text-success">✓ Uploaded</p>
             {:else if uploadErrorReceipt}
@@ -276,7 +276,7 @@
               Selected: {selectedDelivery.name} ({formatFileSize(selectedDelivery.size)})
             </p>
             {#if isUploadingDelivery}
-              <progress class="progress is-info" value={uploadProgress.delivery} max="100">{uploadProgress.delivery}%</progress>
+              <progress class="progress is-info" max="100">{uploadProgress.delivery}%</progress>
             {:else if deliveryTempPath}
               <p class="is-size-7 has-text-success">✓ Uploaded</p>
             {:else if uploadErrorDelivery}
@@ -305,7 +305,7 @@
               disabled={isLoading || isUploadingReceipt || isUploadingDelivery || !receiptTempPath || !deliveryTempPath}
             >
               {#if isUploadingReceipt || isUploadingDelivery}
-                Uploading files...
+                Uploading files... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
               {:else if isLoading}
                 Submitting... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
               {:else}

@@ -247,7 +247,7 @@
 							Selected: {itemCostFile.name} ({formatFileSize(itemCostFile.size)})
 						</p>
 						{#if isUploadingItemCost}
-							<progress class="progress is-info" value={uploadProgress.itemCost} max="100">{uploadProgress.itemCost}%</progress>
+							<progress class="progress is-info" max="100">{uploadProgress.itemCost}%</progress>
 						{:else if itemCostTempPath}
 							<p class="is-size-7 has-text-success">✓ Uploaded</p>
 						{:else if uploadErrorItemCost}
@@ -281,7 +281,7 @@
 							Selected: {selectedFile.name} ({formatFileSize(selectedFile.size)})
 						</p>
 						{#if isUploadingSW}
-							<progress class="progress is-info" value={uploadProgress.sw} max="100">{uploadProgress.sw}%</progress>
+							<progress class="progress is-info" max="100">{uploadProgress.sw}%</progress>
 						{:else if swTempPath}
 							<p class="is-size-7 has-text-success">✓ Uploaded</p>
 						{:else if uploadErrorSW}
@@ -313,7 +313,7 @@
 					<div class="control mt-4">
 						<button class="button is-info is-light is-fullwidth" type="submit" disabled={isLoading || isUploadingSW || isUploadingItemCost || !swTempPath || !itemCostTempPath}>
 							{#if isUploadingSW || isUploadingItemCost}
-								Uploading files...
+								Uploading files... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
 							{:else if isLoading}
 								Submitting... <i class="demo-icon icon-spin6 animate-spin">&#xe839;</i>
 							{:else}
