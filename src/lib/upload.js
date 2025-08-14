@@ -131,7 +131,7 @@ async function processFile(file, maxWidth = 1200, quality = 0.7, maxSize = 2 * 1
   }
 
   // Skip compression for non-images or already small files
-  if (!file.type.startsWith('image/') || file.size <= maxSize) {
+  if (file.size <= maxSize) {
     return file;
   }
 

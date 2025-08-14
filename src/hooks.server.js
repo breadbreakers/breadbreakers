@@ -43,7 +43,7 @@ export const handle = async ({ event, resolve }) => {
       "script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://code.jquery.com https://cdn.datatables.net https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdn.datatables.net",
       "font-src 'self' data: https://fonts.gstatic.com",
-      "img-src 'self'",
+      "img-src 'self' blob: data:",
       "object-src 'self'",
       "frame-src 'self' https://www.google.com"
     ].join('; ')
