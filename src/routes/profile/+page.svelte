@@ -46,7 +46,7 @@
 	<section class="section">
 		<div class="container">
 			{#if data.isPartner}
-				<h2 class="is-size-5 has-text-weight-semibold">👨‍👩‍👧‍👦 Partners</h2>
+				<h2 class="is-size-5 has-text-weight-semibold">🫱🏽‍🫲🏼 Partners</h2>
 				<RingfencedTable {loggedInEmail} />
 				<a target="_blank" class="button is-small mt-2" rel="noopener" href="/ringfence/manual"
 					>✍🏻 Manual Ringfence</a
