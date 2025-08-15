@@ -218,7 +218,7 @@
           </label>
           <div class="content">
             <p class="has-text-danger">
-              <strong class="is-underlined">⚠️ Important:</strong> Please ensure your receipt shows PayNow as the payment mode, and all personal information is redacted:
+              <strong>⚠️ Important:</strong> Please ensure your receipt shows PayNow as the payment mode, and all personal information is redacted:
             </p>
             <ul>
               <li>Names (except business names)</li>
@@ -264,7 +264,7 @@
           </label>
           <div class="content">
             <p class="has-text-danger">
-              <strong class="is-underlined">⚠️ Important:</strong> Please redact all personal information from delivery confirmations.
+              <strong>⚠️ Important:</strong> Please redact all personal information from delivery confirmations.
             </p>
             <p class="has-text-black">
               This document will be published publicly on our website.

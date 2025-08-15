@@ -32,15 +32,15 @@
 			<h3 class="subtitle is-5 mt-5 has-text-weight-bold">Roles and Responsibilities</h3>
 			<ul>
 				<li>
-					<strong class="is-underlined">Data Protection Officer:</strong> President — ensures compliance
+					<strong>Data Protection Officer:</strong> President — ensures compliance
 					and handles requests
 				</li>
 				<li>
-					<strong class="is-underlined">Data Stewards:</strong> Partners / Volunteers. Responsible to safeguard data
+					<strong>Data Stewards:</strong> Partners / Volunteers. Responsible to safeguard data
 					obtained in their duties.
 				</li>
 				<li>
-					<strong class="is-underlined">Data Custodian:</strong> President. Accountable for overall storage and access control of data. Responsibility may be delegated to a member.
+					<strong>Data Custodian:</strong> President. Accountable for overall storage and access control of data. Responsibility may be delegated to a member.
 				</li>
 			</ul>
 

@@ -37,19 +37,19 @@
             </p>
             <ul>
                 <li>
-                    <strong class="is-underlined">Geographic Risk</strong> Operating primarily within Singapore 
+                    <strong>Geographic Risk</strong> Operating primarily within Singapore 
                     with established regulatory oversight reduces geographic risk exposure.
                 </li>
                 <li>
-                    <strong class="is-underlined">Service Risk</strong> Direct aid provision to verified beneficiaries 
+                    <strong>Service Risk</strong> Direct aid provision to verified beneficiaries 
                     through registered social workers minimizes service-related risks.
                 </li>
                 <li>
-                    <strong class="is-underlined">Beneficiary Risk</strong> Working exclusively with qualified social 
+                    <strong>Beneficiary Risk</strong> Working exclusively with qualified social 
                     workers from registered agencies provides additional verification layers.
                 </li>
                 <li>
-                    <strong class="is-underlined">Donor Risk</strong> Online donation platform allows for transaction 
+                    <strong>Donor Risk</strong> Online donation platform allows for transaction 
                     monitoring and record-keeping but requires vigilance for unusual patterns.
                 </li>
             </ul>
@@ -59,15 +59,15 @@
             <h4 class="subtitle is-6 mt-4 has-text-weight-semibold">Donation Monitoring</h4>
             <ul>
                 <li>
-                    <strong class="is-underlined">Transaction Limits</strong> We monitor for unusually large donations 
+                    <strong>Transaction Limits</strong> We monitor for unusually large donations 
                     that may indicate potential risk and conduct additional due diligence as necessary.
                 </li>
                 <li>
-                    <strong class="is-underlined">Source Verification</strong> All donations are processed through 
+                    <strong>Source Verification</strong> All donations are processed through 
                     Stripe's secure payment gateway, which maintains its own AML/CFT compliance measures.
                 </li>
                 <li>
-                    <strong class="is-underlined">Anonymous Donations</strong> We do not accept anonymous cash donations 
+                    <strong>Anonymous Donations</strong> We do not accept anonymous cash donations 
                     or cryptocurrency payments to maintain transaction transparency.
                 </li>
             </ul>
@@ -75,19 +75,19 @@
             <h4 class="subtitle is-6 mt-4 has-text-weight-semibold">Record Keeping</h4>
             <ul>
                 <li>
-                    <strong class="is-underlined">Transaction Records</strong> All donation and disbursement records 
+                    <strong>Transaction Records</strong> All donation and disbursement records 
                     are maintained for a minimum of 5 years as required by Singapore regulations.
                 </li>
                 <li>
-                    <strong class="is-underlined">Audit Trail</strong> Complete database audit logging tracks all 
+                    <strong>Audit Trail</strong> Complete database audit logging tracks all 
                     create, update, and delete operations with timestamps and user identification.
                 </li>
                 <li>
-                    <strong class="is-underlined">Documentation</strong> Supporting documentation including receipts, 
+                    <strong>Documentation</strong> Supporting documentation including receipts, 
                     delivery confirmations, and social worker verifications are securely stored.
                 </li>
                 <li>
-                    <strong class="is-underlined">Public Transparency</strong> All financial transactions are published 
+                    <strong>Public Transparency</strong> All financial transactions are published 
                     in real-time on our public ledger for accountability.
                 </li>
             </ul>
@@ -95,19 +95,19 @@
             <h4 class="subtitle is-6 mt-4 has-text-weight-semibold">Beneficiary Verification</h4>
             <ul>
                 <li>
-                    <strong class="is-underlined">Social Worker Partnership</strong> All aid requests must be initiated 
+                    <strong>Social Worker Partnership</strong> All aid requests must be initiated 
                     and verified by qualified social workers from registered agencies.
                 </li>
                 <li>
-                    <strong class="is-underlined">Need Verification</strong> Social workers provide documentation of 
+                    <strong>Need Verification</strong> Social workers provide documentation of 
                     beneficiary circumstances and specific needs before aid approval.
                 </li>
                 <li>
-                    <strong class="is-underlined">Direct Delivery</strong> All aid is delivered directly to beneficiaries 
+                    <strong>Direct Delivery</strong> All aid is delivered directly to beneficiaries 
                     at addresses provided by social workers.
                 </li>
                 <li>
-                    <strong class="is-underlined">Delivery Confirmation</strong> Proof of delivery is required and 
+                    <strong>Delivery Confirmation</strong> Proof of delivery is required and 
                     documented for all aid provided.
                 </li>
             </ul>
@@ -127,19 +127,19 @@
             <h3 class="subtitle is-5 mt-5 has-text-weight-bold">Reporting Procedures</h3>
             <ul>
                 <li>
-                    <strong class="is-underlined">Internal Reporting</strong> Any volunteer or committee member who 
+                    <strong>Internal Reporting</strong> Any volunteer or committee member who 
                     identifies suspicious activity must report it immediately to the President.
                 </li>
                 <li>
-                    <strong class="is-underlined">External Reporting</strong> Suspicious transaction reports will be 
+                    <strong>External Reporting</strong> Suspicious transaction reports will be 
                     filed with the <a target="_blank" rel="noopener" class="link" href="https://eservices1.police.gov.sg/phub/eservices/landingpage/stro-business">Suspicious Transaction Reporting Office</a> (STRO) as required by law.
                 </li>
                 <li>
-                    <strong class="is-underlined">Documentation</strong> All reports and investigations are documented 
+                    <strong>Documentation</strong> All reports and investigations are documented 
                     and retained in accordance with regulatory requirements.
                 </li>
                 <li>
-                    <strong class="is-underlined">Cooperation</strong> We will fully cooperate with law enforcement 
+                    <strong>Cooperation</strong> We will fully cooperate with law enforcement 
                     and regulatory authorities in any investigations.
                 </li>
             </ul>

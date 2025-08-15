@@ -15,18 +15,18 @@
 			<h4 class="subtitle is-6 mt-5 has-text-weight-semibold">Secure Online Donation</h4>
 			<ul>
 				<li>
-					<strong class="is-underlined">Payment Processing</strong> All online donations are processed exclusively through
+					<strong>Payment Processing</strong> All online donations are processed exclusively through
 					<a href="https://stripe.com/en-sg" class="link" target="_blank" rel="noopener">Stripe</a>,
 					a PCI DSS compliant payment gateway that ensures industry-standard security for all
 					transactions.
 				</li>
 				<li>
-					<strong class="is-underlined">Accepted Methods</strong> We only accept PayNow via Stripe.
+					<strong>Accepted Methods</strong> We only accept PayNow via Stripe.
 					To ensure traceability and comply with AML/CFT guidelines, we do not accept anonymous cash
 					donations, cryptocurrency, or unverified third-party transfers.
 				</li>
 				<li>
-					<strong class="is-underlined">Transaction Confirmation</strong> Donors receive an immediate email confirmation from
+					<strong>Transaction Confirmation</strong> Donors receive an immediate email confirmation from
 					our platform with our official acknowledgment and receipt.
 				</li>
 			</ul>
@@ -38,30 +38,30 @@
 			</p>
 			<ul>
 				<li>
-					<strong class="is-underlined">Beneficiary Fund</strong> Used exclusively to support our beneficiaries through direct
+					<strong>Beneficiary Fund</strong> Used exclusively to support our beneficiaries through direct
 					aid, supplies, and services.
 				</li>
 				<li>
-					<strong class="is-underlined">Operating Fund</strong> Supports essential administrative expenses required to run
+					<strong>Operating Fund</strong> Supports essential administrative expenses required to run
 					our programmes. All operating costs are publicly documented.
 				</li>
 				<li>
-					<strong class="is-underlined">Live Updates</strong> Our website provides real time updates on the total funds collected.
+					<strong>Live Updates</strong> Our website provides real time updates on the total funds collected.
 				</li>
 			</ul>
 
 			<h4 class="subtitle is-6 mt-5 has-text-weight-semibold">Due Diligence & Aid Disbursement</h4>
 			<ul>
 				<li>
-					<strong class="is-underlined">Beneficiary Verification</strong> We conduct due diligence by verifying all beneficiary
+					<strong>Beneficiary Verification</strong> We conduct due diligence by verifying all beneficiary
 					needs through social workers. This ensures aid is directed to legitimate cases.
 				</li>
 				<li>
-					<strong class="is-underlined">Internal Approval</strong> Every aid request requires documented approval from the
+					<strong>Internal Approval</strong> Every aid request requires documented approval from the
 					society's President before any funds are disbursed, ensuring proper oversight.
 				</li>
 				<li>
-					<strong class="is-underlined">Direct, Traceable Delivery</strong> All aid is
+					<strong>Direct, Traceable Delivery</strong> All aid is
 					delivered directly to addresses provided by the respective social worker. We retain proof of
 					delivery for every transaction, which is available in our public financial ledger.
 				</li>
@@ -72,16 +72,16 @@
 			<h4 class="subtitle is-6 mt-5 has-text-weight-semibold">Our Responsibilities</h4>
 			<ul>
 				<li>
-					<strong class="is-underlined">Fiduciary Duty</strong> We manage all donated funds with the highest standard of care,
+					<strong>Fiduciary Duty</strong> We manage all donated funds with the highest standard of care,
 					ensuring they are used for their intended charitable purposes.
 				</li>
 				<li>
-					<strong class="is-underlined">Data Security</strong> We are committed to protecting donor information. Our platform
+					<strong>Data Security</strong> We are committed to protecting donor information. Our platform
 					has security measures in place, and all transaction data is handled securely by Stripe. Audit
 					logging is enabled and access to data requires multi-factor authentication.
 				</li>
 				<li>
-					<strong class="is-underlined">Record Keeping</strong> We maintain complete and proper records of all donations and
+					<strong>Record Keeping</strong> We maintain complete and proper records of all donations and
 					expenditures for a minimum of five years. These records are reconciled monthly against our
 					public bank statements.
 				</li>
@@ -91,15 +91,15 @@
 			<p>We are committed to 100% transparency on all costs.</p>
 			<ul>
 				<li>
-					<strong class="is-underlined">Stripe Processing Fees</strong> Standard Stripe transaction fees (e.g., 3.4% + $0.50
+					<strong>Stripe Processing Fees</strong> Standard Stripe transaction fees (e.g., 3.4% + $0.50
 					SGD) are the only fees deducted from donations.
 				</li>
 				<li>
-					<strong class="is-underlined">No Administrative Fees</strong> Bread Breakers (SG) charges zero administrative or
+					<strong>No Administrative Fees</strong> Bread Breakers (SG) charges zero administrative or
 					service fees. 100% of your donation after Stripe's fee goes to the designated fund.
 				</li>
 				<li>
-					<strong class="is-underlined">Published Expenses</strong> All fees from Stripe and any operational costs are published
+					<strong>Published Expenses</strong> All fees from Stripe and any operational costs are published
 					as line items in our public financial ledger for full transparency.
 				</li>
 			</ul>
@@ -141,7 +141,7 @@
 
 			<h4 class="subtitle is-6 mt-5 has-text-weight-semibold">Refund & Tax Policy</h4>
 			<p>
-				All donations made to Bread Breakers (SG) are <strong class="is-underlined">non-refundable</strong> once processed,
+				All donations made to Bread Breakers (SG) are <strong>non-refundable</strong> once processed,
 				as funds are immediately allocated for our charitable work.
 			</p>
 			<p>

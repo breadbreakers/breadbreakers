@@ -113,7 +113,7 @@
 		<div class="content mt-4 is-size-6">
 			<p class="mb-4">These are the current fundraising goals:</p>
 
-			<strong class="is-underlined">Beneficiary Fund</strong>
+			<strong>Beneficiary Fund</strong>
 			<div class="is-flex is-justify-content-space-between">
 				Raised:
 				<CurrencyFormatter value={data.beneFund} currency="SGD" locale="en-SG" />
@@ -125,7 +125,7 @@
 			<progress class="progress is-primary mt-2" value={data.beneFund} max={data.targetDonation}>
 			</progress>
 
-			<strong class="is-underlined">Operating Fund</strong>
+			<strong>Operating Fund</strong>
 			<div class="is-flex is-justify-content-space-between">
 				Raised:
 				<CurrencyFormatter value={data.operatingFund} currency="SGD" locale="en-SG" />

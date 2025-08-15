@@ -54,7 +54,7 @@
 
 <div class="section">
   <div class="container">
-    <h2 class="subtitle is-4">Reject Recurring Request</h2>
+    <h2 class="subtitle is-4 has-text-weight-bold pt-4">Reject Recurring Request</h2>
 
     {#if success}
       <div class="mt-4 notification is-success">
@@ -66,16 +66,14 @@
       </div>
     {/if}
     {#if !success}
-      <h3 class="mt-4"><strong class="is-underlined">Social Worker Name</strong> {item.swname}</h3>
-      <h3 class="mt-4"><strong class="is-underlined">Social Worker Email</strong> {item.swemail}</h3>
-      <h3 class="mt-4"><strong class="is-underlined">Type</strong> {item.type}</h3>
-      <h3 class="mt-4"><strong class="is-underlined">Quantity</strong> {item.qty}</h3>
-      <h3 class="mt-4"><strong class="is-underlined">Frequency</strong> {item.frequency}</h3>
-      <h3 class="mt-4"><strong class="is-underlined">Over a period of</strong> {item.period}</h3>
-      <h3 class="mt-4"><strong class="is-underlined">Link to purchase</strong> {item.link}</h3>
-      <h3 class="mt-4"><strong class="is-underlined">Remarks</strong> {item.remarks}</h3>
+      <h3 class="mt-4"><strong>Social Worker Name</strong> {item.swname}</h3>
+      <h3 class="mt-4"><strong>Social Worker Email</strong> {item.swemail}</h3>
+      <h3 class="mt-4"><strong>Type</strong> {item.type}</h3>
+      <h3 class="mt-4"><strong>Frequency</strong> {item.frequency}</h3>
+      <h3 class="mt-4"><strong>Over a period of</strong> {item.period}</h3>
+      <h3 class="mt-4"><strong>Remarks</strong> {item.remarks}</h3>
 
-      <form class="box mt-4" on:submit={handleSubmit}>
+      <form class="mt-4" on:submit={handleSubmit}>
         <div class="field">
           <div class="control">
             <input class="input" type="hidden" bind:value={itemId} required />
@@ -96,7 +94,7 @@
 
         <div class="field">
           <div class="control mt-4">
-            <button class="button is-danger" type="submit" disabled={isLoading}>
+            <button class="button is-danger is-fullwidth" type="submit" disabled={isLoading}>
               {isLoading ? "Sending..." : "Reject"}
             </button>
           </div>

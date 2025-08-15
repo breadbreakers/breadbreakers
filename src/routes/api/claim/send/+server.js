@@ -31,7 +31,7 @@ function generatePrivacyWarningsHtml(privacyAnalysis) {
 				const result = analysis.result;
 
 				warningsHtml += `
-					<strong class="is-underlined">✨ ${fileType} (${fileName}):</strong><br>                
+					<strong>✨ ${fileType} (${fileName}):</strong><br>                
 					${result.warnings}
 				`;
 			}
@@ -162,15 +162,15 @@ export const POST = async (event) => {
 		const approverSubject = `🟠 Claim Request for ${wip.title} (${wip.id})`;
 
 		const approverBody = `
-            <strong class="is-underlined">Requester:</strong> ${partnerEmail}<br>
-            <strong class="is-underlined">Description:</strong> ${wip.description}<br>
-            <strong class="is-underlined">Contact:</strong> ${wip.contact}<br>
-            <a href="${receiptUrl}"><strong class="is-underlined">Redacted Receipt</strong></a><br>
+            <strong>Requester:</strong> ${partnerEmail}<br>
+            <strong>Description:</strong> ${wip.description}<br>
+            <strong>Contact:</strong> ${wip.contact}<br>
+            <a href="${receiptUrl}"><strong>Redacted Receipt</strong></a><br>
             - Is the item the same as the description above?<br>
-            <a href="${deliveryUrl}"><strong class="is-underlined">Proof of Delivery</strong></a><br>
+            <a href="${deliveryUrl}"><strong>Proof of Delivery</strong></a><br>
             - Did the social worker verify the item is received?<br>
-            <strong class="is-underlined">Requested claim:</strong> $${cost}<br>
-            <strong class="is-underlined">Paynow mobile number:</strong> ${paynow}<br>
+            <strong>Requested claim:</strong> $${cost}<br>
+            <strong>Paynow mobile number:</strong> ${paynow}<br>
             
             ${privacyWarningsHtml}
             

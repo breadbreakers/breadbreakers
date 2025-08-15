@@ -16,7 +16,7 @@
 					</p>
 				</div>
 				<div class="column">
-					<p><strong class="is-underlined">This is What Inequality Looks Like</strong></p>
+					<p><strong>This is What Inequality Looks Like</strong></p>
 					<p>
 						What is poverty? What is inequality? How are they connected? How are they reproduced?
 						How might they be overcome? Why should we try?
@@ -56,7 +56,7 @@
 					</p>
 				</div>
 				<div class="column">
-					<p><strong class="is-underlined">The Hole in our Gospel</strong></p>
+					<p><strong>The Hole in our Gospel</strong></p>
 					<p>
 						Is our faith only about going to church, studying the Bible, and avoiding the most
 						serious sins? Or does God expect more? Have we embraced the whole gospel or a gospel
@@ -97,7 +97,7 @@
 					</p>
 				</div>
 				<div class="column">
-					<p><strong class="is-underlined">How Working Together Matters</strong></p>
+					<p><strong>How Working Together Matters</strong></p>
 					<p>
 						This book is about the art and science of finding solutions to helping families in
 						crisis, and making a real and lasting positive difference in their lives. It is about

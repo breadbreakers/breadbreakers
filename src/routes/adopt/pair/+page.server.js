@@ -52,12 +52,12 @@ export async function load({ locals, url }) {
   const emailBody = `Dear ${households.swname},<br>
 A volunteer (cc-ed in this email) is able fulfill the following the request.<br>
 Could you kindly provide the relevant delivery contact details to help with coordination?<br>
-<strong class="is-underlined">Request Type</strong> ${households.type}<br>
-<strong class="is-underlined">Quantity</strong> ${households.qty}<br>
-<strong class="is-underlined">Frequency</strong> ${households.frequency}<br>
-<strong class="is-underlined">Over a period of</strong> ${households.period}<br>
-<strong class="is-underlined">Link to purchase</strong> ${households.link}<br>
-<strong class="is-underlined">Remarks</strong> ${households.remarks}<br>
+<strong>Request Type</strong> ${households.type}<br>
+<strong>Quantity</strong> ${households.qty}<br>
+<strong>Frequency</strong> ${households.frequency}<br>
+<strong>Over a period of</strong> ${households.period}<br>
+<strong>Link to purchase</strong> ${households.link}<br>
+<strong>Remarks</strong> ${households.remarks}<br>
 <br>
 We’re happy this match could be made. Thank you for your continued support!<br>
 <br>

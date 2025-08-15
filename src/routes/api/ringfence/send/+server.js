@@ -149,13 +149,13 @@ export async function POST(event) {
 		// send email to partner that ringfence is submitted
 		const partnerBody = `
 			Dear Partner</p><p>Your Ringfence Request has been sent to ${approverEmail} for approval.<br>
-			<strong class="is-underlined">Description:</strong> ${itemData.description}<br>
-            <strong class="is-underlined">Contact:</strong> ${itemData.contact_full}<br>
-            <strong class="is-underlined">Amount to ringfence inclusive of cost delivery:</strong> $${cost}<br>
-            <strong class="is-underlined">To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>
-            <a href="${itemCostUrl}"><strong class="is-underlined">Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?<br>Is the delivery fee reasonable?<br>
-            <a href="${swConfirmUrl}"><strong class="is-underlined">Social worker confirmation</strong></a><br>Did the screenshot specify the item?<br>
-            <strong class="is-underlined">Remarks:</strong> ${remarks}<br>
+			<strong>Description:</strong> ${itemData.description}<br>
+            <strong>Contact:</strong> ${itemData.contact_full}<br>
+            <strong>Amount to ringfence inclusive of cost delivery:</strong> $${cost}<br>
+            <strong>To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>
+            <a href="${itemCostUrl}"><strong>Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?<br>Is the delivery fee reasonable?<br>
+            <a href="${swConfirmUrl}"><strong>Social worker confirmation</strong></a><br>Did the screenshot specify the item?<br>
+            <strong>Remarks:</strong> ${remarks}<br>
 			Please <u>do not</u> proceed with the purchase until the request is approved.<br>
 			`;
 
@@ -168,13 +168,13 @@ export async function POST(event) {
 
 		// send email to approver
 		const approverBody = `
-            <strong class="is-underlined">Description:</strong> ${itemData.description}<br>
-            <strong class="is-underlined">Contact:</strong> ${itemData.contact_full}<br>
-            <strong class="is-underlined">Amount to ringfence inclusive of cost delivery:</strong> $${cost}<br>
-            <strong class="is-underlined">To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>
-            <a href="${itemCostUrl}"><strong class="is-underlined">Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?<br>Is the delivery fee reasonable?<br>
-            <a href="${swConfirmUrl}"><strong class="is-underlined">Social worker confirmation</strong></a><br>Did the screenshot specify the item?<br>
-            <strong class="is-underlined">Remarks:</strong> ${remarks}<br>
+            <strong>Description:</strong> ${itemData.description}<br>
+            <strong>Contact:</strong> ${itemData.contact_full}<br>
+            <strong>Amount to ringfence inclusive of cost delivery:</strong> $${cost}<br>
+            <strong>To purchase from:</strong> <a href="${linkUrl}">${linkUrl}</a><br>
+            <a href="${itemCostUrl}"><strong>Screenshot of cost with delivery fee</strong></a><br>Is the cost in the screenshot the same as the requested amount?<br>Is the cost reasonable?<br>Is the delivery fee reasonable?<br>
+            <a href="${swConfirmUrl}"><strong>Social worker confirmation</strong></a><br>Did the screenshot specify the item?<br>
+            <strong>Remarks:</strong> ${remarks}<br>
             ${privacyWarningsHtml}
             <p>
                 <a href="${SITE_URL}/ringfence/approve?id=${itemData.id}" style="color: white; background: green; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Approve Ringfence</a>
@@ -211,7 +211,7 @@ function generatePrivacyWarningsHtml(privacyAnalysis) {
 			const result = analysis.result;
 
 			warningsHtml += `
-				<strong class="is-underlined">✨ ${fileType} (${fileName}):</strong><br>                
+				<strong>✨ ${fileType} (${fileName}):</strong><br>                
 				${result.warnings}
 			`;
 			}

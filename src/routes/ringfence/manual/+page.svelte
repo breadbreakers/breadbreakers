@@ -260,7 +260,7 @@
           <label for="socialWorkerConfirmation" class="label"
             >Social Worker Confirmation (PNG, JPG, PDF)</label
           >
-          <p class="mb-2">Please ensure the description of the item is shown in the attachment. <strong class="is-underlined">Redact all name, address and mobile numbers.</strong></p>
+          <p class="mb-2">Please ensure the description of the item is shown in the attachment. <strong>Redact all name, address and mobile numbers.</strong></p>
           <div class="control">
             <input
               id="socialWorkerConfirmation"

@@ -22,7 +22,7 @@ Analyze the provided image/document and identify if it contains any of the follo
 If non-compliant, list specific violations found in a concise manner (e.g., "Phone number visible: 91234567").
 Also analyze the provided image/document to verify:
 - Is the item described in the image/document related to the description? 
-Based on the above criteria, help the Approver conclude based on the uploaded image/documnet whether to approve the request or not. (Yes/No). If you are uncertain, suggest the Approver to do a manual check.
+Based on the above criteria, help the Approver conclude based on the uploaded image/documnet whether to approve the request or not. (Yes - Approve/No - <Reason>). If you are uncertain, suggest the Approver to do a manual check.
 Here is the description of the requested item to verify with the image/document:
 `;
 

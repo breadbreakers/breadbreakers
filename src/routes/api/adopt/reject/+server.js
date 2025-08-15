@@ -37,7 +37,7 @@ export async function POST(event) {
         const swBody = `
             Dear ${households.swname}<br>
             Your request has been rejected:<br>
-            <strong class="is-underlined">Reason</strong> ${message}<br>
+            <strong>Reason</strong> ${message}<br>
         `;
 
         await sendEmail({

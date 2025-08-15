@@ -39,13 +39,13 @@ Ref: ${data.requests.id}
 
 <div class="section">
 	<div class="container">
-		<p class="mb-2"><strong class="is-underlined">Item:</strong> {data.requests.title}</p>
+		<p class="mb-2"><strong>Item:</strong> {data.requests.title}</p>
 		<p class="mb-2">
-			<strong class="is-underlined">Description:</strong>
+			<strong>Description:</strong>
 			{data.requests.description}
 		</p>
-		<p class="mb-2"><strong class="is-underlined">Contact:</strong> {data.requests.contact_full}</p>
-		<p class="mb-2"><strong class="is-underlined">Reference:</strong> {data.requests.id}</p>
+		<p class="mb-2"><strong>Contact:</strong> {data.requests.contact_full}</p>
+		<p class="mb-2"><strong>Reference:</strong> {data.requests.id}</p>
 
 		<h2 class="subtitle is-5 has-text-centered mt-6">
 			<i class="demo-icon icon-mail">&#xe804;</i><a href={mailto} class="pr-2 link">Email</a>

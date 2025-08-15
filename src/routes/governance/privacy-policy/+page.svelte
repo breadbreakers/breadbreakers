@@ -30,10 +30,10 @@
 			<p>We do not disclose, sell or rent your data. Disclosure only occurs under:</p>
 			<ul>
 				<li>
-					<strong class="is-underlined">Legal Obligations:</strong> Law enforcement or government mandates
+					<strong>Legal Obligations:</strong> Law enforcement or government mandates
 				</li>
 				<li>
-					<strong class="is-underlined">Consent:</strong> With your explicit written consent
+					<strong>Consent:</strong> With your explicit written consent
 				</li>
 			</ul>
 			<h3 class="subtitle is-5 mt-5 has-text-weight-bold">Cookies and Authentication</h3>

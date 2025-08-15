@@ -81,8 +81,8 @@ export async function load({ locals, url }) {
 
   const approverBody = `
     <p>Parter ${partnerEmail} has removed the Ringfence Request.</p>
-    <p><strong class="is-underlined">Item:</strong> ${wip.title}</p>
-    <p><strong class="is-underlined">Description:</strong> ${wip.description}</p>
+    <p><strong>Item:</strong> ${wip.title}</p>
+    <p><strong>Description:</strong> ${wip.description}</p>
   `;
 
   await sendEmail({
