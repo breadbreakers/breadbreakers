@@ -1,6 +1,5 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { env } from '$env/dynamic/public';
 	import RingfencedTable from '$lib/components/RingfencedTable.svelte';
 	import ApproverTable from '$lib/components/ApproverTable.svelte';
 	import RecurringTable from '$lib/components/RecurringTable.svelte';
@@ -49,15 +48,15 @@
 			{#if data.isPartner}
 				<h2 class="is-size-5 has-text-weight-semibold">👨‍👩‍👧‍👦 Partners</h2>
 				<RingfencedTable {loggedInEmail} />
-				<a target="_blank" class="button is-small" rel="noopener" href="/ringfence/manual"
+				<a target="_blank" class="button is-small mt-2" rel="noopener" href="/ringfence/manual"
 					>✍🏻 Manual Ringfence</a
 				>
-				<a target="_blank" class="button is-small" rel="noopener" href="/Partner Guide.pdf"
-					><i class="demo-icon icon-attach">&#xe801;</i>Guide for Partners</a
+				<a target="_blank" class="button is-small mt-2" rel="noopener" href="/Partner Guide.pdf"
+					><i class="demo-icon icon-attach">&#xe801;</i>Guide</a
 				>
 				<a
 					target="_blank"
-					class="button is-small"
+					class="button is-small mt-2"
 					rel="noopener"
 					href="/CSA_SGCyberSafe_Employees-Toolkit_2022.pdf"
 					><i class="demo-icon icon-attach">&#xe801;</i> Cybersecurity Toolkit</a

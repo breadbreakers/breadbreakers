@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { env } from '$env/dynamic/public';
 
 	export let loggedInEmail;
 
